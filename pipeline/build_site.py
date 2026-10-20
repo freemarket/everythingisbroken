@@ -231,6 +231,7 @@ FOOT = f"""</main>
 <div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
 <p>Report No. {REPORT_NO}, {EDITION} edition &middot; Data as of {DATA_ASOF} &middot; Built {BUILD}</p>
 <p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to corrections@everythingisbroken.org.</p>
+<p>Everything Is Broken never supports violence, threats, or harassment of any kind. We believe institutional reform must happen through transparency, the open exchange of ideas, and vigorous public discourse.</p>
 <p>&copy; {EDITION} EVERYTHINGISBROKEN.ORG</p></footer>
 </div></body></html>"""
 
@@ -248,7 +249,7 @@ def row(s, show_state=True):
 <td class="num" data-v="{s['cc'] or 0}">{money(s['cc'])}</td>
 <td class="num ratio" data-v="{s['ratio'] or 0}">{pct(s['ratio'],0)}</td></tr>"""
 
-TABLE_HEAD = lambda show_state=True: f"""<thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and chief executive</th>{'<th data-k="text">State</th>' if show_state else ''}<th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead>"""
+TABLE_HEAD = lambda show_state=True: f"""<thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and CEO</th>{'<th data-k="text">State</th>' if show_state else ''}<th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead>"""
 
 SORT_JS = """<script>
 (function(){
@@ -532,11 +533,11 @@ BLOCKS = {
 'report1': f"""<div class="text-sm uppercase tracking-widest text-gray-500 mb-2">Report <span class="fig">No. {REPORT_NO}</span> | <span class="fig">{EDITION}</span> edition | Data as of <span class="fig">{DATA_ASOF}</span></div>
 <h2 class="text-3xl font-bold mb-4"><a href="{BASE}/" class="hover:underline">{E(REPORT_TITLE)}</a></h2>
 <p class="mb-6">National and annual. Built from <span class="fig">{N_FILINGS:,}</span> IRS Schedule H filings covering <span class="fig">{len(F):,}</span> filers, combined into <span class="fig">{len(S):,}</span> hospital systems, of which <span class="fig">{len(ranked):,}</span> have an identifiable chief executive and positive charity care and are ranked. The median large system spends <span class="fig">{MED_CC:.2f}</span> percent of expenses on charity care and pays its chief executive <span class="fig">{MED_RATIO:.0f}</span> percent of that amount.</p>
-<p class="mb-2 font-bold uppercase text-sm tracking-widest">Highest-paid chief executives</p>
+<p class="mb-2 font-bold uppercase text-sm tracking-widest">Highest-paid CEOs</p>
 <div class="border border-black mb-4 overflow-x-auto">
 <table class="w-full text-left text-sm whitespace-nowrap">
 <thead><tr class="bg-black text-white uppercase tracking-wider font-mono text-xs">
-<th class="p-3">Rank</th><th class="p-3">Chief executive</th><th class="p-3">System</th><th class="p-3">State</th><th class="p-3">CEO pay</th><th class="p-3">Charity care, % of expenses</th><th class="p-3">CEO pay as % of charity care</th></tr></thead>
+<th class="p-3">Rank</th><th class="p-3">CEO</th><th class="p-3">System</th><th class="p-3">State</th><th class="p-3">CEO pay</th><th class="p-3">Charity care, % of expenses</th><th class="p-3">CEO pay as % of charity care</th></tr></thead>
 <tbody class="font-mono divide-y divide-gray-300">{top10}</tbody></table></div>
 <p class="text-sm text-gray-600 mb-8">CEO pay is Form 990 Part VII total compensation. Charity care is Schedule H Part I line 7a, the hospital's own figure. Full definitions in the <a class="underline" href="{BASE}/methodology.html">methodology</a>.</p>
 <div class="space-y-3">
