@@ -231,7 +231,7 @@ FOOT = f"""</main>
 <div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
 <p>Report No. {REPORT_NO}, {EDITION} edition &middot; Data as of {DATA_ASOF} &middot; Built {BUILD}</p>
 <p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to corrections@everythingisbroken.org.</p>
-<p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate.</p>
+<p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate. Donations are not tax-deductible.</p>
 <p>&copy; {EDITION} EVERYTHINGISBROKEN.ORG</p></footer>
 </div></body></html>"""
 
