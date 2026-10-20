@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Data files - Everything Is Broken</title>
+<meta name="description" content="Download the full dataset, the manual decisions, and the scripts that build the report.">
+<link rel="icon" type="image/png" href="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
+--serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.sheet{max-width:1100px;margin:0 auto;background:var(--paper);padding:40px 32px;min-height:100vh}
+@media(min-width:640px){.sheet{margin:32px auto;border:1px solid var(--border);box-shadow:0 1px 2px rgba(0,0,0,.05)}}
+@media(max-width:640px){.sheet{padding:28px 16px}}
+.mast{text-align:center;margin-bottom:28px}
+.mast .seal{display:inline-block;margin-bottom:18px}
+.mast .seal img{width:128px;height:128px;display:block;margin:0 auto}
+.mast h1{font-size:2.6rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;font-weight:700;line-height:1.1}
+@media(max-width:640px){.mast h1{font-size:1.7rem}}
+.rule-double{border-top:4px double var(--ink)}
+.rule-double-bottom{border-bottom:4px double var(--ink)}
+.rule-single{border-bottom:1px solid var(--ink)}
+.mast .sub{font-style:italic;font-size:1.25rem;margin:12px 0 22px;letter-spacing:.02em}
+.mast nav.site{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 36px;text-transform:uppercase;letter-spacing:.1em;font-size:.95rem;padding-bottom:16px;border-bottom:1px solid var(--ink)}
+.mast nav.site a{text-decoration:none}
+.mast nav.site a:hover{color:var(--muted)}
+.mast nav.site a.on{font-weight:700;text-decoration:underline}
+.band{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;padding:12px 0;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.band .rep{color:var(--ink)}
+.band nav{display:flex;flex-wrap:wrap;gap:6px 18px}
+.band nav a{color:var(--muted);text-decoration:none}
+.band nav a:hover,.band nav a.on{color:var(--ink);text-decoration:underline}
+h1.title{font-size:2rem;line-height:1.2;margin:34px 0 8px;font-weight:700}
+h2{font-size:1.25rem;text-transform:uppercase;letter-spacing:.12em;margin:48px 0 14px;font-weight:700;display:inline-block;padding-bottom:4px;border-bottom:1px solid var(--ink)}
+h2 .n{font-family:var(--mono);font-weight:400;color:var(--muted);margin-right:10px;letter-spacing:.05em}
+h3{font-size:1.05rem;margin:26px 0 8px}
+p{margin:0 0 1rem}
+.doc-no{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:34px 0 0}
+.doc-no a{color:var(--muted)}
+.lede{font-size:1.2rem;line-height:1.55;max-width:66ch}
+.prose{max-width:70ch}
+.fig{font-family:var(--mono);font-size:.95em;letter-spacing:-.02em}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border:1px solid var(--ink);margin:26px 0}
+.stat{padding:16px 18px 14px;border-right:1px solid var(--border);min-width:0}
+.stat:last-child{border-right:0}
+.stat .v{font-family:var(--mono);font-size:2.1rem;line-height:1.05;font-weight:700;letter-spacing:-.03em}
+.stat .v.red{color:var(--red)}
+.stat .l{font-size:.82rem;color:var(--muted);margin-top:8px;line-height:1.4}
+.big3 .stat .v{font-size:2.6rem}
+@media(max-width:640px){.stat .v,.big3 .stat .v{font-size:1.7rem}.stat-row{grid-template-columns:1fr 1fr}.stat:nth-child(2n){border-right:0}}
+.tablewrap{overflow-x:auto;border:1px solid var(--ink);margin:14px 0 10px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;white-space:nowrap}
+thead th{background:var(--ink);color:#fff;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;font-weight:400;padding:10px 12px;text-align:left;cursor:pointer;user-select:none;white-space:normal;line-height:1.3;vertical-align:bottom}
+thead th.num{text-align:right}
+thead th[data-asc="1"]::after{content:" ▲"}thead th[data-asc="0"]::after{content:" ▼"}
+td{padding:10px 12px;border-bottom:1px solid #d9d4c7;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-family:var(--mono);font-size:.86rem}
+td.name{min-width:200px;white-space:normal}
+td.name a{font-weight:700;text-decoration:none}
+td.name a:hover{text-decoration:underline}
+td .sub{display:block;font-size:.84rem;color:var(--muted);font-weight:400;margin-top:2px}
+td.ratio{color:var(--red);font-weight:700}
+tr.kids td{color:var(--muted)}tr.kids td.name a{color:var(--muted);font-weight:400}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin:18px 0 4px;font-size:.92rem}
+.toolbar input[type=search]{font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);min-width:min(340px,100%);border-radius:0}
+.toolbar label{display:flex;gap:8px;align-items:center;color:var(--muted)}
+.note{font-size:.88rem;color:var(--muted);max-width:70ch;line-height:1.55}
+.src{font-size:.85rem;color:var(--muted);margin-top:8px}
+dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 24px;font-size:.95rem;max-width:70ch;border-top:1px solid var(--border);padding-top:12px;margin:0}
+dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:.9rem;min-width:0}
+.callout{background:var(--surface);border:1px solid var(--ink);border-left:6px solid var(--red);padding:14px 18px;max-width:70ch;margin:22px 0;font-size:1.02rem;line-height:1.55}
+.cb{display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-size:.92rem;max-width:600px}
+.cb span:nth-child(2n){font-family:var(--mono);font-size:.88rem}
+.cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
+.cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.card{border:1px solid var(--ink);padding:22px}
+.card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
+.card p,.card li{font-size:.92rem}
+.btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;padding:10px 16px;margin:4px 6px 4px 0}
+.btn:hover{background:#333}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink);padding:8px 14px}
+.btn.ghost:hover{background:var(--ink);color:#fff}
+ul.files{list-style:none;padding:0;margin:0}
+ul.files li{padding:12px 0;border-bottom:1px solid var(--border)}
+ul.files li:last-child{border-bottom:0}
+ul.files .fn{font-family:var(--mono);font-weight:700}
+ul.files .meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);display:block;margin-top:4px;white-space:normal;word-break:break-all}
+code{font-family:var(--mono);font-size:.88em}
+pre{background:var(--surface);border:1px solid var(--border);padding:14px;overflow-x:auto;font-size:.82rem;line-height:1.45}
+.manual table{white-space:normal;font-size:.86rem}
+.manual thead th{cursor:default}
+footer{margin-top:64px;padding-top:28px;text-align:center;font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;color:var(--muted)}
+footer .rule-single{width:100%;max-width:440px;margin:0 auto 22px}
+footer .links a{color:var(--muted);text-decoration:none;margin:0 10px}
+footer .links a:hover{color:var(--ink)}
+footer p{margin:14px 0 0}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+</style></head><body>
+<div class="sheet">
+<header class="mast">
+<a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
+<h1>Everything Is Broken</h1>
+<div class="rule-double"></div>
+<p class="sub">Office of Institutional Accounts</p>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html">By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html" class=on>Data files</a></nav></div>
+</header>
+<main>
+
+<p class="doc-no">Report No. 1 &middot; 2026 edition &middot; Data as of 2026-10-18</p><h1 class="title">Data files</h1>
+<div class="prose">
+<p class="lede">Everything on this site is generated from one table, and that table is generated from the IRS release by scripts anyone can run. The files below are the complete record.</p>
+<p><a class="btn" href="/data/hospital-ceo-pay/systems_rollup.csv" download>Download systems_rollup.csv</a> <a class="btn ghost" href="/data/hospital-ceo-pay/SHA256SUMS" download>SHA256SUMS</a> <a class="btn ghost" href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a></p>
+<h2>Dataset</h2>
+<ul class="files"><li><a class="fn" href="/data/hospital-ceo-pay/systems_rollup.csv" download>systems_rollup.csv</a> <span class="note" style="display:inline">(548 KB, 1,649 rows)</span><br>One row per hospital system after roll-up: members, revenue, expenses, charity care, chief executive, CEO pay, ratios and flags. This is the table every page on this site is built from.<span class="meta">sha256 37dc1366767eeacdd141d8943a23e9ed4f356a4321b7251c2ee4c07c5377bb80</span></li><li><a class="fn" href="/data/hospital-ceo-pay/filers_latest.csv" download>filers_latest.csv</a> <span class="note" style="display:inline">(989 KB, 2,306 rows)</span><br>One row per filing entity (EIN), latest fiscal year, before roll-up, with the identified chief executive and confidence.<span class="meta">sha256 58cd3f829b6878adffe670c9a987b91a278cf53a61085f96ad47aa5c345ccf4d</span></li><li><a class="fn" href="/data/hospital-ceo-pay/hospital_data.csv.gz" download>hospital_data.csv.gz</a> <span class="note" style="display:inline">(8.0 MB, 364,787 rows)</span><br>The master table, append-only: one row per figure with its form, schedule, part, line, source URL and retrieval method. Superseded rows are marked ignore, never deleted. Gzipped; about 170 MB uncompressed.<span class="meta">sha256 b12322ac420d911aad11eaeb3918b246d29e8cbb6eb37e9d60ca969b974c81e1</span></li><li><a class="fn" href="/data/hospital-ceo-pay/ceo_overrides.csv" download>ceo_overrides.csv</a> <span class="note" style="display:inline">(6 KB, 24 rows)</span><br>Every manual decision about who the chief executive is, with the reason and date.<span class="meta">sha256 9c86248eca571165bf17e18bab30bfe82827b776aeb5521d4031a0d3990a1ee6</span></li><li><a class="fn" href="/data/hospital-ceo-pay/rollup_overrides.csv" download>rollup_overrides.csv</a> <span class="note" style="display:inline">(3 KB, 14 rows)</span><br>Every manual decision about which filings form one system, with the reason and date.<span class="meta">sha256 5270b930603cf7598834c9e8ccaa6ae1221e134235c475d5b46ed2c3d013bc71</span></li><li><a class="fn" href="/data/hospital-ceo-pay/ceopaycheck_crosscheck.csv" download>ceopaycheck_crosscheck.csv</a> <span class="note" style="display:inline">(1 KB, 8 rows)</span><br>Result of the independent check of CEO pay figures against CEO Paycheck.<span class="meta">sha256 5174ee7c102cc49b4dfe2a4201487063f5c3bb3eb80bfb9c1abf90ddd3b8ca35</span></li><li><a class="fn" href="/data/hospital-ceo-pay/ceopaycheck_snapshot_2026-10-18.csv" download>ceopaycheck_snapshot_2026-10-18.csv</a> <span class="note" style="display:inline">(7 KB, 200 rows)</span><br>The CEO Paycheck rows used for that check, as captured on the date in the name.<span class="meta">sha256 a8a106872887d8e7bd06aaa4d5eaa94083968f1f0e2b2bf4e0228f6a59cd2fe4</span></li></ul>
+<h2>Working files</h2>
+<p class="note">Intermediate files from the review process. Not needed to reproduce the report; kept because nothing is deleted.</p>
+<ul class="files"><li><a class="fn" href="/data/hospital-ceo-pay/working/ceo_unresolved.csv" download>working/ceo_unresolved.csv</a> <span class="note" style="display:inline">(65 KB, 198 rows)</span><br>Filers where the CEO rule found no chief executive.<span class="meta">sha256 702e78d4e95a9fcfbdf64ed4c9e770d4bb89f187395810df11a1285353f66d37</span></li><li><a class="fn" href="/data/hospital-ceo-pay/working/ceo_review_large.csv" download>working/ceo_review_large.csv</a> <span class="note" style="display:inline">(128 KB, 136 rows)</span><br>Material used for the manual review of filers above $1B.<span class="meta">sha256 ece26a642487eed6d673248901f379db757b776e80b3a3193d3bc956b790429e</span></li><li><a class="fn" href="/data/hospital-ceo-pay/working/hospitals_wide.csv" download>working/hospitals_wide.csv</a> <span class="note" style="display:inline">(1.0 MB, 3,601 rows)</span><br>An early wide-format export, kept for the record.<span class="meta">sha256 36e7457a15d7766596576dc62605f7e158fcdbbc4eb11b1a7a1cc3e19870b9ef</span></li></ul>
+<h2>Scripts</h2>
+<p>The pipeline, in the order it runs. Python 3 standard library only; no accounts or API keys. Section 5 of the <a href="/reports/hospital-ceo-pay/manual.html">reproduction manual</a> walks through each step.</p>
+<ul class="files"><li><a class="fn" href="/pipeline/fetch_all.sh">fetch_all.sh</a></li><li><a class="fn" href="/pipeline/parse_xml.py">parse_xml.py</a></li><li><a class="fn" href="/pipeline/load_all.py">load_all.py</a></li><li><a class="fn" href="/pipeline/add_rows.py">add_rows.py</a></li><li><a class="fn" href="/pipeline/build_systems.py">build_systems.py</a></li><li><a class="fn" href="/pipeline/build_site.py">build_site.py</a></li><li><a class="fn" href="/pipeline/analyze.py">analyze.py</a></li><li><a class="fn" href="/pipeline/parse_schh.py">parse_schh.py</a></li><li><a class="fn" href="/pipeline/save_and_parse.py">save_and_parse.py</a></li><li><a class="fn" href="/pipeline/seed_01.py">seed_01.py</a></li></ul>
+<h2>Primary sources</h2>
+<ul>
+<li><a href="https://www.irs.gov/charities-non-profits/form-990-series-downloads">IRS Form 990 series downloads</a>: the bulk XML releases every figure was read from.</li>
+<li><a href="https://www.irs.gov/forms-pubs/about-schedule-h-form-990">IRS Schedule H (Form 990)</a>: the hospital schedule, Part I line 7a, where charity care is reported.</li>
+<li><a href="https://projects.propublica.org/nonprofits/">ProPublica Nonprofit Explorer</a>: a readable copy of each filing, linked from every system page by EIN and object ID.</li>
+</ul>
+<h2>Version log</h2>
+<ul class="files">
+<li><span class="fn">2026.1</span> &middot; 2026-10-18<br>Initial release. 2025 and 2026 IRS releases; 19,245 Schedule H filings; 2,306 filers; 1,649 systems; 1,074 ranked.</li>
+</ul>
+<h2>How to cite</h2>
+<p>Everything Is Broken, <em>Nonprofit Hospital Executive Pay vs Charity Care</em>, Report No. 1, 2026 edition, data as of 2026-10-18. https://everythingisbroken.org/reports/hospital-ceo-pay/</p>
+<h2>Licence</h2><p>The figures are public records. The tables and scripts may be reused with attribution to Everything Is Broken.</p>
+</div></main>
+<footer><div class="rule-single"></div>
+<div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
+<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-18 &middot; Built 2026-10-20</p>
+<p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to corrections@everythingisbroken.org.</p>
+<p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>
+</div></body></html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Massachusetts hospitals - Everything Is Broken</title>
+<meta name="description" content="Nonprofit hospital systems in Massachusetts ranked by CEO pay.">
+<link rel="icon" type="image/png" href="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
+--serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.sheet{max-width:1100px;margin:0 auto;background:var(--paper);padding:40px 32px;min-height:100vh}
+@media(min-width:640px){.sheet{margin:32px auto;border:1px solid var(--border);box-shadow:0 1px 2px rgba(0,0,0,.05)}}
+@media(max-width:640px){.sheet{padding:28px 16px}}
+.mast{text-align:center;margin-bottom:28px}
+.mast .seal{display:inline-block;margin-bottom:18px}
+.mast .seal img{width:128px;height:128px;display:block;margin:0 auto}
+.mast h1{font-size:2.6rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;font-weight:700;line-height:1.1}
+@media(max-width:640px){.mast h1{font-size:1.7rem}}
+.rule-double{border-top:4px double var(--ink)}
+.rule-double-bottom{border-bottom:4px double var(--ink)}
+.rule-single{border-bottom:1px solid var(--ink)}
+.mast .sub{font-style:italic;font-size:1.25rem;margin:12px 0 22px;letter-spacing:.02em}
+.mast nav.site{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 36px;text-transform:uppercase;letter-spacing:.1em;font-size:.95rem;padding-bottom:16px;border-bottom:1px solid var(--ink)}
+.mast nav.site a{text-decoration:none}
+.mast nav.site a:hover{color:var(--muted)}
+.mast nav.site a.on{font-weight:700;text-decoration:underline}
+.band{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;padding:12px 0;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.band .rep{color:var(--ink)}
+.band nav{display:flex;flex-wrap:wrap;gap:6px 18px}
+.band nav a{color:var(--muted);text-decoration:none}
+.band nav a:hover,.band nav a.on{color:var(--ink);text-decoration:underline}
+h1.title{font-size:2rem;line-height:1.2;margin:34px 0 8px;font-weight:700}
+h2{font-size:1.25rem;text-transform:uppercase;letter-spacing:.12em;margin:48px 0 14px;font-weight:700;display:inline-block;padding-bottom:4px;border-bottom:1px solid var(--ink)}
+h2 .n{font-family:var(--mono);font-weight:400;color:var(--muted);margin-right:10px;letter-spacing:.05em}
+h3{font-size:1.05rem;margin:26px 0 8px}
+p{margin:0 0 1rem}
+.doc-no{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:34px 0 0}
+.doc-no a{color:var(--muted)}
+.lede{font-size:1.2rem;line-height:1.55;max-width:66ch}
+.prose{max-width:70ch}
+.fig{font-family:var(--mono);font-size:.95em;letter-spacing:-.02em}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border:1px solid var(--ink);margin:26px 0}
+.stat{padding:16px 18px 14px;border-right:1px solid var(--border);min-width:0}
+.stat:last-child{border-right:0}
+.stat .v{font-family:var(--mono);font-size:2.1rem;line-height:1.05;font-weight:700;letter-spacing:-.03em}
+.stat .v.red{color:var(--red)}
+.stat .l{font-size:.82rem;color:var(--muted);margin-top:8px;line-height:1.4}
+.big3 .stat .v{font-size:2.6rem}
+@media(max-width:640px){.stat .v,.big3 .stat .v{font-size:1.7rem}.stat-row{grid-template-columns:1fr 1fr}.stat:nth-child(2n){border-right:0}}
+.tablewrap{overflow-x:auto;border:1px solid var(--ink);margin:14px 0 10px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;white-space:nowrap}
+thead th{background:var(--ink);color:#fff;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;font-weight:400;padding:10px 12px;text-align:left;cursor:pointer;user-select:none;white-space:normal;line-height:1.3;vertical-align:bottom}
+thead th.num{text-align:right}
+thead th[data-asc="1"]::after{content:" ▲"}thead th[data-asc="0"]::after{content:" ▼"}
+td{padding:10px 12px;border-bottom:1px solid #d9d4c7;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-family:var(--mono);font-size:.86rem}
+td.name{min-width:200px;white-space:normal}
+td.name a{font-weight:700;text-decoration:none}
+td.name a:hover{text-decoration:underline}
+td .sub{display:block;font-size:.84rem;color:var(--muted);font-weight:400;margin-top:2px}
+td.ratio{color:var(--red);font-weight:700}
+tr.kids td{color:var(--muted)}tr.kids td.name a{color:var(--muted);font-weight:400}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin:18px 0 4px;font-size:.92rem}
+.toolbar input[type=search]{font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);min-width:min(340px,100%);border-radius:0}
+.toolbar label{display:flex;gap:8px;align-items:center;color:var(--muted)}
+.note{font-size:.88rem;color:var(--muted);max-width:70ch;line-height:1.55}
+.src{font-size:.85rem;color:var(--muted);margin-top:8px}
+dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 24px;font-size:.95rem;max-width:70ch;border-top:1px solid var(--border);padding-top:12px;margin:0}
+dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:.9rem;min-width:0}
+.callout{background:var(--surface);border:1px solid var(--ink);border-left:6px solid var(--red);padding:14px 18px;max-width:70ch;margin:22px 0;font-size:1.02rem;line-height:1.55}
+.cb{display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-size:.92rem;max-width:600px}
+.cb span:nth-child(2n){font-family:var(--mono);font-size:.88rem}
+.cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
+.cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.card{border:1px solid var(--ink);padding:22px}
+.card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
+.card p,.card li{font-size:.92rem}
+.btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;padding:10px 16px;margin:4px 6px 4px 0}
+.btn:hover{background:#333}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink);padding:8px 14px}
+.btn.ghost:hover{background:var(--ink);color:#fff}
+ul.files{list-style:none;padding:0;margin:0}
+ul.files li{padding:12px 0;border-bottom:1px solid var(--border)}
+ul.files li:last-child{border-bottom:0}
+ul.files .fn{font-family:var(--mono);font-weight:700}
+ul.files .meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);display:block;margin-top:4px;white-space:normal;word-break:break-all}
+code{font-family:var(--mono);font-size:.88em}
+pre{background:var(--surface);border:1px solid var(--border);padding:14px;overflow-x:auto;font-size:.82rem;line-height:1.45}
+.manual table{white-space:normal;font-size:.86rem}
+.manual thead th{cursor:default}
+footer{margin-top:64px;padding-top:28px;text-align:center;font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;color:var(--muted)}
+footer .rule-single{width:100%;max-width:440px;margin:0 auto 22px}
+footer .links a{color:var(--muted);text-decoration:none;margin:0 10px}
+footer .links a:hover{color:var(--ink)}
+footer p{margin:14px 0 0}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+</style></head><body>
+<div class="sheet">
+<header class="mast">
+<a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
+<h1>Everything Is Broken</h1>
+<div class="rule-double"></div>
+<p class="sub">Office of Institutional Accounts</p>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+</header>
+<main>
+
+<p class="doc-no">Report No. 1 &middot; 2026 edition &middot; <a href="/reports/hospital-ceo-pay/states.html">all states</a></p>
+<h1 class="title">Massachusetts</h1>
+<p class="lede">26 nonprofit hospital systems file from Massachusetts. Median charity care: 0.71% of expenses.</p>
+<div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
+<div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and chief executive</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="mass general brigham incorporated &amp; affiliates" data-ceo="anne klibanski md" data-state="MA" data-kids="0">
+<td class="num">20</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/mass-general-brigham-incorporated-affiliates-group-return-90-0656139.html">Mass General Brigham Incorporated &amp; Affiliates</a><span class="sub">Anne Klibanski MD</span></td>
+
+<td class="num" data-v="9180758.0">$9.2M</td>
+<td class="num" data-v="24908354094.0">$24.9B</td>
+<td class="num" data-v="0.7384845807942989">0.74%</td>
+<td class="num" data-v="168606711.0">$168.6M</td>
+<td class="num ratio" data-v="5.445072705320727">5%</td></tr><tr data-name="beth israel deaconess medical center" data-ceo="tabb md kevin" data-state="MA" data-kids="0">
+<td class="num">62</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/beth-israel-deaconess-medical-center-inc-04-2103881.html">Beth Israel Deaconess Medical Center</a><span class="sub">Tabb MD Kevin</span></td>
+
+<td class="num" data-v="4734371.0">$4.7M</td>
+<td class="num" data-v="7704639912.0">$7.7B</td>
+<td class="num" data-v="0.8683239010717905">0.87%</td>
+<td class="num" data-v="62642186.0">$62.6M</td>
+<td class="num ratio" data-v="7.55779978687206">8%</td></tr><tr class="kids" data-name="children&#x27;s hospital" data-ceo="kevin churchwell md" data-state="MA" data-kids="1">
+<td class="num">100</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/children-s-hospital-corporation-04-2774441.html">Children&#x27;S Hospital</a><span class="sub">Kevin Churchwell MD · children’s</span></td>
+
+<td class="num" data-v="3490323.0">$3.5M</td>
+<td class="num" data-v="3588588824.0">$3.6B</td>
+<td class="num" data-v="0.48318303987956324">0.48%</td>
+<td class="num" data-v="17042300.0">$17.0M</td>
+<td class="num ratio" data-v="20.48035183044542">20%</td></tr><tr data-name="the lowell general hospital" data-ceo="michael dandorph" data-state="MA" data-kids="0">
+<td class="num">136</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/the-lowell-general-hospital-04-2103590.html">The Lowell General Hospital</a><span class="sub">Michael Dandorph</span></td>
+
+<td class="num" data-v="2678414.0">$2.7M</td>
+<td class="num" data-v="953822782.0">$953.8M</td>
+<td class="num" data-v="0.6912347535618457">0.69%</td>
+<td class="num" data-v="6278100.0">$6.3M</td>
+<td class="num ratio" data-v="42.66281199726032">43%</td></tr><tr data-name="boston medical center" data-ceo="alastair bell md" data-state="MA" data-kids="0">
+<td class="num">184</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/boston-medical-center-corporation-04-3314093.html">Boston Medical Center</a><span class="sub">Alastair Bell MD</span></td>
+
+<td class="num" data-v="2199373.0">$2.2M</td>
+<td class="num" data-v="3736719249.0">$3.7B</td>
+<td class="num" data-v="3.2189406928629074">3.22%</td>
+<td class="num" data-v="119839965.0">$119.8M</td>
+<td class="num ratio" data-v="1.835258379790081">2%</td></tr><tr data-name="cape cod healthcare inc &amp; affiliates" data-ceo="michael k lauf" data-state="MA" data-kids="0">
+<td class="num">213</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/cape-cod-healthcare-inc-affiliates-90-0054984.html">Cape Cod Healthcare INC &amp; Affiliates</a><span class="sub">Michael K Lauf</span></td>
+
+<td class="num" data-v="2029919.0">$2.0M</td>
+<td class="num" data-v="1190796411.0">$1.2B</td>
+<td class="num" data-v="0.7669517443150975">0.77%</td>
+<td class="num" data-v="8726416.0">$8.7M</td>
+<td class="num ratio" data-v="23.261772072291762">23%</td></tr><tr data-name="southcoast hospitals group" data-ceo="david mccready" data-state="MA" data-kids="0">
+<td class="num">240</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/southcoast-hospitals-group-inc-22-2592333.html">Southcoast Hospitals Group</a><span class="sub">David Mccready</span></td>
+
+<td class="num" data-v="1798618.0">$1.8M</td>
+<td class="num" data-v="1418219199.0">$1.4B</td>
+<td class="num" data-v="0.4555094485354382">0.46%</td>
+<td class="num" data-v="5933054.0">$5.9M</td>
+<td class="num ratio" data-v="30.315213716241246">30%</td></tr><tr data-name="baystate medical center" data-ceo="peter d banko" data-state="MA" data-kids="0">
+<td class="num">249</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/baystate-medical-center-inc-04-2790311.html">Baystate Medical Center</a><span class="sub">Peter D Banko</span></td>
+
+<td class="num" data-v="1747717.0">$1.7M</td>
+<td class="num" data-v="2233242532.0">$2.2B</td>
+<td class="num" data-v="0.7571992143049162">0.76%</td>
+<td class="num" data-v="15909228.0">$15.9M</td>
+<td class="num ratio" data-v="10.985555050188482">11%</td></tr><tr data-name="south shore hospital" data-ceo="allen smith md" data-state="MA" data-kids="0">
+<td class="num">269</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/south-shore-hospital-inc-04-2769210.html">South Shore Hospital</a><span class="sub">Allen Smith MD</span></td>
+
+<td class="num" data-v="1671392.0">$1.7M</td>
+<td class="num" data-v="922456045.0">$922.5M</td>
+<td class="num" data-v="0.5943072393257193">0.59%</td>
+<td class="num" data-v="5443419.0">$5.4M</td>
+<td class="num ratio" data-v="30.704819893526476">31%</td></tr><tr data-name="emerson hospital" data-ceo="christine c schuster" data-state="MA" data-kids="0">
+<td class="num">270</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/emerson-hospital-04-2103565.html">Emerson Hospital</a><span class="sub">Christine C Schuster</span></td>
+
+<td class="num" data-v="1664410.0">$1.7M</td>
+<td class="num" data-v="412015773.0">$412.0M</td>
+<td class="num" data-v="0.5758492602459369">0.58%</td>
+<td class="num" data-v="2308661.0">$2.3M</td>
+<td class="num ratio" data-v="72.09417060365294">72%</td></tr><tr data-name="sturdy memorial hospital" data-ceo="aimee brewer" data-state="MA" data-kids="0">
+<td class="num">292</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/sturdy-memorial-hospital-inc-04-2768252.html">Sturdy Memorial Hospital</a><span class="sub">Aimee Brewer</span></td>
+
+<td class="num" data-v="1573978.0">$1.6M</td>
+<td class="num" data-v="315766463.0">$315.8M</td>
+<td class="num" data-v="2.2026133530986574">2.20%</td>
+<td class="num" data-v="6535750.0">$6.5M</td>
+<td class="num ratio" data-v="24.082591898404925">24%</td></tr><tr data-name="umass memorial health - milford regional medical center" data-ceo="edward kelly" data-state="MA" data-kids="0">
+<td class="num">429</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/umass-memorial-health-milford-regional-medical-center-inc-04-2103602.html">Umass Memorial Health - Milford Regional Medical Center</a><span class="sub">Edward Kelly</span></td>
+
+<td class="num" data-v="1038422.0">$1.0M</td>
+<td class="num" data-v="292776405.0">$292.8M</td>
+<td class="num" data-v="0.8908520771643237">0.89%</td>
+<td class="num" data-v="2686361.0">$2.7M</td>
+<td class="num ratio" data-v="38.655340812348">39%</td></tr><tr data-name="brockton hospital" data-ceo="robert j haffey" data-state="MA" data-kids="0">
+<td class="num">438</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/brockton-hospital-inc-22-2472997.html">Brockton Hospital</a><span class="sub">Robert J Haffey</span></td>
+
+<td class="num" data-v="1021953.0">$1.0M</td>
+<td class="num" data-v="488276347.0">$488.3M</td>
+<td class="num" data-v="0.8468809117792887">0.85%</td>
+<td class="num" data-v="4126796.0">$4.1M</td>
+<td class="num ratio" data-v="24.763836157639002">25%</td></tr><tr data-name="holyoke medical center" data-ceo="spiridon e hatiras" data-state="MA" data-kids="0">
+<td class="num">461</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/holyoke-medical-center-inc-22-2520073.html">Holyoke Medical Center</a><span class="sub">Spiridon E Hatiras</span></td>
+
+<td class="num" data-v="983904.0">$983,904</td>
+<td class="num" data-v="306197810.0">$306.2M</td>
+<td class="num" data-v="0.2384151141658126">0.24%</td>
+<td class="num" data-v="765932.0">$765,932</td>
+<td class="num ratio" data-v="128.4584010068779">128%</td></tr><tr class="kids" data-name="franciscan hospital for children" data-ceo="joseph a mitchell md" data-state="MA" data-kids="1">
+<td class="num">478</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/franciscan-hospital-for-children-04-2156082.html">Franciscan Hospital for Children</a><span class="sub">Joseph A Mitchell MD · children’s</span></td>
+
+<td class="num" data-v="940919.0">$940,919</td>
+<td class="num" data-v="99806270.0">$99.8M</td>
+<td class="num" data-v="0.029753490682267524">0.03%</td>
+<td class="num" data-v="29529.0">$29,529</td>
+<td class="num ratio" data-v="3186.423515865759">3186%</td></tr><tr data-name="henry heywood memorial hospital" data-ceo="rozanna penney" data-state="MA" data-kids="0">
+<td class="num">621</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/henry-heywood-memorial-hospital-04-2103581.html">Henry Heywood Memorial Hospital</a><span class="sub">Rozanna Penney</span></td>
+
+<td class="num" data-v="653352.0">$653,352</td>
+<td class="num" data-v="258409405.0">$258.4M</td>
+<td class="num" data-v="5.457271784621987">5.46%</td>
+<td class="num" data-v="13303351.0">$13.3M</td>
+<td class="num ratio" data-v="4.911183655907448">5%</td></tr><tr data-name="austen riggs center" data-ceo="eric m plakun" data-state="MA" data-kids="0">
+<td class="num">628</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/austen-riggs-center-inc-04-2103543.html">Austen Riggs Center</a><span class="sub">Eric M Plakun</span></td>
+
+<td class="num" data-v="648320.0">$648,320</td>
+<td class="num" data-v="27859666.0">$27.9M</td>
+<td class="num" data-v="4.925920778618388">4.93%</td>
+<td class="num" data-v="1323127.0">$1.3M</td>
+<td class="num ratio" data-v="48.999075674519524">49%</td></tr><tr data-name="dana-farber cancer institute" data-ceo="barrett j rollins md phd" data-state="MA" data-kids="0">
+<td class="num">635</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/dana-farber-cancer-institute-inc-04-2263040.html">Dana-Farber Cancer Institute</a><span class="sub">Barrett J Rollins MD PhD</span></td>
+
+<td class="num" data-v="625708.0">$625,708</td>
+<td class="num" data-v="3917771259.0">$3.9B</td>
+<td class="num" data-v="0.3722260536401703">0.37%</td>
+<td class="num" data-v="14237969.0">$14.2M</td>
+<td class="num ratio" data-v="4.3946436461548695">4%</td></tr><tr data-name="lawrence general hospital" data-ceo="robin hynds" data-state="MA" data-kids="0">
+<td class="num">682</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/lawrence-general-hospital-04-2103586.html">Lawrence General Hospital</a><span class="sub">Robin Hynds</span></td>
+
+<td class="num" data-v="554364.0">$554,364</td>
+<td class="num" data-v="675772526.0">$675.8M</td>
+<td class="num" data-v="0.3282441793523283">0.33%</td>
+<td class="num" data-v="2051125.0">$2.1M</td>
+<td class="num ratio" data-v="27.027314278749465">27%</td></tr><tr data-name="umass memorial health care inc &amp; affiliates" data-ceo="victoria mccandless" data-state="MA" data-kids="0">
+<td class="num">706</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/umass-memorial-health-care-inc-affiliates-91-2155626.html">Umass Memorial Health Care INC &amp; Affiliates</a><span class="sub">Victoria Mccandless</span></td>
+
+<td class="num" data-v="517590.0">$517,590</td>
+<td class="num" data-v="4571034235.0">$4.6B</td>
+<td class="num" data-v="0.23928316934446137">0.24%</td>
+<td class="num" data-v="11257942.0">$11.3M</td>
+<td class="num ratio" data-v="4.5975543309780775">5%</td></tr></tbody></table></div>
+<p class="note">Systems not shown: 6 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/tufts-medical-center-group-return-27-0440772.html">Tufts Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/berkshire-medical-center-inc-04-2791396.html">Berkshire Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/lifespan-of-massachusetts-fall-river-inc-99-4841947.html">Lifespan of Massachusetts - Fall River</a>, <a href="/reports/hospital-ceo-pay/system/lifespan-of-massachusetts-taunton-inc-99-4836263.html">Lifespan of Massachusetts - Taunton</a>, <a href="/reports/hospital-ceo-pay/system/hebrew-rehabilitation-center-04-2104298.html">Hebrew Rehabilitation Center</a>, <a href="/reports/hospital-ceo-pay/system/fairview-hospital-04-2133860.html">Fairview Hospital</a>.</p>
+<script>
+(function(){
+  var tables=document.querySelectorAll('table.sortable');
+  tables.forEach(function(t){
+    var ths=t.querySelectorAll('th');
+    ths.forEach(function(th,i){th.addEventListener('click',function(){
+      var tb=t.tBodies[0], rows=Array.prototype.slice.call(tb.rows), k=th.dataset.k, asc=th.dataset.asc!=='1';
+      ths.forEach(function(h){delete h.dataset.asc}); th.dataset.asc=asc?'1':'0';
+      rows.sort(function(a,b){var x=a.cells[i],y=b.cells[i]; if(k==='num'){x=parseFloat(x.dataset.v!==undefined?x.dataset.v:x.textContent)||0;y=parseFloat(y.dataset.v!==undefined?y.dataset.v:y.textContent)||0;return asc?x-y:y-x}
+        x=x.textContent.trim().toLowerCase();y=y.textContent.trim().toLowerCase();return asc?(x<y?-1:x>y?1:0):(x>y?-1:x<y?1:0)});
+      rows.forEach(function(r){tb.appendChild(r)});
+    })});
+  });
+  var q=document.getElementById('q'), kids=document.getElementById('kids');
+  function filter(){var v=(q?q.value:'').trim().toLowerCase(), showKids=kids?kids.checked:true;
+    document.querySelectorAll('table.sortable tbody tr').forEach(function(r){
+      var ok=(!v||r.dataset.name.indexOf(v)>=0||r.dataset.ceo.indexOf(v)>=0||r.dataset.state.toLowerCase()===v)&&(showKids||r.dataset.kids!=='1');
+      r.hidden=!ok;});}
+  if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
+})();
+</script></main>
+<footer><div class="rule-single"></div>
+<div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
+<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-18 &middot; Built 2026-10-20</p>
+<p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to corrections@everythingisbroken.org.</p>
+<p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>
+</div></body></html>

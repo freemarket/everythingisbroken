@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Louisiana hospitals - Everything Is Broken</title>
+<meta name="description" content="Nonprofit hospital systems in Louisiana ranked by CEO pay.">
+<link rel="icon" type="image/png" href="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
+--serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.sheet{max-width:1100px;margin:0 auto;background:var(--paper);padding:40px 32px;min-height:100vh}
+@media(min-width:640px){.sheet{margin:32px auto;border:1px solid var(--border);box-shadow:0 1px 2px rgba(0,0,0,.05)}}
+@media(max-width:640px){.sheet{padding:28px 16px}}
+.mast{text-align:center;margin-bottom:28px}
+.mast .seal{display:inline-block;margin-bottom:18px}
+.mast .seal img{width:128px;height:128px;display:block;margin:0 auto}
+.mast h1{font-size:2.6rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;font-weight:700;line-height:1.1}
+@media(max-width:640px){.mast h1{font-size:1.7rem}}
+.rule-double{border-top:4px double var(--ink)}
+.rule-double-bottom{border-bottom:4px double var(--ink)}
+.rule-single{border-bottom:1px solid var(--ink)}
+.mast .sub{font-style:italic;font-size:1.25rem;margin:12px 0 22px;letter-spacing:.02em}
+.mast nav.site{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 36px;text-transform:uppercase;letter-spacing:.1em;font-size:.95rem;padding-bottom:16px;border-bottom:1px solid var(--ink)}
+.mast nav.site a{text-decoration:none}
+.mast nav.site a:hover{color:var(--muted)}
+.mast nav.site a.on{font-weight:700;text-decoration:underline}
+.band{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;padding:12px 0;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.band .rep{color:var(--ink)}
+.band nav{display:flex;flex-wrap:wrap;gap:6px 18px}
+.band nav a{color:var(--muted);text-decoration:none}
+.band nav a:hover,.band nav a.on{color:var(--ink);text-decoration:underline}
+h1.title{font-size:2rem;line-height:1.2;margin:34px 0 8px;font-weight:700}
+h2{font-size:1.25rem;text-transform:uppercase;letter-spacing:.12em;margin:48px 0 14px;font-weight:700;display:inline-block;padding-bottom:4px;border-bottom:1px solid var(--ink)}
+h2 .n{font-family:var(--mono);font-weight:400;color:var(--muted);margin-right:10px;letter-spacing:.05em}
+h3{font-size:1.05rem;margin:26px 0 8px}
+p{margin:0 0 1rem}
+.doc-no{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:34px 0 0}
+.doc-no a{color:var(--muted)}
+.lede{font-size:1.2rem;line-height:1.55;max-width:66ch}
+.prose{max-width:70ch}
+.fig{font-family:var(--mono);font-size:.95em;letter-spacing:-.02em}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border:1px solid var(--ink);margin:26px 0}
+.stat{padding:16px 18px 14px;border-right:1px solid var(--border);min-width:0}
+.stat:last-child{border-right:0}
+.stat .v{font-family:var(--mono);font-size:2.1rem;line-height:1.05;font-weight:700;letter-spacing:-.03em}
+.stat .v.red{color:var(--red)}
+.stat .l{font-size:.82rem;color:var(--muted);margin-top:8px;line-height:1.4}
+.big3 .stat .v{font-size:2.6rem}
+@media(max-width:640px){.stat .v,.big3 .stat .v{font-size:1.7rem}.stat-row{grid-template-columns:1fr 1fr}.stat:nth-child(2n){border-right:0}}
+.tablewrap{overflow-x:auto;border:1px solid var(--ink);margin:14px 0 10px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;white-space:nowrap}
+thead th{background:var(--ink);color:#fff;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;font-weight:400;padding:10px 12px;text-align:left;cursor:pointer;user-select:none;white-space:normal;line-height:1.3;vertical-align:bottom}
+thead th.num{text-align:right}
+thead th[data-asc="1"]::after{content:" ▲"}thead th[data-asc="0"]::after{content:" ▼"}
+td{padding:10px 12px;border-bottom:1px solid #d9d4c7;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-family:var(--mono);font-size:.86rem}
+td.name{min-width:200px;white-space:normal}
+td.name a{font-weight:700;text-decoration:none}
+td.name a:hover{text-decoration:underline}
+td .sub{display:block;font-size:.84rem;color:var(--muted);font-weight:400;margin-top:2px}
+td.ratio{color:var(--red);font-weight:700}
+tr.kids td{color:var(--muted)}tr.kids td.name a{color:var(--muted);font-weight:400}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin:18px 0 4px;font-size:.92rem}
+.toolbar input[type=search]{font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);min-width:min(340px,100%);border-radius:0}
+.toolbar label{display:flex;gap:8px;align-items:center;color:var(--muted)}
+.note{font-size:.88rem;color:var(--muted);max-width:70ch;line-height:1.55}
+.src{font-size:.85rem;color:var(--muted);margin-top:8px}
+dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 24px;font-size:.95rem;max-width:70ch;border-top:1px solid var(--border);padding-top:12px;margin:0}
+dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:.9rem;min-width:0}
+.callout{background:var(--surface);border:1px solid var(--ink);border-left:6px solid var(--red);padding:14px 18px;max-width:70ch;margin:22px 0;font-size:1.02rem;line-height:1.55}
+.cb{display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-size:.92rem;max-width:600px}
+.cb span:nth-child(2n){font-family:var(--mono);font-size:.88rem}
+.cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
+.cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.card{border:1px solid var(--ink);padding:22px}
+.card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
+.card p,.card li{font-size:.92rem}
+.btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;padding:10px 16px;margin:4px 6px 4px 0}
+.btn:hover{background:#333}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink);padding:8px 14px}
+.btn.ghost:hover{background:var(--ink);color:#fff}
+ul.files{list-style:none;padding:0;margin:0}
+ul.files li{padding:12px 0;border-bottom:1px solid var(--border)}
+ul.files li:last-child{border-bottom:0}
+ul.files .fn{font-family:var(--mono);font-weight:700}
+ul.files .meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);display:block;margin-top:4px;white-space:normal;word-break:break-all}
+code{font-family:var(--mono);font-size:.88em}
+pre{background:var(--surface);border:1px solid var(--border);padding:14px;overflow-x:auto;font-size:.82rem;line-height:1.45}
+.manual table{white-space:normal;font-size:.86rem}
+.manual thead th{cursor:default}
+footer{margin-top:64px;padding-top:28px;text-align:center;font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;color:var(--muted)}
+footer .rule-single{width:100%;max-width:440px;margin:0 auto 22px}
+footer .links a{color:var(--muted);text-decoration:none;margin:0 10px}
+footer .links a:hover{color:var(--ink)}
+footer p{margin:14px 0 0}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+</style></head><body>
+<div class="sheet">
+<header class="mast">
+<a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
+<h1>Everything Is Broken</h1>
+<div class="rule-double"></div>
+<p class="sub">Office of Institutional Accounts</p>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+</header>
+<main>
+
+<p class="doc-no">Report No. 1 &middot; 2026 edition &middot; <a href="/reports/hospital-ceo-pay/states.html">all states</a></p>
+<h1 class="title">Louisiana</h1>
+<p class="lede">26 nonprofit hospital systems file from Louisiana. Median charity care: 1.14% of expenses.</p>
+<div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
+<div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and chief executive</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="ochsner clinic foundation" data-ceo="peter c november" data-state="LA" data-kids="0">
+<td class="num">30</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/ochsner-clinic-foundation-72-0502505.html">Ochsner Clinic Foundation</a><span class="sub">Peter C November</span></td>
+
+<td class="num" data-v="7011513.0">$7.0M</td>
+<td class="num" data-v="6038885387.0">$6.0B</td>
+<td class="num" data-v="1.004144375046195">1.00%</td>
+<td class="num" data-v="57374847.0">$57.4M</td>
+<td class="num ratio" data-v="12.220534548876444">12%</td></tr><tr class="kids" data-name="louisiana children&#x27;s medical center" data-ceo="gregory c feirn" data-state="LA" data-kids="1">
+<td class="num">90</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/louisiana-children-s-medical-center-94-3480131.html">Louisiana Children&#x27;S Medical Center</a><span class="sub">Gregory C Feirn · children’s</span></td>
+
+<td class="num" data-v="3735208.0">$3.7M</td>
+<td class="num" data-v="1635655698.0">$1.6B</td>
+<td class="num" data-v="2.0832719034066245">2.08%</td>
+<td class="num" data-v="35557760.0">$35.6M</td>
+<td class="num ratio" data-v="10.504621213484763">11%</td></tr><tr data-name="touro infirmary" data-ceo="greg feirn" data-state="LA" data-kids="0">
+<td class="num">91</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/touro-infirmary-72-0423659.html">Touro Infirmary</a><span class="sub">Greg Feirn</span></td>
+
+<td class="num" data-v="3735208.0">$3.7M</td>
+<td class="num" data-v="367303040.0">$367.3M</td>
+<td class="num" data-v="0.8199516527229053">0.82%</td>
+<td class="num" data-v="3079264.0">$3.1M</td>
+<td class="num ratio" data-v="121.3019734585927">121%</td></tr><tr data-name="baton rouge general medical center" data-ceo="edgardo tenreiro" data-state="LA" data-kids="0">
+<td class="num">203</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/baton-rouge-general-medical-center-72-1025017.html">Baton Rouge General Medical Center</a><span class="sub">Edgardo Tenreiro</span></td>
+
+<td class="num" data-v="2082099.0">$2.1M</td>
+<td class="num" data-v="712345722.0">$712.3M</td>
+<td class="num" data-v="3.1929997153981753">3.19%</td>
+<td class="num" data-v="21282452.0">$21.3M</td>
+<td class="num ratio" data-v="9.783172540457274">10%</td></tr><tr data-name="christus health southwestern louisiana" data-ceo="christopher karam" data-state="LA" data-kids="0">
+<td class="num">335</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/christus-health-southwestern-louisiana-72-0411322.html">Christus Health Southwestern Louisiana</a><span class="sub">Christopher Karam</span></td>
+
+<td class="num" data-v="1379979.0">$1.4M</td>
+<td class="num" data-v="303494087.0">$303.5M</td>
+<td class="num" data-v="1.8964252483028676">1.90%</td>
+<td class="num" data-v="5861221.0">$5.9M</td>
+<td class="num ratio" data-v="23.544223976540042">24%</td></tr><tr data-name="thibodaux regional health system" data-ceo="greg k stock" data-state="LA" data-kids="0">
+<td class="num">349</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/thibodaux-regional-health-system-inc-84-2046902.html">Thibodaux Regional Health System</a><span class="sub">Greg K Stock</span></td>
+
+<td class="num" data-v="1314959.0">$1.3M</td>
+<td class="num" data-v="382055537.0">$382.1M</td>
+<td class="num" data-v="1.0229834501805035">1.02%</td>
+<td class="num" data-v="3420936.0">$3.4M</td>
+<td class="num ratio" data-v="38.43857353659934">38%</td></tr><tr data-name="willis-knighton medical center" data-ceo="jerry a fielder ii" data-state="LA" data-kids="0">
+<td class="num">364</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/willis-knighton-medical-center-72-0400933.html">Willis-Knighton Medical Center</a><span class="sub">Jerry A Fielder II</span></td>
+
+<td class="num" data-v="1235962.0">$1.2M</td>
+<td class="num" data-v="1694008878.0">$1.7B</td>
+<td class="num" data-v="1.8691366846115443">1.87%</td>
+<td class="num" data-v="30169905.0">$30.2M</td>
+<td class="num ratio" data-v="4.096671832410476">4%</td></tr><tr data-name="lafayette general medical center" data-ceo="patrick w gandy" data-state="LA" data-kids="0">
+<td class="num">368</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/lafayette-general-medical-center-inc-72-0535375.html">Lafayette General Medical Center</a><span class="sub">Patrick W Gandy</span></td>
+
+<td class="num" data-v="1218547.0">$1.2M</td>
+<td class="num" data-v="1092347333.0">$1.1B</td>
+<td class="num" data-v="0.7589226832046159">0.76%</td>
+<td class="num" data-v="7854586.0">$7.9M</td>
+<td class="num ratio" data-v="15.513828481857605">16%</td></tr><tr data-name="woman&#x27;s hospital foundation d/b/a woman&#x27;s hospital" data-ceo="rene ragas" data-state="LA" data-kids="0">
+<td class="num">480</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/woman-s-hospital-foundation-d-b-a-woman-s-hospital-72-0652905.html">Woman&#x27;S Hospital Foundation D/B/A Woman&#x27;S Hospital</a><span class="sub">Rene Ragas</span></td>
+
+<td class="num" data-v="936701.0">$936,701</td>
+<td class="num" data-v="1003943473.0">$1.0B</td>
+<td class="num" data-v="1.1402239633424631">1.14%</td>
+<td class="num" data-v="10712062.0">$10.7M</td>
+<td class="num ratio" data-v="8.744357528923937">9%</td></tr><tr data-name="christus health central louisiana" data-ceo="monte a wilson" data-state="LA" data-kids="0">
+<td class="num">492</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/christus-health-central-louisiana-72-0408984.html">Christus Health Central Louisiana</a><span class="sub">Monte A Wilson</span></td>
+
+<td class="num" data-v="917255.0">$917,255</td>
+<td class="num" data-v="471326798.0">$471.3M</td>
+<td class="num" data-v="2.120093046102365">2.12%</td>
+<td class="num" data-v="9057426.0">$9.1M</td>
+<td class="num ratio" data-v="10.12710454382956">10%</td></tr><tr data-name="st francis medical center" data-ceo="thomas j gullatt md" data-state="LA" data-kids="0">
+<td class="num">525</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/st-francis-medical-center-inc-72-0408970.html">St Francis Medical Center</a><span class="sub">Thomas J Gullatt MD</span></td>
+
+<td class="num" data-v="839973.0">$839,973</td>
+<td class="num" data-v="519451851.0">$519.5M</td>
+<td class="num" data-v="0.666747788880378">0.67%</td>
+<td class="num" data-v="3258745.0">$3.3M</td>
+<td class="num ratio" data-v="25.775965900983355">26%</td></tr><tr data-name="the rapides foundation" data-ceo="joseph r rosier jr" data-state="LA" data-kids="0">
+<td class="num">704</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/the-rapides-foundation-72-0423603.html">The Rapides Foundation</a><span class="sub">Joseph R Rosier Jr</span></td>
+
+<td class="num" data-v="520604.0">$520,604</td>
+<td class="num" data-v="10255274.0">$10.3M</td>
+<td class="num" data-v="26.1609539236673">26.16%</td>
+<td class="num" data-v="3255078.0">$3.3M</td>
+<td class="num ratio" data-v="15.993595237963575">16%</td></tr><tr data-name="university hospital &amp; clinics" data-ceo="glenn e dailey" data-state="LA" data-kids="0">
+<td class="num">811</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/university-hospital-clinics-inc-46-2605366.html">University Hospital &amp; Clinics</a><span class="sub">Glenn E Dailey</span></td>
+
+<td class="num" data-v="400861.0">$400,861</td>
+<td class="num" data-v="228531067.0">$228.5M</td>
+<td class="num" data-v="3.3895935736047655">3.39%</td>
+<td class="num" data-v="7928199.0">$7.9M</td>
+<td class="num ratio" data-v="5.056142006526325">5%</td></tr><tr data-name="desoto hospital association inc dba desoto regional health system" data-ceo="todd eppler" data-state="LA" data-kids="0">
+<td class="num">851</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/desoto-hospital-association-inc-dba-desoto-regional-health-system-72-0500565.html">Desoto Hospital Association INC dba Desoto Regional Health System</a><span class="sub">Todd Eppler</span></td>
+
+<td class="num" data-v="356073.0">$356,073</td>
+<td class="num" data-v="40417646.0">$40.4M</td>
+<td class="num" data-v="0.6346188832822857">0.63%</td>
+<td class="num" data-v="239782.0">$239,782</td>
+<td class="num ratio" data-v="148.49863626127063">148%</td></tr><tr data-name="union general hospital" data-ceo="dianne davidson" data-state="LA" data-kids="0">
+<td class="num">946</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/union-general-hospital-72-0995809.html">Union General Hospital</a><span class="sub">Dianne Davidson</span></td>
+
+<td class="num" data-v="256556.0">$256,556</td>
+<td class="num" data-v="25452984.0">$25.5M</td>
+<td class="num" data-v="0.05304229693155051">0.05%</td>
+<td class="num" data-v="10577.0">$10,577</td>
+<td class="num ratio" data-v="2425.602722889288">2426%</td></tr><tr data-name="springhill medical services inc dba springhill medical center" data-ceo="peter johnson" data-state="LA" data-kids="0">
+<td class="num">957</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/springhill-medical-services-inc-dba-springhill-medical-center-72-1479692.html">Springhill Medical Services INC dba Springhill Medical Center</a><span class="sub">Peter Johnson</span></td>
+
+<td class="num" data-v="247631.0">$247,631</td>
+<td class="num" data-v="28581526.0">$28.6M</td>
+<td class="num" data-v="0.9269512961220041">0.93%</td>
+<td class="num" data-v="247600.0">$247,600</td>
+<td class="num ratio" data-v="100.01252019386106">100%</td></tr><tr data-name="lafourche parish hospital service dist 1 dba lady of the sea general hospital" data-ceo="lloyd guidry jr" data-state="LA" data-kids="0">
+<td class="num">988</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/lafourche-parish-hospital-service-dist-1-dba-lady-of-the-sea-general-hospital-72.html">Lafourche Parish Hospital Service Dist 1 dba Lady of the Sea General Hospital</a><span class="sub">Lloyd Guidry Jr</span></td>
+
+<td class="num" data-v="222440.0">$222,440</td>
+<td class="num" data-v="74460182.0">$74.5M</td>
+<td class="num" data-v="0.20139629353020738">0.20%</td>
+<td class="num" data-v="71965.0">$71,965</td>
+<td class="num ratio" data-v="309.09469881192246">309%</td></tr></tbody></table></div>
+<p class="note">Systems not shown: 9 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/our-lady-of-the-lake-hospital-inc-72-0423651.html">Our Lady of the Lake Hospital</a>, <a href="/reports/hospital-ceo-pay/system/ochsner-lsu-health-system-of-north-louisiana-83-1605004.html">Ochsner LSU Health System of North Louisiana</a>, <a href="/reports/hospital-ceo-pay/system/university-medical-center-management-corporation-25-1925187.html">University Medical Center Management</a>, <a href="/reports/hospital-ceo-pay/system/children-s-hospital-inc-72-0467503.html">Children&#x27;S Hospital</a>, <a href="/reports/hospital-ceo-pay/system/our-lady-of-lourdes-regional-medical-center-inc-72-0423635.html">Our Lady of Lourdes Regional Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/southwest-louisiana-hospital-association-d-b-a-lake-charles-memorial-hospital-72.html">Southwest Louisiana Hospital Association D/B/A Lake Charles Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/christus-health-northern-louisiana-72-0408982.html">Christus Health Northern Louisiana</a>, <a href="/reports/hospital-ceo-pay/system/west-louisiana-health-services-inc-72-0491106.html">West Louisiana Health Services</a>, <a href="/reports/hospital-ceo-pay/system/kaplan-general-hospital-abrom-kaplan-memorial-hospital-47-2540179.html">Kaplan General Hospital Abrom Kaplan Memorial Hospital</a>.</p>
+<script>
+(function(){
+  var tables=document.querySelectorAll('table.sortable');
+  tables.forEach(function(t){
+    var ths=t.querySelectorAll('th');
+    ths.forEach(function(th,i){th.addEventListener('click',function(){
+      var tb=t.tBodies[0], rows=Array.prototype.slice.call(tb.rows), k=th.dataset.k, asc=th.dataset.asc!=='1';
+      ths.forEach(function(h){delete h.dataset.asc}); th.dataset.asc=asc?'1':'0';
+      rows.sort(function(a,b){var x=a.cells[i],y=b.cells[i]; if(k==='num'){x=parseFloat(x.dataset.v!==undefined?x.dataset.v:x.textContent)||0;y=parseFloat(y.dataset.v!==undefined?y.dataset.v:y.textContent)||0;return asc?x-y:y-x}
+        x=x.textContent.trim().toLowerCase();y=y.textContent.trim().toLowerCase();return asc?(x<y?-1:x>y?1:0):(x>y?-1:x<y?1:0)});
+      rows.forEach(function(r){tb.appendChild(r)});
+    })});
+  });
+  var q=document.getElementById('q'), kids=document.getElementById('kids');
+  function filter(){var v=(q?q.value:'').trim().toLowerCase(), showKids=kids?kids.checked:true;
+    document.querySelectorAll('table.sortable tbody tr').forEach(function(r){
+      var ok=(!v||r.dataset.name.indexOf(v)>=0||r.dataset.ceo.indexOf(v)>=0||r.dataset.state.toLowerCase()===v)&&(showKids||r.dataset.kids!=='1');
+      r.hidden=!ok;});}
+  if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
+})();
+</script></main>
+<footer><div class="rule-single"></div>
+<div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
+<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-18 &middot; Built 2026-10-20</p>
+<p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to corrections@everythingisbroken.org.</p>
+<p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>
+</div></body></html>

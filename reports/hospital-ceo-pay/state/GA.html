@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Georgia hospitals - Everything Is Broken</title>
+<meta name="description" content="Nonprofit hospital systems in Georgia ranked by CEO pay.">
+<link rel="icon" type="image/png" href="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
+--serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.sheet{max-width:1100px;margin:0 auto;background:var(--paper);padding:40px 32px;min-height:100vh}
+@media(min-width:640px){.sheet{margin:32px auto;border:1px solid var(--border);box-shadow:0 1px 2px rgba(0,0,0,.05)}}
+@media(max-width:640px){.sheet{padding:28px 16px}}
+.mast{text-align:center;margin-bottom:28px}
+.mast .seal{display:inline-block;margin-bottom:18px}
+.mast .seal img{width:128px;height:128px;display:block;margin:0 auto}
+.mast h1{font-size:2.6rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;font-weight:700;line-height:1.1}
+@media(max-width:640px){.mast h1{font-size:1.7rem}}
+.rule-double{border-top:4px double var(--ink)}
+.rule-double-bottom{border-bottom:4px double var(--ink)}
+.rule-single{border-bottom:1px solid var(--ink)}
+.mast .sub{font-style:italic;font-size:1.25rem;margin:12px 0 22px;letter-spacing:.02em}
+.mast nav.site{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 36px;text-transform:uppercase;letter-spacing:.1em;font-size:.95rem;padding-bottom:16px;border-bottom:1px solid var(--ink)}
+.mast nav.site a{text-decoration:none}
+.mast nav.site a:hover{color:var(--muted)}
+.mast nav.site a.on{font-weight:700;text-decoration:underline}
+.band{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;padding:12px 0;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.band .rep{color:var(--ink)}
+.band nav{display:flex;flex-wrap:wrap;gap:6px 18px}
+.band nav a{color:var(--muted);text-decoration:none}
+.band nav a:hover,.band nav a.on{color:var(--ink);text-decoration:underline}
+h1.title{font-size:2rem;line-height:1.2;margin:34px 0 8px;font-weight:700}
+h2{font-size:1.25rem;text-transform:uppercase;letter-spacing:.12em;margin:48px 0 14px;font-weight:700;display:inline-block;padding-bottom:4px;border-bottom:1px solid var(--ink)}
+h2 .n{font-family:var(--mono);font-weight:400;color:var(--muted);margin-right:10px;letter-spacing:.05em}
+h3{font-size:1.05rem;margin:26px 0 8px}
+p{margin:0 0 1rem}
+.doc-no{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:34px 0 0}
+.doc-no a{color:var(--muted)}
+.lede{font-size:1.2rem;line-height:1.55;max-width:66ch}
+.prose{max-width:70ch}
+.fig{font-family:var(--mono);font-size:.95em;letter-spacing:-.02em}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border:1px solid var(--ink);margin:26px 0}
+.stat{padding:16px 18px 14px;border-right:1px solid var(--border);min-width:0}
+.stat:last-child{border-right:0}
+.stat .v{font-family:var(--mono);font-size:2.1rem;line-height:1.05;font-weight:700;letter-spacing:-.03em}
+.stat .v.red{color:var(--red)}
+.stat .l{font-size:.82rem;color:var(--muted);margin-top:8px;line-height:1.4}
+.big3 .stat .v{font-size:2.6rem}
+@media(max-width:640px){.stat .v,.big3 .stat .v{font-size:1.7rem}.stat-row{grid-template-columns:1fr 1fr}.stat:nth-child(2n){border-right:0}}
+.tablewrap{overflow-x:auto;border:1px solid var(--ink);margin:14px 0 10px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;white-space:nowrap}
+thead th{background:var(--ink);color:#fff;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;font-weight:400;padding:10px 12px;text-align:left;cursor:pointer;user-select:none;white-space:normal;line-height:1.3;vertical-align:bottom}
+thead th.num{text-align:right}
+thead th[data-asc="1"]::after{content:" ▲"}thead th[data-asc="0"]::after{content:" ▼"}
+td{padding:10px 12px;border-bottom:1px solid #d9d4c7;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-family:var(--mono);font-size:.86rem}
+td.name{min-width:200px;white-space:normal}
+td.name a{font-weight:700;text-decoration:none}
+td.name a:hover{text-decoration:underline}
+td .sub{display:block;font-size:.84rem;color:var(--muted);font-weight:400;margin-top:2px}
+td.ratio{color:var(--red);font-weight:700}
+tr.kids td{color:var(--muted)}tr.kids td.name a{color:var(--muted);font-weight:400}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin:18px 0 4px;font-size:.92rem}
+.toolbar input[type=search]{font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);min-width:min(340px,100%);border-radius:0}
+.toolbar label{display:flex;gap:8px;align-items:center;color:var(--muted)}
+.note{font-size:.88rem;color:var(--muted);max-width:70ch;line-height:1.55}
+.src{font-size:.85rem;color:var(--muted);margin-top:8px}
+dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 24px;font-size:.95rem;max-width:70ch;border-top:1px solid var(--border);padding-top:12px;margin:0}
+dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:.9rem;min-width:0}
+.callout{background:var(--surface);border:1px solid var(--ink);border-left:6px solid var(--red);padding:14px 18px;max-width:70ch;margin:22px 0;font-size:1.02rem;line-height:1.55}
+.cb{display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-size:.92rem;max-width:600px}
+.cb span:nth-child(2n){font-family:var(--mono);font-size:.88rem}
+.cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
+.cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.card{border:1px solid var(--ink);padding:22px}
+.card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
+.card p,.card li{font-size:.92rem}
+.btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;padding:10px 16px;margin:4px 6px 4px 0}
+.btn:hover{background:#333}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink);padding:8px 14px}
+.btn.ghost:hover{background:var(--ink);color:#fff}
+ul.files{list-style:none;padding:0;margin:0}
+ul.files li{padding:12px 0;border-bottom:1px solid var(--border)}
+ul.files li:last-child{border-bottom:0}
+ul.files .fn{font-family:var(--mono);font-weight:700}
+ul.files .meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);display:block;margin-top:4px;white-space:normal;word-break:break-all}
+code{font-family:var(--mono);font-size:.88em}
+pre{background:var(--surface);border:1px solid var(--border);padding:14px;overflow-x:auto;font-size:.82rem;line-height:1.45}
+.manual table{white-space:normal;font-size:.86rem}
+.manual thead th{cursor:default}
+footer{margin-top:64px;padding-top:28px;text-align:center;font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;color:var(--muted)}
+footer .rule-single{width:100%;max-width:440px;margin:0 auto 22px}
+footer .links a{color:var(--muted);text-decoration:none;margin:0 10px}
+footer .links a:hover{color:var(--ink)}
+footer p{margin:14px 0 0}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+</style></head><body>
+<div class="sheet">
+<header class="mast">
+<a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
+<h1>Everything Is Broken</h1>
+<div class="rule-double"></div>
+<p class="sub">Office of Institutional Accounts</p>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+</header>
+<main>
+
+<p class="doc-no">Report No. 1 &middot; 2026 edition &middot; <a href="/reports/hospital-ceo-pay/states.html">all states</a></p>
+<h1 class="title">Georgia</h1>
+<p class="lede">52 nonprofit hospital systems file from Georgia. Median charity care: 3.03% of expenses.</p>
+<div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
+<div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and chief executive</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="northside hospital" data-ceo="robert t quattrocchi" data-state="GA" data-kids="0">
+<td class="num">38</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/northside-hospital-inc-58-1954432.html">Northside Hospital</a><span class="sub">Robert T Quattrocchi</span></td>
+
+<td class="num" data-v="5944335.0">$5.9M</td>
+<td class="num" data-v="8363035234.0">$8.4B</td>
+<td class="num" data-v="4.792245791345522">4.79%</td>
+<td class="num" data-v="388610457.0">$388.6M</td>
+<td class="num ratio" data-v="1.52963845746436">2%</td></tr><tr data-name="kennestone hospital" data-ceo="candice saunders" data-state="GA" data-kids="0">
+<td class="num">55</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/kennestone-hospital-inc-58-2032904.html">Kennestone Hospital</a><span class="sub">Candice Saunders</span></td>
+
+<td class="num" data-v="5069923.0">$5.1M</td>
+<td class="num" data-v="6529045150.0">$6.5B</td>
+<td class="num" data-v="3.9417264393460285">3.94%</td>
+<td class="num" data-v="223433098.0">$223.4M</td>
+<td class="num ratio" data-v="2.2691011517013475">2%</td></tr><tr data-name="piedmont hospital" data-ceo="mr kevin brown" data-state="GA" data-kids="0">
+<td class="num">65</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/piedmont-hospital-inc-58-0566213.html">Piedmont Hospital</a><span class="sub">Mr Kevin Brown</span></td>
+
+<td class="num" data-v="4428574.0">$4.4M</td>
+<td class="num" data-v="2886202580.0">$2.9B</td>
+<td class="num" data-v="2.4620634403323796">2.46%</td>
+<td class="num" data-v="61068624.0">$61.1M</td>
+<td class="num ratio" data-v="7.2517992218066025">7%</td></tr><tr class="kids" data-name="children&#x27;s healthcare of atlanta" data-ceo="donna hyland" data-state="GA" data-kids="1">
+<td class="num">117</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/children-s-healthcare-of-atlanta-group-return-90-0779996.html">Children&#x27;S Healthcare of Atlanta</a><span class="sub">Donna Hyland · children’s</span></td>
+
+<td class="num" data-v="3008349.0">$3.0M</td>
+<td class="num" data-v="2772950050.0">$2.8B</td>
+<td class="num" data-v="3.124370980232562">3.12%</td>
+<td class="num" data-v="77472590.0">$77.5M</td>
+<td class="num ratio" data-v="3.8831140149051424">4%</td></tr><tr data-name="hamilton medical center" data-ceo="jeffrey d myers" data-state="GA" data-kids="0">
+<td class="num">119</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/hamilton-medical-center-inc-58-1519911.html">Hamilton Medical Center</a><span class="sub">Jeffrey D Myers</span></td>
+
+<td class="num" data-v="2944136.0">$2.9M</td>
+<td class="num" data-v="733442848.0">$733.4M</td>
+<td class="num" data-v="2.7998553306718317">2.80%</td>
+<td class="num" data-v="18878703.0">$18.9M</td>
+<td class="num ratio" data-v="15.59501200903473">16%</td></tr><tr data-name="tanner medical center" data-ceo="loy howard" data-state="GA" data-kids="0">
+<td class="num">121</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/tanner-medical-center-inc-58-1790149.html">Tanner Medical Center</a><span class="sub">Loy Howard</span></td>
+
+<td class="num" data-v="2925291.0">$2.9M</td>
+<td class="num" data-v="1123355071.0">$1.1B</td>
+<td class="num" data-v="2.653492407263032">2.65%</td>
+<td class="num" data-v="26909933.0">$26.9M</td>
+<td class="num ratio" data-v="10.870673665371074">11%</td></tr><tr data-name="northeast georgia medical center" data-ceo="carol burrell" data-state="GA" data-kids="0">
+<td class="num">150</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/northeast-georgia-medical-center-inc-58-1694098.html">Northeast Georgia Medical Center</a><span class="sub">Carol Burrell</span></td>
+
+<td class="num" data-v="2489525.0">$2.5M</td>
+<td class="num" data-v="2801113230.0">$2.8B</td>
+<td class="num" data-v="2.9438750352523297">2.94%</td>
+<td class="num" data-v="73750887.0">$73.8M</td>
+<td class="num ratio" data-v="3.3755865200644974">3%</td></tr><tr data-name="phoebe putney memorial hospital" data-ceo="scott steiner" data-state="GA" data-kids="0">
+<td class="num">174</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/phoebe-putney-memorial-hospital-inc-58-1928247.html">Phoebe Putney Memorial Hospital</a><span class="sub">Scott Steiner</span></td>
+
+<td class="num" data-v="2238940.0">$2.2M</td>
+<td class="num" data-v="914268790.0">$914.3M</td>
+<td class="num" data-v="5.505191009755474">5.51%</td>
+<td class="num" data-v="46387839.0">$46.4M</td>
+<td class="num ratio" data-v="4.826566721506471">5%</td></tr><tr data-name="floyd healthcare management" data-ceo="kurt stuenkel" data-state="GA" data-kids="0">
+<td class="num">206</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/floyd-healthcare-management-inc-58-1973570.html">Floyd Healthcare Management</a><span class="sub">Kurt Stuenkel</span></td>
+
+<td class="num" data-v="2070494.0">$2.1M</td>
+<td class="num" data-v="772081569.0">$772.1M</td>
+<td class="num" data-v="3.8624473711339564">3.86%</td>
+<td class="num" data-v="28479136.0">$28.5M</td>
+<td class="num ratio" data-v="7.270213534567903">7%</td></tr><tr data-name="fayette community hospital" data-ceo="mr stephen d porter" data-state="GA" data-kids="0">
+<td class="num">333</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/fayette-community-hospital-inc-58-2322328.html">Fayette Community Hospital</a><span class="sub">Mr Stephen D Porter</span></td>
+
+<td class="num" data-v="1386976.0">$1.4M</td>
+<td class="num" data-v="743018428.0">$743.0M</td>
+<td class="num" data-v="2.084414267132771">2.08%</td>
+<td class="num" data-v="12490258.0">$12.5M</td>
+<td class="num ratio" data-v="11.104462373795641">11%</td></tr><tr data-name="the medical center" data-ceo="mr m scott hill" data-state="GA" data-kids="0">
+<td class="num">352</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/the-medical-center-inc-58-1685139.html">The Medical Center</a><span class="sub">Mr M Scott Hill</span></td>
+
+<td class="num" data-v="1300645.0">$1.3M</td>
+<td class="num" data-v="884627418.0">$884.6M</td>
+<td class="num" data-v="3.7328177189518743">3.73%</td>
+<td class="num" data-v="27542156.0">$27.5M</td>
+<td class="num ratio" data-v="4.7223790323459065">5%</td></tr><tr data-name="tift regional health system" data-ceo="christopher dorman" data-state="GA" data-kids="0">
+<td class="num">361</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/tift-regional-health-system-inc-45-3072990.html">Tift Regional Health System</a><span class="sub">Christopher Dorman</span></td>
+
+<td class="num" data-v="1260271.0">$1.3M</td>
+<td class="num" data-v="579183538.0">$579.2M</td>
+<td class="num" data-v="4.674597494417652">4.67%</td>
+<td class="num" data-v="24678780.0">$24.7M</td>
+<td class="num ratio" data-v="5.106698953513909">5%</td></tr><tr data-name="south georgia medical center" data-ceo="ronald dean" data-state="GA" data-kids="0">
+<td class="num">420</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/south-georgia-medical-center-inc-87-4714839.html">South Georgia Medical Center</a><span class="sub">Ronald Dean</span></td>
+
+<td class="num" data-v="1050507.0">$1.1M</td>
+<td class="num" data-v="577855117.0">$577.9M</td>
+<td class="num" data-v="6.680397542450005">6.68%</td>
+<td class="num" data-v="35630958.0">$35.6M</td>
+<td class="num ratio" data-v="2.9482984992994012">3%</td></tr><tr data-name="university health services" data-ceo="dr lily henson" data-state="GA" data-kids="0">
+<td class="num">434</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/university-health-services-inc-58-1581103.html">University Health Services</a><span class="sub">Dr Lily Henson</span></td>
+
+<td class="num" data-v="1029914.0">$1.0M</td>
+<td class="num" data-v="726782495.0">$726.8M</td>
+<td class="num" data-v="2.1291493016444645">2.13%</td>
+<td class="num" data-v="13805423.0">$13.8M</td>
+<td class="num ratio" data-v="7.460213279955276">7%</td></tr><tr data-name="southeast georgia health system" data-ceo="bryon s raynes" data-state="GA" data-kids="0">
+<td class="num">444</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/southeast-georgia-health-system-inc-58-1911751.html">Southeast Georgia Health System</a><span class="sub">Bryon S Raynes</span></td>
+
+<td class="num" data-v="1014968.0">$1.0M</td>
+<td class="num" data-v="489566713.0">$489.6M</td>
+<td class="num" data-v="3.991182707430573">3.99%</td>
+<td class="num" data-v="17627614.0">$17.6M</td>
+<td class="num ratio" data-v="5.757829732373309">6%</td></tr><tr data-name="piedmont mountainside hospital" data-ceo="ms denise ray" data-state="GA" data-kids="0">
+<td class="num">453</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/piedmont-mountainside-hospital-inc-35-2228583.html">Piedmont Mountainside Hospital</a><span class="sub">MS Denise Ray</span></td>
+
+<td class="num" data-v="996369.0">$996,369</td>
+<td class="num" data-v="168120130.0">$168.1M</td>
+<td class="num" data-v="5.881983291488643">5.88%</td>
+<td class="num" data-v="7812012.0">$7.8M</td>
+<td class="num ratio" data-v="12.754319885837347">13%</td></tr><tr data-name="st mary&#x27;s hospital" data-ceo="stonish pierce" data-state="GA" data-kids="0">
+<td class="num">455</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/st-mary-s-hospital-inc-58-0566223.html">St Mary&#x27;S Hospital</a><span class="sub">Stonish Pierce</span></td>
+
+<td class="num" data-v="994277.0">$994,277</td>
+<td class="num" data-v="386779910.0">$386.8M</td>
+<td class="num" data-v="4.167504761916399">4.17%</td>
+<td class="num" data-v="15553021.0">$15.6M</td>
+<td class="num ratio" data-v="6.392822333358902">6%</td></tr><tr data-name="piedmont newnan hospital" data-ceo="mr michael robertson" data-state="GA" data-kids="0">
+<td class="num">490</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/piedmont-newnan-hospital-inc-20-5077249.html">Piedmont Newnan Hospital</a><span class="sub">Mr Michael Robertson</span></td>
+
+<td class="num" data-v="918822.0">$918,822</td>
+<td class="num" data-v="484726529.0">$484.7M</td>
+<td class="num" data-v="2.744664976826806">2.74%</td>
+<td class="num" data-v="10485538.0">$10.5M</td>
+<td class="num ratio" data-v="8.762754948768485">9%</td></tr><tr data-name="upson county hospital" data-ceo="jeff tarrant" data-state="GA" data-kids="0">
+<td class="num">515</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/upson-county-hospital-inc-58-1734026.html">Upson County Hospital</a><span class="sub">Jeff Tarrant</span></td>
+
+<td class="num" data-v="856924.0">$856,924</td>
+<td class="num" data-v="131883434.0">$131.9M</td>
+<td class="num" data-v="2.6993113976459404">2.70%</td>
+<td class="num" data-v="3393955.0">$3.4M</td>
+<td class="num ratio" data-v="25.24853747324287">25%</td></tr><tr data-name="piedmont macon hospital" data-ceo="mr stephen daugherty" data-state="GA" data-kids="0">
+<td class="num">529</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/piedmont-macon-hospital-inc-87-1006981.html">Piedmont Macon Hospital</a><span class="sub">Mr Stephen Daugherty</span></td>
+
+<td class="num" data-v="832704.0">$832,704</td>
+<td class="num" data-v="369764105.0">$369.8M</td>
+<td class="num" data-v="5.017131308347494">5.02%</td>
+<td class="num" data-v="16789662.0">$16.8M</td>
+<td class="num ratio" data-v="4.959623368236954">5%</td></tr><tr data-name="emory" data-ceo="jen schuck" data-state="GA" data-kids="0">
+<td class="num">537</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/emory-group-return-90-0790361.html">Emory</a><span class="sub">Jen Schuck</span></td>
+
+<td class="num" data-v="820036.0">$820,036</td>
+<td class="num" data-v="4834470516.0">$4.8B</td>
+<td class="num" data-v="0.8559027394099065">0.86%</td>
+<td class="num" data-v="46632981.0">$46.6M</td>
+<td class="num ratio" data-v="1.758489340409098">2%</td></tr><tr data-name="coffee regional medical center" data-ceo="vicki lewis" data-state="GA" data-kids="0">
+<td class="num">565</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/coffee-regional-medical-center-inc-65-0543088.html">Coffee Regional Medical Center</a><span class="sub">Vicki Lewis</span></td>
+
+<td class="num" data-v="761925.0">$761,925</td>
+<td class="num" data-v="199942969.0">$199.9M</td>
+<td class="num" data-v="0.9294048875011529">0.93%</td>
+<td class="num" data-v="1795444.0">$1.8M</td>
+<td class="num ratio" data-v="42.436578361675444">42%</td></tr><tr data-name="effingham hospital" data-ceo="dr fran witt dnpmbalnharn" data-state="GA" data-kids="0">
+<td class="num">566</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/effingham-hospital-inc-47-4393589.html">Effingham Hospital</a><span class="sub">Dr Fran Witt Dnpmbalnharn</span></td>
+
+<td class="num" data-v="761500.0">$761,500</td>
+<td class="num" data-v="88316802.0">$88.3M</td>
+<td class="num" data-v="4.155229653863022">4.16%</td>
+<td class="num" data-v="3518759.0">$3.5M</td>
+<td class="num ratio" data-v="21.641152463126915">22%</td></tr><tr data-name="piedmont henry hospital" data-ceo="mr david kent" data-state="GA" data-kids="0">
+<td class="num">569</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/piedmont-henry-hospital-inc-58-2200195.html">Piedmont Henry Hospital</a><span class="sub">Mr David Kent</span></td>
+
+<td class="num" data-v="752337.0">$752,337</td>
+<td class="num" data-v="724887123.0">$724.9M</td>
+<td class="num" data-v="2.1648791974267048">2.16%</td>
+<td class="num" data-v="13201386.0">$13.2M</td>
+<td class="num ratio" data-v="5.698924340217005">6%</td></tr><tr data-name="redmond park hospital" data-ceo="sendros isaac" data-state="GA" data-kids="0">
+<td class="num">592</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/redmond-park-hospital-llc-58-1123037.html">Redmond Park Hospital</a><span class="sub">Sendros Isaac</span></td>
+
+<td class="num" data-v="697840.0">$697,840</td>
+<td class="num" data-v="362964805.0">$363.0M</td>
+<td class="num" data-v="4.4983042367299175">4.50%</td>
+<td class="num" data-v="18481075.0">$18.5M</td>
+<td class="num ratio" data-v="3.7759708242080072">4%</td></tr><tr data-name="piedmont eastside hospital" data-ceo="mr larry ebert" data-state="GA" data-kids="0">
+<td class="num">599</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/piedmont-eastside-hospital-inc-87-0982886.html">Piedmont Eastside Hospital</a><span class="sub">Mr Larry Ebert</span></td>
+
+<td class="num" data-v="683947.0">$683,947</td>
+<td class="num" data-v="394354203.0">$394.4M</td>
+<td class="num" data-v="3.1073023890918874">3.11%</td>
+<td class="num" data-v="10746748.0">$10.7M</td>
+<td class="num ratio" data-v="6.364222925856268">6%</td></tr><tr data-name="shepherd center" data-ceo="james h shepherd iii" data-state="GA" data-kids="0">
+<td class="num">610</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/shepherd-center-inc-51-0141601.html">Shepherd Center</a><span class="sub">James H Shepherd III</span></td>
+
+<td class="num" data-v="668420.0">$668,420</td>
+<td class="num" data-v="366426876.0">$366.4M</td>
+<td class="num" data-v="1.492927299913843">1.49%</td>
+<td class="num" data-v="4820214.0">$4.8M</td>
+<td class="num ratio" data-v="13.867019182135898">14%</td></tr><tr data-name="piedmont rockdale hospital" data-ceo="dr monica hum" data-state="GA" data-kids="0">
+<td class="num">611</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/piedmont-rockdale-hospital-inc-30-0999841.html">Piedmont Rockdale Hospital</a><span class="sub">Dr Monica Hum</span></td>
+
+<td class="num" data-v="666895.0">$666,895</td>
+<td class="num" data-v="293277856.0">$293.3M</td>
+<td class="num" data-v="3.7946780057980427">3.79%</td>
+<td class="num" data-v="9983726.0">$10.0M</td>
+<td class="num ratio" data-v="6.67982074027272">7%</td></tr><tr data-name="union county hospital authority" data-ceo="kevin l bierschenk" data-state="GA" data-kids="0">
+<td class="num">620</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/union-county-hospital-authority-58-6025393.html">Union County Hospital Authority</a><span class="sub">Kevin L Bierschenk</span></td>
+
+<td class="num" data-v="656935.0">$656,935</td>
+<td class="num" data-v="171488711.0">$171.5M</td>
+<td class="num" data-v="0.2407487531548374">0.24%</td>
+<td class="num" data-v="376444.0">$376,444</td>
+<td class="num ratio" data-v="174.51068419207107">175%</td></tr><tr data-name="phoebe sumter medical center" data-ceo="carlyle walton" data-state="GA" data-kids="0">
+<td class="num">673</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/phoebe-sumter-medical-center-inc-26-3975185.html">Phoebe Sumter Medical Center</a><span class="sub">Carlyle Walton</span></td>
+
+<td class="num" data-v="576111.0">$576,111</td>
+<td class="num" data-v="133367874.0">$133.4M</td>
+<td class="num" data-v="4.226454121915356">4.23%</td>
+<td class="num" data-v="5269384.0">$5.3M</td>
+<td class="num ratio" data-v="10.933175490721496">11%</td></tr><tr data-name="piedmont walton hospital" data-ceo="mr blake watts" data-state="GA" data-kids="0">
+<td class="num">674</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/piedmont-walton-hospital-inc-82-4194264.html">Piedmont Walton Hospital</a><span class="sub">Mr Blake Watts</span></td>
+
+<td class="num" data-v="570617.0">$570,617</td>
+<td class="num" data-v="167495086.0">$167.5M</td>
+<td class="num" data-v="4.076196182182526">4.08%</td>
+<td class="num" data-v="4788600.0">$4.8M</td>
+<td class="num ratio" data-v="11.916155034874494">12%</td></tr><tr data-name="bacon county health services" data-ceo="cindy r turner" data-state="GA" data-kids="0">
+<td class="num">679</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/bacon-county-health-services-inc-58-2224545.html">Bacon County Health Services</a><span class="sub">Cindy R Turner</span></td>
+
+<td class="num" data-v="561204.0">$561,204</td>
+<td class="num" data-v="53596062.0">$53.6M</td>
+<td class="num" data-v="0.8520772597955114">0.85%</td>
+<td class="num" data-v="440153.0">$440,153</td>
+<td class="num ratio" data-v="127.50202770400291">128%</td></tr><tr data-name="piedmont cartersville hospital" data-ceo="ms lori rakes" data-state="GA" data-kids="0">
+<td class="num">686</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/piedmont-cartersville-hospital-inc-87-0963633.html">Piedmont Cartersville Hospital</a><span class="sub">MS Lori Rakes</span></td>
+
+<td class="num" data-v="549687.0">$549,687</td>
+<td class="num" data-v="248559547.0">$248.6M</td>
+<td class="num" data-v="6.551385956285201">6.55%</td>
+<td class="num" data-v="14240709.0">$14.2M</td>
+<td class="num ratio" data-v="3.859969331583139">4%</td></tr><tr data-name="donalsonville hospital" data-ceo="herman brookins" data-state="GA" data-kids="0">
+<td class="num">689</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/donalsonville-hospital-inc-58-0973772.html">Donalsonville Hospital</a><span class="sub">Herman Brookins</span></td>
+
+<td class="num" data-v="536622.0">$536,622</td>
+<td class="num" data-v="35004811.0">$35.0M</td>
+<td class="num" data-v="3.6366803223714155">3.64%</td>
+<td class="num" data-v="1354224.0">$1.4M</td>
+<td class="num ratio" data-v="39.62579307411477">40%</td></tr><tr data-name="crisp regional hospital" data-ceo="steve gautney" data-state="GA" data-kids="0">
+<td class="num">691</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/crisp-regional-hospital-inc-58-2175978.html">Crisp Regional Hospital</a><span class="sub">Steve Gautney</span></td>
+
+<td class="num" data-v="535051.0">$535,051</td>
+<td class="num" data-v="141304324.0">$141.3M</td>
+<td class="num" data-v="0.07657383717360865">0.08%</td>
+<td class="num" data-v="105781.0">$105,781</td>
+<td class="num ratio" data-v="505.81011712878495">506%</td></tr><tr data-name="piedmont newton hospital" data-ceo="ms lindsey petrini" data-state="GA" data-kids="0">
+<td class="num">712</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/piedmont-newton-hospital-inc-58-2155150.html">Piedmont Newton Hospital</a><span class="sub">MS Lindsey Petrini</span></td>
+
+<td class="num" data-v="513104.0">$513,104</td>
+<td class="num" data-v="262297540.0">$262.3M</td>
+<td class="num" data-v="2.6226243995320235">2.62%</td>
+<td class="num" data-v="5613327.0">$5.6M</td>
+<td class="num ratio" data-v="9.140817914224488">9%</td></tr><tr data-name="evans memorial hospital" data-ceo="bill lee" data-state="GA" data-kids="0">
+<td class="num">762</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/evans-memorial-hospital-inc-58-2257925.html">Evans Memorial Hospital</a><span class="sub">Bill Lee</span></td>
+
+<td class="num" data-v="457919.0">$457,919</td>
+<td class="num" data-v="20856163.0">$20.9M</td>
+<td class="num" data-v="2.577411897500461">2.58%</td>
+<td class="num" data-v="588938.0">$588,938</td>
+<td class="num ratio" data-v="77.75334585304395">78%</td></tr><tr data-name="the medical center of peach county" data-ceo="laura t gentry" data-state="GA" data-kids="0">
+<td class="num">885</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/the-medical-center-of-peach-county-inc-45-3765471.html">The Medical Center of Peach County</a><span class="sub">Laura T Gentry</span></td>
+
+<td class="num" data-v="325094.0">$325,094</td>
+<td class="num" data-v="41057796.0">$41.1M</td>
+<td class="num" data-v="1.9191895667388352">1.92%</td>
+<td class="num" data-v="679854.0">$679,854</td>
+<td class="num ratio" data-v="47.81820802701757">48%</td></tr><tr data-name="stephens county hospital authority" data-ceo="van loskoski" data-state="GA" data-kids="0">
+<td class="num">897</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/stephens-county-hospital-authority-58-6001667.html">Stephens County Hospital Authority</a><span class="sub">Van Loskoski</span></td>
+
+<td class="num" data-v="304438.0">$304,438</td>
+<td class="num" data-v="52470898.0">$52.5M</td>
+<td class="num" data-v="2.7217660228540086">2.72%</td>
+<td class="num" data-v="1442595.0">$1.4M</td>
+<td class="num ratio" data-v="21.10349751662802">21%</td></tr><tr data-name="jasper health services" data-ceo="robert cumbie" data-state="GA" data-kids="0">
+<td class="num">999</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/jasper-health-services-inc-58-2510435.html">Jasper Health Services</a><span class="sub">Robert Cumbie</span></td>
+
+<td class="num" data-v="213498.0">$213,498</td>
+<td class="num" data-v="16880679.0">$16.9M</td>
+<td class="num" data-v="1.5216303234287385">1.52%</td>
+<td class="num" data-v="266256.0">$266,256</td>
+<td class="num ratio" data-v="80.18523526230395">80%</td></tr></tbody></table></div>
+<p class="note">Systems not shown: 12 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/emory-university-58-0566256.html">Emory University</a>, <a href="/reports/hospital-ceo-pay/system/grady-memorial-hospital-corporation-26-2037695.html">Grady Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/medical-center-of-central-georgia-inc-58-2149128.html">Medical Center of Central Georgia</a>, <a href="/reports/hospital-ceo-pay/system/candler-hospital-inc-58-0593388.html">Candler Hospital</a>, <a href="/reports/hospital-ceo-pay/system/john-d-archbold-memorial-hospital-inc-58-0566121.html">John D Archbold Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/houston-hospitals-inc-71-1045290.html">Houston Hospitals</a>, <a href="/reports/hospital-ceo-pay/system/polk-medical-center-inc-45-3957368.html">Polk Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/hillside-inc-58-0603148.html">Hillside</a>, <a href="/reports/hospital-ceo-pay/system/phoebe-worth-medical-center-inc-38-3647394.html">Phoebe Worth Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/taylor-regional-hospital-inc-58-0655369.html">Taylor Regional Hospital</a>, <a href="/reports/hospital-ceo-pay/system/meriwether-health-properties-inc-26-1150091.html">Meriwether Health Properties</a>, <a href="/reports/hospital-ceo-pay/system/st-michael-corporation-27-0279044.html">St Michael</a>.</p>
+<script>
+(function(){
+  var tables=document.querySelectorAll('table.sortable');
+  tables.forEach(function(t){
+    var ths=t.querySelectorAll('th');
+    ths.forEach(function(th,i){th.addEventListener('click',function(){
+      var tb=t.tBodies[0], rows=Array.prototype.slice.call(tb.rows), k=th.dataset.k, asc=th.dataset.asc!=='1';
+      ths.forEach(function(h){delete h.dataset.asc}); th.dataset.asc=asc?'1':'0';
+      rows.sort(function(a,b){var x=a.cells[i],y=b.cells[i]; if(k==='num'){x=parseFloat(x.dataset.v!==undefined?x.dataset.v:x.textContent)||0;y=parseFloat(y.dataset.v!==undefined?y.dataset.v:y.textContent)||0;return asc?x-y:y-x}
+        x=x.textContent.trim().toLowerCase();y=y.textContent.trim().toLowerCase();return asc?(x<y?-1:x>y?1:0):(x>y?-1:x<y?1:0)});
+      rows.forEach(function(r){tb.appendChild(r)});
+    })});
+  });
+  var q=document.getElementById('q'), kids=document.getElementById('kids');
+  function filter(){var v=(q?q.value:'').trim().toLowerCase(), showKids=kids?kids.checked:true;
+    document.querySelectorAll('table.sortable tbody tr').forEach(function(r){
+      var ok=(!v||r.dataset.name.indexOf(v)>=0||r.dataset.ceo.indexOf(v)>=0||r.dataset.state.toLowerCase()===v)&&(showKids||r.dataset.kids!=='1');
+      r.hidden=!ok;});}
+  if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
+})();
+</script></main>
+<footer><div class="rule-single"></div>
+<div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
+<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-18 &middot; Built 2026-10-20</p>
+<p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to corrections@everythingisbroken.org.</p>
+<p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>
+</div></body></html>

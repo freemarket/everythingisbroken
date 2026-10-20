@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>North Dakota hospitals - Everything Is Broken</title>
+<meta name="description" content="Nonprofit hospital systems in North Dakota ranked by CEO pay.">
+<link rel="icon" type="image/png" href="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
+--serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.sheet{max-width:1100px;margin:0 auto;background:var(--paper);padding:40px 32px;min-height:100vh}
+@media(min-width:640px){.sheet{margin:32px auto;border:1px solid var(--border);box-shadow:0 1px 2px rgba(0,0,0,.05)}}
+@media(max-width:640px){.sheet{padding:28px 16px}}
+.mast{text-align:center;margin-bottom:28px}
+.mast .seal{display:inline-block;margin-bottom:18px}
+.mast .seal img{width:128px;height:128px;display:block;margin:0 auto}
+.mast h1{font-size:2.6rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;font-weight:700;line-height:1.1}
+@media(max-width:640px){.mast h1{font-size:1.7rem}}
+.rule-double{border-top:4px double var(--ink)}
+.rule-double-bottom{border-bottom:4px double var(--ink)}
+.rule-single{border-bottom:1px solid var(--ink)}
+.mast .sub{font-style:italic;font-size:1.25rem;margin:12px 0 22px;letter-spacing:.02em}
+.mast nav.site{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 36px;text-transform:uppercase;letter-spacing:.1em;font-size:.95rem;padding-bottom:16px;border-bottom:1px solid var(--ink)}
+.mast nav.site a{text-decoration:none}
+.mast nav.site a:hover{color:var(--muted)}
+.mast nav.site a.on{font-weight:700;text-decoration:underline}
+.band{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;padding:12px 0;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.band .rep{color:var(--ink)}
+.band nav{display:flex;flex-wrap:wrap;gap:6px 18px}
+.band nav a{color:var(--muted);text-decoration:none}
+.band nav a:hover,.band nav a.on{color:var(--ink);text-decoration:underline}
+h1.title{font-size:2rem;line-height:1.2;margin:34px 0 8px;font-weight:700}
+h2{font-size:1.25rem;text-transform:uppercase;letter-spacing:.12em;margin:48px 0 14px;font-weight:700;display:inline-block;padding-bottom:4px;border-bottom:1px solid var(--ink)}
+h2 .n{font-family:var(--mono);font-weight:400;color:var(--muted);margin-right:10px;letter-spacing:.05em}
+h3{font-size:1.05rem;margin:26px 0 8px}
+p{margin:0 0 1rem}
+.doc-no{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:34px 0 0}
+.doc-no a{color:var(--muted)}
+.lede{font-size:1.2rem;line-height:1.55;max-width:66ch}
+.prose{max-width:70ch}
+.fig{font-family:var(--mono);font-size:.95em;letter-spacing:-.02em}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border:1px solid var(--ink);margin:26px 0}
+.stat{padding:16px 18px 14px;border-right:1px solid var(--border);min-width:0}
+.stat:last-child{border-right:0}
+.stat .v{font-family:var(--mono);font-size:2.1rem;line-height:1.05;font-weight:700;letter-spacing:-.03em}
+.stat .v.red{color:var(--red)}
+.stat .l{font-size:.82rem;color:var(--muted);margin-top:8px;line-height:1.4}
+.big3 .stat .v{font-size:2.6rem}
+@media(max-width:640px){.stat .v,.big3 .stat .v{font-size:1.7rem}.stat-row{grid-template-columns:1fr 1fr}.stat:nth-child(2n){border-right:0}}
+.tablewrap{overflow-x:auto;border:1px solid var(--ink);margin:14px 0 10px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;white-space:nowrap}
+thead th{background:var(--ink);color:#fff;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;font-weight:400;padding:10px 12px;text-align:left;cursor:pointer;user-select:none;white-space:normal;line-height:1.3;vertical-align:bottom}
+thead th.num{text-align:right}
+thead th[data-asc="1"]::after{content:" ▲"}thead th[data-asc="0"]::after{content:" ▼"}
+td{padding:10px 12px;border-bottom:1px solid #d9d4c7;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-family:var(--mono);font-size:.86rem}
+td.name{min-width:200px;white-space:normal}
+td.name a{font-weight:700;text-decoration:none}
+td.name a:hover{text-decoration:underline}
+td .sub{display:block;font-size:.84rem;color:var(--muted);font-weight:400;margin-top:2px}
+td.ratio{color:var(--red);font-weight:700}
+tr.kids td{color:var(--muted)}tr.kids td.name a{color:var(--muted);font-weight:400}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin:18px 0 4px;font-size:.92rem}
+.toolbar input[type=search]{font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);min-width:min(340px,100%);border-radius:0}
+.toolbar label{display:flex;gap:8px;align-items:center;color:var(--muted)}
+.note{font-size:.88rem;color:var(--muted);max-width:70ch;line-height:1.55}
+.src{font-size:.85rem;color:var(--muted);margin-top:8px}
+dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 24px;font-size:.95rem;max-width:70ch;border-top:1px solid var(--border);padding-top:12px;margin:0}
+dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:.9rem;min-width:0}
+.callout{background:var(--surface);border:1px solid var(--ink);border-left:6px solid var(--red);padding:14px 18px;max-width:70ch;margin:22px 0;font-size:1.02rem;line-height:1.55}
+.cb{display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-size:.92rem;max-width:600px}
+.cb span:nth-child(2n){font-family:var(--mono);font-size:.88rem}
+.cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
+.cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.card{border:1px solid var(--ink);padding:22px}
+.card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
+.card p,.card li{font-size:.92rem}
+.btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;padding:10px 16px;margin:4px 6px 4px 0}
+.btn:hover{background:#333}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink);padding:8px 14px}
+.btn.ghost:hover{background:var(--ink);color:#fff}
+ul.files{list-style:none;padding:0;margin:0}
+ul.files li{padding:12px 0;border-bottom:1px solid var(--border)}
+ul.files li:last-child{border-bottom:0}
+ul.files .fn{font-family:var(--mono);font-weight:700}
+ul.files .meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);display:block;margin-top:4px;white-space:normal;word-break:break-all}
+code{font-family:var(--mono);font-size:.88em}
+pre{background:var(--surface);border:1px solid var(--border);padding:14px;overflow-x:auto;font-size:.82rem;line-height:1.45}
+.manual table{white-space:normal;font-size:.86rem}
+.manual thead th{cursor:default}
+footer{margin-top:64px;padding-top:28px;text-align:center;font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;color:var(--muted)}
+footer .rule-single{width:100%;max-width:440px;margin:0 auto 22px}
+footer .links a{color:var(--muted);text-decoration:none;margin:0 10px}
+footer .links a:hover{color:var(--ink)}
+footer p{margin:14px 0 0}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+</style></head><body>
+<div class="sheet">
+<header class="mast">
+<a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
+<h1>Everything Is Broken</h1>
+<div class="rule-double"></div>
+<p class="sub">Office of Institutional Accounts</p>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+</header>
+<main>
+
+<p class="doc-no">Report No. 1 &middot; 2026 edition &middot; <a href="/reports/hospital-ceo-pay/states.html">all states</a></p>
+<h1 class="title">North Dakota</h1>
+<p class="lede">24 nonprofit hospital systems file from North Dakota. Median charity care: 0.31% of expenses.</p>
+<div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
+<div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and chief executive</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="altru health system" data-ceo="todd forkel" data-state="ND" data-kids="0">
+<td class="num">344</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/altru-health-system-45-0310462.html">Altru Health System</a><span class="sub">Todd Forkel</span></td>
+
+<td class="num" data-v="1330342.0">$1.3M</td>
+<td class="num" data-v="780388280.0">$780.4M</td>
+<td class="num" data-v="0.8478816528269097">0.85%</td>
+<td class="num" data-v="6219653.0">$6.2M</td>
+<td class="num ratio" data-v="21.38932831140258">21%</td></tr><tr data-name="trinity health &amp; affiliates" data-ceo="john kutch" data-state="ND" data-kids="0">
+<td class="num">456</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/trinity-health-affiliates-33-1007002.html">Trinity Health &amp; Affiliates</a><span class="sub">John Kutch</span></td>
+
+<td class="num" data-v="993900.0">$993,900</td>
+<td class="num" data-v="385754703.0">$385.8M</td>
+<td class="num" data-v="0.9895219289526682">0.99%</td>
+<td class="num" data-v="3881797.0">$3.9M</td>
+<td class="num ratio" data-v="25.60412097799035">26%</td></tr><tr data-name="lutheran charity association d/b/a jamestown regional medical center" data-ceo="mike delfs" data-state="ND" data-kids="0">
+<td class="num">724</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/lutheran-charity-association-d-b-a-jamestown-regional-medical-center-45-0231181.html">Lutheran Charity Association D/B/A Jamestown Regional Medical Center</a><span class="sub">Mike Delfs</span></td>
+
+<td class="num" data-v="502364.0">$502,364</td>
+<td class="num" data-v="84283730.0">$84.3M</td>
+<td class="num" data-v="0.807440118522597">0.81%</td>
+<td class="num" data-v="672000.0">$672,000</td>
+<td class="num ratio" data-v="74.75654761904762">75%</td></tr><tr data-name="christian unity hospital" data-ceo="alan o&#x27;neil" data-state="ND" data-kids="0">
+<td class="num">759</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/christian-unity-hospital-corporation-45-0310159.html">Christian Unity Hospital</a><span class="sub">Alan O&#x27;Neil</span></td>
+
+<td class="num" data-v="462109.0">$462,109</td>
+<td class="num" data-v="35320646.0">$35.3M</td>
+<td class="num" data-v="0.055218795806905335">0.06%</td>
+<td class="num" data-v="18626.0">$18,626</td>
+<td class="num ratio" data-v="2480.9889401911305">2481%</td></tr><tr data-name="st andrew&#x27;s hospital" data-ceo="christopher albertson" data-state="ND" data-kids="0">
+<td class="num">808</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/st-andrew-s-hospital-45-0226426.html">St Andrew&#x27;S Hospital</a><span class="sub">Christopher Albertson</span></td>
+
+<td class="num" data-v="403486.0">$403,486</td>
+<td class="num" data-v="32797408.0">$32.8M</td>
+<td class="num" data-v="0.5452365393512302">0.55%</td>
+<td class="num" data-v="168000.0">$168,000</td>
+<td class="num ratio" data-v="240.1702380952381">240%</td></tr><tr data-name="towner county medical center" data-ceo="ben bucher" data-state="ND" data-kids="0">
+<td class="num">855</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/towner-county-medical-center-inc-45-0425948.html">Towner County Medical Center</a><span class="sub">Ben Bucher</span></td>
+
+<td class="num" data-v="350144.0">$350,144</td>
+<td class="num" data-v="16091455.0">$16.1M</td>
+<td class="num" data-v="0.25855808590713064">0.26%</td>
+<td class="num" data-v="45000.0">$45,000</td>
+<td class="num ratio" data-v="778.0977777777778">778%</td></tr><tr data-name="mckenzie county healthcare systems" data-ceo="peter edis" data-state="ND" data-kids="0">
+<td class="num">863</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/mckenzie-county-healthcare-systems-inc-77-0637498.html">Mckenzie County Healthcare Systems</a><span class="sub">Peter Edis</span></td>
+
+<td class="num" data-v="342507.0">$342,507</td>
+<td class="num" data-v="65053793.0">$65.1M</td>
+<td class="num" data-v="0.1292364438638416">0.13%</td>
+<td class="num" data-v="75000.0">$75,000</td>
+<td class="num ratio" data-v="456.67600000000004">457%</td></tr><tr data-name="st aloisius hospital" data-ceo="ryan mickelsen" data-state="ND" data-kids="0">
+<td class="num">866</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/st-aloisius-hospital-45-0226729.html">St Aloisius Hospital</a><span class="sub">Ryan Mickelsen</span></td>
+
+<td class="num" data-v="340991.0">$340,991</td>
+<td class="num" data-v="27300742.0">$27.3M</td>
+<td class="num" data-v="0.014701886358608487">0.01%</td>
+<td class="num" data-v="4000.0">$4,000</td>
+<td class="num ratio" data-v="8524.775">8525%</td></tr><tr data-name="linton hospital" data-ceo="lukas fischer" data-state="ND" data-kids="0">
+<td class="num">873</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/linton-hospital-45-0253272.html">Linton Hospital</a><span class="sub">Lukas Fischer</span></td>
+
+<td class="num" data-v="332242.0">$332,242</td>
+<td class="num" data-v="23143886.0">$23.1M</td>
+<td class="num" data-v="0.18957208906325995">0.19%</td>
+<td class="num" data-v="43000.0">$43,000</td>
+<td class="num ratio" data-v="772.6558139534884">773%</td></tr><tr data-name="cavalier county memorial hospital association" data-ceo="richard wayne reid" data-state="ND" data-kids="0">
+<td class="num">903</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/cavalier-county-memorial-hospital-association-45-0306787.html">Cavalier County Memorial Hospital Association</a><span class="sub">Richard Wayne Reid</span></td>
+
+<td class="num" data-v="300996.0">$300,996</td>
+<td class="num" data-v="13015296.0">$13.0M</td>
+<td class="num" data-v="1.0046390236154623">1.00%</td>
+<td class="num" data-v="146366.0">$146,366</td>
+<td class="num ratio" data-v="205.64612000054657">206%</td></tr><tr data-name="mountrail county medical center" data-ceo="stephanie everett" data-state="ND" data-kids="0">
+<td class="num">932</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/mountrail-county-medical-center-45-0447670.html">Mountrail County Medical Center</a><span class="sub">Stephanie Everett</span></td>
+
+<td class="num" data-v="268028.0">$268,028</td>
+<td class="num" data-v="13086320.0">$13.1M</td>
+<td class="num" data-v="0.3043900748065467">0.30%</td>
+<td class="num" data-v="34000.0">$34,000</td>
+<td class="num ratio" data-v="788.3176470588236">788%</td></tr><tr data-name="southwest healthcare services" data-ceo="dennis goebel" data-state="ND" data-kids="0">
+<td class="num">933</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/southwest-healthcare-services-45-0458242.html">Southwest Healthcare Services</a><span class="sub">Dennis Goebel</span></td>
+
+<td class="num" data-v="266518.0">$266,518</td>
+<td class="num" data-v="17857522.0">$17.9M</td>
+<td class="num" data-v="0.5022725402093472">0.50%</td>
+<td class="num" data-v="93000.0">$93,000</td>
+<td class="num ratio" data-v="286.5784946236559">287%</td></tr><tr data-name="pr health" data-ceo="marcus lewis" data-state="ND" data-kids="0">
+<td class="num">937</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/pr-health-corporation-45-0232743.html">Pr Health</a><span class="sub">Marcus Lewis</span></td>
+
+<td class="num" data-v="264191.0">$264,191</td>
+<td class="num" data-v="22433056.0">$22.4M</td>
+<td class="num" data-v="0.37709262840475366">0.38%</td>
+<td class="num" data-v="84000.0">$84,000</td>
+<td class="num ratio" data-v="314.5130952380952">315%</td></tr><tr data-name="ashley medical center" data-ceo="eric heupel" data-state="ND" data-kids="0">
+<td class="num">965</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/ashley-medical-center-45-0255914.html">Ashley Medical Center</a><span class="sub">Eric Heupel</span></td>
+
+<td class="num" data-v="239626.0">$239,626</td>
+<td class="num" data-v="10818150.0">$10.8M</td>
+<td class="num" data-v="0.05207866343235021">0.05%</td>
+<td class="num" data-v="6000.0">$6,000</td>
+<td class="num ratio" data-v="3993.7666666666664">3994%</td></tr><tr data-name="jacobson memorial hospital care center" data-ceo="theo stoller" data-state="ND" data-kids="0">
+<td class="num">968</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/jacobson-memorial-hospital-care-center-45-0222079.html">Jacobson Memorial Hospital Care Center</a><span class="sub">Theo Stoller</span></td>
+
+<td class="num" data-v="236919.0">$236,919</td>
+<td class="num" data-v="11429563.0">$11.4M</td>
+<td class="num" data-v="0.015352892765187255">0.02%</td>
+<td class="num" data-v="2000.0">$2,000</td>
+<td class="num ratio" data-v="11845.95">11846%</td></tr><tr data-name="west river health services" data-ceo="alyson kornele" data-state="ND" data-kids="0">
+<td class="num">970</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/west-river-health-services-45-0340688.html">West River Health Services</a><span class="sub">Alyson Kornele</span></td>
+
+<td class="num" data-v="235596.0">$235,596</td>
+<td class="num" data-v="32377804.0">$32.4M</td>
+<td class="num" data-v="0.2431394953883858">0.24%</td>
+<td class="num" data-v="76637.0">$76,637</td>
+<td class="num ratio" data-v="307.41808786878397">307%</td></tr><tr data-name="pembina county memorial hospital association" data-ceo="lisa letexier" data-state="ND" data-kids="0">
+<td class="num">981</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/pembina-county-memorial-hospital-association-45-6013474.html">Pembina County Memorial Hospital Association</a><span class="sub">Lisa Letexier</span></td>
+
+<td class="num" data-v="228806.0">$228,806</td>
+<td class="num" data-v="23478668.0">$23.5M</td>
+<td class="num" data-v="0.23675992024434372">0.24%</td>
+<td class="num" data-v="51393.0">$51,393</td>
+<td class="num ratio" data-v="445.2084914287938">445%</td></tr><tr data-name="tioga medical center" data-ceo="jamie eraas" data-state="ND" data-kids="0">
+<td class="num">986</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/tioga-medical-center-45-0308484.html">Tioga Medical Center</a><span class="sub">Jamie Eraas</span></td>
+
+<td class="num" data-v="224859.0">$224,859</td>
+<td class="num" data-v="21180603.0">$21.2M</td>
+<td class="num" data-v="0.1341790117619175">0.13%</td>
+<td class="num" data-v="25000.0">$25,000</td>
+<td class="num ratio" data-v="899.436">899%</td></tr><tr data-name="good samaritan hospital association" data-ceo="erik christenson" data-state="ND" data-kids="0">
+<td class="num">989</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/good-samaritan-hospital-association-45-0226419.html">Good Samaritan Hospital Association</a><span class="sub">Erik Christenson</span></td>
+
+<td class="num" data-v="221384.0">$221,384</td>
+<td class="num" data-v="39300907.0">$39.3M</td>
+<td class="num" data-v="1.2714922079454407">1.27%</td>
+<td class="num" data-v="490000.0">$490,000</td>
+<td class="num ratio" data-v="45.180408163265305">45%</td></tr><tr data-name="hazen memorial hospital association" data-ceo="kurt waldbillig" data-state="ND" data-kids="0">
+<td class="num">1044</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/hazen-memorial-hospital-association-45-0308379.html">Hazen Memorial Hospital Association</a><span class="sub">Kurt Waldbillig</span></td>
+
+<td class="num" data-v="166742.0">$166,742</td>
+<td class="num" data-v="20615012.0">$20.6M</td>
+<td class="num" data-v="0.3445772293137233">0.34%</td>
+<td class="num" data-v="64000.0">$64,000</td>
+<td class="num ratio" data-v="260.534375">261%</td></tr><tr data-name="cooperstown medical center" data-ceo="nicole lindsey" data-state="ND" data-kids="0">
+<td class="num">1070</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/cooperstown-medical-center-45-0227753.html">Cooperstown Medical Center</a><span class="sub">Nicole Lindsey</span></td>
+
+<td class="num" data-v="72929.0">$72,929</td>
+<td class="num" data-v="9989983.0">$10.0M</td>
+<td class="num" data-v="0.7688412126406398">0.77%</td>
+<td class="num" data-v="76000.0">$76,000</td>
+<td class="num ratio" data-v="95.95921052631579">96%</td></tr></tbody></table></div>
+<p class="note">Systems not shown: 3 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/innovis-health-llc-26-1175213.html">Innovis Health</a>, <a href="/reports/hospital-ceo-pay/system/northwood-deaconess-health-center-45-0226472.html">Northwood Deaconess Health Center</a>, <a href="/reports/hospital-ceo-pay/system/nelson-county-health-system-hospital-45-0119890.html">Nelson County Health System-Hospital</a>.</p>
+<script>
+(function(){
+  var tables=document.querySelectorAll('table.sortable');
+  tables.forEach(function(t){
+    var ths=t.querySelectorAll('th');
+    ths.forEach(function(th,i){th.addEventListener('click',function(){
+      var tb=t.tBodies[0], rows=Array.prototype.slice.call(tb.rows), k=th.dataset.k, asc=th.dataset.asc!=='1';
+      ths.forEach(function(h){delete h.dataset.asc}); th.dataset.asc=asc?'1':'0';
+      rows.sort(function(a,b){var x=a.cells[i],y=b.cells[i]; if(k==='num'){x=parseFloat(x.dataset.v!==undefined?x.dataset.v:x.textContent)||0;y=parseFloat(y.dataset.v!==undefined?y.dataset.v:y.textContent)||0;return asc?x-y:y-x}
+        x=x.textContent.trim().toLowerCase();y=y.textContent.trim().toLowerCase();return asc?(x<y?-1:x>y?1:0):(x>y?-1:x<y?1:0)});
+      rows.forEach(function(r){tb.appendChild(r)});
+    })});
+  });
+  var q=document.getElementById('q'), kids=document.getElementById('kids');
+  function filter(){var v=(q?q.value:'').trim().toLowerCase(), showKids=kids?kids.checked:true;
+    document.querySelectorAll('table.sortable tbody tr').forEach(function(r){
+      var ok=(!v||r.dataset.name.indexOf(v)>=0||r.dataset.ceo.indexOf(v)>=0||r.dataset.state.toLowerCase()===v)&&(showKids||r.dataset.kids!=='1');
+      r.hidden=!ok;});}
+  if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
+})();
+</script></main>
+<footer><div class="rule-single"></div>
+<div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
+<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-18 &middot; Built 2026-10-20</p>
+<p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to corrections@everythingisbroken.org.</p>
+<p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>
+</div></body></html>

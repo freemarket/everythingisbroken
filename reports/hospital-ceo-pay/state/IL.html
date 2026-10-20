@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Illinois hospitals - Everything Is Broken</title>
+<meta name="description" content="Nonprofit hospital systems in Illinois ranked by CEO pay.">
+<link rel="icon" type="image/png" href="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
+--serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.sheet{max-width:1100px;margin:0 auto;background:var(--paper);padding:40px 32px;min-height:100vh}
+@media(min-width:640px){.sheet{margin:32px auto;border:1px solid var(--border);box-shadow:0 1px 2px rgba(0,0,0,.05)}}
+@media(max-width:640px){.sheet{padding:28px 16px}}
+.mast{text-align:center;margin-bottom:28px}
+.mast .seal{display:inline-block;margin-bottom:18px}
+.mast .seal img{width:128px;height:128px;display:block;margin:0 auto}
+.mast h1{font-size:2.6rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;font-weight:700;line-height:1.1}
+@media(max-width:640px){.mast h1{font-size:1.7rem}}
+.rule-double{border-top:4px double var(--ink)}
+.rule-double-bottom{border-bottom:4px double var(--ink)}
+.rule-single{border-bottom:1px solid var(--ink)}
+.mast .sub{font-style:italic;font-size:1.25rem;margin:12px 0 22px;letter-spacing:.02em}
+.mast nav.site{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 36px;text-transform:uppercase;letter-spacing:.1em;font-size:.95rem;padding-bottom:16px;border-bottom:1px solid var(--ink)}
+.mast nav.site a{text-decoration:none}
+.mast nav.site a:hover{color:var(--muted)}
+.mast nav.site a.on{font-weight:700;text-decoration:underline}
+.band{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;padding:12px 0;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.band .rep{color:var(--ink)}
+.band nav{display:flex;flex-wrap:wrap;gap:6px 18px}
+.band nav a{color:var(--muted);text-decoration:none}
+.band nav a:hover,.band nav a.on{color:var(--ink);text-decoration:underline}
+h1.title{font-size:2rem;line-height:1.2;margin:34px 0 8px;font-weight:700}
+h2{font-size:1.25rem;text-transform:uppercase;letter-spacing:.12em;margin:48px 0 14px;font-weight:700;display:inline-block;padding-bottom:4px;border-bottom:1px solid var(--ink)}
+h2 .n{font-family:var(--mono);font-weight:400;color:var(--muted);margin-right:10px;letter-spacing:.05em}
+h3{font-size:1.05rem;margin:26px 0 8px}
+p{margin:0 0 1rem}
+.doc-no{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:34px 0 0}
+.doc-no a{color:var(--muted)}
+.lede{font-size:1.2rem;line-height:1.55;max-width:66ch}
+.prose{max-width:70ch}
+.fig{font-family:var(--mono);font-size:.95em;letter-spacing:-.02em}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border:1px solid var(--ink);margin:26px 0}
+.stat{padding:16px 18px 14px;border-right:1px solid var(--border);min-width:0}
+.stat:last-child{border-right:0}
+.stat .v{font-family:var(--mono);font-size:2.1rem;line-height:1.05;font-weight:700;letter-spacing:-.03em}
+.stat .v.red{color:var(--red)}
+.stat .l{font-size:.82rem;color:var(--muted);margin-top:8px;line-height:1.4}
+.big3 .stat .v{font-size:2.6rem}
+@media(max-width:640px){.stat .v,.big3 .stat .v{font-size:1.7rem}.stat-row{grid-template-columns:1fr 1fr}.stat:nth-child(2n){border-right:0}}
+.tablewrap{overflow-x:auto;border:1px solid var(--ink);margin:14px 0 10px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;white-space:nowrap}
+thead th{background:var(--ink);color:#fff;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;font-weight:400;padding:10px 12px;text-align:left;cursor:pointer;user-select:none;white-space:normal;line-height:1.3;vertical-align:bottom}
+thead th.num{text-align:right}
+thead th[data-asc="1"]::after{content:" ▲"}thead th[data-asc="0"]::after{content:" ▼"}
+td{padding:10px 12px;border-bottom:1px solid #d9d4c7;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-family:var(--mono);font-size:.86rem}
+td.name{min-width:200px;white-space:normal}
+td.name a{font-weight:700;text-decoration:none}
+td.name a:hover{text-decoration:underline}
+td .sub{display:block;font-size:.84rem;color:var(--muted);font-weight:400;margin-top:2px}
+td.ratio{color:var(--red);font-weight:700}
+tr.kids td{color:var(--muted)}tr.kids td.name a{color:var(--muted);font-weight:400}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin:18px 0 4px;font-size:.92rem}
+.toolbar input[type=search]{font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);min-width:min(340px,100%);border-radius:0}
+.toolbar label{display:flex;gap:8px;align-items:center;color:var(--muted)}
+.note{font-size:.88rem;color:var(--muted);max-width:70ch;line-height:1.55}
+.src{font-size:.85rem;color:var(--muted);margin-top:8px}
+dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 24px;font-size:.95rem;max-width:70ch;border-top:1px solid var(--border);padding-top:12px;margin:0}
+dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:.9rem;min-width:0}
+.callout{background:var(--surface);border:1px solid var(--ink);border-left:6px solid var(--red);padding:14px 18px;max-width:70ch;margin:22px 0;font-size:1.02rem;line-height:1.55}
+.cb{display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-size:.92rem;max-width:600px}
+.cb span:nth-child(2n){font-family:var(--mono);font-size:.88rem}
+.cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
+.cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.card{border:1px solid var(--ink);padding:22px}
+.card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
+.card p,.card li{font-size:.92rem}
+.btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;padding:10px 16px;margin:4px 6px 4px 0}
+.btn:hover{background:#333}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink);padding:8px 14px}
+.btn.ghost:hover{background:var(--ink);color:#fff}
+ul.files{list-style:none;padding:0;margin:0}
+ul.files li{padding:12px 0;border-bottom:1px solid var(--border)}
+ul.files li:last-child{border-bottom:0}
+ul.files .fn{font-family:var(--mono);font-weight:700}
+ul.files .meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);display:block;margin-top:4px;white-space:normal;word-break:break-all}
+code{font-family:var(--mono);font-size:.88em}
+pre{background:var(--surface);border:1px solid var(--border);padding:14px;overflow-x:auto;font-size:.82rem;line-height:1.45}
+.manual table{white-space:normal;font-size:.86rem}
+.manual thead th{cursor:default}
+footer{margin-top:64px;padding-top:28px;text-align:center;font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;color:var(--muted)}
+footer .rule-single{width:100%;max-width:440px;margin:0 auto 22px}
+footer .links a{color:var(--muted);text-decoration:none;margin:0 10px}
+footer .links a:hover{color:var(--ink)}
+footer p{margin:14px 0 0}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+</style></head><body>
+<div class="sheet">
+<header class="mast">
+<a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
+<h1>Everything Is Broken</h1>
+<div class="rule-double"></div>
+<p class="sub">Office of Institutional Accounts</p>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+</header>
+<main>
+
+<p class="doc-no">Report No. 1 &middot; 2026 edition &middot; <a href="/reports/hospital-ceo-pay/states.html">all states</a></p>
+<h1 class="title">Illinois</h1>
+<p class="lede">64 nonprofit hospital systems file from Illinois. Median charity care: 0.87% of expenses.</p>
+<div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
+<div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and chief executive</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="advocate health (midwest)" data-ceo="eugene woods" data-state="IL" data-kids="0">
+<td class="num">3</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/advocate-health-and-hospitals-corp-36-2169147.html">Advocate Health (Midwest)</a><span class="sub">Eugene Woods</span></td>
+
+<td class="num" data-v="25781275.0">$25.8M</td>
+<td class="num" data-v="17818504222.0">$17.8B</td>
+<td class="num" data-v="0.6576149955577253">0.66%</td>
+<td class="num" data-v="114937893.0">$114.9M</td>
+<td class="num ratio" data-v="22.430613896846012">22%</td></tr><tr data-name="northwestern medicine" data-ceo="howard b chrisman md" data-state="IL" data-kids="0">
+<td class="num">24</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/northwestern-memorial-healthcare-group-36-4724966.html">Northwestern Medicine</a><span class="sub">Howard B Chrisman MD</span></td>
+
+<td class="num" data-v="8174061.0">$8.2M</td>
+<td class="num" data-v="11241795455.0">$11.2B</td>
+<td class="num" data-v="1.0464854812152">1.05%</td>
+<td class="num" data-v="114908722.0">$114.9M</td>
+<td class="num ratio" data-v="7.113525290099389">7%</td></tr><tr data-name="endeavor health" data-ceo="gerald p gallagher" data-state="IL" data-kids="0">
+<td class="num">53</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/endeavor-health-clinical-operations-36-2167060.html">Endeavor Health</a><span class="sub">Gerald P Gallagher</span></td>
+
+<td class="num" data-v="5191626.0">$5.2M</td>
+<td class="num" data-v="5169095504.0">$5.2B</td>
+<td class="num" data-v="1.235418072413697">1.24%</td>
+<td class="num" data-v="55013168.0">$55.0M</td>
+<td class="num ratio" data-v="9.43706059611037">9%</td></tr><tr data-name="rush university system for health" data-ceo="omar b lateef do" data-state="IL" data-kids="0">
+<td class="num">59</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/rush-university-medical-center-36-2174823.html">Rush University System for Health</a><span class="sub">Omar B Lateef DO</span></td>
+
+<td class="num" data-v="4819778.0">$4.8M</td>
+<td class="num" data-v="2758712727.0">$2.8B</td>
+<td class="num" data-v="1.2009295057126708">1.20%</td>
+<td class="num" data-v="28186349.0">$28.2M</td>
+<td class="num ratio" data-v="17.09968893097861">17%</td></tr><tr data-name="osf healthcare system" data-ceo="robert c sehring" data-state="IL" data-kids="0">
+<td class="num">111</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/osf-healthcare-system-37-0813229.html">OSF Healthcare System</a><span class="sub">Robert C Sehring</span></td>
+
+<td class="num" data-v="3181962.0">$3.2M</td>
+<td class="num" data-v="4781305155.0">$4.8B</td>
+<td class="num" data-v="1.499154926579788">1.50%</td>
+<td class="num" data-v="62131433.0">$62.1M</td>
+<td class="num ratio" data-v="5.121340111373256">5%</td></tr><tr class="kids" data-name="ann &amp; robert h lurie children&#x27;s hospital of chicago" data-ceo="thomas p shanley md" data-state="IL" data-kids="1">
+<td class="num">141</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/ann-robert-h-lurie-children-s-hospital-of-chicago-36-2170833.html">Ann &amp; Robert H Lurie Children&#x27;S Hospital of Chicago</a><span class="sub">Thomas P Shanley MD · children’s</span></td>
+
+<td class="num" data-v="2617499.0">$2.6M</td>
+<td class="num" data-v="1726489572.0">$1.7B</td>
+<td class="num" data-v="0.06058437231172347">0.06%</td>
+<td class="num" data-v="894903.0">$894,903</td>
+<td class="num ratio" data-v="292.48968882661023">292%</td></tr><tr data-name="memorial health system" data-ceo="edgar curtis" data-state="IL" data-kids="0">
+<td class="num">142</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/memorial-health-system-group-90-0756744.html">Memorial Health System</a><span class="sub">Edgar Curtis</span></td>
+
+<td class="num" data-v="2607083.0">$2.6M</td>
+<td class="num" data-v="1750812430.0">$1.8B</td>
+<td class="num" data-v="0.7311859559219911">0.73%</td>
+<td class="num" data-v="12616670.0">$12.6M</td>
+<td class="num ratio" data-v="20.663796390014163">21%</td></tr><tr data-name="the carle foundation hospital" data-ceo="james c leonard md" data-state="IL" data-kids="0">
+<td class="num">167</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/the-carle-foundation-hospital-37-1119538.html">The Carle Foundation Hospital</a><span class="sub">James C Leonard MD</span></td>
+
+<td class="num" data-v="2348482.0">$2.3M</td>
+<td class="num" data-v="2709126183.0">$2.7B</td>
+<td class="num" data-v="1.055903292892549">1.06%</td>
+<td class="num" data-v="25072799.0">$25.1M</td>
+<td class="num ratio" data-v="9.36665268205596">9%</td></tr><tr data-name="rehabilitation institute of chicago" data-ceo="pablo celnik md" data-state="IL" data-kids="0">
+<td class="num">176</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/rehabilitation-institute-of-chicago-36-2256036.html">Rehabilitation Institute of Chicago</a><span class="sub">Pablo Celnik MD</span></td>
+
+<td class="num" data-v="2230293.0">$2.2M</td>
+<td class="num" data-v="481384946.0">$481.4M</td>
+<td class="num" data-v="0.045117949688562746">0.05%</td>
+<td class="num" data-v="204863.0">$204,863</td>
+<td class="num ratio" data-v="1088.6753586543202">1089%</td></tr><tr data-name="riverside medical center" data-ceo="phil kambic" data-state="IL" data-kids="0">
+<td class="num">265</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/riverside-medical-center-36-2414944.html">Riverside Medical Center</a><span class="sub">Phil Kambic</span></td>
+
+<td class="num" data-v="1679403.0">$1.7M</td>
+<td class="num" data-v="528776786.0">$528.8M</td>
+<td class="num" data-v="0.3860343090320487">0.39%</td>
+<td class="num" data-v="1798084.0">$1.8M</td>
+<td class="num ratio" data-v="93.3995853363914">93%</td></tr><tr data-name="swedishamerican hospital" data-ceo="travis andersen" data-state="IL" data-kids="0">
+<td class="num">266</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/swedishamerican-hospital-36-2222696.html">Swedishamerican Hospital</a><span class="sub">Travis Andersen</span></td>
+
+<td class="num" data-v="1677898.0">$1.7M</td>
+<td class="num" data-v="966849776.0">$966.8M</td>
+<td class="num" data-v="1.3263608543220902">1.33%</td>
+<td class="num" data-v="11907064.0">$11.9M</td>
+<td class="num ratio" data-v="14.091618219235238">14%</td></tr><tr data-name="saint anthony hospital" data-ceo="guy a medaglia" data-state="IL" data-kids="0">
+<td class="num">316</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/saint-anthony-hospital-51-0217097.html">Saint Anthony Hospital</a><span class="sub">Guy A Medaglia</span></td>
+
+<td class="num" data-v="1429735.0">$1.4M</td>
+<td class="num" data-v="158997124.0">$159.0M</td>
+<td class="num" data-v="2.1258343298458504">2.13%</td>
+<td class="num" data-v="3180605.0">$3.2M</td>
+<td class="num ratio" data-v="44.95166800027039">45%</td></tr><tr data-name="humboldt park health" data-ceo="jose r sanchez" data-state="IL" data-kids="0">
+<td class="num">339</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/humboldt-park-health-36-1564290.html">Humboldt Park Health</a><span class="sub">Jose R Sanchez</span></td>
+
+<td class="num" data-v="1362922.0">$1.4M</td>
+<td class="num" data-v="166088712.0">$166.1M</td>
+<td class="num" data-v="4.110819171821061">4.11%</td>
+<td class="num" data-v="6931206.0">$6.9M</td>
+<td class="num ratio" data-v="19.663562156427034">20%</td></tr><tr data-name="copley memorial hospital" data-ceo="john diederich ma mba fache" data-state="IL" data-kids="0">
+<td class="num">340</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/copley-memorial-hospital-inc-36-2170840.html">Copley Memorial Hospital</a><span class="sub">John Diederich Ma MBA FACHE</span></td>
+
+<td class="num" data-v="1351452.0">$1.4M</td>
+<td class="num" data-v="471880064.0">$471.9M</td>
+<td class="num" data-v="3.072026755329229">3.07%</td>
+<td class="num" data-v="13233056.0">$13.2M</td>
+<td class="num ratio" data-v="10.212697656535271">10%</td></tr><tr data-name="silver cross hospital and medical centers" data-ceo="michael mutterer" data-state="IL" data-kids="0">
+<td class="num">427</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/silver-cross-hospital-and-medical-centers-36-2174832.html">Silver Cross Hospital and Medical Centers</a><span class="sub">Michael Mutterer</span></td>
+
+<td class="num" data-v="1039147.0">$1.0M</td>
+<td class="num" data-v="607951859.0">$608.0M</td>
+<td class="num" data-v="1.2221790646854198">1.22%</td>
+<td class="num" data-v="6800529.0">$6.8M</td>
+<td class="num ratio" data-v="15.280384805358525">15%</td></tr><tr data-name="southern illinois hospital services" data-ceo="john antes" data-state="IL" data-kids="0">
+<td class="num">435</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/southern-illinois-hospital-services-37-0618939.html">Southern Illinois Hospital Services</a><span class="sub">John Antes</span></td>
+
+<td class="num" data-v="1023241.0">$1.0M</td>
+<td class="num" data-v="827775369.0">$827.8M</td>
+<td class="num" data-v="1.3810027759268655">1.38%</td>
+<td class="num" data-v="9956765.0">$10.0M</td>
+<td class="num ratio" data-v="10.276841926067352">10%</td></tr><tr data-name="adventist midwest health" data-ceo="reed monica" data-state="IL" data-kids="0">
+<td class="num">440</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/adventist-midwest-health-36-2276984.html">Adventist Midwest Health</a><span class="sub">Reed Monica</span></td>
+
+<td class="num" data-v="1019230.0">$1.0M</td>
+<td class="num" data-v="625357245.0">$625.4M</td>
+<td class="num" data-v="0.9414182285999702">0.94%</td>
+<td class="num" data-v="5995722.0">$6.0M</td>
+<td class="num ratio" data-v="16.999287158410613">17%</td></tr><tr data-name="adventist bolingbrook hospital" data-ceo="reed md monica" data-state="IL" data-kids="0">
+<td class="num">441</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/adventist-bolingbrook-hospital-65-1219504.html">Adventist Bolingbrook Hospital</a><span class="sub">Reed MD Monica</span></td>
+
+<td class="num" data-v="1019230.0">$1.0M</td>
+<td class="num" data-v="426551174.0">$426.6M</td>
+<td class="num" data-v="2.75161735097391">2.75%</td>
+<td class="num" data-v="11794340.0">$11.8M</td>
+<td class="num ratio" data-v="8.641687453473445">9%</td></tr><tr data-name="blessing hospital" data-ceo="brian t canfield termed 42025" data-state="IL" data-kids="0">
+<td class="num">462</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/blessing-hospital-37-0661183.html">Blessing Hospital</a><span class="sub">Brian T Canfield Termed 42025</span></td>
+
+<td class="num" data-v="982702.0">$982,702</td>
+<td class="num" data-v="731188393.0">$731.2M</td>
+<td class="num" data-v="1.1486395222130001">1.15%</td>
+<td class="num" data-v="8110560.0">$8.1M</td>
+<td class="num ratio" data-v="12.116327355940896">12%</td></tr><tr data-name="sinai chicago (mount sinai)" data-ceo="ngozi ezike md" data-state="IL" data-kids="0">
+<td class="num">511</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/mount-sinai-hospital-medical-center-36-1509000.html">Sinai Chicago (Mount Sinai)</a><span class="sub">Ngozi Ezike MD</span></td>
+
+<td class="num" data-v="863356.0">$863,356</td>
+<td class="num" data-v="671371581.0">$671.4M</td>
+<td class="num" data-v="8.820763343076727">8.82%</td>
+<td class="num" data-v="64090853.0">$64.1M</td>
+<td class="num ratio" data-v="1.3470814626230672">1%</td></tr><tr data-name="morris hospital" data-ceo="thomas dohm" data-state="IL" data-kids="0">
+<td class="num">516</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/morris-hospital-36-2170155.html">Morris Hospital</a><span class="sub">Thomas Dohm</span></td>
+
+<td class="num" data-v="855241.0">$855,241</td>
+<td class="num" data-v="277556355.0">$277.6M</td>
+<td class="num" data-v="1.095223254761763">1.10%</td>
+<td class="num" data-v="2769177.0">$2.8M</td>
+<td class="num ratio" data-v="30.884302447983643">31%</td></tr><tr data-name="jackson park hospital foundation" data-ceo="dr william o dorsey iii" data-state="IL" data-kids="0">
+<td class="num">540</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/jackson-park-hospital-foundation-36-2448028.html">Jackson Park Hospital Foundation</a><span class="sub">Dr William O Dorsey III</span></td>
+
+<td class="num" data-v="814332.0">$814,332</td>
+<td class="num" data-v="95796032.0">$95.8M</td>
+<td class="num" data-v="0.2538817036388612">0.25%</td>
+<td class="num" data-v="264133.0">$264,133</td>
+<td class="num ratio" data-v="308.30377120617266">308%</td></tr><tr data-name="freeport memorial hospital" data-ceo="mark gridley" data-state="IL" data-kids="0">
+<td class="num">553</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/freeport-memorial-hospital-36-2181997.html">Freeport Memorial Hospital</a><span class="sub">Mark Gridley</span></td>
+
+<td class="num" data-v="788822.0">$788,822</td>
+<td class="num" data-v="169507199.0">$169.5M</td>
+<td class="num" data-v="0.40681219416942754">0.41%</td>
+<td class="num" data-v="642352.0">$642,352</td>
+<td class="num ratio" data-v="122.80213963683464">123%</td></tr><tr data-name="rml health providers limited partnership" data-ceo="james prister" data-state="IL" data-kids="0">
+<td class="num">563</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/rml-health-providers-limited-partnership-36-4113692.html">Rml Health Providers Limited Partnership</a><span class="sub">James Prister</span></td>
+
+<td class="num" data-v="767659.0">$767,659</td>
+<td class="num" data-v="103848771.0">$103.8M</td>
+<td class="num" data-v="0.10187760634951988">0.10%</td>
+<td class="num" data-v="104123.0">$104,123</td>
+<td class="num ratio" data-v="737.2617001046839">737%</td></tr><tr data-name="thorek memorial hospital" data-ceo="edward budd" data-state="IL" data-kids="0">
+<td class="num">612</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/thorek-memorial-hospital-36-6000085.html">Thorek Memorial Hospital</a><span class="sub">Edward Budd</span></td>
+
+<td class="num" data-v="666624.0">$666,624</td>
+<td class="num" data-v="160965453.0">$161.0M</td>
+<td class="num" data-v="0.2921959060889286">0.29%</td>
+<td class="num" data-v="333107.0">$333,107</td>
+<td class="num ratio" data-v="200.12308357374656">200%</td></tr><tr data-name="gibson community hospital association" data-ceo="rob schmitt" data-state="IL" data-kids="0">
+<td class="num">632</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/gibson-community-hospital-association-37-0647938.html">Gibson Community Hospital Association</a><span class="sub">Rob Schmitt</span></td>
+
+<td class="num" data-v="641542.0">$641,542</td>
+<td class="num" data-v="207941046.0">$207.9M</td>
+<td class="num" data-v="0.8739338665916567">0.87%</td>
+<td class="num" data-v="1687300.0">$1.7M</td>
+<td class="num ratio" data-v="38.02180999229539">38%</td></tr><tr data-name="graham hospital association" data-ceo="robert senneff" data-state="IL" data-kids="0">
+<td class="num">653</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/graham-hospital-association-37-0673506.html">Graham Hospital Association</a><span class="sub">Robert Senneff</span></td>
+
+<td class="num" data-v="602945.0">$602,945</td>
+<td class="num" data-v="150991399.0">$151.0M</td>
+<td class="num" data-v="1.4405944915573339">1.44%</td>
+<td class="num" data-v="2124885.0">$2.1M</td>
+<td class="num ratio" data-v="28.37541796379569">28%</td></tr><tr data-name="kirby medical center" data-ceo="steven tenhouse" data-state="IL" data-kids="0">
+<td class="num">664</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/kirby-medical-center-37-0661215.html">Kirby Medical Center</a><span class="sub">Steven Tenhouse</span></td>
+
+<td class="num" data-v="591548.0">$591,548</td>
+<td class="num" data-v="94027435.0">$94.0M</td>
+<td class="num" data-v="1.7724143196870212">1.77%</td>
+<td class="num" data-v="1488413.0">$1.5M</td>
+<td class="num ratio" data-v="39.743538923672396">40%</td></tr><tr data-name="st elizabeth&#x27;s hospital of the hospital sisters of the third order of st fr ancis" data-ceo="chris klay" data-state="IL" data-kids="0">
+<td class="num">677</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/st-elizabeth-s-hospital-of-the-hospital-sisters-of-the-third-order-of-st-fr-anci.html">St Elizabeth&#x27;S Hospital of the Hospital Sisters of the Third Order of St Fr Ancis</a><span class="sub">Chris Klay</span></td>
+
+<td class="num" data-v="566691.0">$566,691</td>
+<td class="num" data-v="395534368.0">$395.5M</td>
+<td class="num" data-v="0.15886044645732397">0.16%</td>
+<td class="num" data-v="571043.0">$571,043</td>
+<td class="num ratio" data-v="99.23788576341886">99%</td></tr><tr data-name="touchette regional hospital" data-ceo="larry mcculley" data-state="IL" data-kids="0">
+<td class="num">690</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/touchette-regional-hospital-37-1305510.html">Touchette Regional Hospital</a><span class="sub">Larry Mcculley</span></td>
+
+<td class="num" data-v="535863.0">$535,863</td>
+<td class="num" data-v="102992996.0">$103.0M</td>
+<td class="num" data-v="2.5791628589532776">2.58%</td>
+<td class="num" data-v="2131599.0">$2.1M</td>
+<td class="num ratio" data-v="25.139015358892546">25%</td></tr><tr data-name="anderson hospital" data-ceo="michael marshall" data-state="IL" data-kids="0">
+<td class="num">693</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/anderson-hospital-37-0662561.html">Anderson Hospital</a><span class="sub">Michael Marshall</span></td>
+
+<td class="num" data-v="528162.0">$528,162</td>
+<td class="num" data-v="256287983.0">$256.3M</td>
+<td class="num" data-v="0.4568779496322751">0.46%</td>
+<td class="num" data-v="1016473.0">$1.0M</td>
+<td class="num ratio" data-v="51.960258659108504">52%</td></tr><tr data-name="loretto hospital" data-ceo="tesa anewishki" data-state="IL" data-kids="0">
+<td class="num">708</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/loretto-hospital-36-2200248.html">Loretto Hospital</a><span class="sub">Tesa Anewishki</span></td>
+
+<td class="num" data-v="516793.0">$516,793</td>
+<td class="num" data-v="75631689.0">$75.6M</td>
+<td class="num" data-v="0.10266473033518939">0.10%</td>
+<td class="num" data-v="77213.0">$77,213</td>
+<td class="num ratio" data-v="669.3082771035965">669%</td></tr><tr data-name="st john&#x27;s hospital of the hospital sisters of the third order of st francis" data-ceo="chad markham" data-state="IL" data-kids="0">
+<td class="num">719</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/st-john-s-hospital-of-the-hospital-sisters-of-the-third-order-of-st-francis-37-0.html">St John&#x27;S Hospital of the Hospital Sisters of the Third Order of St Francis</a><span class="sub">Chad Markham</span></td>
+
+<td class="num" data-v="505232.0">$505,232</td>
+<td class="num" data-v="1084981873.0">$1.1B</td>
+<td class="num" data-v="0.1550365591533953">0.16%</td>
+<td class="num" data-v="1605040.0">$1.6M</td>
+<td class="num ratio" data-v="31.477844788914915">31%</td></tr><tr data-name="hospital &amp; medical foundation of paris" data-ceo="oliver m smith" data-state="IL" data-kids="0">
+<td class="num">727</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/hospital-medical-foundation-of-paris-inc-37-0860281.html">Hospital &amp; Medical Foundation of Paris</a><span class="sub">Oliver M Smith</span></td>
+
+<td class="num" data-v="500607.0">$500,607</td>
+<td class="num" data-v="145713004.0">$145.7M</td>
+<td class="num" data-v="1.3654897314801917">1.37%</td>
+<td class="num" data-v="1957471.0">$2.0M</td>
+<td class="num ratio" data-v="25.574171980070204">26%</td></tr><tr data-name="st. bernard hospital" data-ceo="charles holland jr" data-state="IL" data-kids="0">
+<td class="num">754</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/st-bernard-hospital-36-2264414.html">St. Bernard Hospital</a><span class="sub">Charles Holland Jr</span></td>
+
+<td class="num" data-v="465917.0">$465,917</td>
+<td class="num" data-v="110134258.0">$110.1M</td>
+<td class="num" data-v="3.9578177248975006">3.96%</td>
+<td class="num" data-v="5606257.0">$5.6M</td>
+<td class="num ratio" data-v="8.310660749230724">8%</td></tr><tr class="kids" data-name="la rabida children&#x27;s hospital" data-ceo="rolla sweis" data-state="IL" data-kids="1">
+<td class="num">781</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/la-rabida-children-s-hospital-36-2170143.html">La Rabida Children&#x27;S Hospital</a><span class="sub">Rolla Sweis · children’s</span></td>
+
+<td class="num" data-v="437767.0">$437,767</td>
+<td class="num" data-v="93423720.0">$93.4M</td>
+<td class="num" data-v="0.00020491280536808726">0.00%</td>
+<td class="num" data-v="167.0">$167</td>
+<td class="num ratio" data-v="262135.92814371258">262136%</td></tr><tr data-name="insight chicago" data-ceo="atif bawahab" data-state="IL" data-kids="0">
+<td class="num">805</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/insight-chicago-inc-86-2358048.html">Insight Chicago</a><span class="sub">Atif Bawahab</span></td>
+
+<td class="num" data-v="405218.0">$405,218</td>
+<td class="num" data-v="150594091.0">$150.6M</td>
+<td class="num" data-v="2.9624871255723573">2.96%</td>
+<td class="num" data-v="5316175.0">$5.3M</td>
+<td class="num ratio" data-v="7.62236006151039">8%</td></tr><tr data-name="midwest medical center" data-ceo="tracy bauer" data-state="IL" data-kids="0">
+<td class="num">813</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/midwest-medical-center-20-4560540.html">Midwest Medical Center</a><span class="sub">Tracy Bauer</span></td>
+
+<td class="num" data-v="398303.0">$398,303</td>
+<td class="num" data-v="50759839.0">$50.8M</td>
+<td class="num" data-v="0.4983285677784605">0.50%</td>
+<td class="num" data-v="245139.0">$245,139</td>
+<td class="num ratio" data-v="162.4804702638095">162%</td></tr><tr data-name="sarah bush lincoln health center" data-ceo="karen dyer" data-state="IL" data-kids="0">
+<td class="num">825</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/sarah-bush-lincoln-health-center-23-7098532.html">Sarah Bush Lincoln Health Center</a><span class="sub">Karen Dyer</span></td>
+
+<td class="num" data-v="384339.0">$384,339</td>
+<td class="num" data-v="885674306.0">$885.7M</td>
+<td class="num" data-v="0.6257628625161553">0.63%</td>
+<td class="num" data-v="4777408.0">$4.8M</td>
+<td class="num ratio" data-v="8.044927291116858">8%</td></tr><tr data-name="rochelle community hospital association" data-ceo="karen tracy" data-state="IL" data-kids="0">
+<td class="num">834</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/rochelle-community-hospital-association-36-2548549.html">Rochelle Community Hospital Association</a><span class="sub">Karen Tracy</span></td>
+
+<td class="num" data-v="374383.0">$374,383</td>
+<td class="num" data-v="57599463.0">$57.6M</td>
+<td class="num" data-v="1.046059750366088">1.05%</td>
+<td class="num" data-v="571330.0">$571,330</td>
+<td class="num ratio" data-v="65.52832863668982">66%</td></tr><tr data-name="south shore hospital" data-ceo="leslie rogers" data-state="IL" data-kids="0">
+<td class="num">842</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/south-shore-hospital-corporation-36-1799520.html">South Shore Hospital</a><span class="sub">Leslie Rogers</span></td>
+
+<td class="num" data-v="368912.0">$368,912</td>
+<td class="num" data-v="51039132.0">$51.0M</td>
+<td class="num" data-v="1.5106002847025684">1.51%</td>
+<td class="num" data-v="728870.0">$728,870</td>
+<td class="num ratio" data-v="50.61423847874107">51%</td></tr><tr data-name="st joseph&#x27;s hospital - hospital sisters - third order of st francis" data-ceo="michael janis" data-state="IL" data-kids="0">
+<td class="num">870</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/st-joseph-s-hospital-hospital-sisters-third-order-of-st-francis-37-1208459.html">St Joseph&#x27;S Hospital - Hospital Sisters - Third Order of St Francis</a><span class="sub">Michael Janis</span></td>
+
+<td class="num" data-v="337805.0">$337,805</td>
+<td class="num" data-v="105954031.0">$106.0M</td>
+<td class="num" data-v="0.2580508259898302">0.26%</td>
+<td class="num" data-v="220696.0">$220,696</td>
+<td class="num ratio" data-v="153.06349004966106">153%</td></tr><tr data-name="lawrence county memorial hospital" data-ceo="keith miller" data-state="IL" data-kids="0">
+<td class="num">878</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/lawrence-county-memorial-hospital-80-0618988.html">Lawrence County Memorial Hospital</a><span class="sub">Keith Miller</span></td>
+
+<td class="num" data-v="330054.0">$330,054</td>
+<td class="num" data-v="33583776.0">$33.6M</td>
+<td class="num" data-v="2.0301398334828873">2.03%</td>
+<td class="num" data-v="713914.0">$713,914</td>
+<td class="num ratio" data-v="46.23161893449351">46%</td></tr><tr data-name="pana community hospital association" data-ceo="katrina casner" data-state="IL" data-kids="0">
+<td class="num">888</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/pana-community-hospital-association-37-6062326.html">Pana Community Hospital Association</a><span class="sub">Katrina Casner</span></td>
+
+<td class="num" data-v="319743.0">$319,743</td>
+<td class="num" data-v="45818486.0">$45.8M</td>
+<td class="num" data-v="2.0031786400783456">2.00%</td>
+<td class="num" data-v="878965.0">$878,965</td>
+<td class="num ratio" data-v="36.3772163851803">36%</td></tr><tr data-name="memorial hospital association" data-ceo="ada bair" data-state="IL" data-kids="0">
+<td class="num">889</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/memorial-hospital-association-37-0684691.html">Memorial Hospital Association</a><span class="sub">Ada Bair</span></td>
+
+<td class="num" data-v="317844.0">$317,844</td>
+<td class="num" data-v="54499965.0">$54.5M</td>
+<td class="num" data-v="1.3085722025141924">1.31%</td>
+<td class="num" data-v="711000.0">$711,000</td>
+<td class="num ratio" data-v="44.70379746835443">45%</td></tr><tr data-name="thomas h boyd memorial hospital" data-ceo="stace holland" data-state="IL" data-kids="0">
+<td class="num">910</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/thomas-h-boyd-memorial-hospital-37-0673461.html">Thomas H Boyd Memorial Hospital</a><span class="sub">Stace Holland</span></td>
+
+<td class="num" data-v="294304.0">$294,304</td>
+<td class="num" data-v="21159682.0">$21.2M</td>
+<td class="num" data-v="0.24011203446941426">0.24%</td>
+<td class="num" data-v="47627.0">$47,627</td>
+<td class="num ratio" data-v="617.935204820795">618%</td></tr><tr data-name="iroquois memorial hospital &amp; resident home" data-ceo="michael tilstra" data-state="IL" data-kids="0">
+<td class="num">952</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/iroquois-memorial-hospital-resident-home-37-0673512.html">Iroquois Memorial Hospital &amp; Resident Home</a><span class="sub">Michael Tilstra</span></td>
+
+<td class="num" data-v="252055.0">$252,055</td>
+<td class="num" data-v="47008899.0">$47.0M</td>
+<td class="num" data-v="0.736404407066605">0.74%</td>
+<td class="num" data-v="337221.0">$337,221</td>
+<td class="num ratio" data-v="74.74475195791483">75%</td></tr><tr data-name="marshall browning hospital association" data-ceo="daniel eaves" data-state="IL" data-kids="0">
+<td class="num">996</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/marshall-browning-hospital-association-37-0661218.html">Marshall Browning Hospital Association</a><span class="sub">Daniel Eaves</span></td>
+
+<td class="num" data-v="214990.0">$214,990</td>
+<td class="num" data-v="40506784.0">$40.5M</td>
+<td class="num" data-v="0.26620617888036013">0.27%</td>
+<td class="num" data-v="107401.0">$107,401</td>
+<td class="num ratio" data-v="200.1750449250938">200%</td></tr><tr data-name="fairfield memorial hospital association" data-ceo="katherine bunting" data-state="IL" data-kids="0">
+<td class="num">1003</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/fairfield-memorial-hospital-association-37-0661202.html">Fairfield Memorial Hospital Association</a><span class="sub">Katherine Bunting</span></td>
+
+<td class="num" data-v="207025.0">$207,025</td>
+<td class="num" data-v="49314974.0">$49.3M</td>
+<td class="num" data-v="0.5310500413669916">0.53%</td>
+<td class="num" data-v="270904.0">$270,904</td>
+<td class="num ratio" data-v="76.42006024274282">76%</td></tr><tr data-name="hardin county general hospital" data-ceo="roby williams" data-state="IL" data-kids="0">
+<td class="num">1037</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/hardin-county-general-hospital-37-0702309.html">Hardin County General Hospital</a><span class="sub">Roby Williams</span></td>
+
+<td class="num" data-v="177406.0">$177,406</td>
+<td class="num" data-v="16916723.0">$16.9M</td>
+<td class="num" data-v="0.2815023330634629">0.28%</td>
+<td class="num" data-v="47103.0">$47,103</td>
+<td class="num ratio" data-v="376.63418465915123">377%</td></tr><tr data-name="the hopedale medical foundation" data-ceo="matthew b rossi md" data-state="IL" data-kids="0">
+<td class="num">1064</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/the-hopedale-medical-foundation-37-0808925.html">The Hopedale Medical Foundation</a><span class="sub">Matthew B Rossi MD</span></td>
+
+<td class="num" data-v="112382.0">$112,382</td>
+<td class="num" data-v="52167006.0">$52.2M</td>
+<td class="num" data-v="0.8510040575182206">0.85%</td>
+<td class="num" data-v="359874.0">$359,874</td>
+<td class="num ratio" data-v="31.22815207544863">31%</td></tr></tbody></table></div>
+<p class="note">Systems not shown: 13 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/university-of-chicago-medical-center-36-3488183.html">UChicago Medicine</a>, <a href="/reports/hospital-ceo-pay/system/loyola-university-medical-center-36-4015560.html">Loyola Medicine</a>, <a href="/reports/hospital-ceo-pay/system/trinity-medical-center-36-2739299.html">Trinity Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/rush-oak-park-hospital-inc-36-2183812.html">Rush Oak Park Hospital</a>, <a href="/reports/hospital-ceo-pay/system/deaconess-regional-healthcare-services-illinois-81-0693478.html">Deaconess Regional Healthcare Services Illinois</a>, <a href="/reports/hospital-ceo-pay/system/ferrell-hospital-community-foundation-20-1244058.html">Ferrell Hospital Community Foundation</a>, <a href="/reports/hospital-ceo-pay/system/deaconess-illinois-crossroads-inc-92-0573933.html">Deaconess Illinois Crossroads</a>, <a href="/reports/hospital-ceo-pay/system/hillsboro-area-hospital-inc-37-0661208.html">Hillsboro Area Hospital</a>, <a href="/reports/hospital-ceo-pay/system/carlinville-area-hospital-association-37-0645239.html">Carlinville Area Hospital Association</a>, <a href="/reports/hospital-ceo-pay/system/blessingcare-corporation-37-1396010.html">Blessingcare</a>, <a href="/reports/hospital-ceo-pay/system/deaconess-illinois-red-bud-regional-hospital-inc-88-4142509.html">Deaconess Illinois Red Bud Regional Hospital</a>, <a href="/reports/hospital-ceo-pay/system/deaconess-illinois-union-county-hospital-inc-92-0574426.html">Deaconess Illinois Union County Hospital</a>, <a href="/reports/hospital-ceo-pay/system/ness-healthcare-nfp-47-4572658.html">Ness Healthcare Nfp</a>.</p>
+<script>
+(function(){
+  var tables=document.querySelectorAll('table.sortable');
+  tables.forEach(function(t){
+    var ths=t.querySelectorAll('th');
+    ths.forEach(function(th,i){th.addEventListener('click',function(){
+      var tb=t.tBodies[0], rows=Array.prototype.slice.call(tb.rows), k=th.dataset.k, asc=th.dataset.asc!=='1';
+      ths.forEach(function(h){delete h.dataset.asc}); th.dataset.asc=asc?'1':'0';
+      rows.sort(function(a,b){var x=a.cells[i],y=b.cells[i]; if(k==='num'){x=parseFloat(x.dataset.v!==undefined?x.dataset.v:x.textContent)||0;y=parseFloat(y.dataset.v!==undefined?y.dataset.v:y.textContent)||0;return asc?x-y:y-x}
+        x=x.textContent.trim().toLowerCase();y=y.textContent.trim().toLowerCase();return asc?(x<y?-1:x>y?1:0):(x>y?-1:x<y?1:0)});
+      rows.forEach(function(r){tb.appendChild(r)});
+    })});
+  });
+  var q=document.getElementById('q'), kids=document.getElementById('kids');
+  function filter(){var v=(q?q.value:'').trim().toLowerCase(), showKids=kids?kids.checked:true;
+    document.querySelectorAll('table.sortable tbody tr').forEach(function(r){
+      var ok=(!v||r.dataset.name.indexOf(v)>=0||r.dataset.ceo.indexOf(v)>=0||r.dataset.state.toLowerCase()===v)&&(showKids||r.dataset.kids!=='1');
+      r.hidden=!ok;});}
+  if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
+})();
+</script></main>
+<footer><div class="rule-single"></div>
+<div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
+<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-18 &middot; Built 2026-10-20</p>
+<p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to corrections@everythingisbroken.org.</p>
+<p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>
+</div></body></html>

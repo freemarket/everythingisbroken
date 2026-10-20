@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Indiana hospitals - Everything Is Broken</title>
+<meta name="description" content="Nonprofit hospital systems in Indiana ranked by CEO pay.">
+<link rel="icon" type="image/png" href="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
+--serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.sheet{max-width:1100px;margin:0 auto;background:var(--paper);padding:40px 32px;min-height:100vh}
+@media(min-width:640px){.sheet{margin:32px auto;border:1px solid var(--border);box-shadow:0 1px 2px rgba(0,0,0,.05)}}
+@media(max-width:640px){.sheet{padding:28px 16px}}
+.mast{text-align:center;margin-bottom:28px}
+.mast .seal{display:inline-block;margin-bottom:18px}
+.mast .seal img{width:128px;height:128px;display:block;margin:0 auto}
+.mast h1{font-size:2.6rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;font-weight:700;line-height:1.1}
+@media(max-width:640px){.mast h1{font-size:1.7rem}}
+.rule-double{border-top:4px double var(--ink)}
+.rule-double-bottom{border-bottom:4px double var(--ink)}
+.rule-single{border-bottom:1px solid var(--ink)}
+.mast .sub{font-style:italic;font-size:1.25rem;margin:12px 0 22px;letter-spacing:.02em}
+.mast nav.site{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 36px;text-transform:uppercase;letter-spacing:.1em;font-size:.95rem;padding-bottom:16px;border-bottom:1px solid var(--ink)}
+.mast nav.site a{text-decoration:none}
+.mast nav.site a:hover{color:var(--muted)}
+.mast nav.site a.on{font-weight:700;text-decoration:underline}
+.band{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;padding:12px 0;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.band .rep{color:var(--ink)}
+.band nav{display:flex;flex-wrap:wrap;gap:6px 18px}
+.band nav a{color:var(--muted);text-decoration:none}
+.band nav a:hover,.band nav a.on{color:var(--ink);text-decoration:underline}
+h1.title{font-size:2rem;line-height:1.2;margin:34px 0 8px;font-weight:700}
+h2{font-size:1.25rem;text-transform:uppercase;letter-spacing:.12em;margin:48px 0 14px;font-weight:700;display:inline-block;padding-bottom:4px;border-bottom:1px solid var(--ink)}
+h2 .n{font-family:var(--mono);font-weight:400;color:var(--muted);margin-right:10px;letter-spacing:.05em}
+h3{font-size:1.05rem;margin:26px 0 8px}
+p{margin:0 0 1rem}
+.doc-no{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:34px 0 0}
+.doc-no a{color:var(--muted)}
+.lede{font-size:1.2rem;line-height:1.55;max-width:66ch}
+.prose{max-width:70ch}
+.fig{font-family:var(--mono);font-size:.95em;letter-spacing:-.02em}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border:1px solid var(--ink);margin:26px 0}
+.stat{padding:16px 18px 14px;border-right:1px solid var(--border);min-width:0}
+.stat:last-child{border-right:0}
+.stat .v{font-family:var(--mono);font-size:2.1rem;line-height:1.05;font-weight:700;letter-spacing:-.03em}
+.stat .v.red{color:var(--red)}
+.stat .l{font-size:.82rem;color:var(--muted);margin-top:8px;line-height:1.4}
+.big3 .stat .v{font-size:2.6rem}
+@media(max-width:640px){.stat .v,.big3 .stat .v{font-size:1.7rem}.stat-row{grid-template-columns:1fr 1fr}.stat:nth-child(2n){border-right:0}}
+.tablewrap{overflow-x:auto;border:1px solid var(--ink);margin:14px 0 10px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;white-space:nowrap}
+thead th{background:var(--ink);color:#fff;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;font-weight:400;padding:10px 12px;text-align:left;cursor:pointer;user-select:none;white-space:normal;line-height:1.3;vertical-align:bottom}
+thead th.num{text-align:right}
+thead th[data-asc="1"]::after{content:" ▲"}thead th[data-asc="0"]::after{content:" ▼"}
+td{padding:10px 12px;border-bottom:1px solid #d9d4c7;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-family:var(--mono);font-size:.86rem}
+td.name{min-width:200px;white-space:normal}
+td.name a{font-weight:700;text-decoration:none}
+td.name a:hover{text-decoration:underline}
+td .sub{display:block;font-size:.84rem;color:var(--muted);font-weight:400;margin-top:2px}
+td.ratio{color:var(--red);font-weight:700}
+tr.kids td{color:var(--muted)}tr.kids td.name a{color:var(--muted);font-weight:400}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin:18px 0 4px;font-size:.92rem}
+.toolbar input[type=search]{font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);min-width:min(340px,100%);border-radius:0}
+.toolbar label{display:flex;gap:8px;align-items:center;color:var(--muted)}
+.note{font-size:.88rem;color:var(--muted);max-width:70ch;line-height:1.55}
+.src{font-size:.85rem;color:var(--muted);margin-top:8px}
+dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 24px;font-size:.95rem;max-width:70ch;border-top:1px solid var(--border);padding-top:12px;margin:0}
+dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:.9rem;min-width:0}
+.callout{background:var(--surface);border:1px solid var(--ink);border-left:6px solid var(--red);padding:14px 18px;max-width:70ch;margin:22px 0;font-size:1.02rem;line-height:1.55}
+.cb{display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-size:.92rem;max-width:600px}
+.cb span:nth-child(2n){font-family:var(--mono);font-size:.88rem}
+.cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
+.cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.card{border:1px solid var(--ink);padding:22px}
+.card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
+.card p,.card li{font-size:.92rem}
+.btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;padding:10px 16px;margin:4px 6px 4px 0}
+.btn:hover{background:#333}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink);padding:8px 14px}
+.btn.ghost:hover{background:var(--ink);color:#fff}
+ul.files{list-style:none;padding:0;margin:0}
+ul.files li{padding:12px 0;border-bottom:1px solid var(--border)}
+ul.files li:last-child{border-bottom:0}
+ul.files .fn{font-family:var(--mono);font-weight:700}
+ul.files .meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);display:block;margin-top:4px;white-space:normal;word-break:break-all}
+code{font-family:var(--mono);font-size:.88em}
+pre{background:var(--surface);border:1px solid var(--border);padding:14px;overflow-x:auto;font-size:.82rem;line-height:1.45}
+.manual table{white-space:normal;font-size:.86rem}
+.manual thead th{cursor:default}
+footer{margin-top:64px;padding-top:28px;text-align:center;font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;color:var(--muted)}
+footer .rule-single{width:100%;max-width:440px;margin:0 auto 22px}
+footer .links a{color:var(--muted);text-decoration:none;margin:0 10px}
+footer .links a:hover{color:var(--ink)}
+footer p{margin:14px 0 0}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+</style></head><body>
+<div class="sheet">
+<header class="mast">
+<a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
+<h1>Everything Is Broken</h1>
+<div class="rule-double"></div>
+<p class="sub">Office of Institutional Accounts</p>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+</header>
+<main>
+
+<p class="doc-no">Report No. 1 &middot; 2026 edition &middot; <a href="/reports/hospital-ceo-pay/states.html">all states</a></p>
+<h1 class="title">Indiana</h1>
+<p class="lede">41 nonprofit hospital systems file from Indiana. Median charity care: 0.86% of expenses.</p>
+<div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
+<div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and chief executive</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="indiana university health" data-ceo="dennis m murphy" data-state="IN" data-kids="0">
+<td class="num">42</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/indiana-university-health-inc-35-1955872.html">Indiana University Health</a><span class="sub">Dennis M Murphy</span></td>
+
+<td class="num" data-v="5720461.0">$5.7M</td>
+<td class="num" data-v="6079560656.0">$6.1B</td>
+<td class="num" data-v="2.064635050096476">2.06%</td>
+<td class="num" data-v="110440779.0">$110.4M</td>
+<td class="num ratio" data-v="5.179663754454322">5%</td></tr><tr data-name="community health network" data-ceo="bryan a mills" data-state="IN" data-kids="0">
+<td class="num">85</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/community-health-network-inc-35-0983617.html">Community Health Network</a><span class="sub">Bryan A Mills</span></td>
+
+<td class="num" data-v="3879760.0">$3.9M</td>
+<td class="num" data-v="2322217395.0">$2.3B</td>
+<td class="num" data-v="0.22432768908341366">0.22%</td>
+<td class="num" data-v="4360143.0">$4.4M</td>
+<td class="num ratio" data-v="88.98240264138126">89%</td></tr><tr data-name="parkview health system" data-ceo="rick henvey" data-state="IN" data-kids="0">
+<td class="num">93</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/parkview-health-system-inc-35-1972384.html">Parkview Health System</a><span class="sub">Rick Henvey</span></td>
+
+<td class="num" data-v="3677159.0">$3.7M</td>
+<td class="num" data-v="1212089211.0">$1.2B</td>
+<td class="num" data-v="0.0067510310859222895">0.01%</td>
+<td class="num" data-v="84340.0">$84,340</td>
+<td class="num ratio" data-v="4359.922930993597">4360%</td></tr><tr data-name="reid hospital &amp; health care services" data-ceo="craig kinyon" data-state="IN" data-kids="0">
+<td class="num">135</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/reid-hospital-health-care-services-inc-35-0892672.html">Reid Hospital &amp; Health Care Services</a><span class="sub">Craig Kinyon</span></td>
+
+<td class="num" data-v="2692980.0">$2.7M</td>
+<td class="num" data-v="594223532.0">$594.2M</td>
+<td class="num" data-v="5.15816103461065">5.16%</td>
+<td class="num" data-v="26762330.0">$26.8M</td>
+<td class="num ratio" data-v="10.062576763682385">10%</td></tr><tr data-name="deaconess hospital" data-ceo="shawn mccoy" data-state="IN" data-kids="0">
+<td class="num">165</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/deaconess-hospital-inc-35-0593390.html">Deaconess Hospital</a><span class="sub">Shawn Mccoy</span></td>
+
+<td class="num" data-v="2377687.0">$2.4M</td>
+<td class="num" data-v="1798691173.0">$1.8B</td>
+<td class="num" data-v="1.1439083761730426">1.14%</td>
+<td class="num" data-v="18172973.0">$18.2M</td>
+<td class="num ratio" data-v="13.0836434963063">13%</td></tr><tr data-name="memorial hospital of south bend" data-ceo="kreg r gruber" data-state="IN" data-kids="0">
+<td class="num">190</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/memorial-hospital-of-south-bend-inc-35-0868132.html">Memorial Hospital of South Bend</a><span class="sub">Kreg R Gruber</span></td>
+
+<td class="num" data-v="2136422.0">$2.1M</td>
+<td class="num" data-v="1254047031.0">$1.3B</td>
+<td class="num" data-v="0.6406601475309286">0.64%</td>
+<td class="num" data-v="7030409.0">$7.0M</td>
+<td class="num ratio" data-v="30.388303155620104">30%</td></tr><tr data-name="union hospital" data-ceo="steven holman" data-state="IN" data-kids="0">
+<td class="num">223</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/union-hospital-inc-35-0876396.html">Union Hospital</a><span class="sub">Steven Holman</span></td>
+
+<td class="num" data-v="1928000.0">$1.9M</td>
+<td class="num" data-v="737875799.0">$737.9M</td>
+<td class="num" data-v="0.07785320238612516">0.08%</td>
+<td class="num" data-v="504337.0">$504,337</td>
+<td class="num ratio" data-v="382.28406799421816">382%</td></tr><tr data-name="marion general hospital" data-ceo="stephanie hilton-siebert" data-state="IN" data-kids="0">
+<td class="num">257</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/marion-general-hospital-inc-35-0868130.html">Marion General Hospital</a><span class="sub">Stephanie Hilton-Siebert</span></td>
+
+<td class="num" data-v="1718184.0">$1.7M</td>
+<td class="num" data-v="267012604.0">$267.0M</td>
+<td class="num" data-v="1.0956952992172826">1.10%</td>
+<td class="num" data-v="2690305.0">$2.7M</td>
+<td class="num ratio" data-v="63.865769866241926">64%</td></tr><tr data-name="goshen hospital association" data-ceo="randal christophel" data-state="IN" data-kids="0">
+<td class="num">345</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/goshen-hospital-association-inc-35-6001540.html">Goshen Hospital Association</a><span class="sub">Randal Christophel</span></td>
+
+<td class="num" data-v="1327232.0">$1.3M</td>
+<td class="num" data-v="284096533.0">$284.1M</td>
+<td class="num" data-v="0.9231520500386537">0.92%</td>
+<td class="num" data-v="2840923.0">$2.8M</td>
+<td class="num ratio" data-v="46.71833766701879">47%</td></tr><tr data-name="franciscan health rensselaer" data-ceo="terrance wilson" data-state="IN" data-kids="0">
+<td class="num">399</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/franciscan-health-rensselaer-inc-47-3825106.html">Franciscan Health Rensselaer</a><span class="sub">Terrance Wilson</span></td>
+
+<td class="num" data-v="1133173.0">$1.1M</td>
+<td class="num" data-v="43146359.0">$43.1M</td>
+<td class="num" data-v="2.5577899121100374">2.56%</td>
+<td class="num" data-v="1005658.0">$1.0M</td>
+<td class="num ratio" data-v="112.67975792963414">113%</td></tr><tr data-name="the methodist hospitals" data-ceo="matthew doyle" data-state="IN" data-kids="0">
+<td class="num">582</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/the-methodist-hospitals-inc-35-0868133.html">The Methodist Hospitals</a><span class="sub">Matthew Doyle</span></td>
+
+<td class="num" data-v="712496.0">$712,496</td>
+<td class="num" data-v="493388211.0">$493.4M</td>
+<td class="num" data-v="2.757725719045259">2.76%</td>
+<td class="num" data-v="14647208.0">$14.6M</td>
+<td class="num ratio" data-v="4.864380979637894">5%</td></tr><tr data-name="rehabilitation hospital of indiana" data-ceo="daniel b woloszyn" data-state="IN" data-kids="0">
+<td class="num">655</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/rehabilitation-hospital-of-indiana-inc-35-1786005.html">Rehabilitation Hospital of Indiana</a><span class="sub">Daniel B Woloszyn</span></td>
+
+<td class="num" data-v="599318.0">$599,318</td>
+<td class="num" data-v="47116155.0">$47.1M</td>
+<td class="num" data-v="0.25640954574353214">0.26%</td>
+<td class="num" data-v="119342.0">$119,342</td>
+<td class="num ratio" data-v="502.18531615022374">502%</td></tr><tr data-name="cameron memorial community hospital" data-ceo="angela logan" data-state="IN" data-kids="0">
+<td class="num">702</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/cameron-memorial-community-hospital-35-0211370.html">Cameron Memorial Community Hospital</a><span class="sub">Angela Logan</span></td>
+
+<td class="num" data-v="521787.0">$521,787</td>
+<td class="num" data-v="135497099.0">$135.5M</td>
+<td class="num" data-v="0.10955511733910629">0.11%</td>
+<td class="num" data-v="145343.0">$145,343</td>
+<td class="num ratio" data-v="359.00387359556356">359%</td></tr><tr data-name="margaret mary community hospital" data-ceo="liz leising" data-state="IN" data-kids="0">
+<td class="num">716</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/margaret-mary-community-hospital-inc-35-6067049.html">Margaret Mary Community Hospital</a><span class="sub">Liz Leising</span></td>
+
+<td class="num" data-v="509215.0">$509,215</td>
+<td class="num" data-v="139856673.0">$139.9M</td>
+<td class="num" data-v="2.8455914606252324">2.85%</td>
+<td class="num" data-v="3702003.0">$3.7M</td>
+<td class="num ratio" data-v="13.755121214110307">14%</td></tr><tr data-name="north central health services" data-ceo="stephanie long" data-state="IN" data-kids="0">
+<td class="num">755</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/north-central-health-services-inc-31-1118357.html">North Central Health Services</a><span class="sub">Stephanie Long</span></td>
+
+<td class="num" data-v="464970.0">$464,970</td>
+<td class="num" data-v="7689115.0">$7.7M</td>
+<td class="num" data-v="2.3793697690658093">2.38%</td>
+<td class="num" data-v="672720.0">$672,720</td>
+<td class="num ratio" data-v="69.11790938280414">69%</td></tr></tbody></table></div>
+<p class="note">Systems not shown: 26 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/franciscan-alliance-inc-35-1330472.html">Franciscan Alliance</a>, <a href="/reports/hospital-ceo-pay/system/parkview-hospital-inc-35-0868085.html">Parkview Hospital</a>, <a href="/reports/hospital-ceo-pay/system/indiana-university-health-north-hospital-inc-35-1932442.html">Indiana University Health North Hospital</a>, <a href="/reports/hospital-ceo-pay/system/indiana-university-health-bloomington-inc-35-1720796.html">Indiana University Health Bloomington</a>, <a href="/reports/hospital-ceo-pay/system/munster-medical-research-foundation-inc-35-1107009.html">Munster Medical Research Foundation</a>, <a href="/reports/hospital-ceo-pay/system/indiana-university-health-arnett-inc-26-3162145.html">Indiana University Health Arnett</a>, <a href="/reports/hospital-ceo-pay/system/indiana-university-health-ball-memorial-hospital-inc-35-0867958.html">Indiana University Health Ball Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/ascension-borgess-hospital-38-1360526.html">Ascension Borgess Hospital</a>, <a href="/reports/hospital-ceo-pay/system/saint-joseph-regional-medical-center-south-bend-campus-inc-35-0868157.html">Saint Joseph Regional Medical Center- South Bend Campus</a>, <a href="/reports/hospital-ceo-pay/system/st-mary-medical-center-inc-35-2007327.html">St Mary Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/community-hospital-south-inc-35-1088640.html">Community Hospital South</a>, <a href="/reports/hospital-ceo-pay/system/deaconess-memorial-medical-center-inc-35-0985964.html">Deaconess Memorial Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/community-howard-regional-health-inc-35-1865344.html">Community Howard Regional Health</a>, <a href="/reports/hospital-ceo-pay/system/community-hospital-of-anderson-and-madison-county-inc-35-1069822.html">Community Hospital of Anderson and Madison County</a>, <a href="/reports/hospital-ceo-pay/system/st-catherine-hospital-inc-35-1738708.html">St Catherine Hospital</a>, <a href="/reports/hospital-ceo-pay/system/huntington-memorial-hospital-inc-35-1970706.html">Huntington Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/whitley-memorial-hospital-inc-35-1967665.html">Whitley Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/community-hospital-of-noble-county-inc-35-2087092.html">Community Hospital of Noble County</a>, <a href="/reports/hospital-ceo-pay/system/dekalb-memorial-hospital-inc-35-1064295.html">Dekalb Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/gibson-general-hospital-35-0877575.html">Gibson General Hospital</a>, <a href="/reports/hospital-ceo-pay/system/saint-joseph-regional-medical-center-plymouth-campus-inc-35-1142669.html">Saint Joseph Regional Medical Center - Plymouth Campus</a>, <a href="/reports/hospital-ceo-pay/system/park-center-inc-35-1135451.html">Park Center</a>, <a href="/reports/hospital-ceo-pay/system/community-stroke-and-rehabilitation-center-inc-82-0854709.html">Community Stroke and Rehabilitation Center</a>, <a href="/reports/hospital-ceo-pay/system/uchicago-medicine-northwest-indiana-inc-92-2355855.html">Uchicago Medicine Northwest Indiana</a>, <a href="/reports/hospital-ceo-pay/system/northeastern-center-inc-35-1403134.html">Northeastern Center</a>, <a href="/reports/hospital-ceo-pay/system/franciscan-beacon-hospital-llc-83-2457155.html">Franciscan Beacon Hospital</a>.</p>
+<script>
+(function(){
+  var tables=document.querySelectorAll('table.sortable');
+  tables.forEach(function(t){
+    var ths=t.querySelectorAll('th');
+    ths.forEach(function(th,i){th.addEventListener('click',function(){
+      var tb=t.tBodies[0], rows=Array.prototype.slice.call(tb.rows), k=th.dataset.k, asc=th.dataset.asc!=='1';
+      ths.forEach(function(h){delete h.dataset.asc}); th.dataset.asc=asc?'1':'0';
+      rows.sort(function(a,b){var x=a.cells[i],y=b.cells[i]; if(k==='num'){x=parseFloat(x.dataset.v!==undefined?x.dataset.v:x.textContent)||0;y=parseFloat(y.dataset.v!==undefined?y.dataset.v:y.textContent)||0;return asc?x-y:y-x}
+        x=x.textContent.trim().toLowerCase();y=y.textContent.trim().toLowerCase();return asc?(x<y?-1:x>y?1:0):(x>y?-1:x<y?1:0)});
+      rows.forEach(function(r){tb.appendChild(r)});
+    })});
+  });
+  var q=document.getElementById('q'), kids=document.getElementById('kids');
+  function filter(){var v=(q?q.value:'').trim().toLowerCase(), showKids=kids?kids.checked:true;
+    document.querySelectorAll('table.sortable tbody tr').forEach(function(r){
+      var ok=(!v||r.dataset.name.indexOf(v)>=0||r.dataset.ceo.indexOf(v)>=0||r.dataset.state.toLowerCase()===v)&&(showKids||r.dataset.kids!=='1');
+      r.hidden=!ok;});}
+  if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
+})();
+</script></main>
+<footer><div class="rule-single"></div>
+<div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
+<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-18 &middot; Built 2026-10-20</p>
+<p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to corrections@everythingisbroken.org.</p>
+<p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>
+</div></body></html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Colorado hospitals - Everything Is Broken</title>
+<meta name="description" content="Nonprofit hospital systems in Colorado ranked by CEO pay.">
+<link rel="icon" type="image/png" href="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
+--serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.sheet{max-width:1100px;margin:0 auto;background:var(--paper);padding:40px 32px;min-height:100vh}
+@media(min-width:640px){.sheet{margin:32px auto;border:1px solid var(--border);box-shadow:0 1px 2px rgba(0,0,0,.05)}}
+@media(max-width:640px){.sheet{padding:28px 16px}}
+.mast{text-align:center;margin-bottom:28px}
+.mast .seal{display:inline-block;margin-bottom:18px}
+.mast .seal img{width:128px;height:128px;display:block;margin:0 auto}
+.mast h1{font-size:2.6rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;font-weight:700;line-height:1.1}
+@media(max-width:640px){.mast h1{font-size:1.7rem}}
+.rule-double{border-top:4px double var(--ink)}
+.rule-double-bottom{border-bottom:4px double var(--ink)}
+.rule-single{border-bottom:1px solid var(--ink)}
+.mast .sub{font-style:italic;font-size:1.25rem;margin:12px 0 22px;letter-spacing:.02em}
+.mast nav.site{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 36px;text-transform:uppercase;letter-spacing:.1em;font-size:.95rem;padding-bottom:16px;border-bottom:1px solid var(--ink)}
+.mast nav.site a{text-decoration:none}
+.mast nav.site a:hover{color:var(--muted)}
+.mast nav.site a.on{font-weight:700;text-decoration:underline}
+.band{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;padding:12px 0;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.band .rep{color:var(--ink)}
+.band nav{display:flex;flex-wrap:wrap;gap:6px 18px}
+.band nav a{color:var(--muted);text-decoration:none}
+.band nav a:hover,.band nav a.on{color:var(--ink);text-decoration:underline}
+h1.title{font-size:2rem;line-height:1.2;margin:34px 0 8px;font-weight:700}
+h2{font-size:1.25rem;text-transform:uppercase;letter-spacing:.12em;margin:48px 0 14px;font-weight:700;display:inline-block;padding-bottom:4px;border-bottom:1px solid var(--ink)}
+h2 .n{font-family:var(--mono);font-weight:400;color:var(--muted);margin-right:10px;letter-spacing:.05em}
+h3{font-size:1.05rem;margin:26px 0 8px}
+p{margin:0 0 1rem}
+.doc-no{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:34px 0 0}
+.doc-no a{color:var(--muted)}
+.lede{font-size:1.2rem;line-height:1.55;max-width:66ch}
+.prose{max-width:70ch}
+.fig{font-family:var(--mono);font-size:.95em;letter-spacing:-.02em}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border:1px solid var(--ink);margin:26px 0}
+.stat{padding:16px 18px 14px;border-right:1px solid var(--border);min-width:0}
+.stat:last-child{border-right:0}
+.stat .v{font-family:var(--mono);font-size:2.1rem;line-height:1.05;font-weight:700;letter-spacing:-.03em}
+.stat .v.red{color:var(--red)}
+.stat .l{font-size:.82rem;color:var(--muted);margin-top:8px;line-height:1.4}
+.big3 .stat .v{font-size:2.6rem}
+@media(max-width:640px){.stat .v,.big3 .stat .v{font-size:1.7rem}.stat-row{grid-template-columns:1fr 1fr}.stat:nth-child(2n){border-right:0}}
+.tablewrap{overflow-x:auto;border:1px solid var(--ink);margin:14px 0 10px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;white-space:nowrap}
+thead th{background:var(--ink);color:#fff;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;font-weight:400;padding:10px 12px;text-align:left;cursor:pointer;user-select:none;white-space:normal;line-height:1.3;vertical-align:bottom}
+thead th.num{text-align:right}
+thead th[data-asc="1"]::after{content:" ▲"}thead th[data-asc="0"]::after{content:" ▼"}
+td{padding:10px 12px;border-bottom:1px solid #d9d4c7;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-family:var(--mono);font-size:.86rem}
+td.name{min-width:200px;white-space:normal}
+td.name a{font-weight:700;text-decoration:none}
+td.name a:hover{text-decoration:underline}
+td .sub{display:block;font-size:.84rem;color:var(--muted);font-weight:400;margin-top:2px}
+td.ratio{color:var(--red);font-weight:700}
+tr.kids td{color:var(--muted)}tr.kids td.name a{color:var(--muted);font-weight:400}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin:18px 0 4px;font-size:.92rem}
+.toolbar input[type=search]{font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);min-width:min(340px,100%);border-radius:0}
+.toolbar label{display:flex;gap:8px;align-items:center;color:var(--muted)}
+.note{font-size:.88rem;color:var(--muted);max-width:70ch;line-height:1.55}
+.src{font-size:.85rem;color:var(--muted);margin-top:8px}
+dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 24px;font-size:.95rem;max-width:70ch;border-top:1px solid var(--border);padding-top:12px;margin:0}
+dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:.9rem;min-width:0}
+.callout{background:var(--surface);border:1px solid var(--ink);border-left:6px solid var(--red);padding:14px 18px;max-width:70ch;margin:22px 0;font-size:1.02rem;line-height:1.55}
+.cb{display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-size:.92rem;max-width:600px}
+.cb span:nth-child(2n){font-family:var(--mono);font-size:.88rem}
+.cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
+.cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.card{border:1px solid var(--ink);padding:22px}
+.card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
+.card p,.card li{font-size:.92rem}
+.btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;padding:10px 16px;margin:4px 6px 4px 0}
+.btn:hover{background:#333}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink);padding:8px 14px}
+.btn.ghost:hover{background:var(--ink);color:#fff}
+ul.files{list-style:none;padding:0;margin:0}
+ul.files li{padding:12px 0;border-bottom:1px solid var(--border)}
+ul.files li:last-child{border-bottom:0}
+ul.files .fn{font-family:var(--mono);font-weight:700}
+ul.files .meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);display:block;margin-top:4px;white-space:normal;word-break:break-all}
+code{font-family:var(--mono);font-size:.88em}
+pre{background:var(--surface);border:1px solid var(--border);padding:14px;overflow-x:auto;font-size:.82rem;line-height:1.45}
+.manual table{white-space:normal;font-size:.86rem}
+.manual thead th{cursor:default}
+footer{margin-top:64px;padding-top:28px;text-align:center;font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;color:var(--muted)}
+footer .rule-single{width:100%;max-width:440px;margin:0 auto 22px}
+footer .links a{color:var(--muted);text-decoration:none;margin:0 10px}
+footer .links a:hover{color:var(--ink)}
+footer p{margin:14px 0 0}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+</style></head><body>
+<div class="sheet">
+<header class="mast">
+<a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
+<h1>Everything Is Broken</h1>
+<div class="rule-double"></div>
+<p class="sub">Office of Institutional Accounts</p>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+</header>
+<main>
+
+<p class="doc-no">Report No. 1 &middot; 2026 edition &middot; <a href="/reports/hospital-ceo-pay/states.html">all states</a></p>
+<h1 class="title">Colorado</h1>
+<p class="lede">21 nonprofit hospital systems file from Colorado. Median charity care: 1.10% of expenses.</p>
+<div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
+<div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and chief executive</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr class="kids" data-name="children&#x27;s hospital colorado" data-ceo="jena hausmann" data-state="CO" data-kids="1">
+<td class="num">69</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/children-s-hospital-colorado-84-0166760.html">Children&#x27;S Hospital Colorado</a><span class="sub">Jena Hausmann · children’s</span></td>
+
+<td class="num" data-v="4286194.0">$4.3M</td>
+<td class="num" data-v="2014273578.0">$2.0B</td>
+<td class="num" data-v="0.15173015227499007">0.15%</td>
+<td class="num" data-v="2986103.0">$3.0M</td>
+<td class="num ratio" data-v="143.5380494242831">144%</td></tr><tr data-name="national jewish health" data-ceo="michael s salem md" data-state="CO" data-kids="0">
+<td class="num">159</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/national-jewish-health-74-2044647.html">National Jewish Health</a><span class="sub">Michael S Salem MD</span></td>
+
+<td class="num" data-v="2402798.0">$2.4M</td>
+<td class="num" data-v="375353154.0">$375.4M</td>
+<td class="num" data-v="0.02697562880908305">0.03%</td>
+<td class="num" data-v="103346.0">$103,346</td>
+<td class="num ratio" data-v="2325.003386681633">2325%</td></tr><tr data-name="portercare adventist health system" data-ceo="jahn andrew" data-state="CO" data-kids="0">
+<td class="num">239</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/portercare-adventist-health-system-84-0438224.html">Portercare Adventist Health System</a><span class="sub">Jahn Andrew</span></td>
+
+<td class="num" data-v="1801129.0">$1.8M</td>
+<td class="num" data-v="2537178514.0">$2.5B</td>
+<td class="num" data-v="2.3428570492209952">2.34%</td>
+<td class="num" data-v="57104754.0">$57.1M</td>
+<td class="num ratio" data-v="3.154078905584638">3%</td></tr><tr data-name="poudre valley health care" data-ceo="kevin unger" data-state="CO" data-kids="0">
+<td class="num">264</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/poudre-valley-health-care-inc-84-1262971.html">Poudre Valley Health Care</a><span class="sub">Kevin Unger</span></td>
+
+<td class="num" data-v="1681000.0">$1.7M</td>
+<td class="num" data-v="2148285039.0">$2.1B</td>
+<td class="num" data-v="1.6808889480610358">1.68%</td>
+<td class="num" data-v="30803280.0">$30.8M</td>
+<td class="num ratio" data-v="5.457211050251791">5%</td></tr><tr data-name="boulder community health" data-ceo="robert j vissers" data-state="CO" data-kids="0">
+<td class="num">307</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/boulder-community-health-84-0175870.html">Boulder Community Health</a><span class="sub">Robert J Vissers</span></td>
+
+<td class="num" data-v="1494178.0">$1.5M</td>
+<td class="num" data-v="488677286.0">$488.7M</td>
+<td class="num" data-v="0.9232211042672964">0.92%</td>
+<td class="num" data-v="4376105.0">$4.4M</td>
+<td class="num ratio" data-v="34.14401619705195">34%</td></tr><tr data-name="vail clinic inc % vhh accounting department" data-ceo="will cook" data-state="CO" data-kids="0">
+<td class="num">329</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/vail-clinic-inc-vhh-accounting-department-84-0563230.html">Vail Clinic INC % Vhh Accounting Department</a><span class="sub">Will Cook</span></td>
+
+<td class="num" data-v="1399969.0">$1.4M</td>
+<td class="num" data-v="389307157.0">$389.3M</td>
+<td class="num" data-v="0.5656422697786703">0.57%</td>
+<td class="num" data-v="2319814.0">$2.3M</td>
+<td class="num ratio" data-v="60.34832965056681">60%</td></tr><tr data-name="colorado west healthcare system" data-ceo="christian thomas" data-state="CO" data-kids="0">
+<td class="num">347</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/colorado-west-healthcare-system-84-0469270.html">Colorado West Healthcare System</a><span class="sub">Christian Thomas</span></td>
+
+<td class="num" data-v="1321554.0">$1.3M</td>
+<td class="num" data-v="312467338.0">$312.5M</td>
+<td class="num" data-v="0.159649477673115">0.16%</td>
+<td class="num" data-v="487677.0">$487,677</td>
+<td class="num ratio" data-v="270.98960992624217">271%</td></tr><tr data-name="valley view hospital association" data-ceo="brian murphy md" data-state="CO" data-kids="0">
+<td class="num">350</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/valley-view-hospital-association-84-0446259.html">Valley View Hospital Association</a><span class="sub">Brian Murphy MD</span></td>
+
+<td class="num" data-v="1308773.0">$1.3M</td>
+<td class="num" data-v="368463483.0">$368.5M</td>
+<td class="num" data-v="3.433907249026836">3.43%</td>
+<td class="num" data-v="11473446.0">$11.5M</td>
+<td class="num ratio" data-v="11.40697398148734">11%</td></tr><tr data-name="craig hospital" data-ceo="jandel allen-davis md" data-state="CO" data-kids="0">
+<td class="num">439</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/craig-hospital-84-0404233.html">Craig Hospital</a><span class="sub">Jandel Allen-Davis MD</span></td>
+
+<td class="num" data-v="1021106.0">$1.0M</td>
+<td class="num" data-v="185766315.0">$185.8M</td>
+<td class="num" data-v="1.2730802022783596">1.27%</td>
+<td class="num" data-v="2164629.0">$2.2M</td>
+<td class="num ratio" data-v="47.17233299563112">47%</td></tr><tr data-name="brighton community hospital association" data-ceo="jaime campbell" data-state="CO" data-kids="0">
+<td class="num">590</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/brighton-community-hospital-association-84-0482695.html">Brighton Community Hospital Association</a><span class="sub">Jaime Campbell</span></td>
+
+<td class="num" data-v="700641.0">$700,641</td>
+<td class="num" data-v="237628951.0">$237.6M</td>
+<td class="num" data-v="2.5895973174264206">2.59%</td>
+<td class="num" data-v="6252689.0">$6.3M</td>
+<td class="num ratio" data-v="11.205434973656935">11%</td></tr><tr data-name="lutheran hospital assoc of the san luis valley" data-ceo="konnie martin" data-state="CO" data-kids="0">
+<td class="num">609</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/lutheran-hospital-assoc-of-the-san-luis-valley-84-0255530.html">Lutheran Hospital Assoc of the San Luis Valley</a><span class="sub">Konnie Martin</span></td>
+
+<td class="num" data-v="671665.0">$671,665</td>
+<td class="num" data-v="135577911.0">$135.6M</td>
+<td class="num" data-v="2.4289853853221826">2.43%</td>
+<td class="num" data-v="3214098.0">$3.2M</td>
+<td class="num ratio" data-v="20.89746485639206">21%</td></tr><tr data-name="parkview medical center" data-ceo="darrin smith" data-state="CO" data-kids="0">
+<td class="num">618</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/parkview-medical-center-84-0935136.html">Parkview Medical Center</a><span class="sub">Darrin Smith</span></td>
+
+<td class="num" data-v="659829.0">$659,829</td>
+<td class="num" data-v="548766614.0">$548.8M</td>
+<td class="num" data-v="1.0411116487239014">1.04%</td>
+<td class="num" data-v="5708011.0">$5.7M</td>
+<td class="num ratio" data-v="11.559700918586177">12%</td></tr><tr data-name="lower valley hospital association" data-ceo="korrey klein md" data-state="CO" data-kids="0">
+<td class="num">776</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/lower-valley-hospital-association-84-0447998.html">Lower Valley Hospital Association</a><span class="sub">Korrey Klein MD</span></td>
+
+<td class="num" data-v="443595.0">$443,595</td>
+<td class="num" data-v="87928824.0">$87.9M</td>
+<td class="num" data-v="0.27057291246816867">0.27%</td>
+<td class="num" data-v="231432.0">$231,432</td>
+<td class="num ratio" data-v="191.67401223685573">192%</td></tr><tr data-name="arkansas valley regional medical center" data-ceo="david a flemer jr" data-state="CO" data-kids="0">
+<td class="num">858</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/arkansas-valley-regional-medical-center-84-1465990.html">Arkansas Valley Regional Medical Center</a><span class="sub">David A Flemer Jr</span></td>
+
+<td class="num" data-v="347852.0">$347,852</td>
+<td class="num" data-v="44629531.0">$44.6M</td>
+<td class="num" data-v="0.5024620508543363">0.50%</td>
+<td class="num" data-v="232289.0">$232,289</td>
+<td class="num ratio" data-v="149.74966528763738">150%</td></tr><tr data-name="trinidad area health association" data-ceo="kimberly lucero" data-state="CO" data-kids="0">
+<td class="num">900</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/trinidad-area-health-association-84-0586742.html">Trinidad Area Health Association</a><span class="sub">Kimberly Lucero</span></td>
+
+<td class="num" data-v="302498.0">$302,498</td>
+<td class="num" data-v="50942236.0">$50.9M</td>
+<td class="num" data-v="1.5745304171627383">1.57%</td>
+<td class="num" data-v="771559.0">$771,559</td>
+<td class="num ratio" data-v="39.206074972879584">39%</td></tr><tr data-name="valley citizens foundation for health care" data-ceo="arlene harms" data-state="CO" data-kids="0">
+<td class="num">1009</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/valley-citizens-foundation-for-health-care-inc-84-1276376.html">Valley Citizens Foundation for Health Care</a><span class="sub">Arlene Harms</span></td>
+
+<td class="num" data-v="203940.0">$203,940</td>
+<td class="num" data-v="38435930.0">$38.4M</td>
+<td class="num" data-v="1.5272543308001063">1.53%</td>
+<td class="num" data-v="528000.0">$528,000</td>
+<td class="num ratio" data-v="38.625">39%</td></tr></tbody></table></div>
+<p class="note">Systems not shown: 5 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/sisters-of-charity-of-leavenworth-health-system-inc-23-7379161.html">Sisters of Charity of Leavenworth Health System</a>, <a href="/reports/hospital-ceo-pay/system/intermountain-front-range-inc-84-1103606.html">Intermountain Front Range</a>, <a href="/reports/hospital-ceo-pay/system/st-mary-s-hospital-medical-center-inc-84-0425720.html">St Mary&#x27;S Hospital &amp; Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/montrose-memorial-hospital-inc-84-6002707.html">Montrose Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/southwest-health-system-inc-84-1337350.html">Southwest Health System</a>.</p>
+<script>
+(function(){
+  var tables=document.querySelectorAll('table.sortable');
+  tables.forEach(function(t){
+    var ths=t.querySelectorAll('th');
+    ths.forEach(function(th,i){th.addEventListener('click',function(){
+      var tb=t.tBodies[0], rows=Array.prototype.slice.call(tb.rows), k=th.dataset.k, asc=th.dataset.asc!=='1';
+      ths.forEach(function(h){delete h.dataset.asc}); th.dataset.asc=asc?'1':'0';
+      rows.sort(function(a,b){var x=a.cells[i],y=b.cells[i]; if(k==='num'){x=parseFloat(x.dataset.v!==undefined?x.dataset.v:x.textContent)||0;y=parseFloat(y.dataset.v!==undefined?y.dataset.v:y.textContent)||0;return asc?x-y:y-x}
+        x=x.textContent.trim().toLowerCase();y=y.textContent.trim().toLowerCase();return asc?(x<y?-1:x>y?1:0):(x>y?-1:x<y?1:0)});
+      rows.forEach(function(r){tb.appendChild(r)});
+    })});
+  });
+  var q=document.getElementById('q'), kids=document.getElementById('kids');
+  function filter(){var v=(q?q.value:'').trim().toLowerCase(), showKids=kids?kids.checked:true;
+    document.querySelectorAll('table.sortable tbody tr').forEach(function(r){
+      var ok=(!v||r.dataset.name.indexOf(v)>=0||r.dataset.ceo.indexOf(v)>=0||r.dataset.state.toLowerCase()===v)&&(showKids||r.dataset.kids!=='1');
+      r.hidden=!ok;});}
+  if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
+})();
+</script></main>
+<footer><div class="rule-single"></div>
+<div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
+<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-18 &middot; Built 2026-10-20</p>
+<p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to corrections@everythingisbroken.org.</p>
+<p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>
+</div></body></html>

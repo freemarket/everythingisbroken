@@ -77,7 +77,7 @@
         
         <!-- Header & Masthead -->
         <header class="mb-10 text-center">
-            <a href="#" onclick="showSection('main'); return false;" class="inline-block mb-5 focus:outline-none group" aria-label="Everything Is Broken - Home">
+            <a href="#main" onclick="showSection('main')" class="inline-block mb-5 focus:outline-none group" aria-label="Everything Is Broken - Home">
                 <img src="logo.png" alt="Official Seal — Everything Is Broken (2026)" class="w-32 h-32 sm:w-36 sm:h-36 mx-auto select-none transition-transform duration-200 group-hover:scale-[1.02]">
             </a>
             <h1 class="text-4xl sm:text-5xl tracking-widest uppercase mb-4">Everything Is Broken</h1>
@@ -86,12 +86,12 @@
             
             <!-- Navigation -->
             <nav class="flex flex-wrap justify-center gap-6 sm:gap-10 text-sm sm:text-base uppercase tracking-wider rule-single pb-4">
-                <a href="#" onclick="showSection('main')" id="nav-main" class="hover:text-gray-600 font-bold underline nav-link">Main</a>
-                <a href="#" onclick="showSection('reports')" id="nav-reports" class="hover:text-gray-600 nav-link">Reports</a>
-                <a href="#" onclick="showSection('data')" id="nav-data" class="hover:text-gray-600 nav-link">Data</a>
-                <a href="#" onclick="showSection('contact')" id="nav-contact" class="hover:text-gray-600 nav-link">Contact</a>
-                <a href="#" onclick="showSection('about')" id="nav-about" class="hover:text-gray-600 nav-link">About</a>
-                <a href="#" onclick="showSection('standards')" id="nav-standards" class="hover:text-gray-600 nav-link">Standards</a>
+                <a href="#main" onclick="showSection('main')" id="nav-main" class="hover:text-gray-600 font-bold underline nav-link">Main</a>
+                <a href="#reports" onclick="showSection('reports')" id="nav-reports" class="hover:text-gray-600 nav-link">Reports</a>
+                <a href="#data" onclick="showSection('data')" id="nav-data" class="hover:text-gray-600 nav-link">Data</a>
+                <a href="#contact" onclick="showSection('contact')" id="nav-contact" class="hover:text-gray-600 nav-link">Contact</a>
+                <a href="#about" onclick="showSection('about')" id="nav-about" class="hover:text-gray-600 nav-link">About</a>
+                <a href="#standards" onclick="showSection('standards')" id="nav-standards" class="hover:text-gray-600 nav-link">Standards</a>
             </nav>
         </header>
 
@@ -138,15 +138,20 @@
 
                 <!-- Latest Report -->
                 <div class="bg-docSurface border border-black p-6 sm:p-8 relative">
-                    <div class="absolute top-0 right-0 bg-black text-white px-3 py-1 text-xs uppercase tracking-widest">Latest Report</div>
-                    <h3 class="text-2xl font-bold mb-2">Nonprofit Hospital Executive Pay vs Charity Care (<span class="fig">2026</span>)</h3>
-                    <p class="mb-4 text-gray-700">Headline Ratio: Exemption Value vs. Charity Care Provision</p>
-                    <div class="text-5xl font-mono text-docRed font-bold tracking-tighter mb-6">
-                        <span class="fig">4.3%</span> : <span class="fig">2.3%</span>
-                    </div>
-                    <a href="#" onclick="showSection('reports')" class="inline-block border-2 border-black px-6 py-2 uppercase tracking-wide text-sm font-bold hover:bg-black hover:text-white transition-colors">
-                        Read the Full Report &rarr;
-                    </a>
+<!-- gen:latest -->
+<div class="absolute top-0 right-0 bg-black text-white px-3 py-1 text-xs uppercase tracking-widest">Latest Report</div>
+<div class="text-xs uppercase tracking-widest text-gray-500 mb-2 font-mono">Report <span class="fig">No. 1</span> | <span class="fig">2026</span> edition | Data as of <span class="fig">2026-10-18</span></div>
+<h3 class="text-2xl font-bold mb-4">Nonprofit Hospital Executive Pay vs Charity Care</h3>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+<div><div class="text-3xl sm:text-4xl font-mono font-bold tracking-tighter"><span class="fig">1,074</span></div><div class="text-xs text-gray-600 mt-1">hospital systems ranked by CEO pay</div></div>
+<div><div class="text-3xl sm:text-4xl font-mono font-bold tracking-tighter"><span class="fig">1.22%</span></div><div class="text-xs text-gray-600 mt-1">median share of expenses spent on charity care, systems over $1B</div></div>
+<div><div class="text-3xl sm:text-4xl font-mono font-bold tracking-tighter"><span class="fig">8%</span></div><div class="text-xs text-gray-600 mt-1">median CEO pay as a share of all charity care, systems over $1B</div></div>
+<div><div class="text-3xl sm:text-4xl font-mono font-bold tracking-tighter text-docRed"><span class="fig">4</span></div><div class="text-xs text-gray-600 mt-1">large systems that paid the CEO more than all charity care</div></div>
+</div>
+<p class="mb-5 text-gray-700">Every figure is the hospital's own, from its IRS Form 990, and every row links to the filing.</p>
+<a href="/reports/hospital-ceo-pay/" class="inline-block border-2 border-black px-6 py-2 uppercase tracking-wide text-sm font-bold hover:bg-black hover:text-white transition-colors mr-3 mb-2">Read the Full Report &rarr;</a>
+<a href="#reports" onclick="showSection('reports')" class="inline-block px-2 py-2 uppercase tracking-wide text-sm underline hover:text-gray-600 mb-2">Report index</a>
+<!-- /gen:latest -->
                 </div>
             </section>
 
@@ -165,48 +170,96 @@
                 </ul>
 
                 <div class="border border-black p-6 sm:p-8">
-                    <div class="text-sm uppercase tracking-widest text-gray-500 mb-2">Report <span class="fig">No. 1</span> | <span class="fig">2026</span> | As of: Oct <span class="fig">20, 2026</span></div>
-                    <h2 class="text-3xl font-bold mb-4">Nonprofit Hospital Executive Pay vs Charity Care</h2>
-                    
-                    <div class="mb-8">
-                        <p class="mb-2 font-bold uppercase text-sm tracking-widest">The Headline Ratio</p>
-                        <p class="text-4xl text-docRed font-mono font-bold"><span class="fig">4.3%</span> / <span class="fig">2.3%</span></p>
-                        <p class="text-sm italic mt-1">Average exemption value vs. operating expenses spent on charity care.</p>
-                    </div>
-
-                    <p class="mb-6">National, annual, built from <span class="fig">19,245</span> IRS Schedule H filings covering <span class="fig">2,305</span> filers. Below is the ranked list of nonprofit hospital CEOs by pay, with charity care alongside each.</p>
-                    
-                    <div class="border border-black mb-8 overflow-x-auto">
-                        <table class="w-full text-left text-sm whitespace-nowrap">
-                            <thead>
-                                <tr class="bg-black text-white uppercase tracking-wider font-mono">
-                                    <th class="p-3">Rank</th>
-                                    <th class="p-3">Named Target</th>
-                                    <th class="p-3">Institution</th>
-                                    <th class="p-3">Exec Comp</th>
-                                    <th class="p-3">Charity Care %</th>
-                                </tr>
-                            </thead>
-                            <tbody class="font-mono divide-y divide-gray-300">
-                                <tr>
-                                    <td class="p-3">1</td>
-                                    <td class="p-3 font-serif">Eugene Woods</td>
-                                    <td class="p-3 font-serif">Advocate Health</td>
-                                    <td class="p-3">$14,000,000+</td>
-                                    <td class="p-3 text-docRed">1.5%</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-3 text-gray-500 italic" colspan="5">[ Full table of 2,305 filers available in raw data format ]</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="space-y-4">
-                        <a href="#" class="block hover:underline font-bold">&#8627; View Per-Entity Pages (Hospital Systems & States)</a>
-                        <a href="#" class="block hover:underline font-bold">&#8627; View Methodology (Plain Language)</a>
-                        <a href="#" class="block hover:underline font-bold">&#8627; Read Rebuttals Received</a>
-                    </div>
+<!-- gen:report1 -->
+<div class="text-sm uppercase tracking-widest text-gray-500 mb-2">Report <span class="fig">No. 1</span> | <span class="fig">2026</span> edition | Data as of <span class="fig">2026-10-18</span></div>
+<h2 class="text-3xl font-bold mb-4"><a href="/reports/hospital-ceo-pay/" class="hover:underline">Nonprofit Hospital Executive Pay vs Charity Care</a></h2>
+<p class="mb-6">National and annual. Built from <span class="fig">19,245</span> IRS Schedule H filings covering <span class="fig">2,306</span> filers, combined into <span class="fig">1,649</span> hospital systems, of which <span class="fig">1,074</span> have an identifiable chief executive and positive charity care and are ranked. The median large system spends <span class="fig">1.22</span> percent of expenses on charity care and pays its chief executive <span class="fig">8</span> percent of that amount.</p>
+<p class="mb-2 font-bold uppercase text-sm tracking-widest">Highest-paid chief executives</p>
+<div class="border border-black mb-4 overflow-x-auto">
+<table class="w-full text-left text-sm whitespace-nowrap">
+<thead><tr class="bg-black text-white uppercase tracking-wider font-mono text-xs">
+<th class="p-3">Rank</th><th class="p-3">Chief executive</th><th class="p-3">System</th><th class="p-3">State</th><th class="p-3">CEO pay</th><th class="p-3">Charity care, % of expenses</th><th class="p-3">CEO pay as % of charity care</th></tr></thead>
+<tbody class="font-mono divide-y divide-gray-300"><tr>
+<td class="p-3">1</td>
+<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/nyu-langone-hospitals-13-3971298.html">Robert I Grossman MD</a></td>
+<td class="p-3 font-serif">NYU Langone Health</td>
+<td class="p-3">NY</td>
+<td class="p-3">$30,286,568</td>
+<td class="p-3">1.44%</td>
+<td class="p-3 text-docRed font-bold">21%</td></tr><tr>
+<td class="p-3">2</td>
+<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/the-new-york-and-presbyterian-hospital-13-3957095.html">Steven J Corwin</a></td>
+<td class="p-3 font-serif">NewYork-Presbyterian</td>
+<td class="p-3">NY</td>
+<td class="p-3">$26,271,976</td>
+<td class="p-3">1.11%</td>
+<td class="p-3 text-docRed font-bold">23%</td></tr><tr>
+<td class="p-3">3</td>
+<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/advocate-health-and-hospitals-corp-36-2169147.html">Eugene Woods</a></td>
+<td class="p-3 font-serif">Advocate Health (Midwest)</td>
+<td class="p-3">IL</td>
+<td class="p-3">$25,781,275</td>
+<td class="p-3">0.66%</td>
+<td class="p-3 text-docRed font-bold">22%</td></tr><tr>
+<td class="p-3">4</td>
+<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/montefiore-medical-center-13-1740114.html">Philip O Ozuah MD PhD</a></td>
+<td class="p-3 font-serif">Montefiore Health System</td>
+<td class="p-3">NY</td>
+<td class="p-3">$16,690,037</td>
+<td class="p-3">1.05%</td>
+<td class="p-3 text-docRed font-bold">27%</td></tr><tr>
+<td class="p-3">5</td>
+<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/vanderbilt-university-medical-center-35-2528741.html">Jeffrey R Balser MD PhD</a></td>
+<td class="p-3 font-serif">Vanderbilt University Medical Center</td>
+<td class="p-3">TN</td>
+<td class="p-3">$16,481,139</td>
+<td class="p-3">2.82%</td>
+<td class="p-3 text-docRed font-bold">7%</td></tr><tr>
+<td class="p-3">6</td>
+<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/mercy-health-system-corporation-39-0816848.html">Javon Bea</a></td>
+<td class="p-3 font-serif">Mercyhealth</td>
+<td class="p-3">WI</td>
+<td class="p-3">$16,336,153</td>
+<td class="p-3">0.49%</td>
+<td class="p-3 text-docRed font-bold">269%</td></tr><tr>
+<td class="p-3">7</td>
+<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/dignity-health-94-1196203.html">Wright L Lassiter III</a></td>
+<td class="p-3 font-serif">CommonSpirit Health (Dignity)</td>
+<td class="p-3">AZ</td>
+<td class="p-3">$14,175,319</td>
+<td class="p-3">1.68%</td>
+<td class="p-3 text-docRed font-bold">6%</td></tr><tr>
+<td class="p-3">8</td>
+<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/hackensack-meridian-health-inc-subordinates-01-0649794.html">Robert C Garrett</a></td>
+<td class="p-3 font-serif">Hackensack Meridian Health Inc-Subordinates</td>
+<td class="p-3">NJ</td>
+<td class="p-3">$13,541,590</td>
+<td class="p-3">2.49%</td>
+<td class="p-3 text-docRed font-bold">7%</td></tr><tr>
+<td class="p-3">9</td>
+<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/banner-health-45-0233470.html">Peter S Fine</a></td>
+<td class="p-3 font-serif">Banner Health</td>
+<td class="p-3">AZ</td>
+<td class="p-3">$13,535,312</td>
+<td class="p-3">1.92%</td>
+<td class="p-3 text-docRed font-bold">7%</td></tr><tr>
+<td class="p-3">10</td>
+<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/upmc-group-20-8295721.html">Leslie C Davis</a></td>
+<td class="p-3 font-serif">UPMC</td>
+<td class="p-3">PA</td>
+<td class="p-3">$13,324,020</td>
+<td class="p-3">0.51%</td>
+<td class="p-3 text-docRed font-bold">9%</td></tr></tbody></table></div>
+<p class="text-sm text-gray-600 mb-8">CEO pay is Form 990 Part VII total compensation. Charity care is Schedule H Part I line 7a, the hospital's own figure. Full definitions in the <a class="underline" href="/reports/hospital-ceo-pay/methodology.html">methodology</a>.</p>
+<div class="space-y-3">
+<a href="/reports/hospital-ceo-pay/all.html" class="block hover:underline font-bold">&#8627; Complete ranking, all 1,074 systems, searchable and sortable</a>
+<a href="/reports/hospital-ceo-pay/states.html" class="block hover:underline font-bold">&#8627; By state, 53 states and territories</a>
+<a href="/reports/hospital-ceo-pay/methodology.html" class="block hover:underline font-bold">&#8627; Methodology, in plain language</a>
+<a href="/reports/hospital-ceo-pay/manual.html" class="block hover:underline font-bold">&#8627; Reproduction manual, every rule and every manual decision</a>
+<a href="/reports/hospital-ceo-pay/data.html" class="block hover:underline font-bold">&#8627; Data files and scripts</a>
+</div>
+<p class="mt-8 text-sm"><strong>Rebuttals received:</strong> none. Institutions named in this report may write to rebuttals@everythingisbroken.org; replies are published in full on the report page.</p>
+<!-- /gen:report1 -->
                 </div>
             </section>
 
@@ -215,44 +268,45 @@
                 <h2 class="text-3xl font-bold mb-6">Data</h2>
                 <p class="mb-8">The Data page is what makes the reports hard to dismiss: anyone can download the dataset and rebuild every number. It is also what local groups and reporters will actually use. <em>No commentary is housed here.</em></p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- Dataset -->
-                    <div class="border border-black p-6">
-                        <h3 class="text-xl font-bold mb-3 uppercase tracking-wider">Dataset Download</h3>
-                        <p class="text-sm mb-4">Full dataset for each report (CSV), append-only. Every row carries its source filing and retrieval date. Superseded rows are flagged, never removed.</p>
-                        <button class="bg-black text-white px-4 py-2 font-mono text-sm uppercase tracking-widest hover:bg-gray-800 transition-colors w-full">Download .CSV</button>
-                    </div>
-
-                    <!-- Reproduction Manual -->
-                    <div class="border border-black p-6">
-                        <h3 class="text-xl font-bold mb-3 uppercase tracking-wider">Reproduction Manual</h3>
-                        <p class="text-sm mb-4">Step-by-step instructions, written so another person or another LLM can rebuild the dataset from scratch from the IRS bulk files.</p>
-                        <a href="#" class="underline hover:text-gray-600 block text-sm font-bold mt-2">Read the Manual &rarr;</a>
-                    </div>
-
-                    <!-- Source List -->
-                    <div class="border border-black p-6">
-                        <h3 class="text-xl font-bold mb-3 uppercase tracking-wider">Primary Sources</h3>
-                        <ul class="list-disc list-outside ml-4 text-sm space-y-2">
-                            <li>IRS Form 990 bulk XML</li>
-                            <li>IRS Schedule H</li>
-                            <li>ProPublica Nonprofit Explorer</li>
-                        </ul>
-                    </div>
-
-                    <!-- Version Log -->
-                    <div class="border border-black p-6">
-                        <h3 class="text-xl font-bold mb-3 uppercase tracking-wider">Version Log</h3>
-                        <p class="text-sm mb-4">What changed in each release of the data, dated.</p>
-                        <div class="font-mono text-xs text-gray-600 space-y-1">
-                            <p>[<span class="fig">2026-10-20</span>] v1.0.0 - Initial Dataset Launch</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-8 pt-6 rule-single text-sm">
-                    <p><strong>How to cite this data:</strong> Office of Institutional Accounts, <em>"Nonprofit Hospital Executive Pay vs Charity Care Dataset,"</em> <span class="fig">2026</span> release. everythingisbroken.org/data.</p>
-                </div>
+                <!-- gen:data -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="border border-black p-6">
+<h3 class="text-xl font-bold mb-3 uppercase tracking-wider">Dataset Download</h3>
+<p class="text-sm mb-1">Report No. 1, 2026 edition, data as of <span class="fig">2026-10-18</span>. Append-only: superseded rows are flagged, never removed. Every row carries its source filing and retrieval method.</p>
+<ul class="text-sm font-mono my-4 space-y-2">
+<li><a class="underline" href="/data/hospital-ceo-pay/systems_rollup.csv" download>systems_rollup.csv</a> <span class="text-gray-500">548 KB, one row per system</span></li>
+<li><a class="underline" href="/data/hospital-ceo-pay/filers_latest.csv" download>filers_latest.csv</a> <span class="text-gray-500">989 KB, one row per filer</span></li>
+<li><a class="underline" href="/data/hospital-ceo-pay/hospital_data.csv.gz" download>hospital_data.csv.gz</a> <span class="text-gray-500">8.0 MB, master table, 364,787 rows</span></li>
+<li><a class="underline" href="/data/hospital-ceo-pay/SHA256SUMS" download>SHA256SUMS</a></li>
+</ul>
+<a href="/reports/hospital-ceo-pay/data.html" class="underline hover:text-gray-600 block text-sm font-bold">All files, overrides, checksums and scripts &rarr;</a>
+</div>
+<div class="border border-black p-6">
+<h3 class="text-xl font-bold mb-3 uppercase tracking-wider">Reproduction Manual</h3>
+<p class="text-sm mb-4">A complete, self-contained procedure for rebuilding the dataset from the IRS bulk files: definitions with form lines and XML element names, the scripts in order, every decision rule, the override files, nine validation checks, known limits, and the annual re-run. Written so another person or another LLM can do it with no prior knowledge of this project.</p>
+<a href="/reports/hospital-ceo-pay/manual.html" class="underline hover:text-gray-600 block text-sm font-bold mt-2">Read the Manual &rarr;</a>
+<a href="/pipeline/REPRODUCTION_MANUAL.md" class="underline hover:text-gray-600 block text-sm mt-2">Plain-text version</a>
+</div>
+<div class="border border-black p-6">
+<h3 class="text-xl font-bold mb-3 uppercase tracking-wider">Primary Sources</h3>
+<ul class="list-disc list-outside ml-4 text-sm space-y-2">
+<li><a class="underline" href="https://www.irs.gov/charities-non-profits/form-990-series-downloads">IRS Form 990 bulk XML</a>, 2025 and 2026 releases</li>
+<li><a class="underline" href="https://www.irs.gov/forms-pubs/about-schedule-h-form-990">IRS Schedule H</a>, Part I line 7a</li>
+<li><a class="underline" href="https://projects.propublica.org/nonprofits/">ProPublica Nonprofit Explorer</a>, linked from every system page</li>
+</ul>
+</div>
+<div class="border border-black p-6">
+<h3 class="text-xl font-bold mb-3 uppercase tracking-wider">Version Log</h3>
+<p class="text-sm mb-4">What changed in each release of the data, dated.</p>
+<div class="font-mono text-xs text-gray-600 space-y-1">
+<p>[<span class="fig">2026-10-18</span>] v2026.1 - Initial release: 19,245 Schedule H filings, 2,306 filers, 1,649 systems, 1,074 ranked.</p>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 rule-single text-sm">
+<p><strong>How to cite this data:</strong> Everything Is Broken, <em>"Nonprofit Hospital Executive Pay vs Charity Care,"</em> Report No. 1, <span class="fig">2026</span> edition, data as of <span class="fig">2026-10-18</span>. everythingisbroken.org/reports/hospital-ceo-pay/</p>
+</div>
+<!-- /gen:data -->
             </section>
 
             <!-- SECTION: CONTACT -->
@@ -364,15 +418,15 @@
         <footer class="mt-16 pt-8 text-center text-sm font-mono tracking-widest text-gray-500 flex flex-col items-center">
             <div class="rule-single w-full max-w-md mb-6"></div>
             <div class="flex gap-4 mb-4">
-                <a href="#" onclick="showSection('reports')" class="hover:text-black transition-colors">Reports</a>
+                <a href="#reports" onclick="showSection('reports')" class="hover:text-black transition-colors">Reports</a>
                 <span>|</span>
-                <a href="#" onclick="showSection('data')" class="hover:text-black transition-colors">Data</a>
+                <a href="#data" onclick="showSection('data')" class="hover:text-black transition-colors">Data</a>
                 <span>|</span>
-                <a href="#" onclick="showSection('contact')" class="hover:text-black transition-colors">Contact</a>
+                <a href="#contact" onclick="showSection('contact')" class="hover:text-black transition-colors">Contact</a>
                 <span>|</span>
-                <a href="#" onclick="showSection('about')" class="hover:text-black transition-colors">About</a>
+                <a href="#about" onclick="showSection('about')" class="hover:text-black transition-colors">About</a>
                 <span>|</span>
-                <a href="#" onclick="showSection('standards')" class="hover:text-black transition-colors">Standards</a>
+                <a href="#standards" onclick="showSection('standards')" class="hover:text-black transition-colors">Standards</a>
             </div>
             <p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p>
         </footer>
@@ -402,9 +456,19 @@
                 activeLink.classList.add('font-bold', 'underline');
             }
             
+            // Keep the URL in step so sections can be linked to directly (/#data, /#reports)
+            if (history.replaceState) history.replaceState(null, '', '#' + sectionId);
             // Scroll to top of content area to mimic fresh page load
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+        function routeFromHash() {
+            var id = (location.hash || '#main').slice(1);
+            if (!document.getElementById(id) || !document.getElementById(id).classList.contains('section-content')) id = 'main';
+            showSection(id);
+            window.scrollTo({ top: 0 });
+        }
+        window.addEventListener('hashchange', routeFromHash);
+        routeFromHash();
     </script>
 </body>
 </html>

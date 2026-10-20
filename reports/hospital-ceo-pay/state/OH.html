@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ohio hospitals - Everything Is Broken</title>
+<meta name="description" content="Nonprofit hospital systems in Ohio ranked by CEO pay.">
+<link rel="icon" type="image/png" href="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
+--serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.sheet{max-width:1100px;margin:0 auto;background:var(--paper);padding:40px 32px;min-height:100vh}
+@media(min-width:640px){.sheet{margin:32px auto;border:1px solid var(--border);box-shadow:0 1px 2px rgba(0,0,0,.05)}}
+@media(max-width:640px){.sheet{padding:28px 16px}}
+.mast{text-align:center;margin-bottom:28px}
+.mast .seal{display:inline-block;margin-bottom:18px}
+.mast .seal img{width:128px;height:128px;display:block;margin:0 auto}
+.mast h1{font-size:2.6rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;font-weight:700;line-height:1.1}
+@media(max-width:640px){.mast h1{font-size:1.7rem}}
+.rule-double{border-top:4px double var(--ink)}
+.rule-double-bottom{border-bottom:4px double var(--ink)}
+.rule-single{border-bottom:1px solid var(--ink)}
+.mast .sub{font-style:italic;font-size:1.25rem;margin:12px 0 22px;letter-spacing:.02em}
+.mast nav.site{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 36px;text-transform:uppercase;letter-spacing:.1em;font-size:.95rem;padding-bottom:16px;border-bottom:1px solid var(--ink)}
+.mast nav.site a{text-decoration:none}
+.mast nav.site a:hover{color:var(--muted)}
+.mast nav.site a.on{font-weight:700;text-decoration:underline}
+.band{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;padding:12px 0;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.band .rep{color:var(--ink)}
+.band nav{display:flex;flex-wrap:wrap;gap:6px 18px}
+.band nav a{color:var(--muted);text-decoration:none}
+.band nav a:hover,.band nav a.on{color:var(--ink);text-decoration:underline}
+h1.title{font-size:2rem;line-height:1.2;margin:34px 0 8px;font-weight:700}
+h2{font-size:1.25rem;text-transform:uppercase;letter-spacing:.12em;margin:48px 0 14px;font-weight:700;display:inline-block;padding-bottom:4px;border-bottom:1px solid var(--ink)}
+h2 .n{font-family:var(--mono);font-weight:400;color:var(--muted);margin-right:10px;letter-spacing:.05em}
+h3{font-size:1.05rem;margin:26px 0 8px}
+p{margin:0 0 1rem}
+.doc-no{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:34px 0 0}
+.doc-no a{color:var(--muted)}
+.lede{font-size:1.2rem;line-height:1.55;max-width:66ch}
+.prose{max-width:70ch}
+.fig{font-family:var(--mono);font-size:.95em;letter-spacing:-.02em}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border:1px solid var(--ink);margin:26px 0}
+.stat{padding:16px 18px 14px;border-right:1px solid var(--border);min-width:0}
+.stat:last-child{border-right:0}
+.stat .v{font-family:var(--mono);font-size:2.1rem;line-height:1.05;font-weight:700;letter-spacing:-.03em}
+.stat .v.red{color:var(--red)}
+.stat .l{font-size:.82rem;color:var(--muted);margin-top:8px;line-height:1.4}
+.big3 .stat .v{font-size:2.6rem}
+@media(max-width:640px){.stat .v,.big3 .stat .v{font-size:1.7rem}.stat-row{grid-template-columns:1fr 1fr}.stat:nth-child(2n){border-right:0}}
+.tablewrap{overflow-x:auto;border:1px solid var(--ink);margin:14px 0 10px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;white-space:nowrap}
+thead th{background:var(--ink);color:#fff;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;font-weight:400;padding:10px 12px;text-align:left;cursor:pointer;user-select:none;white-space:normal;line-height:1.3;vertical-align:bottom}
+thead th.num{text-align:right}
+thead th[data-asc="1"]::after{content:" ▲"}thead th[data-asc="0"]::after{content:" ▼"}
+td{padding:10px 12px;border-bottom:1px solid #d9d4c7;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-family:var(--mono);font-size:.86rem}
+td.name{min-width:200px;white-space:normal}
+td.name a{font-weight:700;text-decoration:none}
+td.name a:hover{text-decoration:underline}
+td .sub{display:block;font-size:.84rem;color:var(--muted);font-weight:400;margin-top:2px}
+td.ratio{color:var(--red);font-weight:700}
+tr.kids td{color:var(--muted)}tr.kids td.name a{color:var(--muted);font-weight:400}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin:18px 0 4px;font-size:.92rem}
+.toolbar input[type=search]{font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);min-width:min(340px,100%);border-radius:0}
+.toolbar label{display:flex;gap:8px;align-items:center;color:var(--muted)}
+.note{font-size:.88rem;color:var(--muted);max-width:70ch;line-height:1.55}
+.src{font-size:.85rem;color:var(--muted);margin-top:8px}
+dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 24px;font-size:.95rem;max-width:70ch;border-top:1px solid var(--border);padding-top:12px;margin:0}
+dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:.9rem;min-width:0}
+.callout{background:var(--surface);border:1px solid var(--ink);border-left:6px solid var(--red);padding:14px 18px;max-width:70ch;margin:22px 0;font-size:1.02rem;line-height:1.55}
+.cb{display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-size:.92rem;max-width:600px}
+.cb span:nth-child(2n){font-family:var(--mono);font-size:.88rem}
+.cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
+.cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.card{border:1px solid var(--ink);padding:22px}
+.card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
+.card p,.card li{font-size:.92rem}
+.btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;padding:10px 16px;margin:4px 6px 4px 0}
+.btn:hover{background:#333}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink);padding:8px 14px}
+.btn.ghost:hover{background:var(--ink);color:#fff}
+ul.files{list-style:none;padding:0;margin:0}
+ul.files li{padding:12px 0;border-bottom:1px solid var(--border)}
+ul.files li:last-child{border-bottom:0}
+ul.files .fn{font-family:var(--mono);font-weight:700}
+ul.files .meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);display:block;margin-top:4px;white-space:normal;word-break:break-all}
+code{font-family:var(--mono);font-size:.88em}
+pre{background:var(--surface);border:1px solid var(--border);padding:14px;overflow-x:auto;font-size:.82rem;line-height:1.45}
+.manual table{white-space:normal;font-size:.86rem}
+.manual thead th{cursor:default}
+footer{margin-top:64px;padding-top:28px;text-align:center;font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;color:var(--muted)}
+footer .rule-single{width:100%;max-width:440px;margin:0 auto 22px}
+footer .links a{color:var(--muted);text-decoration:none;margin:0 10px}
+footer .links a:hover{color:var(--ink)}
+footer p{margin:14px 0 0}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+</style></head><body>
+<div class="sheet">
+<header class="mast">
+<a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
+<h1>Everything Is Broken</h1>
+<div class="rule-double"></div>
+<p class="sub">Office of Institutional Accounts</p>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+</header>
+<main>
+
+<p class="doc-no">Report No. 1 &middot; 2026 edition &middot; <a href="/reports/hospital-ceo-pay/states.html">all states</a></p>
+<h1 class="title">Ohio</h1>
+<p class="lede">57 nonprofit hospital systems file from Ohio. Median charity care: 0.56% of expenses.</p>
+<div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
+<div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and chief executive</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="bon secours mercy health" data-ceo="john starcher jr jd" data-state="OH" data-kids="0">
+<td class="num">12</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/bon-secours-mercy-health-inc-52-1301088.html">Bon Secours Mercy Health</a><span class="sub">John Starcher Jr JD</span></td>
+
+<td class="num" data-v="12809033.0">$12.8M</td>
+<td class="num" data-v="11537795267.0">$11.5B</td>
+<td class="num" data-v="0.7738830177292528">0.77%</td>
+<td class="num" data-v="86906907.0">$86.9M</td>
+<td class="num ratio" data-v="14.738797458296382">15%</td></tr><tr data-name="st luke&#x27;s hospital" data-ceo="philip incarnati" data-state="OH" data-kids="0">
+<td class="num">15</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/st-luke-s-hospital-34-4428232.html">St Luke&#x27;S Hospital</a><span class="sub">Philip Incarnati</span></td>
+
+<td class="num" data-v="10783705.0">$10.8M</td>
+<td class="num" data-v="24229382.0">$24.2M</td>
+<td class="num" data-v="0.2815295470423558">0.28%</td>
+<td class="num" data-v="433503.0">$433,503</td>
+<td class="num ratio" data-v="2487.5733270588667">2488%</td></tr><tr data-name="the cleveland clinic foundation" data-ceo="mihaljevic md tomislav" data-state="OH" data-kids="0">
+<td class="num">18</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/the-cleveland-clinic-foundation-group-return-91-2153073.html">The Cleveland Clinic Foundation</a><span class="sub">Mihaljevic MD Tomislav</span></td>
+
+<td class="num" data-v="9709152.0">$9.7M</td>
+<td class="num" data-v="17206708633.0">$17.2B</td>
+<td class="num" data-v="2.0644287419426557">2.06%</td>
+<td class="num" data-v="332946431.0">$332.9M</td>
+<td class="num ratio" data-v="2.91613037293678">3%</td></tr><tr data-name="ohiohealth corporation" data-ceo="markovich stephen e md" data-state="OH" data-kids="0">
+<td class="num">36</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/ohiohealth-corporation-group-return-32-0007056.html">Ohiohealth Corporation</a><span class="sub">Markovich Stephen E MD</span></td>
+
+<td class="num" data-v="6546210.0">$6.5M</td>
+<td class="num" data-v="2243304123.0">$2.2B</td>
+<td class="num" data-v="2.0819409564018487">2.08%</td>
+<td class="num" data-v="52900771.0">$52.9M</td>
+<td class="num ratio" data-v="12.374507736380629">12%</td></tr><tr data-name="university hospitals health system inc" data-ceo="megerian cliff md" data-state="OH" data-kids="0">
+<td class="num">64</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/university-hospitals-health-system-inc-group-return-90-0059117.html">University Hospitals Health System INC</a><span class="sub">Megerian Cliff MD</span></td>
+
+<td class="num" data-v="4448841.0">$4.4M</td>
+<td class="num" data-v="5946385392.0">$5.9B</td>
+<td class="num" data-v="1.2292739732984332">1.23%</td>
+<td class="num" data-v="72478222.0">$72.5M</td>
+<td class="num ratio" data-v="6.1381762372702795">6%</td></tr><tr data-name="the toledo hospital" data-ceo="arturo polizzi" data-state="OH" data-kids="0">
+<td class="num">112</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/the-toledo-hospital-34-4428256.html">The Toledo Hospital</a><span class="sub">Arturo Polizzi</span></td>
+
+<td class="num" data-v="3133332.0">$3.1M</td>
+<td class="num" data-v="2494082172.0">$2.5B</td>
+<td class="num" data-v="0.9563967736512545">0.96%</td>
+<td class="num" data-v="19523597.0">$19.5M</td>
+<td class="num ratio" data-v="16.04894835721102">16%</td></tr><tr class="kids" data-name="children&#x27;s hospital medical center" data-ceo="steve davis md" data-state="OH" data-kids="1">
+<td class="num">126</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/children-s-hospital-medical-center-31-0833936.html">Children&#x27;S Hospital Medical Center</a><span class="sub">Steve Davis MD · children’s</span></td>
+
+<td class="num" data-v="2814850.0">$2.8M</td>
+<td class="num" data-v="3568680376.0">$3.6B</td>
+<td class="num" data-v="0.3403765698294626">0.34%</td>
+<td class="num" data-v="11447414.0">$11.4M</td>
+<td class="num ratio" data-v="24.589396347506955">25%</td></tr><tr data-name="summa health" data-ceo="t clifford deveny md" data-state="OH" data-kids="0">
+<td class="num">173</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/summa-health-group-return-90-0640432.html">Summa Health</a><span class="sub">T Clifford Deveny MD</span></td>
+
+<td class="num" data-v="2239929.0">$2.2M</td>
+<td class="num" data-v="1694854147.0">$1.7B</td>
+<td class="num" data-v="0.829883604525045">0.83%</td>
+<td class="num" data-v="14295514.0">$14.3M</td>
+<td class="num ratio" data-v="15.66875454775533">16%</td></tr><tr class="kids" data-name="nationwide childrens hospital" data-ceo="timothy c robinson" data-state="OH" data-kids="1">
+<td class="num">187</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/nationwide-childrens-hospital-group-return-01-0782751.html">Nationwide Childrens Hospital</a><span class="sub">Timothy C Robinson · children’s</span></td>
+
+<td class="num" data-v="2187047.0">$2.2M</td>
+<td class="num" data-v="4325096802.0">$4.3B</td>
+<td class="num" data-v="1.007534420502586">1.01%</td>
+<td class="num" data-v="40525072.0">$40.5M</td>
+<td class="num ratio" data-v="5.396775112453841">5%</td></tr><tr data-name="kettering medical center" data-ceo="michael v gentry" data-state="OH" data-kids="0">
+<td class="num">200</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/kettering-medical-center-31-0621866.html">Kettering Medical Center</a><span class="sub">Michael V Gentry</span></td>
+
+<td class="num" data-v="2096364.0">$2.1M</td>
+<td class="num" data-v="2556212872.0">$2.6B</td>
+<td class="num" data-v="0.7235758686302348">0.72%</td>
+<td class="num" data-v="16199967.0">$16.2M</td>
+<td class="num ratio" data-v="12.940544878887717">13%</td></tr><tr class="kids" data-name="dayton children&#x27;s hospital" data-ceo="deborah feldman" data-state="OH" data-kids="1">
+<td class="num">201</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/dayton-children-s-hospital-31-0672132.html">Dayton Children&#x27;S Hospital</a><span class="sub">Deborah Feldman · children’s</span></td>
+
+<td class="num" data-v="2091992.0">$2.1M</td>
+<td class="num" data-v="825137568.0">$825.1M</td>
+<td class="num" data-v="0.555186205976318">0.56%</td>
+<td class="num" data-v="3672452.0">$3.7M</td>
+<td class="num ratio" data-v="56.96444773137947">57%</td></tr><tr data-name="uc healthcare system" data-ceo="cory shaw" data-state="OH" data-kids="0">
+<td class="num">207</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/uc-healthcare-system-27-3850988.html">UC Healthcare System</a><span class="sub">Cory Shaw</span></td>
+
+<td class="num" data-v="2068092.0">$2.1M</td>
+<td class="num" data-v="2926481065.0">$2.9B</td>
+<td class="num" data-v="1.259419795678291">1.26%</td>
+<td class="num" data-v="36819440.0">$36.8M</td>
+<td class="num ratio" data-v="5.61684805635284">6%</td></tr><tr data-name="the christ hospital" data-ceo="deborah hayes" data-state="OH" data-kids="0">
+<td class="num">229</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/the-christ-hospital-31-0538525.html">The Christ Hospital</a><span class="sub">Deborah Hayes</span></td>
+
+<td class="num" data-v="1872912.0">$1.9M</td>
+<td class="num" data-v="1491663160.0">$1.5B</td>
+<td class="num" data-v="0.17226816545604856">0.17%</td>
+<td class="num" data-v="2504110.0">$2.5M</td>
+<td class="num ratio" data-v="74.7935194540176">75%</td></tr><tr class="kids" data-name="children&#x27;s hospital medical center of akron" data-ceo="christopher a gessner" data-state="OH" data-kids="1">
+<td class="num">241</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/children-s-hospital-medical-center-of-akron-34-0714357.html">Children&#x27;S Hospital Medical Center of Akron</a><span class="sub">Christopher A Gessner · children’s</span></td>
+
+<td class="num" data-v="1791308.0">$1.8M</td>
+<td class="num" data-v="1540288244.0">$1.5B</td>
+<td class="num" data-v="0.4789129049584355">0.48%</td>
+<td class="num" data-v="6483948.0">$6.5M</td>
+<td class="num ratio" data-v="27.626810085460278">28%</td></tr><tr data-name="miami valley hospital" data-ceo="michael c riordan" data-state="OH" data-kids="0">
+<td class="num">290</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/miami-valley-hospital-31-0537504.html">Miami Valley Hospital</a><span class="sub">Michael C Riordan</span></td>
+
+<td class="num" data-v="1579749.0">$1.6M</td>
+<td class="num" data-v="2065228155.0">$2.1B</td>
+<td class="num" data-v="1.2765175802419018">1.28%</td>
+<td class="num" data-v="22728000.0">$22.7M</td>
+<td class="num ratio" data-v="6.950673178458288">7%</td></tr><tr data-name="licking memorial hospital" data-ceo="robert montagnese" data-state="OH" data-kids="0">
+<td class="num">380</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/licking-memorial-hospital-31-4379519.html">Licking Memorial Hospital</a><span class="sub">Robert Montagnese</span></td>
+
+<td class="num" data-v="1188946.0">$1.2M</td>
+<td class="num" data-v="399199871.0">$399.2M</td>
+<td class="num" data-v="0.6068843324612649">0.61%</td>
+<td class="num" data-v="1976838.0">$2.0M</td>
+<td class="num ratio" data-v="60.14382564479234">60%</td></tr><tr data-name="firelands regional medical center" data-ceo="jeremy normington-slay" data-state="OH" data-kids="0">
+<td class="num">388</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/firelands-regional-medical-center-34-4428218.html">Firelands Regional Medical Center</a><span class="sub">Jeremy Normington-Slay</span></td>
+
+<td class="num" data-v="1168196.0">$1.2M</td>
+<td class="num" data-v="313575433.0">$313.6M</td>
+<td class="num" data-v="0.7545071003804571">0.75%</td>
+<td class="num" data-v="2143163.0">$2.1M</td>
+<td class="num ratio" data-v="54.508033220058394">55%</td></tr><tr data-name="blanchard valley regional health center" data-ceo="myron lewis" data-state="OH" data-kids="0">
+<td class="num">397</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/blanchard-valley-regional-health-center-34-1369963.html">Blanchard Valley Regional Health Center</a><span class="sub">Myron Lewis</span></td>
+
+<td class="num" data-v="1137148.0">$1.1M</td>
+<td class="num" data-v="413666615.0">$413.7M</td>
+<td class="num" data-v="0.4862156994764815">0.49%</td>
+<td class="num" data-v="1555499.0">$1.6M</td>
+<td class="num ratio" data-v="73.10502931856594">73%</td></tr><tr data-name="community mercy health partners" data-ceo="adam groshans" data-state="OH" data-kids="0">
+<td class="num">400</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/community-mercy-health-partners-31-0785684.html">Community Mercy Health Partners</a><span class="sub">Adam Groshans</span></td>
+
+<td class="num" data-v="1129104.0">$1.1M</td>
+<td class="num" data-v="392510312.0">$392.5M</td>
+<td class="num" data-v="1.1091360320270571">1.11%</td>
+<td class="num" data-v="4248292.0">$4.2M</td>
+<td class="num ratio" data-v="26.57783410368214">27%</td></tr><tr data-name="genesis healthcare system" data-ceo="matthew perry" data-state="OH" data-kids="0">
+<td class="num">412</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/genesis-healthcare-system-31-1480941.html">Genesis Healthcare System</a><span class="sub">Matthew Perry</span></td>
+
+<td class="num" data-v="1078176.0">$1.1M</td>
+<td class="num" data-v="759908584.0">$759.9M</td>
+<td class="num" data-v="0.24724521962061916">0.25%</td>
+<td class="num" data-v="1638795.0">$1.6M</td>
+<td class="num ratio" data-v="65.79077920057115">66%</td></tr><tr data-name="fairfield medical center" data-ceo="john r janoso jr" data-state="OH" data-kids="0">
+<td class="num">415</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/fairfield-medical-center-31-0645626.html">Fairfield Medical Center</a><span class="sub">John R Janoso Jr</span></td>
+
+<td class="num" data-v="1068551.0">$1.1M</td>
+<td class="num" data-v="351630396.0">$351.6M</td>
+<td class="num" data-v="0.1364740686043894">0.14%</td>
+<td class="num" data-v="459187.0">$459,187</td>
+<td class="num ratio" data-v="232.70497640394873">233%</td></tr><tr data-name="lima memorial joint operating company" data-ceo="michael d swick" data-state="OH" data-kids="0">
+<td class="num">488</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/lima-memorial-joint-operating-company-34-1883284.html">Lima Memorial Joint Operating Company</a><span class="sub">Michael D Swick</span></td>
+
+<td class="num" data-v="921592.0">$921,592</td>
+<td class="num" data-v="317901718.0">$317.9M</td>
+<td class="num" data-v="0.3173138089411224">0.32%</td>
+<td class="num" data-v="913757.0">$913,757</td>
+<td class="num ratio" data-v="100.85744897166316">101%</td></tr><tr data-name="mount carmel health system" data-ceo="tauana mcdonald" data-state="OH" data-kids="0">
+<td class="num">500</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/mount-carmel-health-system-31-1439334.html">Mount Carmel Health System</a><span class="sub">Tauana Mcdonald</span></td>
+
+<td class="num" data-v="903465.0">$903,465</td>
+<td class="num" data-v="1459932279.0">$1.5B</td>
+<td class="num" data-v="1.9285132006691685">1.93%</td>
+<td class="num" data-v="28278238.0">$28.3M</td>
+<td class="num ratio" data-v="3.194912639182116">3%</td></tr><tr data-name="southwest general health center" data-ceo="william a young jr" data-state="OH" data-kids="0">
+<td class="num">534</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/southwest-general-health-center-34-0753531.html">Southwest General Health Center</a><span class="sub">William A Young Jr</span></td>
+
+<td class="num" data-v="828864.0">$828,864</td>
+<td class="num" data-v="449561763.0">$449.6M</td>
+<td class="num" data-v="0.4210594506981799">0.42%</td>
+<td class="num" data-v="1930013.0">$1.9M</td>
+<td class="num ratio" data-v="42.94603196973284">43%</td></tr><tr data-name="southern ohio medical center" data-ceo="benjamin gill" data-state="OH" data-kids="0">
+<td class="num">535</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/southern-ohio-medical-center-31-0678022.html">Southern Ohio Medical Center</a><span class="sub">Benjamin Gill</span></td>
+
+<td class="num" data-v="828053.0">$828,053</td>
+<td class="num" data-v="630867880.0">$630.9M</td>
+<td class="num" data-v="1.442692611011209">1.44%</td>
+<td class="num" data-v="8005770.0">$8.0M</td>
+<td class="num ratio" data-v="10.343202465221959">10%</td></tr><tr data-name="knox community hospital" data-ceo="bruce white" data-state="OH" data-kids="0">
+<td class="num">572</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/knox-community-hospital-31-0929576.html">Knox Community Hospital</a><span class="sub">Bruce White</span></td>
+
+<td class="num" data-v="742938.0">$742,938</td>
+<td class="num" data-v="223103354.0">$223.1M</td>
+<td class="num" data-v="0.8076437064832288">0.81%</td>
+<td class="num" data-v="1979317.0">$2.0M</td>
+<td class="num ratio" data-v="37.5350689151864">38%</td></tr><tr data-name="aultman health foundation" data-ceo="robert mullen" data-state="OH" data-kids="0">
+<td class="num">602</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/aultman-health-foundation-group-return-32-0483994.html">Aultman Health Foundation</a><span class="sub">Robert Mullen</span></td>
+
+<td class="num" data-v="678267.0">$678,267</td>
+<td class="num" data-v="1049448649.0">$1.0B</td>
+<td class="num" data-v="0.26756889103340487">0.27%</td>
+<td class="num" data-v="2751010.0">$2.8M</td>
+<td class="num ratio" data-v="24.65519936314299">25%</td></tr><tr data-name="the shelby county memorial hospital association" data-ceo="mark klosterman" data-state="OH" data-kids="0">
+<td class="num">603</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/the-shelby-county-memorial-hospital-association-34-4427944.html">The Shelby County Memorial Hospital Association</a><span class="sub">Mark Klosterman</span></td>
+
+<td class="num" data-v="676805.0">$676,805</td>
+<td class="num" data-v="128665963.0">$128.7M</td>
+<td class="num" data-v="0.5004522692086615">0.50%</td>
+<td class="num" data-v="645343.0">$645,343</td>
+<td class="num ratio" data-v="104.87523688953007">105%</td></tr><tr data-name="fisher-titus medical center" data-ceo="brent burkey" data-state="OH" data-kids="0">
+<td class="num">606</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/fisher-titus-medical-center-34-4430716.html">Fisher-Titus Medical Center</a><span class="sub">Brent Burkey</span></td>
+
+<td class="num" data-v="674664.0">$674,664</td>
+<td class="num" data-v="165498137.0">$165.5M</td>
+<td class="num" data-v="0.3204304263850114">0.32%</td>
+<td class="num" data-v="509446.0">$509,446</td>
+<td class="num ratio" data-v="132.43091515096793">132%</td></tr><tr data-name="holzer hospital foundation" data-ceo="rodney stout" data-state="OH" data-kids="0">
+<td class="num">627</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/holzer-hospital-foundation-31-4379491.html">Holzer Hospital Foundation</a><span class="sub">Rodney Stout</span></td>
+
+<td class="num" data-v="648360.0">$648,360</td>
+<td class="num" data-v="274744540.0">$274.7M</td>
+<td class="num" data-v="1.059907217779062">1.06%</td>
+<td class="num" data-v="2517778.0">$2.5M</td>
+<td class="num ratio" data-v="25.751277515332966">26%</td></tr><tr data-name="craig and frances lindner center of hope" data-ceo="paul crosby md mba" data-state="OH" data-kids="0">
+<td class="num">662</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/craig-and-frances-lindner-center-of-hope-13-4343743.html">Craig and Frances Lindner Center of Hope</a><span class="sub">Paul Crosby MD MBA</span></td>
+
+<td class="num" data-v="593538.0">$593,538</td>
+<td class="num" data-v="43200473.0">$43.2M</td>
+<td class="num" data-v="0.28233286891682313">0.28%</td>
+<td class="num" data-v="88618.0">$88,618</td>
+<td class="num ratio" data-v="669.771378275294">670%</td></tr><tr data-name="madison county community hospital" data-ceo="dana e engle" data-state="OH" data-kids="0">
+<td class="num">665</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/madison-county-community-hospital-31-1657206.html">Madison County Community Hospital</a><span class="sub">Dana E Engle</span></td>
+
+<td class="num" data-v="589706.0">$589,706</td>
+<td class="num" data-v="73078888.0">$73.1M</td>
+<td class="num" data-v="0.560964345532544">0.56%</td>
+<td class="num" data-v="402777.0">$402,777</td>
+<td class="num ratio" data-v="146.41004824009315">146%</td></tr><tr data-name="salem community hospital" data-ceo="anita hackstedde" data-state="OH" data-kids="0">
+<td class="num">685</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/salem-community-hospital-34-1041385.html">Salem Community Hospital</a><span class="sub">Anita Hackstedde</span></td>
+
+<td class="num" data-v="549711.0">$549,711</td>
+<td class="num" data-v="121506846.0">$121.5M</td>
+<td class="num" data-v="0.9918911959002109">0.99%</td>
+<td class="num" data-v="1120436.0">$1.1M</td>
+<td class="num ratio" data-v="49.06224005654941">49%</td></tr><tr data-name="van wert county hospital association" data-ceo="james pope" data-state="OH" data-kids="0">
+<td class="num">696</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/van-wert-county-hospital-association-34-4429514.html">Van Wert County Hospital Association</a><span class="sub">James Pope</span></td>
+
+<td class="num" data-v="525264.0">$525,264</td>
+<td class="num" data-v="68587926.0">$68.6M</td>
+<td class="num" data-v="0.17537126124266628">0.18%</td>
+<td class="num" data-v="147686.0">$147,686</td>
+<td class="num ratio" data-v="355.66268976070853">356%</td></tr><tr data-name="wood county hospital association" data-ceo="stanley korducki" data-state="OH" data-kids="0">
+<td class="num">722</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/wood-county-hospital-association-34-4440884.html">Wood County Hospital Association</a><span class="sub">Stanley Korducki</span></td>
+
+<td class="num" data-v="503598.0">$503,598</td>
+<td class="num" data-v="152225991.0">$152.2M</td>
+<td class="num" data-v="0.6246274534388151">0.62%</td>
+<td class="num" data-v="970074.0">$970,074</td>
+<td class="num ratio" data-v="51.91335918703109">52%</td></tr><tr data-name="fulton county health center" data-ceo="patricia a finn" data-state="OH" data-kids="0">
+<td class="num">775</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/fulton-county-health-center-34-4428214.html">Fulton County Health Center</a><span class="sub">Patricia A Finn</span></td>
+
+<td class="num" data-v="445124.0">$445,124</td>
+<td class="num" data-v="141824512.0">$141.8M</td>
+<td class="num" data-v="3.5183913712285513">3.52%</td>
+<td class="num" data-v="5240522.0">$5.2M</td>
+<td class="num ratio" data-v="8.493886677701191">8%</td></tr><tr data-name="pomerene hospital fka joel pomerene foundation" data-ceo="jason justus" data-state="OH" data-kids="0">
+<td class="num">809</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/pomerene-hospital-fka-joel-pomerene-foundation-31-1518658.html">Pomerene Hospital Fka Joel Pomerene Foundation</a><span class="sub">Jason Justus</span></td>
+
+<td class="num" data-v="403434.0">$403,434</td>
+<td class="num" data-v="43423887.0">$43.4M</td>
+<td class="num" data-v="0.7659506920916395">0.77%</td>
+<td class="num" data-v="320208.0">$320,208</td>
+<td class="num ratio" data-v="125.99123070004497">126%</td></tr><tr data-name="wayne hospital company" data-ceo="jeffrey subler" data-state="OH" data-kids="0">
+<td class="num">890</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/wayne-hospital-company-34-4428598.html">Wayne Hospital Company</a><span class="sub">Jeffrey Subler</span></td>
+
+<td class="num" data-v="316388.0">$316,388</td>
+<td class="num" data-v="88754837.0">$88.8M</td>
+<td class="num" data-v="0.43066290422327896">0.43%</td>
+<td class="num" data-v="375459.0">$375,459</td>
+<td class="num ratio" data-v="84.26699053691615">84%</td></tr><tr data-name="h b magruder memorial hospital" data-ceo="nicholas marsico" data-state="OH" data-kids="0">
+<td class="num">904</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/h-b-magruder-memorial-hospital-34-4441792.html">H B Magruder Memorial Hospital</a><span class="sub">Nicholas Marsico</span></td>
+
+<td class="num" data-v="299177.0">$299,177</td>
+<td class="num" data-v="68284956.0">$68.3M</td>
+<td class="num" data-v="0.12950386196121685">0.13%</td>
+<td class="num" data-v="89460.0">$89,460</td>
+<td class="num ratio" data-v="334.4254415381176">334%</td></tr><tr data-name="henry county hospital" data-ceo="kristi barnd" data-state="OH" data-kids="0">
+<td class="num">964</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/henry-county-hospital-inc-34-4477047.html">Henry County Hospital</a><span class="sub">Kristi Barnd</span></td>
+
+<td class="num" data-v="240197.0">$240,197</td>
+<td class="num" data-v="34879740.0">$34.9M</td>
+<td class="num" data-v="0.4168252671901311">0.42%</td>
+<td class="num" data-v="152531.0">$152,531</td>
+<td class="num ratio" data-v="157.47421835561295">157%</td></tr><tr data-name="mental health services for clark co" data-ceo="kelly rigger" data-state="OH" data-kids="0">
+<td class="num">1056</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/mental-health-services-for-clark-co-inc-31-0787073.html">Mental Health Services for Clark Co</a><span class="sub">Kelly Rigger</span></td>
+
+<td class="num" data-v="146210.0">$146,210</td>
+<td class="num" data-v="15599444.0">$15.6M</td>
+<td class="num" data-v="2.214620217471189">2.21%</td>
+<td class="num" data-v="318750.0">$318,750</td>
+<td class="num ratio" data-v="45.869803921568625">46%</td></tr><tr data-name="adams county regional medical center" data-ceo="alan bird" data-state="OH" data-kids="0">
+<td class="num">1066</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/adams-county-regional-medical-center-81-2817266.html">Adams County Regional Medical Center</a><span class="sub">Alan Bird</span></td>
+
+<td class="num" data-v="110514.0">$110,514</td>
+<td class="num" data-v="49934516.0">$49.9M</td>
+<td class="num" data-v="0.3524062159074793">0.35%</td>
+<td class="num" data-v="177143.0">$177,143</td>
+<td class="num ratio" data-v="62.3868851718668">62%</td></tr></tbody></table></div>
+<p class="note">Systems not shown: 15 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/bethesda-hospital-inc-31-0537122.html">Bethesda Hospital</a>, <a href="/reports/hospital-ceo-pay/system/adena-health-system-31-4379443.html">Adena Health System</a>, <a href="/reports/hospital-ceo-pay/system/marietta-memorial-hospital-31-4379509.html">Marietta Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/galion-community-hospital-34-4451872.html">Galion Community Hospital</a>, <a href="/reports/hospital-ceo-pay/system/ashtabula-county-medical-center-34-0726081.html">Ashtabula County Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/mary-rutan-hospital-34-1407259.html">Mary Rutan Hospital</a>, <a href="/reports/hospital-ceo-pay/system/joint-township-district-memorial-hospital-34-1623770.html">Joint Township District Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/community-hospitals-and-wellness-centers-34-1048666.html">Community Hospitals and Wellness Centers</a>, <a href="/reports/hospital-ceo-pay/system/city-hospital-association-34-0714583.html">City Hospital Association</a>, <a href="/reports/hospital-ceo-pay/system/the-bellevue-hospital-34-4428205.html">The Bellevue Hospital</a>, <a href="/reports/hospital-ceo-pay/system/mccullough-hyde-memorial-hospital-incorporated-31-0650283.html">Mccullough-Hyde Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/ashtabula-county-medical-center-group-return-38-3975135.html">Ashtabula County Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/barnesville-hospital-association-inc-34-0719172.html">Barnesville Hospital Association</a>, <a href="/reports/hospital-ceo-pay/system/grace-hospital-34-0714479.html">Grace Hospital</a>, <a href="/reports/hospital-ceo-pay/system/bluestone-child-and-adolescent-psychiatric-hospital-83-4569993.html">Bluestone Child and Adolescent Psychiatric Hospital</a>.</p>
+<script>
+(function(){
+  var tables=document.querySelectorAll('table.sortable');
+  tables.forEach(function(t){
+    var ths=t.querySelectorAll('th');
+    ths.forEach(function(th,i){th.addEventListener('click',function(){
+      var tb=t.tBodies[0], rows=Array.prototype.slice.call(tb.rows), k=th.dataset.k, asc=th.dataset.asc!=='1';
+      ths.forEach(function(h){delete h.dataset.asc}); th.dataset.asc=asc?'1':'0';
+      rows.sort(function(a,b){var x=a.cells[i],y=b.cells[i]; if(k==='num'){x=parseFloat(x.dataset.v!==undefined?x.dataset.v:x.textContent)||0;y=parseFloat(y.dataset.v!==undefined?y.dataset.v:y.textContent)||0;return asc?x-y:y-x}
+        x=x.textContent.trim().toLowerCase();y=y.textContent.trim().toLowerCase();return asc?(x<y?-1:x>y?1:0):(x>y?-1:x<y?1:0)});
+      rows.forEach(function(r){tb.appendChild(r)});
+    })});
+  });
+  var q=document.getElementById('q'), kids=document.getElementById('kids');
+  function filter(){var v=(q?q.value:'').trim().toLowerCase(), showKids=kids?kids.checked:true;
+    document.querySelectorAll('table.sortable tbody tr').forEach(function(r){
+      var ok=(!v||r.dataset.name.indexOf(v)>=0||r.dataset.ceo.indexOf(v)>=0||r.dataset.state.toLowerCase()===v)&&(showKids||r.dataset.kids!=='1');
+      r.hidden=!ok;});}
+  if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
+})();
+</script></main>
+<footer><div class="rule-single"></div>
+<div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
+<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-18 &middot; Built 2026-10-20</p>
+<p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to corrections@everythingisbroken.org.</p>
+<p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>
+</div></body></html>

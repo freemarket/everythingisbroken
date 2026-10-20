@@ -1,0 +1,15 @@
+ein,fye,action,system_key_override,reason,date
+95-2321786,2025-06,split,CHOC,"Children's Hospital of Orange County: CEO-name merge with Rady Children's because Patrick Frias appears on both filings (left CHOC for Rady during the period). Separate systems.",2026-10-18
+34-0714585,2024-12,drop_duplicate,,"The Cleveland Clinic Foundation (EIN 34-0714585) is included within The Cleveland Clinic Foundation Group Return; keeping both double-counts revenue and charity care. Keep the group return only.",2026-10-18
+39-2014409,2025-06,merge,IMRAN ANDRABI MD,"Froedtert ThedaCare Health Inc (the $1.35B filer at 0.03% charity care) is the parent/holding entity; hospital-level charity care sits in Froedtert Memorial Lutheran and ThedaCare filers (10-filer roll-up under Andrabi). The 1654% ratio computed on this filer alone is not a system figure. Merge under Andrabi system.",2026-10-18
+88-4157429,2024-12,parent,ADVOCATE HEALTH SYSTEM,"Advocate Health Inc (NC) is the parent of the Advocate Aurora Midwest entities and of Atrium Health. It files no Schedule H (owns no hospitals directly) and was loaded for Part VII only. Its CEO (Eugene Woods, $25.78M) and co-CEO (James Skogsbergh, $30.86M) are the system executives. Atrium Health is a NC public hospital authority and files no Form 990, so the system's Southeast charity care is not available here.",2026-10-18
+36-2169147,2024-12,join,ADVOCATE HEALTH SYSTEM,"Advocate Health and Hospitals Corp (6 IL hospitals): member of Advocate Health system under the NC parent.",2026-10-18
+36-3196629,2024-12,join,ADVOCATE HEALTH SYSTEM,"Advocate North Side Health Network (Illinois Masonic): member of Advocate Health system.",2026-10-18
+26-2525968,2024-12,join,ADVOCATE HEALTH SYSTEM,"Advocate Condell Medical Center: member of Advocate Health system.",2026-10-18
+36-2167920,2024-12,join,ADVOCATE HEALTH SYSTEM,"Advocate Sherman Hospital: member of Advocate Health system.",2026-10-18
+61-1649250,2024-12,join,ADVOCATE HEALTH SYSTEM,"Aurora Health Care Inc group return (WI): member of Advocate Health system.",2026-10-18
+43-1617558,2024-12,join,BJC LIEKWEG RICHARD,"BJC Health System dba BJC HealthCare joins the BJC group return system (CEO Liekweg).",2026-10-18
+36-2167847,2025-06,join,JAVON BEA,"Javon Bea Hospital (Rockford) is part of Mercyhealth (Javon Bea CEO); the filing spells his name 'JAVON R BEA' so the name merge missed it.",2026-10-18
+20-1673011,2025-06,join,JAVON BEA,"Mercy Crystal Lake: Mercyhealth system (Javon Bea).",2026-10-18
+31-1551871,2025-06,join,JAVON BEA,"Mercy Harvard: Mercyhealth system (Javon Bea).",2026-10-18
+81-1244422,2024-12,parent,ERIK WEXLER,"Providence St Joseph Health is the Providence system parent (files Schedule H for one facility only). It reports Rod Hochman as President/CEO at $12.26M for 2024; Hochman retired and Erik Wexler became CEO 1 Jan 2025, and Wexler appears on the subsidiaries' 2024 filings as President/CEO at $9.13M. Joined to the Wexler system as parent; the system CEO for 2024 is taken from this parent (Hochman), with Wexler's figure also reported.",2026-10-18

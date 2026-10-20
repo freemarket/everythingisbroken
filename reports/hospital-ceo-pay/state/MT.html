@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Montana hospitals - Everything Is Broken</title>
+<meta name="description" content="Nonprofit hospital systems in Montana ranked by CEO pay.">
+<link rel="icon" type="image/png" href="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
+--serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.sheet{max-width:1100px;margin:0 auto;background:var(--paper);padding:40px 32px;min-height:100vh}
+@media(min-width:640px){.sheet{margin:32px auto;border:1px solid var(--border);box-shadow:0 1px 2px rgba(0,0,0,.05)}}
+@media(max-width:640px){.sheet{padding:28px 16px}}
+.mast{text-align:center;margin-bottom:28px}
+.mast .seal{display:inline-block;margin-bottom:18px}
+.mast .seal img{width:128px;height:128px;display:block;margin:0 auto}
+.mast h1{font-size:2.6rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;font-weight:700;line-height:1.1}
+@media(max-width:640px){.mast h1{font-size:1.7rem}}
+.rule-double{border-top:4px double var(--ink)}
+.rule-double-bottom{border-bottom:4px double var(--ink)}
+.rule-single{border-bottom:1px solid var(--ink)}
+.mast .sub{font-style:italic;font-size:1.25rem;margin:12px 0 22px;letter-spacing:.02em}
+.mast nav.site{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 36px;text-transform:uppercase;letter-spacing:.1em;font-size:.95rem;padding-bottom:16px;border-bottom:1px solid var(--ink)}
+.mast nav.site a{text-decoration:none}
+.mast nav.site a:hover{color:var(--muted)}
+.mast nav.site a.on{font-weight:700;text-decoration:underline}
+.band{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;padding:12px 0;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.band .rep{color:var(--ink)}
+.band nav{display:flex;flex-wrap:wrap;gap:6px 18px}
+.band nav a{color:var(--muted);text-decoration:none}
+.band nav a:hover,.band nav a.on{color:var(--ink);text-decoration:underline}
+h1.title{font-size:2rem;line-height:1.2;margin:34px 0 8px;font-weight:700}
+h2{font-size:1.25rem;text-transform:uppercase;letter-spacing:.12em;margin:48px 0 14px;font-weight:700;display:inline-block;padding-bottom:4px;border-bottom:1px solid var(--ink)}
+h2 .n{font-family:var(--mono);font-weight:400;color:var(--muted);margin-right:10px;letter-spacing:.05em}
+h3{font-size:1.05rem;margin:26px 0 8px}
+p{margin:0 0 1rem}
+.doc-no{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:34px 0 0}
+.doc-no a{color:var(--muted)}
+.lede{font-size:1.2rem;line-height:1.55;max-width:66ch}
+.prose{max-width:70ch}
+.fig{font-family:var(--mono);font-size:.95em;letter-spacing:-.02em}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border:1px solid var(--ink);margin:26px 0}
+.stat{padding:16px 18px 14px;border-right:1px solid var(--border);min-width:0}
+.stat:last-child{border-right:0}
+.stat .v{font-family:var(--mono);font-size:2.1rem;line-height:1.05;font-weight:700;letter-spacing:-.03em}
+.stat .v.red{color:var(--red)}
+.stat .l{font-size:.82rem;color:var(--muted);margin-top:8px;line-height:1.4}
+.big3 .stat .v{font-size:2.6rem}
+@media(max-width:640px){.stat .v,.big3 .stat .v{font-size:1.7rem}.stat-row{grid-template-columns:1fr 1fr}.stat:nth-child(2n){border-right:0}}
+.tablewrap{overflow-x:auto;border:1px solid var(--ink);margin:14px 0 10px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;white-space:nowrap}
+thead th{background:var(--ink);color:#fff;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;font-weight:400;padding:10px 12px;text-align:left;cursor:pointer;user-select:none;white-space:normal;line-height:1.3;vertical-align:bottom}
+thead th.num{text-align:right}
+thead th[data-asc="1"]::after{content:" ▲"}thead th[data-asc="0"]::after{content:" ▼"}
+td{padding:10px 12px;border-bottom:1px solid #d9d4c7;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-family:var(--mono);font-size:.86rem}
+td.name{min-width:200px;white-space:normal}
+td.name a{font-weight:700;text-decoration:none}
+td.name a:hover{text-decoration:underline}
+td .sub{display:block;font-size:.84rem;color:var(--muted);font-weight:400;margin-top:2px}
+td.ratio{color:var(--red);font-weight:700}
+tr.kids td{color:var(--muted)}tr.kids td.name a{color:var(--muted);font-weight:400}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin:18px 0 4px;font-size:.92rem}
+.toolbar input[type=search]{font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);min-width:min(340px,100%);border-radius:0}
+.toolbar label{display:flex;gap:8px;align-items:center;color:var(--muted)}
+.note{font-size:.88rem;color:var(--muted);max-width:70ch;line-height:1.55}
+.src{font-size:.85rem;color:var(--muted);margin-top:8px}
+dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 24px;font-size:.95rem;max-width:70ch;border-top:1px solid var(--border);padding-top:12px;margin:0}
+dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:.9rem;min-width:0}
+.callout{background:var(--surface);border:1px solid var(--ink);border-left:6px solid var(--red);padding:14px 18px;max-width:70ch;margin:22px 0;font-size:1.02rem;line-height:1.55}
+.cb{display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-size:.92rem;max-width:600px}
+.cb span:nth-child(2n){font-family:var(--mono);font-size:.88rem}
+.cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
+.cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.card{border:1px solid var(--ink);padding:22px}
+.card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
+.card p,.card li{font-size:.92rem}
+.btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;padding:10px 16px;margin:4px 6px 4px 0}
+.btn:hover{background:#333}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink);padding:8px 14px}
+.btn.ghost:hover{background:var(--ink);color:#fff}
+ul.files{list-style:none;padding:0;margin:0}
+ul.files li{padding:12px 0;border-bottom:1px solid var(--border)}
+ul.files li:last-child{border-bottom:0}
+ul.files .fn{font-family:var(--mono);font-weight:700}
+ul.files .meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);display:block;margin-top:4px;white-space:normal;word-break:break-all}
+code{font-family:var(--mono);font-size:.88em}
+pre{background:var(--surface);border:1px solid var(--border);padding:14px;overflow-x:auto;font-size:.82rem;line-height:1.45}
+.manual table{white-space:normal;font-size:.86rem}
+.manual thead th{cursor:default}
+footer{margin-top:64px;padding-top:28px;text-align:center;font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;color:var(--muted)}
+footer .rule-single{width:100%;max-width:440px;margin:0 auto 22px}
+footer .links a{color:var(--muted);text-decoration:none;margin:0 10px}
+footer .links a:hover{color:var(--ink)}
+footer p{margin:14px 0 0}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+</style></head><body>
+<div class="sheet">
+<header class="mast">
+<a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
+<h1>Everything Is Broken</h1>
+<div class="rule-double"></div>
+<p class="sub">Office of Institutional Accounts</p>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+</header>
+<main>
+
+<p class="doc-no">Report No. 1 &middot; 2026 edition &middot; <a href="/reports/hospital-ceo-pay/states.html">all states</a></p>
+<h1 class="title">Montana</h1>
+<p class="lede">38 nonprofit hospital systems file from Montana. Median charity care: 1.09% of expenses.</p>
+<div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
+<div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and chief executive</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="billings clinic" data-ceo="clinton seger md" data-state="MT" data-kids="0">
+<td class="num">373</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/billings-clinic-81-0231784.html">Billings Clinic</a><span class="sub">Clinton Seger MD</span></td>
+
+<td class="num" data-v="1206892.0">$1.2M</td>
+<td class="num" data-v="2176692758.0">$2.2B</td>
+<td class="num" data-v="1.7362716070919115">1.74%</td>
+<td class="num" data-v="36893653.0">$36.9M</td>
+<td class="num ratio" data-v="3.2712727037357894">3%</td></tr><tr data-name="st peter&#x27;s health" data-ceo="wade johnson" data-state="MT" data-kids="0">
+<td class="num">443</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/st-peter-s-health-81-0233121.html">St Peter&#x27;S Health</a><span class="sub">Wade Johnson</span></td>
+
+<td class="num" data-v="1018099.0">$1.0M</td>
+<td class="num" data-v="383762888.0">$383.8M</td>
+<td class="num" data-v="1.1939613103899678">1.19%</td>
+<td class="num" data-v="4593583.0">$4.6M</td>
+<td class="num ratio" data-v="22.163505046060994">22%</td></tr><tr data-name="bozeman health deaconess hospital" data-ceo="kathryn bertany" data-state="MT" data-kids="0">
+<td class="num">547</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/bozeman-health-deaconess-hospital-47-4717998.html">Bozeman Health Deaconess Hospital</a><span class="sub">Kathryn Bertany</span></td>
+
+<td class="num" data-v="798114.0">$798,114</td>
+<td class="num" data-v="727936328.0">$727.9M</td>
+<td class="num" data-v="1.4474072354149152">1.45%</td>
+<td class="num" data-v="9850778.0">$9.9M</td>
+<td class="num ratio" data-v="8.102040265246055">8%</td></tr><tr data-name="northern montana hospital" data-ceo="kevin harada md" data-state="MT" data-kids="0">
+<td class="num">640</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/northern-montana-hospital-81-0231787.html">Northern Montana Hospital</a><span class="sub">Kevin Harada MD</span></td>
+
+<td class="num" data-v="615378.0">$615,378</td>
+<td class="num" data-v="97181655.0">$97.2M</td>
+<td class="num" data-v="2.1343578498105096">2.13%</td>
+<td class="num" data-v="2008596.0">$2.0M</td>
+<td class="num ratio" data-v="30.63722122318276">31%</td></tr><tr data-name="community hospital of anaconda" data-ceo="margaret hickey-boynton" data-state="MT" data-kids="0">
+<td class="num">767</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/community-hospital-of-anaconda-81-0303913.html">Community Hospital of Anaconda</a><span class="sub">Margaret Hickey-Boynton</span></td>
+
+<td class="num" data-v="455982.0">$455,982</td>
+<td class="num" data-v="103032794.0">$103.0M</td>
+<td class="num" data-v="0.4317197882182684">0.43%</td>
+<td class="num" data-v="447730.0">$447,730</td>
+<td class="num ratio" data-v="101.84307506756305">102%</td></tr><tr class="kids" data-name="montana children&#x27;s home and hospital" data-ceo="craig aasved" data-state="MT" data-kids="1">
+<td class="num">795</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/montana-children-s-home-and-hospital-81-0231789.html">Montana Children&#x27;S Home and Hospital</a><span class="sub">Craig Aasved · children’s</span></td>
+
+<td class="num" data-v="415606.0">$415,606</td>
+<td class="num" data-v="55694047.0">$55.7M</td>
+<td class="num" data-v="2.7977438463270636">2.80%</td>
+<td class="num" data-v="1557761.0">$1.6M</td>
+<td class="num ratio" data-v="26.67970247040464">27%</td></tr><tr data-name="st luke community hospital" data-ceo="steven todd" data-state="MT" data-kids="0">
+<td class="num">815</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/st-luke-community-hospital-81-0221486.html">St Luke Community Hospital</a><span class="sub">Steven Todd</span></td>
+
+<td class="num" data-v="396094.0">$396,094</td>
+<td class="num" data-v="54861224.0">$54.9M</td>
+<td class="num" data-v="1.0843511790025373">1.08%</td>
+<td class="num" data-v="537992.0">$537,992</td>
+<td class="num ratio" data-v="73.62451486267454">74%</td></tr><tr data-name="sidney health center" data-ceo="jennifer doty" data-state="MT" data-kids="0">
+<td class="num">840</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/sidney-health-center-81-0233499.html">Sidney Health Center</a><span class="sub">Jennifer Doty</span></td>
+
+<td class="num" data-v="369373.0">$369,373</td>
+<td class="num" data-v="118751435.0">$118.8M</td>
+<td class="num" data-v="0.642844056320073">0.64%</td>
+<td class="num" data-v="754382.0">$754,382</td>
+<td class="num ratio" data-v="48.96365501827986">49%</td></tr><tr data-name="st john&#x27;s lutheran hospital" data-ceo="tadd greenfield" data-state="MT" data-kids="0">
+<td class="num">852</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/st-john-s-lutheran-hospital-inc-81-0241755.html">St John&#x27;S Lutheran Hospital</a><span class="sub">Tadd Greenfield</span></td>
+
+<td class="num" data-v="355408.0">$355,408</td>
+<td class="num" data-v="57575676.0">$57.6M</td>
+<td class="num" data-v="0.9767115276661026">0.98%</td>
+<td class="num" data-v="535000.0">$535,000</td>
+<td class="num ratio" data-v="66.43140186915888">66%</td></tr><tr data-name="powell county memorial hospital assoc" data-ceo="jaena richards" data-state="MT" data-kids="0">
+<td class="num">893</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/powell-county-memorial-hospital-assoc-81-0469886.html">Powell County Memorial Hospital Assoc</a><span class="sub">Jaena Richards</span></td>
+
+<td class="num" data-v="310651.0">$310,651</td>
+<td class="num" data-v="31413179.0">$31.4M</td>
+<td class="num" data-v="0.8537110552684617">0.85%</td>
+<td class="num" data-v="227496.0">$227,496</td>
+<td class="num ratio" data-v="136.55229102929283">137%</td></tr><tr data-name="frances mahon deaconess hospital" data-ceo="nickolas dirkes" data-state="MT" data-kids="0">
+<td class="num">905</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/frances-mahon-deaconess-hospital-81-0231786.html">Frances Mahon Deaconess Hospital</a><span class="sub">Nickolas Dirkes</span></td>
+
+<td class="num" data-v="298227.0">$298,227</td>
+<td class="num" data-v="51955419.0">$52.0M</td>
+<td class="num" data-v="1.7028516179767597">1.70%</td>
+<td class="num" data-v="747360.0">$747,360</td>
+<td class="num ratio" data-v="39.904062299293514">40%</td></tr><tr data-name="madison valley hospital" data-ceo="allen rohrback" data-state="MT" data-kids="0">
+<td class="num">940</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/madison-valley-hospital-inc-81-0236460.html">Madison Valley Hospital</a><span class="sub">Allen Rohrback</span></td>
+
+<td class="num" data-v="261788.0">$261,788</td>
+<td class="num" data-v="20453607.0">$20.5M</td>
+<td class="num" data-v="0.7919070060147936">0.79%</td>
+<td class="num" data-v="148461.0">$148,461</td>
+<td class="num ratio" data-v="176.33452556563677">176%</td></tr><tr data-name="scl health - montana" data-ceo="carol beam" data-state="MT" data-kids="0">
+<td class="num">959</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/scl-health-montana-81-0232124.html">Scl Health - Montana</a><span class="sub">Carol Beam</span></td>
+
+<td class="num" data-v="246343.0">$246,343</td>
+<td class="num" data-v="618942898.0">$618.9M</td>
+<td class="num" data-v="1.479801915633129">1.48%</td>
+<td class="num" data-v="9182593.0">$9.2M</td>
+<td class="num ratio" data-v="2.682717180212604">3%</td></tr><tr data-name="missoula community health services" data-ceo="laurel chambers haskins" data-state="MT" data-kids="0">
+<td class="num">974</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/missoula-community-health-services-inc-81-0421823.html">Missoula Community Health Services</a><span class="sub">Laurel Chambers Haskins</span></td>
+
+<td class="num" data-v="232391.0">$232,391</td>
+<td class="num" data-v="12766007.0">$12.8M</td>
+<td class="num" data-v="0.48496399732324863">0.48%</td>
+<td class="num" data-v="62716.0">$62,716</td>
+<td class="num ratio" data-v="370.5449964921232">371%</td></tr><tr data-name="fallon medical complex" data-ceo="david espeland" data-state="MT" data-kids="0">
+<td class="num">995</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/fallon-medical-complex-inc-36-3808993.html">Fallon Medical Complex</a><span class="sub">David Espeland</span></td>
+
+<td class="num" data-v="215069.0">$215,069</td>
+<td class="num" data-v="12544696.0">$12.5M</td>
+<td class="num" data-v="0.6900996268599949">0.69%</td>
+<td class="num" data-v="88000.0">$88,000</td>
+<td class="num ratio" data-v="244.39659090909092">244%</td></tr><tr data-name="rosebud community hospital" data-ceo="mindy price" data-state="MT" data-kids="0">
+<td class="num">1018</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/rosebud-community-hospital-inc-81-0405434.html">Rosebud Community Hospital</a><span class="sub">Mindy Price</span></td>
+
+<td class="num" data-v="192451.0">$192,451</td>
+<td class="num" data-v="12956715.0">$13.0M</td>
+<td class="num" data-v="0.25585439144119054">0.26%</td>
+<td class="num" data-v="31606.0">$31,606</td>
+<td class="num ratio" data-v="608.9065367335315">609%</td></tr><tr data-name="phillips county hospital association" data-ceo="jo tharp" data-state="MT" data-kids="0">
+<td class="num">1058</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/phillips-county-hospital-association-81-6016152.html">Phillips County Hospital Association</a><span class="sub">Jo Tharp</span></td>
+
+<td class="num" data-v="145899.0">$145,899</td>
+<td class="num" data-v="9238056.0">$9.2M</td>
+<td class="num" data-v="1.0785397857252563">1.08%</td>
+<td class="num" data-v="104000.0">$104,000</td>
+<td class="num ratio" data-v="140.28750000000002">140%</td></tr><tr data-name="mccone county health center" data-ceo="jacque gardner" data-state="MT" data-kids="0">
+<td class="num">1065</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/mccone-county-health-center-inc-81-0269223.html">Mccone County Health Center</a><span class="sub">Jacque Gardner</span></td>
+
+<td class="num" data-v="110874.0">$110,874</td>
+<td class="num" data-v="5521431.0">$5.5M</td>
+<td class="num" data-v="1.5196698613268862">1.52%</td>
+<td class="num" data-v="80934.0">$80,934</td>
+<td class="num ratio" data-v="136.99310549336496">137%</td></tr><tr data-name="culbertson froid bainville healthcare" data-ceo="audrey stromberg" data-state="MT" data-kids="0">
+<td class="num">1068</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/culbertson-froid-bainville-healthcare-corporation-81-0373589.html">Culbertson Froid Bainville Healthcare</a><span class="sub">Audrey Stromberg</span></td>
+
+<td class="num" data-v="101398.0">$101,398</td>
+<td class="num" data-v="10999119.0">$11.0M</td>
+<td class="num" data-v="1.3731686470868536">1.37%</td>
+<td class="num" data-v="136161.0">$136,161</td>
+<td class="num ratio" data-v="74.46919455644421">74%</td></tr></tbody></table></div>
+<p class="note">Systems not shown: 19 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/benefis-hospitals-inc-81-0232122.html">Benefis Hospitals</a>, <a href="/reports/hospital-ceo-pay/system/marcus-daly-memorial-hospital-81-0240726.html">Marcus Daly Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/livingston-healthcare-81-0378200.html">Livingston Healthcare</a>, <a href="/reports/hospital-ceo-pay/system/central-montana-medical-facilities-inc-23-7169043.html">Central Montana Medical Facilities</a>, <a href="/reports/hospital-ceo-pay/system/glendive-medical-center-81-6016016.html">Glendive Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/barrett-hospital-development-corporation-26-4230898.html">Barrett Hospital Development</a>, <a href="/reports/hospital-ceo-pay/system/northeast-montana-health-services-81-0226578.html">Northeast Montana Health Services</a>, <a href="/reports/hospital-ceo-pay/system/plains-hospital-corporation-81-0475376.html">Plains Hospital</a>, <a href="/reports/hospital-ceo-pay/system/sheridan-memorial-hospital-association-81-0243720.html">Sheridan Memorial Hospital Association</a>, <a href="/reports/hospital-ceo-pay/system/memorial-hospital-association-81-0224734.html">Memorial Hospital Association</a>, <a href="/reports/hospital-ceo-pay/system/benefis-community-hospitals-inc-47-3448483.html">Benefis Community Hospitals</a>, <a href="/reports/hospital-ceo-pay/system/big-horn-hospital-association-81-0384618.html">Big Horn Hospital Association</a>, <a href="/reports/hospital-ceo-pay/system/roundup-memorial-hospital-association-81-0245848.html">Roundup Memorial Hospital Association</a>, <a href="/reports/hospital-ceo-pay/system/pioneer-medical-center-47-5437700.html">Pioneer Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/daniels-memorial-hospital-81-6016920.html">Daniels Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/wheatland-memorial-healthcare-81-0392231.html">Wheatland Memorial Healthcare</a>, <a href="/reports/hospital-ceo-pay/system/dahl-memorial-healthcare-association-inc-81-0264548.html">Dahl Memorial Healthcare Association</a>, <a href="/reports/hospital-ceo-pay/system/mountainview-medical-center-inc-81-0255832.html">Mountainview Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/big-sandy-medical-center-inc-81-0291695.html">Big Sandy Medical Center</a>.</p>
+<script>
+(function(){
+  var tables=document.querySelectorAll('table.sortable');
+  tables.forEach(function(t){
+    var ths=t.querySelectorAll('th');
+    ths.forEach(function(th,i){th.addEventListener('click',function(){
+      var tb=t.tBodies[0], rows=Array.prototype.slice.call(tb.rows), k=th.dataset.k, asc=th.dataset.asc!=='1';
+      ths.forEach(function(h){delete h.dataset.asc}); th.dataset.asc=asc?'1':'0';
+      rows.sort(function(a,b){var x=a.cells[i],y=b.cells[i]; if(k==='num'){x=parseFloat(x.dataset.v!==undefined?x.dataset.v:x.textContent)||0;y=parseFloat(y.dataset.v!==undefined?y.dataset.v:y.textContent)||0;return asc?x-y:y-x}
+        x=x.textContent.trim().toLowerCase();y=y.textContent.trim().toLowerCase();return asc?(x<y?-1:x>y?1:0):(x>y?-1:x<y?1:0)});
+      rows.forEach(function(r){tb.appendChild(r)});
+    })});
+  });
+  var q=document.getElementById('q'), kids=document.getElementById('kids');
+  function filter(){var v=(q?q.value:'').trim().toLowerCase(), showKids=kids?kids.checked:true;
+    document.querySelectorAll('table.sortable tbody tr').forEach(function(r){
+      var ok=(!v||r.dataset.name.indexOf(v)>=0||r.dataset.ceo.indexOf(v)>=0||r.dataset.state.toLowerCase()===v)&&(showKids||r.dataset.kids!=='1');
+      r.hidden=!ok;});}
+  if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
+})();
+</script></main>
+<footer><div class="rule-single"></div>
+<div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
+<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-18 &middot; Built 2026-10-20</p>
+<p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to corrections@everythingisbroken.org.</p>
+<p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>
+</div></body></html>

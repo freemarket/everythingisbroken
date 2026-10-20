@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>New Hampshire hospitals - Everything Is Broken</title>
+<meta name="description" content="Nonprofit hospital systems in New Hampshire ranked by CEO pay.">
+<link rel="icon" type="image/png" href="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
+--serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.sheet{max-width:1100px;margin:0 auto;background:var(--paper);padding:40px 32px;min-height:100vh}
+@media(min-width:640px){.sheet{margin:32px auto;border:1px solid var(--border);box-shadow:0 1px 2px rgba(0,0,0,.05)}}
+@media(max-width:640px){.sheet{padding:28px 16px}}
+.mast{text-align:center;margin-bottom:28px}
+.mast .seal{display:inline-block;margin-bottom:18px}
+.mast .seal img{width:128px;height:128px;display:block;margin:0 auto}
+.mast h1{font-size:2.6rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;font-weight:700;line-height:1.1}
+@media(max-width:640px){.mast h1{font-size:1.7rem}}
+.rule-double{border-top:4px double var(--ink)}
+.rule-double-bottom{border-bottom:4px double var(--ink)}
+.rule-single{border-bottom:1px solid var(--ink)}
+.mast .sub{font-style:italic;font-size:1.25rem;margin:12px 0 22px;letter-spacing:.02em}
+.mast nav.site{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 36px;text-transform:uppercase;letter-spacing:.1em;font-size:.95rem;padding-bottom:16px;border-bottom:1px solid var(--ink)}
+.mast nav.site a{text-decoration:none}
+.mast nav.site a:hover{color:var(--muted)}
+.mast nav.site a.on{font-weight:700;text-decoration:underline}
+.band{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;padding:12px 0;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.band .rep{color:var(--ink)}
+.band nav{display:flex;flex-wrap:wrap;gap:6px 18px}
+.band nav a{color:var(--muted);text-decoration:none}
+.band nav a:hover,.band nav a.on{color:var(--ink);text-decoration:underline}
+h1.title{font-size:2rem;line-height:1.2;margin:34px 0 8px;font-weight:700}
+h2{font-size:1.25rem;text-transform:uppercase;letter-spacing:.12em;margin:48px 0 14px;font-weight:700;display:inline-block;padding-bottom:4px;border-bottom:1px solid var(--ink)}
+h2 .n{font-family:var(--mono);font-weight:400;color:var(--muted);margin-right:10px;letter-spacing:.05em}
+h3{font-size:1.05rem;margin:26px 0 8px}
+p{margin:0 0 1rem}
+.doc-no{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:34px 0 0}
+.doc-no a{color:var(--muted)}
+.lede{font-size:1.2rem;line-height:1.55;max-width:66ch}
+.prose{max-width:70ch}
+.fig{font-family:var(--mono);font-size:.95em;letter-spacing:-.02em}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border:1px solid var(--ink);margin:26px 0}
+.stat{padding:16px 18px 14px;border-right:1px solid var(--border);min-width:0}
+.stat:last-child{border-right:0}
+.stat .v{font-family:var(--mono);font-size:2.1rem;line-height:1.05;font-weight:700;letter-spacing:-.03em}
+.stat .v.red{color:var(--red)}
+.stat .l{font-size:.82rem;color:var(--muted);margin-top:8px;line-height:1.4}
+.big3 .stat .v{font-size:2.6rem}
+@media(max-width:640px){.stat .v,.big3 .stat .v{font-size:1.7rem}.stat-row{grid-template-columns:1fr 1fr}.stat:nth-child(2n){border-right:0}}
+.tablewrap{overflow-x:auto;border:1px solid var(--ink);margin:14px 0 10px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;white-space:nowrap}
+thead th{background:var(--ink);color:#fff;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;font-weight:400;padding:10px 12px;text-align:left;cursor:pointer;user-select:none;white-space:normal;line-height:1.3;vertical-align:bottom}
+thead th.num{text-align:right}
+thead th[data-asc="1"]::after{content:" ▲"}thead th[data-asc="0"]::after{content:" ▼"}
+td{padding:10px 12px;border-bottom:1px solid #d9d4c7;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-family:var(--mono);font-size:.86rem}
+td.name{min-width:200px;white-space:normal}
+td.name a{font-weight:700;text-decoration:none}
+td.name a:hover{text-decoration:underline}
+td .sub{display:block;font-size:.84rem;color:var(--muted);font-weight:400;margin-top:2px}
+td.ratio{color:var(--red);font-weight:700}
+tr.kids td{color:var(--muted)}tr.kids td.name a{color:var(--muted);font-weight:400}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin:18px 0 4px;font-size:.92rem}
+.toolbar input[type=search]{font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);min-width:min(340px,100%);border-radius:0}
+.toolbar label{display:flex;gap:8px;align-items:center;color:var(--muted)}
+.note{font-size:.88rem;color:var(--muted);max-width:70ch;line-height:1.55}
+.src{font-size:.85rem;color:var(--muted);margin-top:8px}
+dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 24px;font-size:.95rem;max-width:70ch;border-top:1px solid var(--border);padding-top:12px;margin:0}
+dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:.9rem;min-width:0}
+.callout{background:var(--surface);border:1px solid var(--ink);border-left:6px solid var(--red);padding:14px 18px;max-width:70ch;margin:22px 0;font-size:1.02rem;line-height:1.55}
+.cb{display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-size:.92rem;max-width:600px}
+.cb span:nth-child(2n){font-family:var(--mono);font-size:.88rem}
+.cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
+.cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.card{border:1px solid var(--ink);padding:22px}
+.card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
+.card p,.card li{font-size:.92rem}
+.btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;padding:10px 16px;margin:4px 6px 4px 0}
+.btn:hover{background:#333}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink);padding:8px 14px}
+.btn.ghost:hover{background:var(--ink);color:#fff}
+ul.files{list-style:none;padding:0;margin:0}
+ul.files li{padding:12px 0;border-bottom:1px solid var(--border)}
+ul.files li:last-child{border-bottom:0}
+ul.files .fn{font-family:var(--mono);font-weight:700}
+ul.files .meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);display:block;margin-top:4px;white-space:normal;word-break:break-all}
+code{font-family:var(--mono);font-size:.88em}
+pre{background:var(--surface);border:1px solid var(--border);padding:14px;overflow-x:auto;font-size:.82rem;line-height:1.45}
+.manual table{white-space:normal;font-size:.86rem}
+.manual thead th{cursor:default}
+footer{margin-top:64px;padding-top:28px;text-align:center;font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;color:var(--muted)}
+footer .rule-single{width:100%;max-width:440px;margin:0 auto 22px}
+footer .links a{color:var(--muted);text-decoration:none;margin:0 10px}
+footer .links a:hover{color:var(--ink)}
+footer p{margin:14px 0 0}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+</style></head><body>
+<div class="sheet">
+<header class="mast">
+<a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
+<h1>Everything Is Broken</h1>
+<div class="rule-double"></div>
+<p class="sub">Office of Institutional Accounts</p>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+</header>
+<main>
+
+<p class="doc-no">Report No. 1 &middot; 2026 edition &middot; <a href="/reports/hospital-ceo-pay/states.html">all states</a></p>
+<h1 class="title">New Hampshire</h1>
+<p class="lede">16 nonprofit hospital systems file from New Hampshire. Median charity care: 0.52% of expenses.</p>
+<div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
+<div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and chief executive</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="concord hospital" data-ceo="robert steigmeyer" data-state="NH" data-kids="0">
+<td class="num">215</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/concord-hospital-inc-22-2594672.html">Concord Hospital</a><span class="sub">Robert Steigmeyer</span></td>
+
+<td class="num" data-v="2016109.0">$2.0M</td>
+<td class="num" data-v="969080195.0">$969.1M</td>
+<td class="num" data-v="0.4509194330684542">0.45%</td>
+<td class="num" data-v="4155336.0">$4.2M</td>
+<td class="num ratio" data-v="48.51855541886384">49%</td></tr><tr data-name="the elliot hospital of the city of manchester" data-ceo="william g baxter" data-state="NH" data-kids="0">
+<td class="num">289</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/the-elliot-hospital-of-the-city-of-manchester-02-0232673.html">The Elliot Hospital of the City of Manchester</a><span class="sub">William G Baxter</span></td>
+
+<td class="num" data-v="1581095.0">$1.6M</td>
+<td class="num" data-v="808230141.0">$808.2M</td>
+<td class="num" data-v="2.3852513515117075">2.39%</td>
+<td class="num" data-v="16586513.0">$16.6M</td>
+<td class="num ratio" data-v="9.532413473525146">10%</td></tr><tr data-name="st joseph hospital" data-ceo="stephen grubbs" data-state="NH" data-kids="0">
+<td class="num">359</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/st-joseph-hospital-02-0222215.html">St Joseph Hospital</a><span class="sub">Stephen Grubbs</span></td>
+
+<td class="num" data-v="1276101.0">$1.3M</td>
+<td class="num" data-v="789979487.0">$790.0M</td>
+<td class="num" data-v="0.5091313682371313">0.51%</td>
+<td class="num" data-v="4035724.0">$4.0M</td>
+<td class="num ratio" data-v="31.62012565775063">32%</td></tr><tr data-name="southern new hampshire medical center" data-ceo="john e friberg esq" data-state="NH" data-kids="0">
+<td class="num">375</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/southern-new-hampshire-medical-center-02-0483054.html">Southern New Hampshire Medical Center</a><span class="sub">John E Friberg Esq</span></td>
+
+<td class="num" data-v="1200857.0">$1.2M</td>
+<td class="num" data-v="430293999.0">$430.3M</td>
+<td class="num" data-v="2.34724233710182">2.35%</td>
+<td class="num" data-v="8472557.0">$8.5M</td>
+<td class="num ratio" data-v="14.173489774102435">14%</td></tr><tr data-name="catholic healthcare trust" data-ceo="alexander walker jr" data-state="NH" data-kids="0">
+<td class="num">409</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/catholic-healthcare-trust-02-0315693.html">Catholic Healthcare Trust</a><span class="sub">Alexander Walker Jr</span></td>
+
+<td class="num" data-v="1084638.0">$1.1M</td>
+<td class="num" data-v="176899468.0">$176.9M</td>
+<td class="num" data-v="1.176538883931047">1.18%</td>
+<td class="num" data-v="2449698.0">$2.4M</td>
+<td class="num ratio" data-v="44.27639651908113">44%</td></tr><tr data-name="littleton hospital association" data-ceo="robert nutter" data-state="NH" data-kids="0">
+<td class="num">476</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/littleton-hospital-association-02-0222152.html">Littleton Hospital Association</a><span class="sub">Robert Nutter</span></td>
+
+<td class="num" data-v="953456.0">$953,456</td>
+<td class="num" data-v="145974401.0">$146.0M</td>
+<td class="num" data-v="0.4191168251878848">0.42%</td>
+<td class="num" data-v="600284.0">$600,284</td>
+<td class="num ratio" data-v="158.83415183479818">159%</td></tr><tr data-name="androscoggin valley hospital" data-ceo="thomas mee" data-state="NH" data-kids="0">
+<td class="num">494</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/androscoggin-valley-hospital-inc-02-0280367.html">Androscoggin Valley Hospital</a><span class="sub">Thomas Mee</span></td>
+
+<td class="num" data-v="914058.0">$914,058</td>
+<td class="num" data-v="226923749.0">$226.9M</td>
+<td class="num" data-v="0.6537613453943323">0.65%</td>
+<td class="num" data-v="1465957.0">$1.5M</td>
+<td class="num ratio" data-v="62.352306377335765">62%</td></tr><tr data-name="monadnock community hospital" data-ceo="cynthia mcguire" data-state="NH" data-kids="0">
+<td class="num">709</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/monadnock-community-hospital-02-0222157.html">Monadnock Community Hospital</a><span class="sub">Cynthia Mcguire</span></td>
+
+<td class="num" data-v="516289.0">$516,289</td>
+<td class="num" data-v="137169599.0">$137.2M</td>
+<td class="num" data-v="0.3851442455817994">0.39%</td>
+<td class="num" data-v="507323.0">$507,323</td>
+<td class="num ratio" data-v="101.76731589145376">102%</td></tr><tr data-name="speare memorial hospital" data-ceo="michelle mcewen" data-state="NH" data-kids="0">
+<td class="num">741</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/speare-memorial-hospital-02-0226774.html">Speare Memorial Hospital</a><span class="sub">Michelle Mcewen</span></td>
+
+<td class="num" data-v="480523.0">$480,523</td>
+<td class="num" data-v="85362123.0">$85.4M</td>
+<td class="num" data-v="0.30133458960299025">0.30%</td>
+<td class="num" data-v="255056.0">$255,056</td>
+<td class="num ratio" data-v="188.39901825481462">188%</td></tr><tr data-name="huggins hospital" data-ceo="jeremy roberge" data-state="NH" data-kids="0">
+<td class="num">793</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/huggins-hospital-02-0223332.html">Huggins Hospital</a><span class="sub">Jeremy Roberge</span></td>
+
+<td class="num" data-v="423697.0">$423,697</td>
+<td class="num" data-v="116113700.0">$116.1M</td>
+<td class="num" data-v="0.4075052027697061">0.41%</td>
+<td class="num" data-v="435679.0">$435,679</td>
+<td class="num ratio" data-v="97.24981006658572">97%</td></tr><tr data-name="cottage hospital" data-ceo="holly mccormack" data-state="NH" data-kids="0">
+<td class="num">907</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/cottage-hospital-02-0223321.html">Cottage Hospital</a><span class="sub">Holly Mccormack</span></td>
+
+<td class="num" data-v="297801.0">$297,801</td>
+<td class="num" data-v="45711833.0">$45.7M</td>
+<td class="num" data-v="0.2996466246850573">0.30%</td>
+<td class="num" data-v="131947.0">$131,947</td>
+<td class="num ratio" data-v="225.69743912328434">226%</td></tr><tr data-name="valley regional hospital" data-ceo="matthew foster" data-state="NH" data-kids="0">
+<td class="num">1072</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/valley-regional-hospital-inc-02-0222118.html">Valley Regional Hospital</a><span class="sub">Matthew Foster</span></td>
+
+<td class="num" data-v="39241.0">$39,241</td>
+<td class="num" data-v="157066291.0">$157.1M</td>
+<td class="num" data-v="0.5589876619696619">0.56%</td>
+<td class="num" data-v="819720.0">$819,720</td>
+<td class="num ratio" data-v="4.787122432049968">5%</td></tr></tbody></table></div>
+<p class="note">Systems not shown: 4 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/mary-hitchcock-memorial-hospital-02-0222140.html">Mary Hitchcock Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/cheshire-medical-center-02-0354549.html">Cheshire Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/the-new-london-hospital-association-inc-02-0222171.html">The New London Hospital Association</a>, <a href="/reports/hospital-ceo-pay/system/alice-peck-day-memorial-hospital-02-0222791.html">Alice Peck Day Memorial Hospital</a>.</p>
+<script>
+(function(){
+  var tables=document.querySelectorAll('table.sortable');
+  tables.forEach(function(t){
+    var ths=t.querySelectorAll('th');
+    ths.forEach(function(th,i){th.addEventListener('click',function(){
+      var tb=t.tBodies[0], rows=Array.prototype.slice.call(tb.rows), k=th.dataset.k, asc=th.dataset.asc!=='1';
+      ths.forEach(function(h){delete h.dataset.asc}); th.dataset.asc=asc?'1':'0';
+      rows.sort(function(a,b){var x=a.cells[i],y=b.cells[i]; if(k==='num'){x=parseFloat(x.dataset.v!==undefined?x.dataset.v:x.textContent)||0;y=parseFloat(y.dataset.v!==undefined?y.dataset.v:y.textContent)||0;return asc?x-y:y-x}
+        x=x.textContent.trim().toLowerCase();y=y.textContent.trim().toLowerCase();return asc?(x<y?-1:x>y?1:0):(x>y?-1:x<y?1:0)});
+      rows.forEach(function(r){tb.appendChild(r)});
+    })});
+  });
+  var q=document.getElementById('q'), kids=document.getElementById('kids');
+  function filter(){var v=(q?q.value:'').trim().toLowerCase(), showKids=kids?kids.checked:true;
+    document.querySelectorAll('table.sortable tbody tr').forEach(function(r){
+      var ok=(!v||r.dataset.name.indexOf(v)>=0||r.dataset.ceo.indexOf(v)>=0||r.dataset.state.toLowerCase()===v)&&(showKids||r.dataset.kids!=='1');
+      r.hidden=!ok;});}
+  if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
+})();
+</script></main>
+<footer><div class="rule-single"></div>
+<div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
+<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-18 &middot; Built 2026-10-20</p>
+<p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to corrections@everythingisbroken.org.</p>
+<p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>
+</div></body></html>

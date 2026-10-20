@@ -1,0 +1,128 @@
+{
+ "report_no": 1,
+ "title": "Nonprofit Hospital Executive Pay vs Charity Care",
+ "edition": "2026",
+ "data_as_of": "2026-10-18",
+ "built": "2026-10-20",
+ "filings": 19245,
+ "filers": 2306,
+ "systems": 1649,
+ "ranked": 1074,
+ "systems_over_1b": 226,
+ "median_charity_care_pct_over_1b": 1.22,
+ "median_ceo_pay_pct_of_charity_care_over_1b": 8.4,
+ "share_over_1b_under_1pct": 41,
+ "over_1b_ceo_paid_more_than_charity_care": 4,
+ "top10": [
+  {
+   "rank": 1,
+   "system": "NYU Langone Health",
+   "ceo": "Robert I Grossman MD",
+   "state": "NY",
+   "ceo_pay": 30286568.0,
+   "charity_care": 141379622.0,
+   "charity_care_pct": 1.4404887632971104,
+   "ceo_pay_pct_of_charity_care": 21.422159411347135,
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/nyu-langone-hospitals-13-3971298.html"
+  },
+  {
+   "rank": 2,
+   "system": "NewYork-Presbyterian",
+   "ceo": "Steven J Corwin",
+   "state": "NY",
+   "ceo_pay": 26271976.0,
+   "charity_care": 111886431.0,
+   "charity_care_pct": 1.1061572500528531,
+   "ceo_pay_pct_of_charity_care": 23.480931302563402,
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/the-new-york-and-presbyterian-hospital-13-3957095.html"
+  },
+  {
+   "rank": 3,
+   "system": "Advocate Health (Midwest)",
+   "ceo": "Eugene Woods",
+   "state": "IL",
+   "ceo_pay": 25781275.0,
+   "charity_care": 114937893.0,
+   "charity_care_pct": 0.6576149955577253,
+   "ceo_pay_pct_of_charity_care": 22.430613896846012,
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/advocate-health-and-hospitals-corp-36-2169147.html"
+  },
+  {
+   "rank": 4,
+   "system": "Montefiore Health System",
+   "ceo": "Philip O Ozuah MD PhD",
+   "state": "NY",
+   "ceo_pay": 16690037.0,
+   "charity_care": 62299973.0,
+   "charity_care_pct": 1.0456891401698551,
+   "ceo_pay_pct_of_charity_care": 26.78979812719983,
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/montefiore-medical-center-13-1740114.html"
+  },
+  {
+   "rank": 5,
+   "system": "Vanderbilt University Medical Center",
+   "ceo": "Jeffrey R Balser MD PhD",
+   "state": "TN",
+   "ceo_pay": 16481139.0,
+   "charity_care": 233093209.0,
+   "charity_care_pct": 2.822305879463121,
+   "ceo_pay_pct_of_charity_care": 7.070621692801011,
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/vanderbilt-university-medical-center-35-2528741.html"
+  },
+  {
+   "rank": 6,
+   "system": "Mercyhealth",
+   "ceo": "Javon Bea",
+   "state": "WI",
+   "ceo_pay": 16336153.0,
+   "charity_care": 6074993.0,
+   "charity_care_pct": 0.4878851175405265,
+   "ceo_pay_pct_of_charity_care": 268.908178165802,
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/mercy-health-system-corporation-39-0816848.html"
+  },
+  {
+   "rank": 7,
+   "system": "CommonSpirit Health (Dignity)",
+   "ceo": "Wright L Lassiter III",
+   "state": "AZ",
+   "ceo_pay": 14175319.0,
+   "charity_care": 249813042.0,
+   "charity_care_pct": 1.6771304736692214,
+   "ceo_pay_pct_of_charity_care": 5.67437107627071,
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/dignity-health-94-1196203.html"
+  },
+  {
+   "rank": 8,
+   "system": "Hackensack Meridian Health Inc-Subordinates",
+   "ceo": "Robert C Garrett",
+   "state": "NJ",
+   "ceo_pay": 13541590.0,
+   "charity_care": 206988788.0,
+   "charity_care_pct": 2.4903308129115747,
+   "ceo_pay_pct_of_charity_care": 6.542185270440831,
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/hackensack-meridian-health-inc-subordinates-01-0649794.html"
+  },
+  {
+   "rank": 9,
+   "system": "Banner Health",
+   "ceo": "Peter S Fine",
+   "state": "AZ",
+   "ceo_pay": 13535312.0,
+   "charity_care": 184168412.0,
+   "charity_care_pct": 1.9201789345528,
+   "ceo_pay_pct_of_charity_care": 7.349421028835282,
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/banner-health-45-0233470.html"
+  },
+  {
+   "rank": 10,
+   "system": "UPMC",
+   "ceo": "Leslie C Davis",
+   "state": "PA",
+   "ceo_pay": 13324020.0,
+   "charity_care": 152702280.0,
+   "charity_care_pct": 0.5095530687809532,
+   "ceo_pay_pct_of_charity_care": 8.725488578166612,
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/upmc-group-20-8295721.html"
+  }
+ ]
+}

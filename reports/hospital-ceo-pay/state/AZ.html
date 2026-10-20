@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Arizona hospitals - Everything Is Broken</title>
+<meta name="description" content="Nonprofit hospital systems in Arizona ranked by CEO pay.">
+<link rel="icon" type="image/png" href="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
+--serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.sheet{max-width:1100px;margin:0 auto;background:var(--paper);padding:40px 32px;min-height:100vh}
+@media(min-width:640px){.sheet{margin:32px auto;border:1px solid var(--border);box-shadow:0 1px 2px rgba(0,0,0,.05)}}
+@media(max-width:640px){.sheet{padding:28px 16px}}
+.mast{text-align:center;margin-bottom:28px}
+.mast .seal{display:inline-block;margin-bottom:18px}
+.mast .seal img{width:128px;height:128px;display:block;margin:0 auto}
+.mast h1{font-size:2.6rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;font-weight:700;line-height:1.1}
+@media(max-width:640px){.mast h1{font-size:1.7rem}}
+.rule-double{border-top:4px double var(--ink)}
+.rule-double-bottom{border-bottom:4px double var(--ink)}
+.rule-single{border-bottom:1px solid var(--ink)}
+.mast .sub{font-style:italic;font-size:1.25rem;margin:12px 0 22px;letter-spacing:.02em}
+.mast nav.site{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 36px;text-transform:uppercase;letter-spacing:.1em;font-size:.95rem;padding-bottom:16px;border-bottom:1px solid var(--ink)}
+.mast nav.site a{text-decoration:none}
+.mast nav.site a:hover{color:var(--muted)}
+.mast nav.site a.on{font-weight:700;text-decoration:underline}
+.band{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;padding:12px 0;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.band .rep{color:var(--ink)}
+.band nav{display:flex;flex-wrap:wrap;gap:6px 18px}
+.band nav a{color:var(--muted);text-decoration:none}
+.band nav a:hover,.band nav a.on{color:var(--ink);text-decoration:underline}
+h1.title{font-size:2rem;line-height:1.2;margin:34px 0 8px;font-weight:700}
+h2{font-size:1.25rem;text-transform:uppercase;letter-spacing:.12em;margin:48px 0 14px;font-weight:700;display:inline-block;padding-bottom:4px;border-bottom:1px solid var(--ink)}
+h2 .n{font-family:var(--mono);font-weight:400;color:var(--muted);margin-right:10px;letter-spacing:.05em}
+h3{font-size:1.05rem;margin:26px 0 8px}
+p{margin:0 0 1rem}
+.doc-no{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:34px 0 0}
+.doc-no a{color:var(--muted)}
+.lede{font-size:1.2rem;line-height:1.55;max-width:66ch}
+.prose{max-width:70ch}
+.fig{font-family:var(--mono);font-size:.95em;letter-spacing:-.02em}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border:1px solid var(--ink);margin:26px 0}
+.stat{padding:16px 18px 14px;border-right:1px solid var(--border);min-width:0}
+.stat:last-child{border-right:0}
+.stat .v{font-family:var(--mono);font-size:2.1rem;line-height:1.05;font-weight:700;letter-spacing:-.03em}
+.stat .v.red{color:var(--red)}
+.stat .l{font-size:.82rem;color:var(--muted);margin-top:8px;line-height:1.4}
+.big3 .stat .v{font-size:2.6rem}
+@media(max-width:640px){.stat .v,.big3 .stat .v{font-size:1.7rem}.stat-row{grid-template-columns:1fr 1fr}.stat:nth-child(2n){border-right:0}}
+.tablewrap{overflow-x:auto;border:1px solid var(--ink);margin:14px 0 10px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;white-space:nowrap}
+thead th{background:var(--ink);color:#fff;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;font-weight:400;padding:10px 12px;text-align:left;cursor:pointer;user-select:none;white-space:normal;line-height:1.3;vertical-align:bottom}
+thead th.num{text-align:right}
+thead th[data-asc="1"]::after{content:" ▲"}thead th[data-asc="0"]::after{content:" ▼"}
+td{padding:10px 12px;border-bottom:1px solid #d9d4c7;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-family:var(--mono);font-size:.86rem}
+td.name{min-width:200px;white-space:normal}
+td.name a{font-weight:700;text-decoration:none}
+td.name a:hover{text-decoration:underline}
+td .sub{display:block;font-size:.84rem;color:var(--muted);font-weight:400;margin-top:2px}
+td.ratio{color:var(--red);font-weight:700}
+tr.kids td{color:var(--muted)}tr.kids td.name a{color:var(--muted);font-weight:400}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin:18px 0 4px;font-size:.92rem}
+.toolbar input[type=search]{font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);min-width:min(340px,100%);border-radius:0}
+.toolbar label{display:flex;gap:8px;align-items:center;color:var(--muted)}
+.note{font-size:.88rem;color:var(--muted);max-width:70ch;line-height:1.55}
+.src{font-size:.85rem;color:var(--muted);margin-top:8px}
+dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 24px;font-size:.95rem;max-width:70ch;border-top:1px solid var(--border);padding-top:12px;margin:0}
+dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:.9rem;min-width:0}
+.callout{background:var(--surface);border:1px solid var(--ink);border-left:6px solid var(--red);padding:14px 18px;max-width:70ch;margin:22px 0;font-size:1.02rem;line-height:1.55}
+.cb{display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-size:.92rem;max-width:600px}
+.cb span:nth-child(2n){font-family:var(--mono);font-size:.88rem}
+.cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
+.cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.card{border:1px solid var(--ink);padding:22px}
+.card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
+.card p,.card li{font-size:.92rem}
+.btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;padding:10px 16px;margin:4px 6px 4px 0}
+.btn:hover{background:#333}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink);padding:8px 14px}
+.btn.ghost:hover{background:var(--ink);color:#fff}
+ul.files{list-style:none;padding:0;margin:0}
+ul.files li{padding:12px 0;border-bottom:1px solid var(--border)}
+ul.files li:last-child{border-bottom:0}
+ul.files .fn{font-family:var(--mono);font-weight:700}
+ul.files .meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);display:block;margin-top:4px;white-space:normal;word-break:break-all}
+code{font-family:var(--mono);font-size:.88em}
+pre{background:var(--surface);border:1px solid var(--border);padding:14px;overflow-x:auto;font-size:.82rem;line-height:1.45}
+.manual table{white-space:normal;font-size:.86rem}
+.manual thead th{cursor:default}
+footer{margin-top:64px;padding-top:28px;text-align:center;font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;color:var(--muted)}
+footer .rule-single{width:100%;max-width:440px;margin:0 auto 22px}
+footer .links a{color:var(--muted);text-decoration:none;margin:0 10px}
+footer .links a:hover{color:var(--ink)}
+footer p{margin:14px 0 0}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+</style></head><body>
+<div class="sheet">
+<header class="mast">
+<a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
+<h1>Everything Is Broken</h1>
+<div class="rule-double"></div>
+<p class="sub">Office of Institutional Accounts</p>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+</header>
+<main>
+
+<p class="doc-no">Report No. 1 &middot; 2026 edition &middot; <a href="/reports/hospital-ceo-pay/states.html">all states</a></p>
+<h1 class="title">Arizona</h1>
+<p class="lede">50 nonprofit hospital systems file from Arizona. Median charity care: 1.14% of expenses.</p>
+<div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
+<div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and chief executive</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="commonspirit health (dignity)" data-ceo="wright l lassiter iii" data-state="AZ" data-kids="0">
+<td class="num">7</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/dignity-health-94-1196203.html">CommonSpirit Health (Dignity)</a><span class="sub">Wright L Lassiter III</span></td>
+
+<td class="num" data-v="14175319.0">$14.2M</td>
+<td class="num" data-v="15658881953.0">$15.7B</td>
+<td class="num" data-v="1.6771304736692214">1.68%</td>
+<td class="num" data-v="249813042.0">$249.8M</td>
+<td class="num ratio" data-v="5.67437107627071">6%</td></tr><tr data-name="banner health" data-ceo="peter s fine" data-state="AZ" data-kids="0">
+<td class="num">9</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/banner-health-45-0233470.html">Banner Health</a><span class="sub">Peter S Fine</span></td>
+
+<td class="num" data-v="13535312.0">$13.5M</td>
+<td class="num" data-v="11126367953.0">$11.1B</td>
+<td class="num" data-v="1.9201789345528">1.92%</td>
+<td class="num" data-v="184168412.0">$184.2M</td>
+<td class="num ratio" data-v="7.349421028835282">7%</td></tr><tr data-name="commonspirit washington f/k/a franciscan health system" data-ceo="ketul patel" data-state="AZ" data-kids="0">
+<td class="num">41</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/commonspirit-washington-f-k-a-franciscan-health-system-91-0564491.html">Commonspirit Washington F/K/A Franciscan Health System</a><span class="sub">Ketul Patel</span></td>
+
+<td class="num" data-v="5754859.0">$5.8M</td>
+<td class="num" data-v="3909972057.0">$3.9B</td>
+<td class="num" data-v="1.165258470869837">1.17%</td>
+<td class="num" data-v="45525395.0">$45.5M</td>
+<td class="num ratio" data-v="12.640986420875647">13%</td></tr><tr data-name="honorhealth" data-ceo="todd laporte" data-state="AZ" data-kids="0">
+<td class="num">66</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/honorhealth-86-0181654.html">Honorhealth</a><span class="sub">Todd Laporte</span></td>
+
+<td class="num" data-v="4422352.0">$4.4M</td>
+<td class="num" data-v="3455315312.0">$3.5B</td>
+<td class="num" data-v="6.656220379030518">6.66%</td>
+<td class="num" data-v="211625193.0">$211.6M</td>
+<td class="num ratio" data-v="2.08970961221994">2%</td></tr><tr class="kids" data-name="phoenix children&#x27;s hospital" data-ceo="robert l meyer" data-state="AZ" data-kids="1">
+<td class="num">97</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/phoenix-children-s-hospital-86-0422559.html">Phoenix Children&#x27;S Hospital</a><span class="sub">Robert L Meyer · children’s</span></td>
+
+<td class="num" data-v="3558771.0">$3.6M</td>
+<td class="num" data-v="1736932091.0">$1.7B</td>
+<td class="num" data-v="0.31128108521104225">0.31%</td>
+<td class="num" data-v="4788677.0">$4.8M</td>
+<td class="num ratio" data-v="74.31637172438232">74%</td></tr><tr data-name="alegent health - bergan mercy health system" data-ceo="tim bricker" data-state="AZ" data-kids="0">
+<td class="num">123</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/alegent-health-bergan-mercy-health-system-47-0484764.html">Alegent Health - Bergan Mercy Health System</a><span class="sub">Tim Bricker</span></td>
+
+<td class="num" data-v="2889751.0">$2.9M</td>
+<td class="num" data-v="2078727128.0">$2.1B</td>
+<td class="num" data-v="1.5053517238693903">1.51%</td>
+<td class="num" data-v="29381470.0">$29.4M</td>
+<td class="num ratio" data-v="9.835283939163016">10%</td></tr><tr data-name="nebraska heart hospital" data-ceo="timothy bricker" data-state="AZ" data-kids="0">
+<td class="num">124</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/nebraska-heart-hospital-39-2031968.html">Nebraska Heart Hospital</a><span class="sub">Timothy Bricker</span></td>
+
+<td class="num" data-v="2889751.0">$2.9M</td>
+<td class="num" data-v="89347633.0">$89.3M</td>
+<td class="num" data-v="0.40967917252140534">0.41%</td>
+<td class="num" data-v="353625.0">$353,625</td>
+<td class="num ratio" data-v="817.17949805585">817%</td></tr><tr data-name="yuma regional medical center" data-ceo="robert trenschel do" data-state="AZ" data-kids="0">
+<td class="num">137</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/yuma-regional-medical-center-86-6007596.html">Yuma Regional Medical Center</a><span class="sub">Robert Trenschel DO</span></td>
+
+<td class="num" data-v="2671867.0">$2.7M</td>
+<td class="num" data-v="1018395867.0">$1.0B</td>
+<td class="num" data-v="0.9119360418591296">0.91%</td>
+<td class="num" data-v="8148362.0">$8.1M</td>
+<td class="num ratio" data-v="32.79023440539338">33%</td></tr><tr data-name="flagstaff medical center" data-ceo="david cheney" data-state="AZ" data-kids="0">
+<td class="num">321</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/flagstaff-medical-center-86-0110232.html">Flagstaff Medical Center</a><span class="sub">David Cheney</span></td>
+
+<td class="num" data-v="1409918.0">$1.4M</td>
+<td class="num" data-v="856042572.0">$856.0M</td>
+<td class="num" data-v="3.1727828180785638">3.17%</td>
+<td class="num" data-v="22695451.0">$22.7M</td>
+<td class="num ratio" data-v="6.2123374415428">6%</td></tr><tr data-name="tucson medical center" data-ceo="judith rich" data-state="AZ" data-kids="0">
+<td class="num">365</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/tucson-medical-center-86-0137567.html">Tucson Medical Center</a><span class="sub">Judith Rich</span></td>
+
+<td class="num" data-v="1230476.0">$1.2M</td>
+<td class="num" data-v="913221586.0">$913.2M</td>
+<td class="num" data-v="0.2039132165998585">0.20%</td>
+<td class="num" data-v="1786119.0">$1.8M</td>
+<td class="num ratio" data-v="68.89104253412006">69%</td></tr><tr data-name="port city operating company" data-ceo="donald j wiley" data-state="AZ" data-kids="0">
+<td class="num">370</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/port-city-operating-company-llc-46-5322209.html">Port City Operating Company</a><span class="sub">Donald J Wiley</span></td>
+
+<td class="num" data-v="1216351.0">$1.2M</td>
+<td class="num" data-v="892613342.0">$892.6M</td>
+<td class="num" data-v="1.1465424844588699">1.15%</td>
+<td class="num" data-v="9064102.0">$9.1M</td>
+<td class="num ratio" data-v="13.41943195255305">13%</td></tr><tr data-name="memorial health care system" data-ceo="janelle reilly" data-state="AZ" data-kids="0">
+<td class="num">395</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/memorial-health-care-system-inc-62-0532345.html">Memorial Health Care System</a><span class="sub">Janelle Reilly</span></td>
+
+<td class="num" data-v="1145678.0">$1.1M</td>
+<td class="num" data-v="731656500.0">$731.7M</td>
+<td class="num" data-v="1.6970929448530288">1.70%</td>
+<td class="num" data-v="13112210.0">$13.1M</td>
+<td class="num ratio" data-v="8.737489713785854">9%</td></tr><tr data-name="bakersfield memorial hospital" data-ceo="kenneth keller" data-state="AZ" data-kids="0">
+<td class="num">402</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/bakersfield-memorial-hospital-95-1802779.html">Bakersfield Memorial Hospital</a><span class="sub">Kenneth Keller</span></td>
+
+<td class="num" data-v="1114329.0">$1.1M</td>
+<td class="num" data-v="769905868.0">$769.9M</td>
+<td class="num" data-v="0.9154452529413982">0.92%</td>
+<td class="num" data-v="5965998.0">$6.0M</td>
+<td class="num ratio" data-v="18.677998215889446">19%</td></tr><tr data-name="yavapai community hospital association dba yavapai regional medical center" data-ceo="anthony v torres md" data-state="AZ" data-kids="0">
+<td class="num">426</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/yavapai-community-hospital-association-dba-yavapai-regional-medical-center-86-00.html">Yavapai Community Hospital Association dba Yavapai Regional Medical Center</a><span class="sub">Anthony V Torres MD</span></td>
+
+<td class="num" data-v="1040100.0">$1.0M</td>
+<td class="num" data-v="522976951.0">$523.0M</td>
+<td class="num" data-v="1.3049627250740403">1.30%</td>
+<td class="num" data-v="6565719.0">$6.6M</td>
+<td class="num ratio" data-v="15.841372437656867">16%</td></tr><tr data-name="st joseph regional health center" data-ceo="kim shaw" data-state="AZ" data-kids="0">
+<td class="num">458</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/st-joseph-regional-health-center-74-1282696.html">St Joseph Regional Health Center</a><span class="sub">Kim Shaw</span></td>
+
+<td class="num" data-v="988635.0">$988,635</td>
+<td class="num" data-v="510120228.0">$510.1M</td>
+<td class="num" data-v="2.4461701365843123">2.45%</td>
+<td class="num" data-v="13364674.0">$13.4M</td>
+<td class="num ratio" data-v="7.397374601131311">7%</td></tr><tr data-name="kingman healthcare" data-ceo="evans heath" data-state="AZ" data-kids="0">
+<td class="num">517</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/kingman-healthcare-inc-94-2916102.html">Kingman Healthcare</a><span class="sub">Evans Heath</span></td>
+
+<td class="num" data-v="850169.0">$850,169</td>
+<td class="num" data-v="433562050.0">$433.6M</td>
+<td class="num" data-v="0.19344714161273932">0.19%</td>
+<td class="num" data-v="789445.0">$789,445</td>
+<td class="num ratio" data-v="107.69198614216317">108%</td></tr><tr data-name="sierra nevada memorial - miners hospital" data-ceo="scott neeley md" data-state="AZ" data-kids="0">
+<td class="num">531</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/sierra-nevada-memorial-miners-hospital-94-1439787.html">Sierra Nevada Memorial - Miners Hospital</a><span class="sub">Scott Neeley MD</span></td>
+
+<td class="num" data-v="831560.0">$831,560</td>
+<td class="num" data-v="231476615.0">$231.5M</td>
+<td class="num" data-v="1.1842559629166645">1.18%</td>
+<td class="num" data-v="2578099.0">$2.6M</td>
+<td class="num ratio" data-v="32.25477376935486">32%</td></tr><tr data-name="mark twain medical center" data-ceo="douglas p archer" data-state="AZ" data-kids="0">
+<td class="num">559</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/mark-twain-medical-center-68-0127677.html">Mark Twain Medical Center</a><span class="sub">Douglas P Archer</span></td>
+
+<td class="num" data-v="774445.0">$774,445</td>
+<td class="num" data-v="91192347.0">$91.2M</td>
+<td class="num" data-v="1.2778566066369765">1.28%</td>
+<td class="num" data-v="1148254.0">$1.1M</td>
+<td class="num ratio" data-v="67.44544325558631">67%</td></tr><tr data-name="summit healthcare association" data-ceo="jeff comer" data-state="AZ" data-kids="0">
+<td class="num">631</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/summit-healthcare-association-86-0320447.html">Summit Healthcare Association</a><span class="sub">Jeff Comer</span></td>
+
+<td class="num" data-v="642498.0">$642,498</td>
+<td class="num" data-v="303678058.0">$303.7M</td>
+<td class="num" data-v="0.4171477776656848">0.42%</td>
+<td class="num" data-v="1197271.0">$1.2M</td>
+<td class="num ratio" data-v="53.66353983350469">54%</td></tr><tr data-name="bisbee hospital association" data-ceo="robert seamon" data-state="AZ" data-kids="0">
+<td class="num">692</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/bisbee-hospital-association-inc-86-0334996.html">Bisbee Hospital Association</a><span class="sub">Robert Seamon</span></td>
+
+<td class="num" data-v="532585.0">$532,585</td>
+<td class="num" data-v="96824833.0">$96.8M</td>
+<td class="num" data-v="0.48705069442153803">0.49%</td>
+<td class="num" data-v="409011.0">$409,011</td>
+<td class="num ratio" data-v="130.2128793602128">130%</td></tr><tr data-name="st francis medical center" data-ceo="david nelson" data-state="AZ" data-kids="0">
+<td class="num">707</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/st-francis-medical-center-41-0695598.html">St Francis Medical Center</a><span class="sub">David Nelson</span></td>
+
+<td class="num" data-v="517225.0">$517,225</td>
+<td class="num" data-v="25205143.0">$25.2M</td>
+<td class="num" data-v="3.0492242790169923">3.05%</td>
+<td class="num" data-v="683608.0">$683,608</td>
+<td class="num ratio" data-v="75.6610513627693">76%</td></tr><tr data-name="la paz regional hospital" data-ceo="zafer genc" data-state="AZ" data-kids="0">
+<td class="num">751</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/la-paz-regional-hospital-86-0260959.html">La Paz Regional Hospital</a><span class="sub">Zafer Genc</span></td>
+
+<td class="num" data-v="467283.0">$467,283</td>
+<td class="num" data-v="53282264.0">$53.3M</td>
+<td class="num" data-v="0.4277455625486175">0.43%</td>
+<td class="num" data-v="227433.0">$227,433</td>
+<td class="num ratio" data-v="205.45962986901637">205%</td></tr><tr data-name="st alexius medical center" data-ceo="reed reyman" data-state="AZ" data-kids="0">
+<td class="num">786</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/st-alexius-medical-center-45-0226711.html">St Alexius Medical Center</a><span class="sub">Reed Reyman</span></td>
+
+<td class="num" data-v="431309.0">$431,309</td>
+<td class="num" data-v="290460487.0">$290.5M</td>
+<td class="num" data-v="0.5778160824750737">0.58%</td>
+<td class="num" data-v="2183411.0">$2.2M</td>
+<td class="num ratio" data-v="19.753907990753916">20%</td></tr><tr data-name="mt graham regional medical center" data-ceo="roland knox" data-state="AZ" data-kids="0">
+<td class="num">788</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/mt-graham-regional-medical-center-inc-23-7094247.html">Mt Graham Regional Medical Center</a><span class="sub">Roland Knox</span></td>
+
+<td class="num" data-v="428239.0">$428,239</td>
+<td class="num" data-v="122856692.0">$122.9M</td>
+<td class="num" data-v="0.31782636660185">0.32%</td>
+<td class="num" data-v="330000.0">$330,000</td>
+<td class="num ratio" data-v="129.76939393939392">130%</td></tr><tr data-name="community hospital association" data-ceo="jackie lundblad" data-state="AZ" data-kids="0">
+<td class="num">810</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/community-hospital-association-inc-86-0096775.html">Community Hospital Association</a><span class="sub">Jackie Lundblad</span></td>
+
+<td class="num" data-v="401647.0">$401,647</td>
+<td class="num" data-v="53004772.0">$53.0M</td>
+<td class="num" data-v="0.37082620544532846">0.37%</td>
+<td class="num" data-v="191000.0">$191,000</td>
+<td class="num ratio" data-v="210.286387434555">210%</td></tr><tr data-name="unity family healthcare" data-ceo="steven smith" data-state="AZ" data-kids="0">
+<td class="num">838</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/unity-family-healthcare-41-0721642.html">Unity Family Healthcare</a><span class="sub">Steven Smith</span></td>
+
+<td class="num" data-v="370627.0">$370,627</td>
+<td class="num" data-v="88171073.0">$88.2M</td>
+<td class="num" data-v="0.5511111073948717">0.55%</td>
+<td class="num" data-v="527282.0">$527,282</td>
+<td class="num ratio" data-v="70.29009145011588">70%</td></tr><tr data-name="st joseph&#x27;s area health services" data-ceo="benjamin koppelman" data-state="AZ" data-kids="0">
+<td class="num">853</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/st-joseph-s-area-health-services-41-0695603.html">St Joseph&#x27;S Area Health Services</a><span class="sub">Benjamin Koppelman</span></td>
+
+<td class="num" data-v="353936.0">$353,936</td>
+<td class="num" data-v="52660685.0">$52.7M</td>
+<td class="num" data-v="1.14419105910103">1.14%</td>
+<td class="num" data-v="562696.0">$562,696</td>
+<td class="num ratio" data-v="62.90003838662439">63%</td></tr><tr data-name="west yavapai guidance clinic" data-ceo="tamara player" data-state="AZ" data-kids="0">
+<td class="num">886</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/west-yavapai-guidance-clinic-inc-86-0206928.html">West Yavapai Guidance Clinic</a><span class="sub">Tamara Player</span></td>
+
+<td class="num" data-v="325075.0">$325,075</td>
+<td class="num" data-v="39457888.0">$39.5M</td>
+<td class="num" data-v="3.3537233781146827">3.35%</td>
+<td class="num" data-v="1282954.0">$1.3M</td>
+<td class="num ratio" data-v="25.338009001102147">25%</td></tr><tr data-name="st joseph&#x27;s hospital &amp; health center" data-ceo="carol enderle" data-state="AZ" data-kids="0">
+<td class="num">891</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/st-joseph-s-hospital-health-center-45-0226429.html">St Joseph&#x27;S Hospital &amp; Health Center</a><span class="sub">Carol Enderle</span></td>
+
+<td class="num" data-v="312768.0">$312,768</td>
+<td class="num" data-v="79684392.0">$79.7M</td>
+<td class="num" data-v="2.638519242698333">2.64%</td>
+<td class="num" data-v="1917107.0">$1.9M</td>
+<td class="num ratio" data-v="16.31458233682314">16%</td></tr><tr data-name="continuing care hospital" data-ceo="robert desotelle" data-state="AZ" data-kids="0">
+<td class="num">916</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/continuing-care-hospital-inc-61-1400619.html">Continuing Care Hospital</a><span class="sub">Robert Desotelle</span></td>
+
+<td class="num" data-v="288114.0">$288,114</td>
+<td class="num" data-v="18681061.0">$18.7M</td>
+<td class="num" data-v="0.004102039959388313">0.00%</td>
+<td class="num" data-v="550.0">$550</td>
+<td class="num ratio" data-v="52384.36363636364">52384%</td></tr><tr data-name="benson hospital" data-ceo="gary kartchner" data-state="AZ" data-kids="0">
+<td class="num">924</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/benson-hospital-corporation-86-6007695.html">Benson Hospital</a><span class="sub">Gary Kartchner</span></td>
+
+<td class="num" data-v="279822.0">$279,822</td>
+<td class="num" data-v="57949965.0">$57.9M</td>
+<td class="num" data-v="0.8883823997627249">0.89%</td>
+<td class="num" data-v="417842.0">$417,842</td>
+<td class="num ratio" data-v="66.96837560609033">67%</td></tr><tr data-name="white mountain regional medical center" data-ceo="wesley babers" data-state="AZ" data-kids="0">
+<td class="num">987</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/white-mountain-regional-medical-center-86-0171900.html">White Mountain Regional Medical Center</a><span class="sub">Wesley Babers</span></td>
+
+<td class="num" data-v="223906.0">$223,906</td>
+<td class="num" data-v="28778526.0">$28.8M</td>
+<td class="num" data-v="0.13543958135083647">0.14%</td>
+<td class="num" data-v="35000.0">$35,000</td>
+<td class="num ratio" data-v="639.7314285714285">640%</td></tr><tr data-name="little colorado medical center" data-ceo="travis udall" data-state="AZ" data-kids="0">
+<td class="num">1002</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/little-colorado-medical-center-86-0107344.html">Little Colorado Medical Center</a><span class="sub">Travis Udall</span></td>
+
+<td class="num" data-v="207705.0">$207,705</td>
+<td class="num" data-v="48131896.0">$48.1M</td>
+<td class="num" data-v="0.48639380060540105">0.49%</td>
+<td class="num" data-v="226000.0">$226,000</td>
+<td class="num ratio" data-v="91.90486725663717">92%</td></tr></tbody></table></div>
+<p class="note">Systems not shown: 17 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/catholic-health-initiatives-colorado-84-0405257.html">Catholic Health Initiatives Colorado</a>, <a href="/reports/hospital-ceo-pay/system/chi-st-luke-s-health-baylor-college-of-medicine-medical-center-74-1161938.html">CHI St Luke&#x27;S Health Baylor College of Medicine Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/saint-joseph-health-system-inc-61-1334601.html">Saint Joseph Health System</a>, <a href="/reports/hospital-ceo-pay/system/commonspirit-washington-community-care-f-k-a-harrison-medical-center-91-0565546.html">Commonspirit Washington Community Care F/K/A Harrison Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/st-vincent-infirmary-medical-center-71-0236917.html">St Vincent Infirmary Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/tuba-city-regional-health-care-corporation-04-3651340.html">Tuba City Regional Health Care</a>, <a href="/reports/hospital-ceo-pay/system/community-hospital-of-san-bernardino-95-1643373.html">Community Hospital of San Bernardino</a>, <a href="/reports/hospital-ceo-pay/system/memorial-health-system-of-east-texas-75-0755367.html">Memorial Health System of East Texas</a>, <a href="/reports/hospital-ceo-pay/system/alegent-health-immanuel-medical-center-47-0376615.html">Alegent Health-Immanuel Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/mercy-medical-center-45-0231183.html">Mercy Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/winslow-indian-health-care-center-inc-81-0549382.html">Winslow Indian Health Care Center</a>, <a href="/reports/hospital-ceo-pay/system/cobre-valley-regional-medical-center-86-0732836.html">Cobre Valley Regional Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/community-hospital-of-brazosport-74-1385192.html">Community Hospital of Brazosport</a>, <a href="/reports/hospital-ceo-pay/system/longmont-united-hospital-84-0460697.html">Longmont United Hospital</a>, <a href="/reports/hospital-ceo-pay/system/navajo-health-foundation-sage-memorial-hospital-inc-23-7314364.html">Navajo Health Foundation - Sage Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/the-guidance-center-inc-86-0223720.html">The Guidance Center</a>, <a href="/reports/hospital-ceo-pay/system/lisbon-area-health-services-82-0558836.html">Lisbon Area Health Services</a>.</p>
+<script>
+(function(){
+  var tables=document.querySelectorAll('table.sortable');
+  tables.forEach(function(t){
+    var ths=t.querySelectorAll('th');
+    ths.forEach(function(th,i){th.addEventListener('click',function(){
+      var tb=t.tBodies[0], rows=Array.prototype.slice.call(tb.rows), k=th.dataset.k, asc=th.dataset.asc!=='1';
+      ths.forEach(function(h){delete h.dataset.asc}); th.dataset.asc=asc?'1':'0';
+      rows.sort(function(a,b){var x=a.cells[i],y=b.cells[i]; if(k==='num'){x=parseFloat(x.dataset.v!==undefined?x.dataset.v:x.textContent)||0;y=parseFloat(y.dataset.v!==undefined?y.dataset.v:y.textContent)||0;return asc?x-y:y-x}
+        x=x.textContent.trim().toLowerCase();y=y.textContent.trim().toLowerCase();return asc?(x<y?-1:x>y?1:0):(x>y?-1:x<y?1:0)});
+      rows.forEach(function(r){tb.appendChild(r)});
+    })});
+  });
+  var q=document.getElementById('q'), kids=document.getElementById('kids');
+  function filter(){var v=(q?q.value:'').trim().toLowerCase(), showKids=kids?kids.checked:true;
+    document.querySelectorAll('table.sortable tbody tr').forEach(function(r){
+      var ok=(!v||r.dataset.name.indexOf(v)>=0||r.dataset.ceo.indexOf(v)>=0||r.dataset.state.toLowerCase()===v)&&(showKids||r.dataset.kids!=='1');
+      r.hidden=!ok;});}
+  if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
+})();
+</script></main>
+<footer><div class="rule-single"></div>
+<div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
+<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-18 &middot; Built 2026-10-20</p>
+<p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to corrections@everythingisbroken.org.</p>
+<p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>
+</div></body></html>
