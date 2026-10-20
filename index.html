@@ -68,12 +68,41 @@
         
         /* Hide sections for SPA */
         .section-hidden { display: none; }
+
+        /* Report data table & stat-row formatting (matches full dataset pages) */
+        .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); border: 1px solid #111; margin: 22px 0; background: #faf8f2; }
+        .stat { padding: 16px 18px 14px; border-right: 1px solid #d6cfc2; min-width: 0; }
+        .stat:last-child { border-right: 0; }
+        .stat .v { font-family: "Space Mono", Menlo, Consolas, monospace; font-size: 2.1rem; line-height: 1.05; font-weight: 700; letter-spacing: -0.03em; }
+        .stat .v.red { color: #8b2626; }
+        .stat .l { font-size: 0.82rem; color: #555; margin-top: 8px; line-height: 1.4; }
+        @media (max-width: 640px) {
+            .stat .v { font-size: 1.7rem; }
+            .stat-row { grid-template-columns: 1fr 1fr; }
+            .stat:nth-child(2n) { border-right: 0; }
+        }
+        .tablewrap { overflow-x: auto; border: 1px solid #111; margin: 14px 0 10px; background: #faf8f2; }
+        .tablewrap table { border-collapse: collapse; width: 100%; font-size: 0.9rem; white-space: nowrap; }
+        .tablewrap thead th { background: #111; color: #fff; font-family: "Space Mono", Menlo, Consolas, monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 400; padding: 10px 12px; text-align: left; cursor: pointer; user-select: none; white-space: normal; line-height: 1.3; vertical-align: bottom; }
+        .tablewrap thead th.num { text-align: right; }
+        .tablewrap thead th[data-asc="1"]::after { content: " ▲"; }
+        .tablewrap thead th[data-asc="0"]::after { content: " ▼"; }
+        .tablewrap td { padding: 10px 12px; border-bottom: 1px solid #d9d4c7; vertical-align: top; }
+        .tablewrap tbody tr:last-child td { border-bottom: 0; }
+        .tablewrap td.num { text-align: right; font-family: "Space Mono", Menlo, Consolas, monospace; font-size: 0.86rem; }
+        .tablewrap td.name { min-width: 200px; white-space: normal; }
+        .tablewrap td.name a { font-weight: 700; text-decoration: none; }
+        .tablewrap td.name a:hover { text-decoration: underline; }
+        .tablewrap td .sub { display: block; font-size: 0.84rem; color: #555; font-weight: 400; margin-top: 2px; }
+        .tablewrap td.ratio { color: #8b2626; font-weight: 700; }
+        .tablewrap tr.kids td { color: #555; }
+        .tablewrap tr.kids td.name a { color: #555; font-weight: 400; }
     </style>
 </head>
 <body class="font-serif min-h-screen text-lg">
 
     <!-- Wrapper for fixed width, mimicking a printed document width -->
-    <div class="max-w-4xl mx-auto px-4 sm:px-8 py-10 bg-docPaper min-h-screen shadow-sm sm:my-8 sm:border sm:border-docBorder">
+    <div class="max-w-[1100px] mx-auto px-4 sm:px-8 py-10 bg-docPaper min-h-screen shadow-sm sm:my-8 sm:border sm:border-docBorder">
         
         <!-- Header & Masthead -->
         <header class="mb-10 text-center">
@@ -142,11 +171,11 @@
 <div class="absolute top-0 right-0 bg-black text-white px-3 py-1 text-xs uppercase tracking-widest">Latest Report</div>
 <div class="text-xs uppercase tracking-widest text-gray-500 mb-2 font-mono">Report <span class="fig">No. 1</span> | <span class="fig">2026</span> edition | Data as of <span class="fig">2026-10-18</span></div>
 <h3 class="text-2xl font-bold mb-4">Nonprofit Hospital Executive Pay vs Charity Care</h3>
-<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-<div><div class="text-3xl sm:text-4xl font-mono font-bold tracking-tighter"><span class="fig">1,074</span></div><div class="text-xs text-gray-600 mt-1">hospital systems ranked by CEO pay</div></div>
-<div><div class="text-3xl sm:text-4xl font-mono font-bold tracking-tighter"><span class="fig">1.22%</span></div><div class="text-xs text-gray-600 mt-1">median share of expenses spent on charity care, systems over $1B</div></div>
-<div><div class="text-3xl sm:text-4xl font-mono font-bold tracking-tighter"><span class="fig">8%</span></div><div class="text-xs text-gray-600 mt-1">median CEO pay as a share of all charity care, systems over $1B</div></div>
-<div><div class="text-3xl sm:text-4xl font-mono font-bold tracking-tighter text-docRed"><span class="fig">4</span></div><div class="text-xs text-gray-600 mt-1">large systems that paid the CEO more than all charity care</div></div>
+<div class="stat-row">
+<div class="stat"><div class="v">1,074</div><div class="l">systems ranked, of 1,649 identified in 19,245 IRS Schedule H filings</div></div>
+<div class="stat"><div class="v">1.22%</div><div class="l">median share of expenses spent on charity care, systems over $1B</div></div>
+<div class="stat"><div class="v">41%</div><div class="l">of systems over $1B spend under one percent</div></div>
+<div class="stat"><div class="v red">4</div><div class="l">large systems whose chief executive was paid more than all charity care</div></div>
 </div>
 <p class="mb-5 text-gray-700">Every figure is the hospital's own, from its IRS Form 990, and every row links to the filing.</p>
 <a href="/reports/hospital-ceo-pay/" class="inline-block border-2 border-black px-6 py-2 uppercase tracking-wide text-sm font-bold hover:bg-black hover:text-white transition-colors mr-3 mb-2">Read the Full Report &rarr;</a>
@@ -176,85 +205,110 @@
 <!-- gen:report1 -->
 <div class="text-sm uppercase tracking-widest text-gray-500 mb-2">Report <span class="fig">No. 1</span> | <span class="fig">2026</span> edition | Data as of <span class="fig">2026-10-18</span></div>
 <h2 class="text-3xl font-bold mb-4"><a href="/reports/hospital-ceo-pay/" class="hover:underline">Nonprofit Hospital Executive Pay vs Charity Care</a></h2>
-<p class="mb-6">National and annual. Built from <span class="fig">19,245</span> IRS Schedule H filings covering <span class="fig">2,306</span> filers, combined into <span class="fig">1,649</span> hospital systems, of which <span class="fig">1,074</span> have an identifiable chief executive and positive charity care and are ranked. The median large system spends <span class="fig">1.22</span> percent of expenses on charity care and pays its chief executive <span class="fig">8</span> percent of that amount.</p>
-<p class="mb-2 font-bold uppercase text-sm tracking-widest">Highest-paid CEOs</p>
-<div class="border border-black mb-4 overflow-x-auto">
-<table class="w-full text-left text-sm whitespace-nowrap">
-<thead><tr class="bg-black text-white uppercase tracking-wider font-mono text-xs">
-<th class="p-3">Rank</th><th class="p-3">CEO</th><th class="p-3">System</th><th class="p-3">State</th><th class="p-3">CEO pay</th><th class="p-3">Charity care, % of expenses</th><th class="p-3">CEO pay as % of charity care</th></tr></thead>
-<tbody class="font-mono divide-y divide-gray-300"><tr>
-<td class="p-3">1</td>
-<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/nyu-langone-hospitals-13-3971298.html">Robert I Grossman MD</a></td>
-<td class="p-3 font-serif">NYU Langone Health</td>
-<td class="p-3">NY</td>
-<td class="p-3">$30,286,568</td>
-<td class="p-3">1.44%</td>
-<td class="p-3 text-docRed font-bold">21%</td></tr><tr>
-<td class="p-3">2</td>
-<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/the-new-york-and-presbyterian-hospital-13-3957095.html">Steven J Corwin</a></td>
-<td class="p-3 font-serif">NewYork-Presbyterian</td>
-<td class="p-3">NY</td>
-<td class="p-3">$26,271,976</td>
-<td class="p-3">1.11%</td>
-<td class="p-3 text-docRed font-bold">23%</td></tr><tr>
-<td class="p-3">3</td>
-<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/advocate-health-and-hospitals-corp-36-2169147.html">Eugene Woods</a></td>
-<td class="p-3 font-serif">Advocate Health (Midwest)</td>
-<td class="p-3">IL</td>
-<td class="p-3">$25,781,275</td>
-<td class="p-3">0.66%</td>
-<td class="p-3 text-docRed font-bold">22%</td></tr><tr>
-<td class="p-3">4</td>
-<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/montefiore-medical-center-13-1740114.html">Philip O Ozuah MD PhD</a></td>
-<td class="p-3 font-serif">Montefiore Health System</td>
-<td class="p-3">NY</td>
-<td class="p-3">$16,690,037</td>
-<td class="p-3">1.05%</td>
-<td class="p-3 text-docRed font-bold">27%</td></tr><tr>
-<td class="p-3">5</td>
-<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/vanderbilt-university-medical-center-35-2528741.html">Jeffrey R Balser MD PhD</a></td>
-<td class="p-3 font-serif">Vanderbilt University Medical Center</td>
-<td class="p-3">TN</td>
-<td class="p-3">$16,481,139</td>
-<td class="p-3">2.82%</td>
-<td class="p-3 text-docRed font-bold">7%</td></tr><tr>
-<td class="p-3">6</td>
-<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/mercy-health-system-corporation-39-0816848.html">Javon Bea</a></td>
-<td class="p-3 font-serif">Mercyhealth</td>
-<td class="p-3">WI</td>
-<td class="p-3">$16,336,153</td>
-<td class="p-3">0.49%</td>
-<td class="p-3 text-docRed font-bold">269%</td></tr><tr>
-<td class="p-3">7</td>
-<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/dignity-health-94-1196203.html">Wright L Lassiter III</a></td>
-<td class="p-3 font-serif">CommonSpirit Health (Dignity)</td>
-<td class="p-3">AZ</td>
-<td class="p-3">$14,175,319</td>
-<td class="p-3">1.68%</td>
-<td class="p-3 text-docRed font-bold">6%</td></tr><tr>
-<td class="p-3">8</td>
-<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/hackensack-meridian-health-inc-subordinates-01-0649794.html">Robert C Garrett</a></td>
-<td class="p-3 font-serif">Hackensack Meridian Health Inc-Subordinates</td>
-<td class="p-3">NJ</td>
-<td class="p-3">$13,541,590</td>
-<td class="p-3">2.49%</td>
-<td class="p-3 text-docRed font-bold">7%</td></tr><tr>
-<td class="p-3">9</td>
-<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/banner-health-45-0233470.html">Peter S Fine</a></td>
-<td class="p-3 font-serif">Banner Health</td>
-<td class="p-3">AZ</td>
-<td class="p-3">$13,535,312</td>
-<td class="p-3">1.92%</td>
-<td class="p-3 text-docRed font-bold">7%</td></tr><tr>
-<td class="p-3">10</td>
-<td class="p-3 font-serif"><a class="underline" href="/reports/hospital-ceo-pay/system/upmc-group-20-8295721.html">Leslie C Davis</a></td>
-<td class="p-3 font-serif">UPMC</td>
-<td class="p-3">PA</td>
-<td class="p-3">$13,324,020</td>
-<td class="p-3">0.51%</td>
-<td class="p-3 text-docRed font-bold">9%</td></tr></tbody></table></div>
+<p class="mb-4">National and annual. Built from <span class="fig">19,245</span> IRS Schedule H filings covering <span class="fig">2,306</span> filers, combined into <span class="fig">1,649</span> hospital systems, of which <span class="fig">1,074</span> have an identifiable chief executive and positive charity care and are ranked. The median large system spends <span class="fig">1.22</span> percent of expenses on charity care and pays its chief executive <span class="fig">8</span> percent of that amount.</p>
+<div class="stat-row">
+<div class="stat"><div class="v">1,074</div><div class="l">systems ranked, of 1,649 identified in 19,245 IRS Schedule H filings</div></div>
+<div class="stat"><div class="v">1.22%</div><div class="l">median share of expenses spent on charity care, systems over $1B</div></div>
+<div class="stat"><div class="v">41%</div><div class="l">of systems over $1B spend under one percent</div></div>
+<div class="stat"><div class="v red">4</div><div class="l">large systems whose chief executive was paid more than all charity care</div></div>
+</div>
+<p class="mb-2 font-bold uppercase text-sm tracking-widest">Highest-paid CEOs (Top 10 of 1,074)</p>
+<p class="text-xs text-gray-600 mb-2">Click any column header to sort, or click a system to inspect its full IRS Form 990 filing breakdown.</p>
+<div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and CEO</th><th data-k="text">State</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody>
+<tr data-name="nyu langone health" data-ceo="robert i grossman md" data-state="NY" data-kids="0">
+<td class="num">1</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/nyu-langone-hospitals-13-3971298.html">NYU Langone Health</a><span class="sub">Robert I Grossman MD</span></td>
+<td>NY</td>
+<td class="num" data-v="30286568.0">$30.3M</td>
+<td class="num" data-v="10489477025.0">$10.5B</td>
+<td class="num" data-v="1.4404887632971104">1.44%</td>
+<td class="num" data-v="141379622.0">$141.4M</td>
+<td class="num ratio" data-v="21.422159411347135">21%</td></tr>
+<tr data-name="newyork-presbyterian" data-ceo="steven j corwin" data-state="NY" data-kids="0">
+<td class="num">2</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/the-new-york-and-presbyterian-hospital-13-3957095.html">NewYork-Presbyterian</a><span class="sub">Steven J Corwin</span></td>
+<td>NY</td>
+<td class="num" data-v="26271976.0">$26.3M</td>
+<td class="num" data-v="10662065094.0">$10.7B</td>
+<td class="num" data-v="1.1061572500528531">1.11%</td>
+<td class="num" data-v="111886431.0">$111.9M</td>
+<td class="num ratio" data-v="23.480931302563402">23%</td></tr>
+<tr data-name="advocate health (midwest)" data-ceo="eugene woods" data-state="IL" data-kids="0">
+<td class="num">3</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/advocate-health-and-hospitals-corp-36-2169147.html">Advocate Health (Midwest)</a><span class="sub">Eugene Woods</span></td>
+<td>IL</td>
+<td class="num" data-v="25781275.0">$25.8M</td>
+<td class="num" data-v="17818504222.0">$17.8B</td>
+<td class="num" data-v="0.6576149955577253">0.66%</td>
+<td class="num" data-v="114937893.0">$114.9M</td>
+<td class="num ratio" data-v="22.430613896846012">22%</td></tr>
+<tr data-name="montefiore health system" data-ceo="philip o ozuah md phd" data-state="NY" data-kids="0">
+<td class="num">4</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/montefiore-medical-center-13-1740114.html">Montefiore Health System</a><span class="sub">Philip O Ozuah MD PhD</span></td>
+<td>NY</td>
+<td class="num" data-v="16690037.0">$16.7M</td>
+<td class="num" data-v="6200170717.0">$6.2B</td>
+<td class="num" data-v="1.0456891401698551">1.05%</td>
+<td class="num" data-v="62299973.0">$62.3M</td>
+<td class="num ratio" data-v="26.78979812719983">27%</td></tr>
+<tr data-name="vanderbilt university medical center" data-ceo="jeffrey r balser md phd" data-state="TN" data-kids="0">
+<td class="num">5</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/vanderbilt-university-medical-center-35-2528741.html">Vanderbilt University Medical Center</a><span class="sub">Jeffrey R Balser MD PhD</span></td>
+<td>TN</td>
+<td class="num" data-v="16481139.0">$16.5M</td>
+<td class="num" data-v="8674383028.0">$8.7B</td>
+<td class="num" data-v="2.822305879463121">2.82%</td>
+<td class="num" data-v="233093209.0">$233.1M</td>
+<td class="num ratio" data-v="7.070621692801011">7%</td></tr>
+<tr data-name="mercyhealth" data-ceo="javon bea" data-state="WI" data-kids="0">
+<td class="num">6</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/mercy-health-system-corporation-39-0816848.html">Mercyhealth</a><span class="sub">Javon Bea</span></td>
+<td>WI</td>
+<td class="num" data-v="16336153.0">$16.3M</td>
+<td class="num" data-v="1306104358.0">$1.3B</td>
+<td class="num" data-v="0.4878851175405265">0.49%</td>
+<td class="num" data-v="6074993.0">$6.1M</td>
+<td class="num ratio" data-v="268.908178165802">269%</td></tr>
+<tr data-name="commonspirit health (dignity)" data-ceo="wright l lassiter iii" data-state="AZ" data-kids="0">
+<td class="num">7</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/dignity-health-94-1196203.html">CommonSpirit Health (Dignity)</a><span class="sub">Wright L Lassiter III</span></td>
+<td>AZ</td>
+<td class="num" data-v="14175319.0">$14.2M</td>
+<td class="num" data-v="15658881953.0">$15.7B</td>
+<td class="num" data-v="1.6771304736692214">1.68%</td>
+<td class="num" data-v="249813042.0">$249.8M</td>
+<td class="num ratio" data-v="5.67437107627071">6%</td></tr>
+<tr data-name="hackensack meridian health inc-subordinates" data-ceo="robert c garrett" data-state="NJ" data-kids="0">
+<td class="num">8</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/hackensack-meridian-health-inc-subordinates-01-0649794.html">Hackensack Meridian Health Inc-Subordinates</a><span class="sub">Robert C Garrett</span></td>
+<td>NJ</td>
+<td class="num" data-v="13541590.0">$13.5M</td>
+<td class="num" data-v="8846442863.0">$8.8B</td>
+<td class="num" data-v="2.4903308129115747">2.49%</td>
+<td class="num" data-v="206988788.0">$207.0M</td>
+<td class="num ratio" data-v="6.542185270440831">7%</td></tr>
+<tr data-name="banner health" data-ceo="peter s fine" data-state="AZ" data-kids="0">
+<td class="num">9</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/banner-health-45-0233470.html">Banner Health</a><span class="sub">Peter S Fine</span></td>
+<td>AZ</td>
+<td class="num" data-v="13535312.0">$13.5M</td>
+<td class="num" data-v="11126367953.0">$11.1B</td>
+<td class="num" data-v="1.9201789345528">1.92%</td>
+<td class="num" data-v="184168412.0">$184.2M</td>
+<td class="num ratio" data-v="7.349421028835282">7%</td></tr>
+<tr data-name="upmc" data-ceo="leslie c davis" data-state="PA" data-kids="0">
+<td class="num">10</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/upmc-group-20-8295721.html">UPMC</a><span class="sub">Leslie C Davis</span></td>
+<td>PA</td>
+<td class="num" data-v="13324020.0">$13.3M</td>
+<td class="num" data-v="30348523096.0">$30.3B</td>
+<td class="num" data-v="0.5095530687809532">0.51%</td>
+<td class="num" data-v="152702280.0">$152.7M</td>
+<td class="num ratio" data-v="8.725488578166612">9%</td></tr>
+</tbody></table></div>
 <p class="text-sm text-gray-600 mb-8">CEO pay is Form 990 Part VII total compensation. Charity care is Schedule H Part I line 7a, the hospital's own figure. Full definitions in the <a class="underline" href="/reports/hospital-ceo-pay/methodology.html">methodology</a>.</p>
 <div class="space-y-3">
+<a href="/reports/hospital-ceo-pay/" class="block hover:underline font-bold">&#8627; Top 100 systems by CEO pay</a>
 <a href="/reports/hospital-ceo-pay/all.html" class="block hover:underline font-bold">&#8627; Complete ranking, all 1,074 systems, searchable and sortable</a>
 <a href="/reports/hospital-ceo-pay/states.html" class="block hover:underline font-bold">&#8627; By state, 53 states and territories</a>
 <a href="/reports/hospital-ceo-pay/methodology.html" class="block hover:underline font-bold">&#8627; Methodology, in plain language</a>
@@ -479,6 +533,30 @@
         }
         window.addEventListener('hashchange', routeFromHash);
         routeFromHash();
+
+        // Sortable tables on #reports
+        document.querySelectorAll('table.sortable').forEach(function(t) {
+            var ths = t.querySelectorAll('th');
+            ths.forEach(function(th, i) {
+                th.addEventListener('click', function() {
+                    var tb = t.tBodies[0], rows = Array.prototype.slice.call(tb.rows), k = th.dataset.k, asc = th.dataset.asc !== '1';
+                    ths.forEach(function(h) { delete h.dataset.asc; });
+                    th.dataset.asc = asc ? '1' : '0';
+                    rows.sort(function(a, b) {
+                        var x = a.cells[i], y = b.cells[i];
+                        if (k === 'num') {
+                            x = parseFloat(x.dataset.v !== undefined ? x.dataset.v : x.textContent) || 0;
+                            y = parseFloat(y.dataset.v !== undefined ? y.dataset.v : y.textContent) || 0;
+                            return asc ? x - y : y - x;
+                        }
+                        x = x.textContent.trim().toLowerCase();
+                        y = y.textContent.trim().toLowerCase();
+                        return asc ? (x < y ? -1 : x > y ? 1 : 0) : (x > y ? -1 : x < y ? 1 : 0);
+                    });
+                    rows.forEach(function(r) { tb.appendChild(r); });
+                });
+            });
+        });
     </script>
 </body>
 </html>

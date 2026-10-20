@@ -506,41 +506,29 @@ summary = {'report_no': REPORT_NO, 'title': REPORT_TITLE, 'edition': EDITION, 'd
 write('summary.json', json.dumps(summary, indent=1))
 
 # ---------- main page blocks ----------
-def t(cls, inner): return f'<td class="{cls}">{inner}</td>'
-top10 = ''.join(f"""<tr>
-<td class="p-3">{s['rank']}</td>
-<td class="p-3 font-serif"><a class="underline" href="{BASE}/system/{s['slug']}.html">{E(s['ceo'])}</a></td>
-<td class="p-3 font-serif">{E(s['name'])}</td>
-<td class="p-3">{s['state']}</td>
-<td class="p-3">{money(s['pay'], False)}</td>
-<td class="p-3">{pct(s['ccp'])}</td>
-<td class="p-3 text-docRed font-bold">{pct(s['ratio'], 0)}</td></tr>""" for s in ranked[:10])
+top10 = '\n'.join(row(s) for s in ranked[:10])
 
 BLOCKS = {
 'latest': f"""<div class="absolute top-0 right-0 bg-black text-white px-3 py-1 text-xs uppercase tracking-widest">Latest Report</div>
 <div class="text-xs uppercase tracking-widest text-gray-500 mb-2 font-mono">Report <span class="fig">No. {REPORT_NO}</span> | <span class="fig">{EDITION}</span> edition | Data as of <span class="fig">{DATA_ASOF}</span></div>
 <h3 class="text-2xl font-bold mb-4">{E(REPORT_TITLE)}</h3>
-<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-<div><div class="text-3xl sm:text-4xl font-mono font-bold tracking-tighter"><span class="fig">{len(ranked):,}</span></div><div class="text-xs text-gray-600 mt-1">hospital systems ranked by CEO pay</div></div>
-<div><div class="text-3xl sm:text-4xl font-mono font-bold tracking-tighter"><span class="fig">{MED_CC:.2f}%</span></div><div class="text-xs text-gray-600 mt-1">median share of expenses spent on charity care, systems over $1B</div></div>
-<div><div class="text-3xl sm:text-4xl font-mono font-bold tracking-tighter"><span class="fig">{MED_RATIO:.0f}%</span></div><div class="text-xs text-gray-600 mt-1">median CEO pay as a share of all charity care, systems over $1B</div></div>
-<div><div class="text-3xl sm:text-4xl font-mono font-bold tracking-tighter text-docRed"><span class="fig">{len(OVER100)}</span></div><div class="text-xs text-gray-600 mt-1">large systems that paid the CEO more than all charity care</div></div>
-</div>
+{STATS}
 <p class="mb-5 text-gray-700">Every figure is the hospital's own, from its IRS Form 990, and every row links to the filing.</p>
 <a href="{BASE}/" class="inline-block border-2 border-black px-6 py-2 uppercase tracking-wide text-sm font-bold hover:bg-black hover:text-white transition-colors mr-3 mb-2">Read the Full Report &rarr;</a>
 <a href="#reports" onclick="showSection('reports')" class="inline-block px-2 py-2 uppercase tracking-wide text-sm underline hover:text-gray-600 mb-2">Report index</a>""",
 
 'report1': f"""<div class="text-sm uppercase tracking-widest text-gray-500 mb-2">Report <span class="fig">No. {REPORT_NO}</span> | <span class="fig">{EDITION}</span> edition | Data as of <span class="fig">{DATA_ASOF}</span></div>
 <h2 class="text-3xl font-bold mb-4"><a href="{BASE}/" class="hover:underline">{E(REPORT_TITLE)}</a></h2>
-<p class="mb-6">National and annual. Built from <span class="fig">{N_FILINGS:,}</span> IRS Schedule H filings covering <span class="fig">{len(F):,}</span> filers, combined into <span class="fig">{len(S):,}</span> hospital systems, of which <span class="fig">{len(ranked):,}</span> have an identifiable chief executive and positive charity care and are ranked. The median large system spends <span class="fig">{MED_CC:.2f}</span> percent of expenses on charity care and pays its chief executive <span class="fig">{MED_RATIO:.0f}</span> percent of that amount.</p>
-<p class="mb-2 font-bold uppercase text-sm tracking-widest">Highest-paid CEOs</p>
-<div class="border border-black mb-4 overflow-x-auto">
-<table class="w-full text-left text-sm whitespace-nowrap">
-<thead><tr class="bg-black text-white uppercase tracking-wider font-mono text-xs">
-<th class="p-3">Rank</th><th class="p-3">CEO</th><th class="p-3">System</th><th class="p-3">State</th><th class="p-3">CEO pay</th><th class="p-3">Charity care, % of expenses</th><th class="p-3">CEO pay as % of charity care</th></tr></thead>
-<tbody class="font-mono divide-y divide-gray-300">{top10}</tbody></table></div>
+<p class="mb-4">National and annual. Built from <span class="fig">{N_FILINGS:,}</span> IRS Schedule H filings covering <span class="fig">{len(F):,}</span> filers, combined into <span class="fig">{len(S):,}</span> hospital systems, of which <span class="fig">{len(ranked):,}</span> have an identifiable chief executive and positive charity care and are ranked. The median large system spends <span class="fig">{MED_CC:.2f}</span> percent of expenses on charity care and pays its chief executive <span class="fig">{MED_RATIO:.0f}</span> percent of that amount.</p>
+{STATS}
+<p class="mb-2 font-bold uppercase text-sm tracking-widest">Highest-paid CEOs (Top 10 of {len(ranked):,})</p>
+<p class="text-xs text-gray-600 mb-2">Click any column header to sort, or click a system to inspect its full IRS Form 990 filing breakdown.</p>
+<div class="tablewrap"><table class="sortable">{TABLE_HEAD()}<tbody>
+{top10}
+</tbody></table></div>
 <p class="text-sm text-gray-600 mb-8">CEO pay is Form 990 Part VII total compensation. Charity care is Schedule H Part I line 7a, the hospital's own figure. Full definitions in the <a class="underline" href="{BASE}/methodology.html">methodology</a>.</p>
 <div class="space-y-3">
+<a href="{BASE}/" class="block hover:underline font-bold">&#8627; Top 100 systems by CEO pay</a>
 <a href="{BASE}/all.html" class="block hover:underline font-bold">&#8627; Complete ranking, all {len(ranked):,} systems, searchable and sortable</a>
 <a href="{BASE}/states.html" class="block hover:underline font-bold">&#8627; By state, {len(bystate)} states and territories</a>
 <a href="{BASE}/methodology.html" class="block hover:underline font-bold">&#8627; Methodology, in plain language</a>
