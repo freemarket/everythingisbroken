@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Everything Is Broken - Office of Institutional Accounts</title>
+    <link rel="icon" type="image/png" href="logo.png">
     
     <!-- Fonts to simulate the government-document look: Libre Baskerville (similar to Caslon) and Space Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,9 +22,13 @@
                         mono: ['"Space Mono"', 'monospace'],
                     },
                     colors: {
-                        docRed: '#cc0000', // Reserved red for headline ratios
-                        docBg: '#fcfcfc', // Very subtle off-white paper feel
-                        docText: '#111111'
+                        docRed: '#8b2626',     // Engraved institutional crimson matched to seal shield
+                        docBlue: '#3b5d7a',    // Federal slate blue matched to seal chief
+                        docBg: '#f0ece1',      // Warm archival backdrop outside the document sheet
+                        docPaper: '#faf8f2',   // Cotton-rag document stock matched to the seal interior
+                        docSurface: '#f3efe4', // Subtle inset callout surface
+                        docBorder: '#d6cfc2',  // Archival paper edge border
+                        docText: '#111111'     // Intaglio black ink
                     }
                 }
             }
@@ -68,10 +73,13 @@
 <body class="font-serif min-h-screen text-lg">
 
     <!-- Wrapper for fixed width, mimicking a printed document width -->
-    <div class="max-w-4xl mx-auto px-4 sm:px-8 py-10 bg-white min-h-screen shadow-sm sm:my-8 sm:border sm:border-gray-300">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 py-10 bg-docPaper min-h-screen shadow-sm sm:my-8 sm:border sm:border-docBorder">
         
         <!-- Header & Masthead -->
         <header class="mb-10 text-center">
+            <a href="#" onclick="showSection('main'); return false;" class="inline-block mb-5 focus:outline-none group" aria-label="Everything Is Broken - Home">
+                <img src="logo.png" alt="Official Seal — Everything Is Broken (2026)" class="w-32 h-32 sm:w-36 sm:h-36 mx-auto select-none transition-transform duration-200 group-hover:scale-[1.02]">
+            </a>
             <h1 class="text-4xl sm:text-5xl tracking-widest uppercase mb-4">Everything Is Broken</h1>
             <div class="rule-double w-full my-2"></div>
             <p class="text-xl italic mt-3 mb-6 tracking-wide">Office of Institutional Accounts</p>
@@ -129,7 +137,7 @@
                 <div class="rule-double-bottom w-full mb-8"></div>
 
                 <!-- Latest Report -->
-                <div class="bg-gray-50 border border-black p-6 sm:p-8 relative">
+                <div class="bg-docSurface border border-black p-6 sm:p-8 relative">
                     <div class="absolute top-0 right-0 bg-black text-white px-3 py-1 text-xs uppercase tracking-widest">Latest Report</div>
                     <h3 class="text-2xl font-bold mb-2">Nonprofit Hospital Executive Pay vs Charity Care (<span class="fig">2026</span>)</h3>
                     <p class="mb-4 text-gray-700">Headline Ratio: Exemption Value vs. Charity Care Provision</p>
@@ -326,7 +334,7 @@
                 </ul>
 
                 <h3 class="text-xl font-bold mb-4 uppercase tracking-widest rule-single inline-block pb-1">Corrections Log</h3>
-                <div class="border border-black p-6 mb-10 bg-gray-50 font-mono text-sm">
+                <div class="border border-black p-6 mb-10 bg-docSurface font-mono text-sm">
                     <p class="text-gray-500 italic mb-2">No corrections have been issued for the current reporting period.</p>
                 </div>
 
