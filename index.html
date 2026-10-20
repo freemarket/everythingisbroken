@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Everything Is Broken - Office of Institutional Accounts</title>
+    
+    <!-- Fonts to simulate the government-document look: Libre Baskerville (similar to Caslon) and Space Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS for layout and styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Libre Baskerville"', 'serif'],
+                        mono: ['"Space Mono"', 'monospace'],
+                    },
+                    colors: {
+                        docRed: '#cc0000', // Reserved red for headline ratios
+                        docBg: '#fcfcfc', // Very subtle off-white paper feel
+                        docText: '#111111'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Utility for Double Rules */
+        .rule-double {
+            border-top: 4px double #111;
+            border-bottom: none;
+        }
+        .rule-double-bottom {
+            border-bottom: 4px double #111;
+        }
+        .rule-single {
+            border-bottom: 1px solid #111;
+        }
+        
+        /* Typography adjustments for rigorous document look */
+        body {
+            background-color: theme('colors.docBg');
+            color: theme('colors.docText');
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+        
+        /* Auto-format specific classes for monospace figures */
+        .fig {
+            font-family: theme('fontFamily.mono');
+            font-size: 0.95em;
+            letter-spacing: -0.02em;
+        }
+        
+        /* Content formatting */
+        h1, h2, h3, h4, h5 { font-weight: 700; }
+        p { margin-bottom: 1rem; line-height: 1.7; }
+        
+        /* Hide sections for SPA */
+        .section-hidden { display: none; }
+    </style>
+</head>
+<body class="font-serif min-h-screen text-lg">
+
+    <!-- Wrapper for fixed width, mimicking a printed document width -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 py-10 bg-white min-h-screen shadow-sm sm:my-8 sm:border sm:border-gray-300">
+        
+        <!-- Header & Masthead -->
+        <header class="mb-10 text-center">
+            <h1 class="text-4xl sm:text-5xl tracking-widest uppercase mb-4">Everything Is Broken</h1>
+            <div class="rule-double w-full my-2"></div>
+            <p class="text-xl italic mt-3 mb-6 tracking-wide">Office of Institutional Accounts</p>
+            
+            <!-- Navigation -->
+            <nav class="flex flex-wrap justify-center gap-6 sm:gap-10 text-sm sm:text-base uppercase tracking-wider rule-single pb-4">
+                <a href="#" onclick="showSection('main')" id="nav-main" class="hover:text-gray-600 font-bold underline nav-link">Main</a>
+                <a href="#" onclick="showSection('reports')" id="nav-reports" class="hover:text-gray-600 nav-link">Reports</a>
+                <a href="#" onclick="showSection('data')" id="nav-data" class="hover:text-gray-600 nav-link">Data</a>
+                <a href="#" onclick="showSection('contact')" id="nav-contact" class="hover:text-gray-600 nav-link">Contact</a>
+                <a href="#" onclick="showSection('about')" id="nav-about" class="hover:text-gray-600 nav-link">About</a>
+                <a href="#" onclick="showSection('standards')" id="nav-standards" class="hover:text-gray-600 nav-link">Standards</a>
+            </nav>
+        </header>
+
+        <!-- Main Container -->
+        <main id="content-area">
+            
+            <!-- SECTION: MAIN -->
+            <section id="main" class="section-content">
+                <h2 class="text-2xl font-bold mb-4">Mission Statement</h2>
+                <div class="mb-8">
+                    <p>American institutions are declining across the board. Everyone says so, but almost no one says exactly where, by how much, or according to whom. That vagueness is why nothing changes. You cannot reverse a decline you refuse to measure.</p>
+                    <p>Our mission is to name the specific places where American institutions have stopped serving the public, using the institutions' own numbers, so that the decline can be seen plainly and then stopped.</p>
+                    <p class="font-bold mt-6">What do we mean? Some major examples:</p>
+                </div>
+
+                <ol class="space-y-6 list-decimal list-outside ml-6 sm:ml-8 mb-12">
+                    <li class="pl-2">
+                        <strong>Regulators.</strong> Federal and state regulatory agencies, once the envy of the world, have been captured by the industries they regulate. The FAA let Boeing certify its own <span class="fig">737 MAX</span>. Two-thirds of the FDA's budget for reviewing human drugs now comes from fees paid by the drug companies themselves. The job has shifted from protecting consumers and competition to protecting the largest corporations, the ones that can pay the most to lobbyists.
+                    </li>
+                    <li class="pl-2">
+                        <strong>Hospitals.</strong> Non-profit hospitals were granted tax exemption on the condition that they provide charity care. In <span class="fig">1969</span> the IRS dropped that condition and replaced it with a vague "community benefit" standard. The result: in <span class="fig">2021</span> nonprofit hospitals received <span class="fig">$37.4</span> billion in tax benefits and provided <span class="fig">$15.2</span> billion in charity care. On average they spend <span class="fig">2.3</span> percent of operating expenses on charity care while their exemption is worth <span class="fig">4.3</span> percent. These institutions no longer serve the public. They serve themselves, and the IRS subsidizes it.
+                    </li>
+                    <li class="pl-2">
+                        <strong>Corporations.</strong> For most of the postwar era, American companies ran pensions, funded research labs like Bell Labs and Xerox PARC, and paid CEOs <span class="fig">21</span> times what a typical worker made. That model is gone. The dominant one now is extraction: private equity stripped Sears, Toys R Us, and Red Lobster and left the shells. Boeing spent more than <span class="fig">$40</span> billion on stock buybacks in the six years before the MAX crashes. CEOs now make <span class="fig">281</span> times the typical worker and are paid in stock, so they manage the share price, not the company, and take as much as they can as fast as they can.
+                    </li>
+                    <li class="pl-2">
+                        <strong>Media.</strong> Trust in the news media is at a record low. In <span class="fig">2025</span>, <span class="fig">28</span> percent of Americans said they trust it, down from nearly <span class="fig">70</span> percent in the <span class="fig">1970s</span>. Audiences have split into separate information worlds, each with its own outlets, and no major news organization is trusted across the country anymore. Whatever you think of the cause, the institution that was supposed to give the country a shared set of facts no longer does.
+                    </li>
+                    <li class="pl-2">
+                        <strong>Congress.</strong> Congress has passed all of its spending bills on time four times in fifty years, and not once since <span class="fig">1996</span>. It now governs by continuing resolution and shutdown deadline. As of April <span class="fig">2026</span>, <span class="fig">10</span> percent of Americans approve of the job it is doing. The branch the Constitution put first barely legislates.
+                    </li>
+                    <li class="pl-2">
+                        <strong>Checks on the Presidency.</strong> The separation of powers held for two centuries. It is now eroding, and both parties did the eroding. Under Bush, the government claimed the power to hold American citizens indefinitely without trial, and did it to Jose Padilla and Yaser Hamdi (<a href="https://supreme.justia.com/cases/federal/us/542/426/" class="underline"><em>Rumsfeld v. Padilla</em>, 542 U.S. 426 (2004)</a>; <a href="https://supreme.justia.com/cases/federal/us/542/507/" class="underline"><em>Hamdi v. Rumsfeld</em>, 542 U.S. 507 (2004)</a>). Under Obama, it claimed the power to kill an American citizen without trial, and did it to Anwar al-Awlaki in <span class="fig">2011</span>. Under Trump the Supreme Court granted presidents broad immunity for official acts (<a href="https://supreme.justia.com/cases/federal/us/603/593/" class="underline"><em>Trump v. United States</em>, 603 U.S. 593 (2024)</a>), and the White House now fires heads of independent agencies, withholds funds Congress appropriated, and imposes tariffs by emergency declaration. Each president keeps what the last one took, and neither Congress nor the courts take it back.
+                    </li>
+                    <li class="pl-2">
+                        <strong>Credit rating agencies.</strong> Until the <span class="fig">1970s</span>, investors paid for credit ratings, so the agencies worked for the people relying on them. Then Moody's, S&P, and Fitch switched to charging the issuers of the debt they rate. The result arrived in <span class="fig">2008</span>, when they rated the mortgage securities that caused the crisis AAA. Nothing about that arrangement has changed. The same three firms still grade the debt, and the issuers still pay them.
+                    </li>
+                    <li class="pl-2">
+                        <strong>Civic life.</strong> The institutions that held ordinary American life together are emptying out. In <span class="fig">1937</span>, <span class="fig">73</span> percent of Americans belonged to a church, synagogue, or mosque, and the number stayed near <span class="fig">70</span> percent for six decades. In <span class="fig">2020</span> it fell below half for the first time, to <span class="fig">47</span> percent. In <span class="fig">1983</span>, one in five workers belonged to a union. In the private sector today it is one in seventeen. These institutions were not captured. People left them, because they stopped delivering.
+                    </li>
+                </ol>
+
+                <div class="rule-double-bottom w-full mb-8"></div>
+
+                <!-- Latest Report -->
+                <div class="bg-gray-50 border border-black p-6 sm:p-8 relative">
+                    <div class="absolute top-0 right-0 bg-black text-white px-3 py-1 text-xs uppercase tracking-widest">Latest Report</div>
+                    <h3 class="text-2xl font-bold mb-2">Nonprofit Hospital Executive Pay vs Charity Care (<span class="fig">2026</span>)</h3>
+                    <p class="mb-4 text-gray-700">Headline Ratio: Exemption Value vs. Charity Care Provision</p>
+                    <div class="text-5xl font-mono text-docRed font-bold tracking-tighter mb-6">
+                        <span class="fig">4.3%</span> : <span class="fig">2.3%</span>
+                    </div>
+                    <a href="#" onclick="showSection('reports')" class="inline-block border-2 border-black px-6 py-2 uppercase tracking-wide text-sm font-bold hover:bg-black hover:text-white transition-colors">
+                        Read the Full Report &rarr;
+                    </a>
+                </div>
+            </section>
+
+            <!-- SECTION: REPORTS -->
+            <section id="reports" class="section-content section-hidden">
+                <h2 class="text-3xl font-bold mb-6">Reports</h2>
+                <p class="mb-8">Reports are the product. Each one takes an institution type from the list, pulls the institutions' own filings, and publishes the numbers with no claims beyond what the filings show. This page is an index.</p>
+                
+                <h3 class="text-xl font-bold mb-4 uppercase tracking-widest rule-single inline-block pb-1">Rules every report follows</h3>
+                <ul class="list-disc list-outside ml-6 mb-12 space-y-2">
+                    <li>Only the most conservative figures the institutions themselves report. No outside estimates, no modeling.</li>
+                    <li>Every figure links to the filing it came from.</li>
+                    <li>Named individuals, named institutions, exact dollar amounts.</li>
+                    <li>Dated, numbered, and reissued annually under the same title so the series builds.</li>
+                    <li>No recommendations. The report shows; it does not advocate.</li>
+                </ul>
+
+                <div class="border border-black p-6 sm:p-8">
+                    <div class="text-sm uppercase tracking-widest text-gray-500 mb-2">Report <span class="fig">No. 1</span> | <span class="fig">2026</span> | As of: Oct <span class="fig">20, 2026</span></div>
+                    <h2 class="text-3xl font-bold mb-4">Nonprofit Hospital Executive Pay vs Charity Care</h2>
+                    
+                    <div class="mb-8">
+                        <p class="mb-2 font-bold uppercase text-sm tracking-widest">The Headline Ratio</p>
+                        <p class="text-4xl text-docRed font-mono font-bold"><span class="fig">4.3%</span> / <span class="fig">2.3%</span></p>
+                        <p class="text-sm italic mt-1">Average exemption value vs. operating expenses spent on charity care.</p>
+                    </div>
+
+                    <p class="mb-6">National, annual, built from <span class="fig">19,245</span> IRS Schedule H filings covering <span class="fig">2,305</span> filers. Below is the ranked list of nonprofit hospital CEOs by pay, with charity care alongside each.</p>
+                    
+                    <div class="border border-black mb-8 overflow-x-auto">
+                        <table class="w-full text-left text-sm whitespace-nowrap">
+                            <thead>
+                                <tr class="bg-black text-white uppercase tracking-wider font-mono">
+                                    <th class="p-3">Rank</th>
+                                    <th class="p-3">Named Target</th>
+                                    <th class="p-3">Institution</th>
+                                    <th class="p-3">Exec Comp</th>
+                                    <th class="p-3">Charity Care %</th>
+                                </tr>
+                            </thead>
+                            <tbody class="font-mono divide-y divide-gray-300">
+                                <tr>
+                                    <td class="p-3">1</td>
+                                    <td class="p-3 font-serif">Eugene Woods</td>
+                                    <td class="p-3 font-serif">Advocate Health</td>
+                                    <td class="p-3">$14,000,000+</td>
+                                    <td class="p-3 text-docRed">1.5%</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 text-gray-500 italic" colspan="5">[ Full table of 2,305 filers available in raw data format ]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="space-y-4">
+                        <a href="#" class="block hover:underline font-bold">&#8627; View Per-Entity Pages (Hospital Systems & States)</a>
+                        <a href="#" class="block hover:underline font-bold">&#8627; View Methodology (Plain Language)</a>
+                        <a href="#" class="block hover:underline font-bold">&#8627; Read Rebuttals Received</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: DATA -->
+            <section id="data" class="section-content section-hidden">
+                <h2 class="text-3xl font-bold mb-6">Data</h2>
+                <p class="mb-8">The Data page is what makes the reports hard to dismiss: anyone can download the dataset and rebuild every number. It is also what local groups and reporters will actually use. <em>No commentary is housed here.</em></p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Dataset -->
+                    <div class="border border-black p-6">
+                        <h3 class="text-xl font-bold mb-3 uppercase tracking-wider">Dataset Download</h3>
+                        <p class="text-sm mb-4">Full dataset for each report (CSV), append-only. Every row carries its source filing and retrieval date. Superseded rows are flagged, never removed.</p>
+                        <button class="bg-black text-white px-4 py-2 font-mono text-sm uppercase tracking-widest hover:bg-gray-800 transition-colors w-full">Download .CSV</button>
+                    </div>
+
+                    <!-- Reproduction Manual -->
+                    <div class="border border-black p-6">
+                        <h3 class="text-xl font-bold mb-3 uppercase tracking-wider">Reproduction Manual</h3>
+                        <p class="text-sm mb-4">Step-by-step instructions, written so another person or another LLM can rebuild the dataset from scratch from the IRS bulk files.</p>
+                        <a href="#" class="underline hover:text-gray-600 block text-sm font-bold mt-2">Read the Manual &rarr;</a>
+                    </div>
+
+                    <!-- Source List -->
+                    <div class="border border-black p-6">
+                        <h3 class="text-xl font-bold mb-3 uppercase tracking-wider">Primary Sources</h3>
+                        <ul class="list-disc list-outside ml-4 text-sm space-y-2">
+                            <li>IRS Form 990 bulk XML</li>
+                            <li>IRS Schedule H</li>
+                            <li>ProPublica Nonprofit Explorer</li>
+                        </ul>
+                    </div>
+
+                    <!-- Version Log -->
+                    <div class="border border-black p-6">
+                        <h3 class="text-xl font-bold mb-3 uppercase tracking-wider">Version Log</h3>
+                        <p class="text-sm mb-4">What changed in each release of the data, dated.</p>
+                        <div class="font-mono text-xs text-gray-600 space-y-1">
+                            <p>[<span class="fig">2026-10-20</span>] v1.0.0 - Initial Dataset Launch</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 rule-single text-sm">
+                    <p><strong>How to cite this data:</strong> Office of Institutional Accounts, <em>"Nonprofit Hospital Executive Pay vs Charity Care Dataset,"</em> <span class="fig">2026</span> release. everythingisbroken.org/data.</p>
+                </div>
+            </section>
+
+            <!-- SECTION: CONTACT -->
+            <section id="contact" class="section-content section-hidden">
+                <h2 class="text-3xl font-bold mb-6">Contact</h2>
+                <p class="mb-8">Keeping addresses separate means a hospital's legal department and a local reporter never land in the same inbox. There is no general contact form and no phone number. Rebuttals are welcomed and will be published in full.</p>
+
+                <div class="overflow-x-auto border-4 border-double border-black">
+                    <table class="w-full text-left">
+                        <thead class="bg-black text-white uppercase tracking-wider text-sm font-bold">
+                            <tr>
+                                <th class="p-4 border-r border-gray-600">Purpose</th>
+                                <th class="p-4 border-r border-gray-600">Who writes</th>
+                                <th class="p-4 border-r border-gray-600">What happens to it</th>
+                                <th class="p-4">Address</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-black font-serif">
+                            <tr>
+                                <td class="p-4 border-r border-black font-bold">Press</td>
+                                <td class="p-4 border-r border-black text-sm">Reporters, local groups wanting to promote a report</td>
+                                <td class="p-4 border-r border-black text-sm">Answered; data and graphics supplied on request</td>
+                                <td class="p-4 font-mono text-sm"><a href="mailto:press@everythingisbroken.org" class="underline">press@...</a></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 border-r border-black font-bold">Corrections</td>
+                                <td class="p-4 border-r border-black text-sm">Anyone who finds an error</td>
+                                <td class="p-4 border-r border-black text-sm">Reviewed against the filing; fixes published on the Standards page with a date</td>
+                                <td class="p-4 font-mono text-sm"><a href="mailto:corrections@everythingisbroken.org" class="underline">corrections@...</a></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 border-r border-black font-bold">Rebuttals</td>
+                                <td class="p-4 border-r border-black text-sm">Institutions named in a report</td>
+                                <td class="p-4 border-r border-black text-sm font-bold text-docRed">Published in full on the report page, with the org's response</td>
+                                <td class="p-4 font-mono text-sm"><a href="mailto:rebuttals@everythingisbroken.org" class="underline">rebuttals@...</a></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 border-r border-black font-bold">Tips</td>
+                                <td class="p-4 border-r border-black text-sm">Readers with filings, documents, or an institution to look at</td>
+                                <td class="p-4 border-r border-black text-sm">Reviewed; no promise of action</td>
+                                <td class="p-4 font-mono text-sm">
+                                    <a href="mailto:tips@everythingisbroken.org" class="underline block mb-1">tips@...</a>
+                                    <span class="text-xs text-gray-500 uppercase">PGP Key Available</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECTION: ABOUT -->
+            <section id="about" class="section-content section-hidden">
+                <h2 class="text-3xl font-bold mb-6">About</h2>
+                
+                <div class="space-y-6 max-w-2xl">
+                    <p>
+                        <strong>What it does.</strong> Publishes annual reports showing, from institutions' own filings, that American institutions have stopped serving the public. Every number is the institution's own.
+                    </p>
+                    <p>
+                        <strong>How it is funded.</strong> The Office of Institutional Accounts is entirely self-funded. We do not accept donations, ensuring no external party can steer or influence the focus of our reports.
+                    </p>
+                    <p>
+                        <strong>What it is not.</strong> Not partisan. Not a law firm, a lobby, or a complaint service. It does not take cases, endorse candidates, or recommend legislation. The list on the main page names Bush, Obama, and Trump in one item for a reason. We exist only to measure and publish the decline.
+                    </p>
+                </div>
+            </section>
+
+            <!-- SECTION: STANDARDS -->
+            <section id="standards" class="section-content section-hidden">
+                <h2 class="text-3xl font-bold mb-6">Standards</h2>
+                
+                <h3 class="text-xl font-bold mb-4 uppercase tracking-widest rule-single inline-block pb-1">Report Rules</h3>
+                <ul class="list-decimal list-outside ml-6 mb-10 space-y-2">
+                    <li>Only the most conservative figures the institutions themselves report. No outside estimates, no modeling.</li>
+                    <li>Every figure links to the filing it came from.</li>
+                    <li>Named individuals, named institutions, exact dollar amounts.</li>
+                    <li>Dated, numbered, and reissued annually under the same title so the series builds.</li>
+                    <li>No recommendations. The report shows; it does not advocate.</li>
+                </ul>
+
+                <h3 class="text-xl font-bold mb-4 uppercase tracking-widest rule-single inline-block pb-1">Corrections Log</h3>
+                <div class="border border-black p-6 mb-10 bg-gray-50 font-mono text-sm">
+                    <p class="text-gray-500 italic mb-2">No corrections have been issued for the current reporting period.</p>
+                </div>
+
+                <h3 class="text-xl font-bold mb-4 uppercase tracking-widest rule-single inline-block pb-1">Mission Statement Sources</h3>
+                <ul class="list-none space-y-4 text-sm mt-4">
+                    <li><strong class="font-mono">[1] Regulators:</strong> FAA 737 MAX certification documentation; FDA budget authorization filings (<span class="fig">2023</span>).</li>
+                    <li><strong class="font-mono">[2] Hospitals:</strong> IRS Rev. Rul. <span class="fig">69-545</span> (<span class="fig">1969</span>); <span class="fig">2021</span> aggregate Schedule H disclosures.</li>
+                    <li><strong class="font-mono">[3] Corporations:</strong> Historical executive compensation ratios derived from SEC filings and BLS historical data.</li>
+                    <li><strong class="font-mono">[4] Media:</strong> Gallup Trust in Media historical polling data (<span class="fig">1970</span>-<span class="fig">2025</span>).</li>
+                    <li><strong class="font-mono">[5] Congress:</strong> Congressional Research Service (CRS) appropriations tracking data; Gallup congressional approval ratings (April <span class="fig">2026</span>).</li>
+                    <li><strong class="font-mono">[6] Checks on the Presidency:</strong>
+                        <ul class="list-disc list-outside ml-6 mt-2 space-y-1">
+                            <li><em>Rumsfeld v. Padilla</em>, <span class="fig">542</span> U.S. <span class="fig">426</span> (<span class="fig">2004</span>). <a href="https://supreme.justia.com/cases/federal/us/542/426/" class="underline">Opinion</a>. Dismissed on jurisdictional grounds; the merits of Padilla's detention were decided in <em>Padilla v. Hanft</em>, <span class="fig">423</span> F.3d <span class="fig">386</span> (4th Cir. <span class="fig">2005</span>), cert. denied, <span class="fig">547</span> U.S. <span class="fig">1062</span> (<span class="fig">2006</span>).</li>
+                            <li><em>Hamdi v. Rumsfeld</em>, <span class="fig">542</span> U.S. <span class="fig">507</span> (<span class="fig">2004</span>). <a href="https://supreme.justia.com/cases/federal/us/542/507/" class="underline">Opinion</a>.</li>
+                            <li>U.S. Department of Justice, Office of Legal Counsel, memorandum on the contemplated lethal operation against Anwar al-Aulaqi (July <span class="fig">16, 2010</span>), released <span class="fig">2014</span> under <em>New York Times Co. v. U.S. Department of Justice</em>, <span class="fig">756</span> F.3d <span class="fig">100</span> (2d Cir. <span class="fig">2014</span>). Not a Supreme Court decision.</li>
+                            <li><em>Trump v. United States</em>, <span class="fig">603</span> U.S. <span class="fig">593</span> (<span class="fig">2024</span>). <a href="https://supreme.justia.com/cases/federal/us/603/593/" class="underline">Opinion</a>.</li>
+                        </ul>
+                    </li>
+                    <li><strong class="font-mono">[7] Credit Rating Agencies:</strong> SEC Office of Credit Ratings annual reports; FCIC <span class="fig">2011</span> report on the <span class="fig">2008</span> financial crisis.</li>
+                    <li><strong class="font-mono">[8] Civic Life:</strong> Gallup Religion polling (<span class="fig">1937</span>-<span class="fig">2020</span>); BLS Union Members Summary (<span class="fig">1983</span>-present).</li>
+                </ul>
+            </section>
+            
+        </main>
+        
+        <!-- Footer -->
+        <footer class="mt-16 pt-8 text-center text-sm font-mono tracking-widest text-gray-500 flex flex-col items-center">
+            <div class="rule-single w-full max-w-md mb-6"></div>
+            <div class="flex gap-4 mb-4">
+                <a href="#" onclick="showSection('reports')" class="hover:text-black transition-colors">Reports</a>
+                <span>|</span>
+                <a href="#" onclick="showSection('data')" class="hover:text-black transition-colors">Data</a>
+                <span>|</span>
+                <a href="#" onclick="showSection('contact')" class="hover:text-black transition-colors">Contact</a>
+                <span>|</span>
+                <a href="#" onclick="showSection('about')" class="hover:text-black transition-colors">About</a>
+                <span>|</span>
+                <a href="#" onclick="showSection('standards')" class="hover:text-black transition-colors">Standards</a>
+            </div>
+            <p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p>
+        </footer>
+    </div>
+
+    <!-- Simple Vanilla JS SPA Logic -->
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section-content');
+            sections.forEach(sec => sec.classList.add('section-hidden'));
+            
+            // Show target section
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.classList.remove('section-hidden');
+            }
+            
+            // Update Navigation active state
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('font-bold', 'underline');
+            });
+            
+            const activeLink = document.getElementById('nav-' + sectionId);
+            if (activeLink) {
+                activeLink.classList.add('font-bold', 'underline');
+            }
+            
+            // Scroll to top of content area to mimic fresh page load
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
