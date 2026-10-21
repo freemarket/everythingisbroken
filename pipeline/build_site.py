@@ -191,12 +191,11 @@ dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:
 .cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
 .cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
-.sharebox{display:grid;grid-template-columns:minmax(0,600px) 1fr;gap:22px;align-items:start;border:1px solid var(--ink);padding:18px;margin:22px 0;background:var(--surface)}
+.sharebox{display:grid;grid-template-columns:1fr;gap:14px;border:1px solid var(--ink);padding:18px;margin:22px 0;background:var(--surface)}
 .sharebox img{width:100%;height:auto;border:1px solid var(--border);display:block}
 .sharelinks p{margin:0 0 10px;font-size:.92rem}
 .sharelinks .btn{margin:4px 6px 4px 0;cursor:pointer;font-family:var(--mono)}
 button.btn{border:2px solid var(--ink);background:var(--ink);color:#fff}button.btn.ghost{background:transparent;color:var(--ink)}button.btn.ghost:hover{background:var(--ink);color:#fff}
-@media(max-width:800px){.sharebox{grid-template-columns:1fr}}
 .statelist{columns:3;column-gap:28px;font-size:.95rem}.statelist a{display:block;padding:3px 0;text-decoration:none}.statelist a:hover{text-decoration:underline}@media(max-width:640px){.statelist{columns:2}}
 .card{border:1px solid var(--ink);padding:22px}
 .card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
@@ -368,7 +367,7 @@ index = HEAD(REPORT_TITLE, HEADLINE + ' ' + f'{len(ranked)} nonprofit hospital s
 <h1 class="title">{E(REPORT_TITLE)}</h1>
 <p class="lede">{HEADLINE} The median large system spends about one cent of every dollar on charity care and pays its chief executive {MED_RATIO:.0f} percent of that. Every figure on this page is from the hospital's own IRS Form 990, linked on every row.</p>
 {STATS}
-<div class="sharebox"><img src="{BASE}/cards/summary.png" alt="Summary card" width="600" height="315"><div class="sharelinks"><strong>Share this report.</strong> The card to the left is what appears when this page's link is posted. <a href="{BASE}/cards/summary.png" download>Download the card</a> &middot; <a href="{BASE}/press-kit.zip" download>Press kit</a> &middot; <a href="{BASE}/for-local-groups.html">For local groups</a></div></div>
+<div class="sharebox"><img src="{BASE}/cards/summary.png" alt="Summary card" width="1200" height="630"><div class="sharelinks"><strong>Share this report.</strong> The card above is what appears when this page's link is posted. <a href="{BASE}/cards/summary.png" download>Download the card</a> &middot; <a href="{BASE}/press-kit.zip" download>Press kit</a> &middot; <a href="{BASE}/for-local-groups.html">For local groups</a></div></div>
 <h2><span class="n">&sect;1</span>Top 100 by CEO pay</h2>
 <div class="toolbar"><input type="search" id="q" placeholder="Search a hospital, CEO, or state code"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
 <p class="note">Click a column to sort. Children’s hospitals are shown in grey: Medicaid covers most low-income children, so their charity care is structurally low.</p>
@@ -410,7 +409,10 @@ def cb_bar(s):
 
 
 # ---------- cards (1200 x 630 PNG, rendered from HTML with headless Chromium) ----------
-CARD_DIR = os.path.join(OUT, 'cards'); shutil.rmtree(CARD_DIR, ignore_errors=True); os.makedirs(os.path.join(CARD_DIR, 'system')); os.makedirs(os.path.join(CARD_DIR, 'state'))
+CARD_DIR = os.path.join(OUT, 'cards')
+if os.environ.get('EIB_SKIP_CARDS') != '1':
+    shutil.rmtree(CARD_DIR, ignore_errors=True)
+os.makedirs(os.path.join(CARD_DIR, 'system'), exist_ok=True); os.makedirs(os.path.join(CARD_DIR, 'state'), exist_ok=True)
 LOGO_URI = 'data:image/png;base64,' + __import__('base64').b64encode(open(os.path.join(REPO, 'logo.png'), 'rb').read()).decode()
 FONT_CSS = open(os.path.join(REPO, 'fonts', 'fonts.css')).read().replace('url(/fonts/', f'url(file://{REPO}/fonts/')
 CARD_CSS = FONT_CSS + """
@@ -523,7 +525,7 @@ def sharebox(s=None, st_=None):
         alt = f"{STATES.get(st_, st_)} nonprofit hospitals: CEO pay vs charity care"
     embed = f'<a href="{url}"><img src="{SITE}{img}" alt="{E(alt)}" width="600" height="315" style="max-width:100%;height:auto"></a>'
     return f"""<h2><span class="n">&sect;</span>Share</h2>
-<div class="sharebox"><img src="{img}" alt="{E(alt)}" width="600" height="315">
+<div class="sharebox"><img src="{img}" alt="{E(alt)}" width="1200" height="630">
 <div class="sharelinks">
 <p>This card is what appears when the link to this page is posted. Use it, the sentence, or the embed code. No permission needed; attribution is on the card.</p>
 <p><a class="btn" href="{img}" download>Download card</a> <button class="btn ghost" data-copy="{E(url)}">Copy link</button> <button class="btn ghost" data-copy="{E(sent)}">Copy sentence</button> <button class="btn ghost" data-copy="{E(embed)}">Copy embed code</button></p>
