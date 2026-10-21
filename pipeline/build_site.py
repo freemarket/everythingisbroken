@@ -22,7 +22,7 @@ DATA_URL = '/data/hospital-ceo-pay'
 REPORT_NO = 1
 REPORT_TITLE = 'Nonprofit Hospital Executive Pay vs Charity Care'   # one variable; matches the main page
 PUBLISHER = 'Everything Is Broken'
-SUBLINE = 'Office of Institutional Accounts'
+SUBLINE = ''
 SITE = 'https://everythingisbroken.org'
 EDITION = '2026'
 DATA_ASOF = '2026-10-18'        # date the IRS releases were pulled and the tables built
@@ -119,7 +119,7 @@ a{color:var(--ink)}
 .mast .seal img{width:128px;height:128px;display:block;margin:0 auto}
 .mast h1{font-size:2.6rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;font-weight:700;line-height:1.1}
 @media(max-width:640px){.mast h1{font-size:1.7rem}}
-.rule-double{border-top:4px double var(--ink)}
+.rule-double{border-top:4px double var(--ink);margin-bottom:18px}
 .rule-double-bottom{border-bottom:4px double var(--ink)}
 .rule-single{border-bottom:1px solid var(--ink)}
 .mast .sub{font-style:italic;font-size:1.25rem;margin:12px 0 22px;letter-spacing:.02em}
@@ -220,7 +220,6 @@ def HEAD(title, desc='', here=None, wide=True):
 <a class="seal" href="/" aria-label="{E(PUBLISHER)} home"><img src="/logo.png" alt="Official Seal, {E(PUBLISHER)} ({EDITION})"></a>
 <h1>{E(PUBLISHER)}</h1>
 <div class="rule-double"></div>
-<p class="sub">{E(SUBLINE)}</p>
 <nav class="site">{site_nav}</nav>
 <div class="band"><span class="rep">Report No. {REPORT_NO} &middot; {E(REPORT_TITLE)} &middot; {EDITION} edition</span><nav>{rep_nav}</nav></div>
 </header>
@@ -230,7 +229,7 @@ FOOT = f"""</main>
 <footer><div class="rule-single"></div>
 <div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
 <p>Report No. {REPORT_NO}, {EDITION} edition &middot; Data as of {DATA_ASOF} &middot; Built {BUILD}</p>
-<p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to corrections@everythingisbroken.org.</p>
+<p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to contact@everythingisbroken.org.</p>
 <p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate. Donations are not tax-deductible.</p>
 <p>&copy; {EDITION} EVERYTHINGISBROKEN.ORG</p></footer>
 </div></body></html>"""
@@ -307,7 +306,7 @@ index = HEAD(REPORT_TITLE, f'{len(ranked)} nonprofit hospital systems ranked by 
 <p>A nonprofit hospital pays no federal income tax and, in nearly every state, no property or sales tax. The exemption is granted on the premise that the hospital serves the community in ways a business would not. This report puts two of the hospital's own numbers beside each other and lets the reader decide whether the premise holds.</p>
 </div>
 <h2><span class="n">&sect;3</span>Rebuttals</h2>
-<div class="prose"><p>Institutions named in this report may reply to rebuttals@everythingisbroken.org. Replies are published here in full. None has been received.</p></div>
+<div class="prose"><p>Institutions named in this report may reply to contact@everythingisbroken.org. Replies are published here in full. None has been received.</p></div>
 {SORT_JS}{FOOT}"""
 write('index.html', index)
 
@@ -421,7 +420,7 @@ meth = HEAD('Methodology', 'How the figures were taken from IRS filings, and the
 <h2>Children's hospitals</h2><p>Medicaid and CHIP cover most low-income children, so children's hospitals report little uncompensated care and appear at the bottom of any charity care ranking. They are shown in grey and can be hidden from any table.</p>
 <h2>What this report does not do</h2><p>It does not estimate the value of the tax exemption. It does not count public hospitals (county, state, veterans), which file no Form 990. It does not judge whether a chief executive is overpaid. It puts two of the hospital's own numbers beside each other.</p>
 <h2>Independent check</h2><p>CEO pay figures were compared against CEO Paycheck, which reads the same filings with its own method: of 129 systems present in both, 121 agree on the person and the dollar amount. The eight differences are explained in section 7 of the <a href="{BASE}/manual.html">reproduction manual</a>.</p>
-<h2>Corrections</h2><p>If a figure is wrong, send the filing that contradicts it to corrections@everythingisbroken.org. The correction runs at the top of the affected page with the date, and in the corrections log on the <a href="/#standards">Standards</a> page.</p>
+<h2>Corrections</h2><p>If a figure is wrong, send the filing that contradicts it to contact@everythingisbroken.org. The correction runs at the top of the affected page with the date, and in the corrections log on the <a href="/#standards">Standards</a> page.</p>
 <p>The full <a href="{BASE}/manual.html">reproduction manual</a>, with every rule and every manual decision, and the <a href="{BASE}/data.html">data files and scripts</a> that build this report from the IRS release, are published alongside it.</p>
 </div>{FOOT}"""
 write('methodology.html', meth)
@@ -536,7 +535,7 @@ BLOCKS = {
 <a href="{BASE}/manual.html" class="block hover:underline font-bold">&#8627; Reproduction manual, every rule and every manual decision</a>
 <a href="{BASE}/data.html" class="block hover:underline font-bold">&#8627; Data files and scripts</a>
 </div>
-<p class="mt-8 text-sm"><strong>Rebuttals received:</strong> none. Institutions named in this report may write to rebuttals@everythingisbroken.org; replies are published in full on the report page.</p>""",
+<p class="mt-8 text-sm"><strong>Rebuttals received:</strong> none. Institutions named in this report may write to contact@everythingisbroken.org; replies are published in full on the report page.</p>""",
 
 'data': f"""<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 <div class="border border-black p-6">
