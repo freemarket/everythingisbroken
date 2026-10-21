@@ -227,7 +227,7 @@ REPORT_NAV = [(f'{BASE}/','Ranking'),(f'{BASE}/all.html','Complete list'),(f'{BA
 def HEAD(title, desc='', here=None, wide=True, card=None, url=None):
     local = (here or '').endswith('for-local-groups.html')
     def _nav(k, v):
-        href = k if k.startswith('/') else '/#' + k
+        href = k if k.startswith('/') else ('/' if k == 'main' else '/#' + k)
         on = (k == 'reports' and not local) or (k.startswith('/') and local)
         return f'<a href="{href}"{" class=on" if on else ""}>{v}</a>'
     site_nav = ''.join(_nav(k, v) for k, v in SITE_NAV)

@@ -105,7 +105,7 @@
         
         <!-- Header & Masthead -->
         <header class="mb-10 text-center">
-            <a href="#main" onclick="showSection('main')" class="inline-block mb-5 focus:outline-none group" aria-label="Everything Is Broken - Home">
+            <a href="/" onclick="showSection('main'); return false;" class="inline-block mb-5 focus:outline-none group" aria-label="Everything Is Broken - Home">
                 <img src="logo.png" alt="Official Seal — Everything Is Broken (2026)" class="w-32 h-32 sm:w-36 sm:h-36 mx-auto select-none transition-transform duration-200 group-hover:scale-[1.02]">
             </a>
             <h1 class="text-4xl sm:text-5xl tracking-widest uppercase mb-4">Everything Is Broken</h1>
@@ -113,12 +113,12 @@
             
             <!-- Navigation -->
             <nav class="flex flex-wrap justify-center gap-6 sm:gap-10 text-sm sm:text-base uppercase tracking-wider rule-single pb-4">
-                <a href="#main" onclick="showSection('main')" id="nav-main" class="hover:text-gray-600 font-bold underline nav-link">Main</a>
-                <a href="#reports" onclick="showSection('reports')" id="nav-reports" class="hover:text-gray-600 nav-link">Reports</a>
-                <a href="#data" onclick="showSection('data')" id="nav-data" class="hover:text-gray-600 nav-link">Data</a>
-                <a href="#contact" onclick="showSection('contact')" id="nav-contact" class="hover:text-gray-600 nav-link">Contact</a>
-                <a href="#about" onclick="showSection('about')" id="nav-about" class="hover:text-gray-600 nav-link">About</a>
-                <a href="#standards" onclick="showSection('standards')" id="nav-standards" class="hover:text-gray-600 nav-link">Standards</a>
+                <a href="/" onclick="showSection('main'); return false;" id="nav-main" class="hover:text-gray-600 font-bold underline nav-link">Main</a>
+                <a href="#reports" onclick="showSection('reports'); return false;" id="nav-reports" class="hover:text-gray-600 nav-link">Reports</a>
+                <a href="#data" onclick="showSection('data'); return false;" id="nav-data" class="hover:text-gray-600 nav-link">Data</a>
+                <a href="#contact" onclick="showSection('contact'); return false;" id="nav-contact" class="hover:text-gray-600 nav-link">Contact</a>
+                <a href="#about" onclick="showSection('about'); return false;" id="nav-about" class="hover:text-gray-600 nav-link">About</a>
+                <a href="#standards" onclick="showSection('standards'); return false;" id="nav-standards" class="hover:text-gray-600 nav-link">Standards</a>
             </nav>
         </header>
 
@@ -126,7 +126,7 @@
         <main id="content-area">
             
             <!-- SECTION: MAIN -->
-            <section id="main" class="section-content">
+            <section id="sec-main" class="section-content">
                 <!-- Latest Report -->
                 <div class="bg-docSurface border border-black p-6 sm:p-8 relative mb-10">
 <!-- gen:latest -->
@@ -191,7 +191,7 @@
             </section>
 
             <!-- SECTION: REPORTS -->
-            <section id="reports" class="section-content section-hidden">
+            <section id="sec-reports" class="section-content section-hidden">
                 <h2 class="text-3xl font-bold mb-6">Reports</h2>
                 <p class="mb-8">Reports are the product. Each one takes an institution type from the list, pulls the institutions' own filings, and publishes the numbers with no claims beyond what the filings show. This page is an index.</p>
                 
@@ -327,7 +327,7 @@
             </section>
 
             <!-- SECTION: DATA -->
-            <section id="data" class="section-content section-hidden">
+            <section id="sec-data" class="section-content section-hidden">
                 <h2 class="text-3xl font-bold mb-6">Data</h2>
                 <p class="mb-8">The Data page is what makes the reports hard to dismiss: anyone can download the dataset and rebuild every number. It is also what local groups and reporters will actually use. <em>No commentary is housed here.</em></p>
 
@@ -376,7 +376,7 @@
             </section>
 
             <!-- SECTION: CONTACT -->
-            <section id="contact" class="section-content section-hidden">
+            <section id="sec-contact" class="section-content section-hidden">
                 <h2 class="text-3xl font-bold mb-6">Contact</h2>
                 <p class="mb-8">One address. There is no contact form and no phone number.</p>
 
@@ -388,14 +388,14 @@
                 <div class="space-y-5 max-w-2xl">
                     <p><strong>If you're a reporter.</strong> Write and you'll get an answer. If you need the dataset, a filing, or a card for a story, ask; it's all here, and anything that isn't yet will be sent. The <a href="/reports/hospital-ceo-pay/press-kit.zip" class="underline" download>press kit</a> has the summary card, the headline list as a spreadsheet, and the method on one page.</p>
                     <p><strong>If you're a local group or an officeholder.</strong> Every hospital system in the report has its own page, its own card, and a one-sentence version with the numbers and the link. Every state has the same. Take them; you don't need permission and you don't need to agree with us. The <a href="/reports/hospital-ceo-pay/for-local-groups.html" class="underline">For local groups</a> page shows where everything is.</p>
-                    <p><strong>If you think a figure is wrong.</strong> Send the filing that contradicts it. If it does, the figure changes and the correction appears on the <a href="#standards" onclick="showSection('standards')" class="underline">Standards</a> page with the date. Reporting an error is the most useful thing you can do here.</p>
+                    <p><strong>If you think a figure is wrong.</strong> Send the filing that contradicts it. If it does, the figure changes and the correction appears on the <a href="#standards" onclick="showSection('standards'); return false;" class="underline">Standards</a> page with the date. Reporting an error is the most useful thing you can do here.</p>
                     <p><strong>If you run an institution named in a report.</strong> You can reply. Your reply is published in full on the report page, next to the numbers you filed, with our response. We'd rather have it than not.</p>
                     <p><strong>If you have a tip.</strong> Filings, documents, an institution you think belongs in a report. Everything is read. Not everything becomes a report.</p>
                 </div>
             </section>
 
             <!-- SECTION: ABOUT -->
-            <section id="about" class="section-content section-hidden">
+            <section id="sec-about" class="section-content section-hidden">
                 <h2 class="text-3xl font-bold mb-6">About</h2>
                 
                 <div class="space-y-6 max-w-2xl">
@@ -421,7 +421,7 @@
             </section>
 
             <!-- SECTION: STANDARDS -->
-            <section id="standards" class="section-content section-hidden">
+            <section id="sec-standards" class="section-content section-hidden">
                 <h2 class="text-3xl font-bold mb-6">Standards</h2>
                 
                 <h3 class="text-xl font-bold mb-4 uppercase tracking-widest rule-single inline-block pb-1">Report Rules</h3>
@@ -463,15 +463,15 @@
         <footer class="mt-16 pt-8 text-center text-sm font-mono tracking-widest text-gray-500 flex flex-col items-center">
             <div class="rule-single w-full max-w-md mb-6"></div>
             <div class="flex gap-4 mb-4">
-                <a href="#reports" onclick="showSection('reports')" class="hover:text-black transition-colors">Reports</a>
+                <a href="#reports" onclick="showSection('reports'); return false;" class="hover:text-black transition-colors">Reports</a>
                 <span>|</span>
-                <a href="#data" onclick="showSection('data')" class="hover:text-black transition-colors">Data</a>
+                <a href="#data" onclick="showSection('data'); return false;" class="hover:text-black transition-colors">Data</a>
                 <span>|</span>
-                <a href="#contact" onclick="showSection('contact')" class="hover:text-black transition-colors">Contact</a>
+                <a href="#contact" onclick="showSection('contact'); return false;" class="hover:text-black transition-colors">Contact</a>
                 <span>|</span>
-                <a href="#about" onclick="showSection('about')" class="hover:text-black transition-colors">About</a>
+                <a href="#about" onclick="showSection('about'); return false;" class="hover:text-black transition-colors">About</a>
                 <span>|</span>
-                <a href="#standards" onclick="showSection('standards')" class="hover:text-black transition-colors">Standards</a>
+                <a href="#standards" onclick="showSection('standards'); return false;" class="hover:text-black transition-colors">Standards</a>
             </div>
             <p class="font-serif text-xs tracking-normal text-gray-600 max-w-xl mb-4">Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate. Donations are not tax-deductible.</p>
             <p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p>
@@ -480,13 +480,16 @@
 
     <!-- Simple Vanilla JS SPA Logic -->
     <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
         function showSection(sectionId) {
             // Hide all sections
             const sections = document.querySelectorAll('.section-content');
             sections.forEach(sec => sec.classList.add('section-hidden'));
             
             // Show target section
-            const target = document.getElementById(sectionId);
+            const target = document.getElementById('sec-' + sectionId);
             if (target) {
                 target.classList.remove('section-hidden');
             }
@@ -503,17 +506,22 @@
             }
             
             // Keep the URL in step so sections can be linked to directly (/#data, /#reports)
-            if (history.replaceState) history.replaceState(null, '', '#' + sectionId);
-            // Scroll to top of content area to mimic fresh page load
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (history.replaceState) {
+                const newUrl = sectionId === 'main' ? (location.pathname + location.search) : ('#' + sectionId);
+                history.replaceState(null, '', newUrl);
+            }
+            // Always start at the very top of the page (masthead & seal)
+            window.scrollTo(0, 0);
         }
         function routeFromHash() {
             var id = (location.hash || '#main').slice(1);
-            if (!document.getElementById(id) || !document.getElementById(id).classList.contains('section-content')) id = 'main';
+            var el = document.getElementById('sec-' + id);
+            if (!el || !el.classList.contains('section-content')) id = 'main';
             showSection(id);
-            window.scrollTo({ top: 0 });
+            window.scrollTo(0, 0);
         }
         window.addEventListener('hashchange', routeFromHash);
+        window.addEventListener('load', function() { window.scrollTo(0, 0); });
         routeFromHash();
 
         // Sortable tables on #reports
