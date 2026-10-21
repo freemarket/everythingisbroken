@@ -2,17 +2,198 @@
  "report_no": 1,
  "title": "Nonprofit Hospital Executive Pay vs Charity Care",
  "edition": "2026",
- "data_as_of": "2026-10-18",
+ "data_as_of": "2026-10-20",
  "built": "2026-10-20",
  "filings": 19245,
  "filers": 2306,
- "systems": 1649,
+ "systems": 1642,
  "ranked": 1074,
  "systems_over_1b": 226,
  "median_charity_care_pct_over_1b": 1.22,
  "median_ceo_pay_pct_of_charity_care_over_1b": 8.4,
  "share_over_1b_under_1pct": 41,
- "over_1b_ceo_paid_more_than_charity_care": 4,
+ "over_1b_ceo_paid_more_than_charity_care": 3,
+ "ceo_paid_more_than_charity_care": [
+  {
+   "system": "Eisenhower Medical Center",
+   "state": "CA",
+   "ceo": "Martin Massiello",
+   "ceo_pay": 2905536.0,
+   "charity_care": 1048346.0,
+   "ratio_pct": 277.154298294647
+  },
+  {
+   "system": "Mercyhealth",
+   "state": "WI",
+   "ceo": "Javon Bea",
+   "ceo_pay": 16336153.0,
+   "charity_care": 6074993.0,
+   "ratio_pct": 268.908178165802
+  },
+  {
+   "system": "Northern Light Eastern Maine Medical Center",
+   "state": "ME",
+   "ceo": "Tim Dentry",
+   "ceo_pay": 1659381.0,
+   "charity_care": 931843.0,
+   "ratio_pct": 178.07516931500263
+  }
+ ],
+ "giants_by_charity_care_pct": [
+  {
+   "system": "Kaiser Permanente (Hospitals)",
+   "state": "CA",
+   "revenue": 42562692474.0,
+   "charity_care": 876453048.0,
+   "charity_care_pct": 2.2850991923008777,
+   "ceo": "Gregory Adams",
+   "ceo_pay": 12976050.0
+  },
+  {
+   "system": "Cleveland Clinic",
+   "state": "OH",
+   "revenue": 17206708633.0,
+   "charity_care": 332946431.0,
+   "charity_care_pct": 2.0644287419426557,
+   "ceo": "Tomislav Mihaljevic MD",
+   "ceo_pay": 9709152.0
+  },
+  {
+   "system": "Banner Health",
+   "state": "AZ",
+   "revenue": 11126367953.0,
+   "charity_care": 184168412.0,
+   "charity_care_pct": 1.9201789345528,
+   "ceo": "Peter S Fine",
+   "ceo_pay": 13535312.0
+  },
+  {
+   "system": "CommonSpirit Health (Dignity)",
+   "state": "AZ",
+   "revenue": 15658881953.0,
+   "charity_care": 249813042.0,
+   "charity_care_pct": 1.6771304736692214,
+   "ceo": "Wright L Lassiter III",
+   "ceo_pay": 14175319.0
+  },
+  {
+   "system": "NYU Langone Health",
+   "state": "NY",
+   "revenue": 10489477025.0,
+   "charity_care": 141379622.0,
+   "charity_care_pct": 1.4404887632971104,
+   "ceo": "Robert I Grossman MD",
+   "ceo_pay": 30286568.0
+  },
+  {
+   "system": "Providence",
+   "state": "WA",
+   "revenue": 20233547094.0,
+   "charity_care": 218303436.0,
+   "charity_care_pct": 1.106925983422818,
+   "ceo": "Rod F Hochman MD",
+   "ceo_pay": 12257636.0
+  },
+  {
+   "system": "NewYork-Presbyterian",
+   "state": "NY",
+   "revenue": 10662065094.0,
+   "charity_care": 111886431.0,
+   "charity_care_pct": 1.1061572500528531,
+   "ceo": "Steven J Corwin",
+   "ceo_pay": 26271976.0
+  },
+  {
+   "system": "Northwestern Medicine",
+   "state": "IL",
+   "revenue": 11241795455.0,
+   "charity_care": 114908722.0,
+   "charity_care_pct": 1.0464854812152,
+   "ceo": "Howard B Chrisman MD",
+   "ceo_pay": 8174061.0
+  },
+  {
+   "system": "Northwell Health (Long Island Jewish)",
+   "state": "NY",
+   "revenue": 19622897881.0,
+   "charity_care": 198891534.0,
+   "charity_care_pct": 1.0457853650136322,
+   "ceo": "Michael Dowling",
+   "ceo_pay": 5943362.0
+  },
+  {
+   "system": "BJC Health System",
+   "state": "MO",
+   "revenue": 13293682107.0,
+   "charity_care": 117814150.0,
+   "charity_care_pct": 0.9581112061327794,
+   "ceo": "Richard Liekweg",
+   "ceo_pay": 5392901.0
+  },
+  {
+   "system": "Bon Secours Mercy Health",
+   "state": "OH",
+   "revenue": 11537795267.0,
+   "charity_care": 86906907.0,
+   "charity_care_pct": 0.7738830177292528,
+   "ceo": "John Starcher Jr JD",
+   "ceo_pay": 12809033.0
+  },
+  {
+   "system": "Mass General Brigham Incorporated & Affiliates",
+   "state": "MA",
+   "revenue": 24908354094.0,
+   "charity_care": 168606711.0,
+   "charity_care_pct": 0.7384845807942989,
+   "ceo": "Anne Klibanski MD",
+   "ceo_pay": 9180758.0
+  },
+  {
+   "system": "Advocate Health (Midwest)",
+   "state": "IL",
+   "revenue": 17818504222.0,
+   "charity_care": 114937893.0,
+   "charity_care_pct": 0.6576149955577253,
+   "ceo": "Eugene Woods",
+   "ceo_pay": 25781275.0
+  },
+  {
+   "system": "Mayo Clinic",
+   "state": "MN",
+   "revenue": 14891458272.0,
+   "charity_care": 87322768.0,
+   "charity_care_pct": 0.6095769035142251,
+   "ceo": "Gianrico Farrugia MD",
+   "ceo_pay": 4888096.0
+  },
+  {
+   "system": "UPMC",
+   "state": "PA",
+   "revenue": 30348523096.0,
+   "charity_care": 152702280.0,
+   "charity_care_pct": 0.5095530687809532,
+   "ceo": "Leslie C Davis",
+   "ceo_pay": 13324020.0
+  },
+  {
+   "system": "Corewell Health",
+   "state": "MI",
+   "revenue": 11491275449.0,
+   "charity_care": 54079110.0,
+   "charity_care_pct": 0.48192945102488005,
+   "ceo": "Christina Freese Decker",
+   "ceo_pay": 6952800.0
+  },
+  {
+   "system": "Penn Medicine (University of Pennsylvania)",
+   "state": "PA",
+   "revenue": 11670540000.0,
+   "charity_care": 25175402.0,
+   "charity_care_pct": 0.22866105942086234,
+   "ceo": "Kevin Mahoney",
+   "ceo_pay": 3329164.0
+  }
+ ],
  "top10": [
   {
    "rank": 1,

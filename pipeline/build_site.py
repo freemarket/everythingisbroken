@@ -25,7 +25,7 @@ PUBLISHER = 'Everything Is Broken'
 SUBLINE = ''
 SITE = 'https://everythingisbroken.org'
 EDITION = '2026'
-DATA_ASOF = '2026-10-18'        # date the IRS releases were pulled and the tables built
+DATA_ASOF = '2026-10-20'        # date the IRS releases were pulled and the tables built
 BUILD = datetime.date.today().isoformat()
 
 STATES = {'AL':'Alabama','AK':'Alaska','AZ':'Arizona','AR':'Arkansas','CA':'California','CO':'Colorado','CT':'Connecticut','DE':'Delaware','DC':'District of Columbia','FL':'Florida','GA':'Georgia','HI':'Hawaii','ID':'Idaho','IL':'Illinois','IN':'Indiana','IA':'Iowa','KS':'Kansas','KY':'Kentucky','LA':'Louisiana','ME':'Maine','MD':'Maryland','MA':'Massachusetts','MI':'Michigan','MN':'Minnesota','MS':'Mississippi','MO':'Missouri','MT':'Montana','NE':'Nebraska','NV':'Nevada','NH':'New Hampshire','NJ':'New Jersey','NM':'New Mexico','NY':'New York','NC':'North Carolina','ND':'North Dakota','OH':'Ohio','OK':'Oklahoma','OR':'Oregon','PA':'Pennsylvania','RI':'Rhode Island','SC':'South Carolina','SD':'South Dakota','TN':'Tennessee','TX':'Texas','UT':'Utah','VT':'Vermont','VA':'Virginia','WA':'Washington','WV':'West Virginia','WI':'Wisconsin','WY':'Wyoming','PR':'Puerto Rico'}
@@ -62,7 +62,9 @@ def person(s):
     return ' '.join(out)
 E = html.escape
 # Display names where the lead filer's legal name is not how the public knows the system. Keyed by lead EIN.
-DISPLAY = {'36-2169147':'Advocate Health (Midwest)','13-3971298':'NYU Langone Health','13-3957095':'NewYork-Presbyterian','13-1740114':'Montefiore Health System','35-2528741':'Vanderbilt University Medical Center','39-0816848':'Mercyhealth','94-1105628':'Kaiser Permanente (Hospitals)','36-4724966':'Northwestern Medicine','11-2965586':'Northwell Health','38-1357020':'Henry Ford Health','20-8295721':'UPMC','94-1196203':'CommonSpirit Health (Dignity)','45-0233470':'Banner Health','52-1301088':'Bon Secours Mercy Health','36-2167060':'Endeavor Health','36-2174823':'Rush University System for Health','36-3488183':'UChicago Medicine','36-4015560':'Loyola Medicine','36-1509000':'Sinai Chicago (Mount Sinai)','36-2170133':'Holy Cross Hospital (Sinai Chicago)','36-2264414':'St. Bernard Hospital'}
+DISPLAY = {'36-2169147':'Advocate Health (Midwest)','13-3971298':'NYU Langone Health','13-3957095':'NewYork-Presbyterian','13-1740114':'Montefiore Health System','35-2528741':'Vanderbilt University Medical Center','39-0816848':'Mercyhealth','94-1105628':'Kaiser Permanente (Hospitals)','36-4724966':'Northwestern Medicine','11-2965586':'Northwell Health','38-1357020':'Henry Ford Health','20-8295721':'UPMC','94-1196203':'CommonSpirit Health (Dignity)','45-0233470':'Banner Health','52-1301088':'Bon Secours Mercy Health','36-2167060':'Endeavor Health','36-2174823':'Rush University System for Health','36-3488183':'UChicago Medicine','36-4015560':'Loyola Medicine','36-1509000':'Sinai Chicago (Mount Sinai)','36-2170133':'Holy Cross Hospital (Sinai Chicago)','36-2264414':'St. Bernard Hospital','35-0868085':'Parkview Health','01-0211501':'Northern Light Eastern Maine Medical Center','51-0216586':'Providence','11-2241326':'Northwell Health (Long Island Jewish)','38-3952644':'Mayo Clinic','23-1352685':'Penn Medicine (University of Pennsylvania)','61-1740292':'Corewell Health','91-2153073':'Cleveland Clinic'}
+# Names the filing lists surname-first or run together. Keyed by the name exactly as filed.
+CEO_DISPLAY = {'MIHALJEVIC MD TOMISLAV':'Tomislav Mihaljevic MD','BJC LIEKWEG RICHARD':'Richard Liekweg','FARRUGIA MD GIANRICO':'Gianrico Farrugia MD','MAHONEY KEVIN':'Kevin Mahoney','BerdanBarclay E':'Barclay E Berdan'}
 
 # ---------- load ----------
 S = list(csv.DictReader(open(os.path.join(DATA, 'systems_rollup.csv'))))
@@ -72,7 +74,7 @@ for s in S:
     s['ccp'] = f(s['charity_care_pct_computed']); s['pay'] = f(s['ceo_comp_total']); s['ratio'] = f(s['ceo_pay_pct_of_charity_care'])
     s['cb'] = f(s['total_cb_net']); s['bad'] = f(s['bad_debt']); s['na'] = f(s['net_assets']); s['emp'] = f(s['employees'])
     s['name'] = DISPLAY.get(s['lead_ein'], re.sub(r'\s+(Inc|Corp|Corporation|Group Return|Group|Incorporated|Llc|Co)\.?$', '', titlecase(s['lead_filer']), flags=re.I)); s['slug'] = slug(s['lead_filer'] + '-' + s['lead_ein'])
-    s['ceo'] = person(s['ceo_name']); s['pub'] = s['publishable'] == 'yes'; s['kids'] = s['childrens_hospital'] == 'yes'
+    s['ceo'] = CEO_DISPLAY.get(s['ceo_name']) or person(s['ceo_name']); s['pub'] = s['publishable'] == 'yes'; s['kids'] = s['childrens_hospital'] == 'yes'
     lead = F.get(s['lead_ein'], {}); s['oid'] = lead.get('object_id', ''); s['fye'] = lead.get('fye', '')
     s['members'] = [(e, F[e]) for e in s['member_eins'].split(';') if e in F]
 ranked = sorted([s for s in S if s['pub'] and s['pay']], key=lambda s: -s['pay'])
@@ -272,6 +274,10 @@ SORT_JS = """<script>
 })();
 </script>"""
 
+import shutil
+for _d in ('system', 'state'):
+    shutil.rmtree(os.path.join(OUT, _d), ignore_errors=True)
+
 def write(path, body):
     p = os.path.join(OUT, path); os.makedirs(os.path.dirname(p), exist_ok=True)
     open(p, 'w').write(body)
@@ -282,6 +288,39 @@ STATS = f"""<div class="stat-row">
 <div class="stat"><div class="v">{UNDER1:.0f}%</div><div class="l">of systems over $1B spend under one percent</div></div>
 <div class="stat"><div class="v red">{len(OVER100)}</div><div class="l">large systems whose chief executive was paid more than all charity care</div></div>
 </div>"""
+
+
+# ---------- findings ----------
+giants = sorted([s for s in big if (s['rev'] or 0) >= 1e10], key=lambda s: -(s['ccp'] or 0))
+best = sorted([s for s in big if s['ccp'] is not None], key=lambda s: -s['ccp'])[:10]
+over = sorted(OVER100, key=lambda s: -s['ratio'])
+kaiser = next((s for s in giants if s['lead_ein'] == '94-1105628'), giants[0])
+advocate = next((s for s in giants if s['lead_ein'] == '36-2169147'), None)
+def frow(s, cols):
+    cells = {'sys': f'<td class="name"><a href="{BASE}/system/{s["slug"]}.html">{E(s["name"])}</a><span class="sub">{E(s["ceo"])}</span></td>',
+             'st': f'<td>{s["state"]}</td>', 'rev': f'<td class="num">{money(s["rev"])}</td>', 'cc': f'<td class="num">{money(s["cc"])}</td>',
+             'ccp': f'<td class="num">{pct(s["ccp"])}</td>', 'pay': f'<td class="num">{money(s["pay"])}</td>', 'ratio': f'<td class="num ratio">{pct(s["ratio"],0)}</td>'}
+    return '<tr>' + ''.join(cells[c] for c in cols) + '</tr>'
+FH = {'sys':'<th>System and chief executive</th>','st':'<th>State</th>','rev':'<th class="num">Revenue</th>','cc':'<th class="num">Charity care</th>','ccp':'<th class="num">Charity care,<br>% of expenses</th>','pay':'<th class="num">CEO pay</th>','ratio':'<th class="num">CEO pay as %<br>of charity care</th>'}
+def ftable(rows, cols): return f'<div class="tablewrap"><table><thead><tr>{"".join(FH[c] for c in cols)}</tr></thead><tbody>{"".join(frow(s, cols) for s in rows)}</tbody></table></div>'
+adv_txt = ''
+if advocate:
+    adv_txt = f" {E(advocate['name'])}, the system this report's first target runs, is {E(STATES.get(advocate['state'], advocate['state']))}'s largest and sits near the bottom at {pct(advocate['ccp'])}: Kaiser is {kaiser['rev']/advocate['rev']:.1f} times its size and gave {kaiser['cc']/advocate['cc']:.1f} times the charity care."
+FINDINGS = f"""
+<h2><span class="n">&sect;2</span>What the filings show</h2>
+<div class="prose">
+<p><strong>{len(over)} large systems paid their chief executive more than they gave in charity care.</strong> Among the {len(big)} systems with revenue over $1 billion (children's hospitals excluded), these are the ones where one person's pay exceeded the cost of all the free and discounted care the system gave in the same year.</p>
+</div>
+{ftable(over, ['sys','st','rev','cc','ccp','pay','ratio'])}
+<div class="prose">
+<p><strong>The biggest systems can do it. Most don't.</strong> Among the {len(giants)} systems with revenue over $10 billion, {E(kaiser['name'])} gave the most charity care in dollars ({money(kaiser['cc'])}) and the most as a share of expenses ({pct(kaiser['ccp'])}), and paid its chief executive, {E(kaiser['ceo'])}, {money(kaiser['pay'])}, which is {pct(kaiser['ratio'],1)} of that charity care, the lowest ratio of any system its size.{adv_txt} Same tax exemption, same filing, same line of the form.</p>
+</div>
+{ftable(giants, ['sys','st','rev','cc','ccp','pay','ratio'])}
+<div class="prose">
+<p><strong>The highest rates in the country are at large regional systems, not the giants.</strong> Of the {len(big)} systems over $1 billion, these ten gave the largest share of their expenses as charity care. Several are two to three times {E(kaiser['name'])}'s rate. They are the standard the rest of the list should be measured against, because they prove the money is there.</p>
+</div>
+{ftable(best, ['sys','st','rev','cc','ccp','pay','ratio'])}
+"""
 
 # ---------- index ----------
 top = ranked[:100]
@@ -297,7 +336,8 @@ index = HEAD(REPORT_TITLE, f'{len(ranked)} nonprofit hospital systems ranked by 
 {''.join(row(s) for s in top)}
 </tbody></table></div>
 <p class="note">Full list of {len(ranked)} systems on the <a href="{BASE}/all.html">complete ranking</a>. Systems where the chief executive could not be identified from the filing with confidence, or where charity care is reported on a line other than 7a, are excluded from the ranking and explained in the <a href="{BASE}/methodology.html">methodology</a>.</p>
-<h2><span class="n">&sect;2</span>How to read it</h2>
+{FINDINGS}
+<h2><span class="n">&sect;3</span>How to read it</h2>
 <div class="prose">
 <p><strong>CEO pay</strong> is total compensation reported on Form 990 Part VII: salary and bonus from the organization and its related organizations, plus deferred compensation and benefits (columns D, E and F). It is the figure the hospital's board approved and the hospital reported.</p>
 <p><strong>Charity care</strong> is Schedule H Part I line 7a: free or discounted care given under the hospital's own financial assistance policy, at the hospital's cost. It is not bad debt and not the Medicaid shortfall, which hospitals often add when they describe their community benefit publicly. The IRS form keeps them separate; so does this report.</p>
@@ -305,7 +345,7 @@ index = HEAD(REPORT_TITLE, f'{len(ranked)} nonprofit hospital systems ranked by 
 <p><strong>The ratio</strong> is CEO pay divided by charity care. At 100 percent, one person was paid as much as the system gave to every patient who could not pay.</p>
 <p>A nonprofit hospital pays no federal income tax and, in nearly every state, no property or sales tax. The exemption is granted on the premise that the hospital serves the community in ways a business would not. This report puts two of the hospital's own numbers beside each other and lets the reader decide whether the premise holds.</p>
 </div>
-<h2><span class="n">&sect;3</span>Rebuttals</h2>
+<h2><span class="n">&sect;4</span>Rebuttals</h2>
 <div class="prose"><p>Institutions named in this report may reply to contact@everythingisbroken.org. Replies are published here in full. None has been received.</p></div>
 {SORT_JS}{FOOT}"""
 write('index.html', index)
@@ -489,7 +529,8 @@ data = HEAD('Data files', 'Download the full dataset, the manual decisions, and 
 </ul>
 <h2>Version log</h2>
 <ul class="files">
-<li><span class="fn">{EDITION}.1</span> &middot; {DATA_ASOF}<br>Initial release. 2025 and 2026 IRS releases; {N_FILINGS:,} Schedule H filings; {len(F):,} filers; {len(S):,} systems; {len(ranked):,} ranked.</li>
+<li><span class="fn">{EDITION}.2</span> &middot; 2026-10-20<br>Parkview Health (IN) assembled from its ten filings: the parent filer alone had shown $84,340 of charity care and a 4,360% ratio; as a system it is {len(S):,} systems, {len(ranked):,} ranked. Ten rows added to rollup_overrides.csv with the filing evidence. No figures changed otherwise.</li>
+<li><span class="fn">{EDITION}.1</span> &middot; 2026-10-18<br>Initial release. 2025 and 2026 IRS releases; {N_FILINGS:,} Schedule H filings; {len(F):,} filers; 1,649 systems; 1,074 ranked.</li>
 </ul>
 <h2>How to cite</h2>
 <p>{E(PUBLISHER)}, <em>{E(REPORT_TITLE)}</em>, Report No. {REPORT_NO}, {EDITION} edition, data as of {DATA_ASOF}. {SITE}{BASE}/</p>
@@ -502,6 +543,8 @@ summary = {'report_no': REPORT_NO, 'title': REPORT_TITLE, 'edition': EDITION, 'd
     'filings': N_FILINGS, 'filers': len(F), 'systems': len(S), 'ranked': len(ranked), 'systems_over_1b': len(big),
     'median_charity_care_pct_over_1b': round(MED_CC, 2), 'median_ceo_pay_pct_of_charity_care_over_1b': round(MED_RATIO, 1),
     'share_over_1b_under_1pct': round(UNDER1), 'over_1b_ceo_paid_more_than_charity_care': len(OVER100),
+    'ceo_paid_more_than_charity_care': [{'system': s['name'], 'state': s['state'], 'ceo': s['ceo'], 'ceo_pay': s['pay'], 'charity_care': s['cc'], 'ratio_pct': s['ratio']} for s in over],
+    'giants_by_charity_care_pct': [{'system': s['name'], 'state': s['state'], 'revenue': s['rev'], 'charity_care': s['cc'], 'charity_care_pct': s['ccp'], 'ceo': s['ceo'], 'ceo_pay': s['pay']} for s in giants],
     'top10': [{'rank': s['rank'], 'system': s['name'], 'ceo': s['ceo'], 'state': s['state'], 'ceo_pay': s['pay'], 'charity_care': s['cc'], 'charity_care_pct': s['ccp'], 'ceo_pay_pct_of_charity_care': s['ratio'], 'url': f"{SITE}{BASE}/system/{s['slug']}.html"} for s in ranked[:10]]}
 write('summary.json', json.dumps(summary, indent=1))
 
@@ -513,6 +556,11 @@ BLOCKS = {
 <div class="text-xs uppercase tracking-widest text-gray-500 mb-2 font-mono">Report <span class="fig">No. {REPORT_NO}</span> | <span class="fig">{EDITION}</span> edition | Data as of <span class="fig">{DATA_ASOF}</span></div>
 <h3 class="text-2xl font-bold mb-4">{E(REPORT_TITLE)}</h3>
 {STATS}
+<ul class="list-disc list-outside ml-5 mb-5 text-sm space-y-1">
+<li>{len(over)} large systems paid the chief executive more than they gave in charity care, led by {E(over[0]['name'])} ({E(over[0]['state'])}): {money(over[0]['pay'])} to {E(over[0]['ceo'])}, {money(over[0]['cc'])} to patients who could not pay.</li>
+<li>{E(kaiser['name'])} shows the biggest systems can do it: {pct(kaiser['ccp'])} of expenses, {money(kaiser['cc'])}, the most of any system over $10 billion.{(' ' + E(advocate['name']) + ', at ' + pct(advocate['ccp']) + ', is near the bottom.') if advocate else ''}</li>
+<li>The highest rates are at large regional systems: {E(best[0]['name'])} ({best[0]['state']}) {pct(best[0]['ccp'])}, {E(best[1]['name'])} ({best[1]['state']}) {pct(best[1]['ccp'])}, {E(best[2]['name'])} ({best[2]['state']}) {pct(best[2]['ccp'])}.</li>
+</ul>
 <p class="mb-5 text-gray-700">Every figure is the hospital's own, from its IRS Form 990, and every row links to the filing.</p>
 <a href="{BASE}/" class="inline-block border-2 border-black px-6 py-2 uppercase tracking-wide text-sm font-bold hover:bg-black hover:text-white transition-colors mr-3 mb-2">Read the Full Report &rarr;</a>
 <a href="#reports" onclick="showSection('reports')" class="inline-block px-2 py-2 uppercase tracking-wide text-sm underline hover:text-gray-600 mb-2">Report index</a>""",
