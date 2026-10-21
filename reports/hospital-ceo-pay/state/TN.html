@@ -2,9 +2,13 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Tennessee hospitals - Everything Is Broken</title>
 <meta name="description" content="Nonprofit hospital systems in Tennessee ranked by CEO pay.">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Everything Is Broken">
+<meta property="og:title" content="Tennessee hospitals"><meta property="og:description" content="Nonprofit hospital systems in Tennessee ranked by CEO pay.">
+<meta property="og:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/TN.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://everythingisbroken.org/reports/hospital-ceo-pay/state/TN.html">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Tennessee hospitals"><meta name="twitter:description" content="Nonprofit hospital systems in Tennessee ranked by CEO pay."><meta name="twitter:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/TN.png">
 <link rel="icon" type="image/png" href="/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 :root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
 --serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
@@ -77,6 +81,13 @@ dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:
 .cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
 .cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.sharebox{display:grid;grid-template-columns:minmax(0,600px) 1fr;gap:22px;align-items:start;border:1px solid var(--ink);padding:18px;margin:22px 0;background:var(--surface)}
+.sharebox img{width:100%;height:auto;border:1px solid var(--border);display:block}
+.sharelinks p{margin:0 0 10px;font-size:.92rem}
+.sharelinks .btn{margin:4px 6px 4px 0;cursor:pointer;font-family:var(--mono)}
+button.btn{border:2px solid var(--ink);background:var(--ink);color:#fff}button.btn.ghost{background:transparent;color:var(--ink)}button.btn.ghost:hover{background:var(--ink);color:#fff}
+@media(max-width:800px){.sharebox{grid-template-columns:1fr}}
+.statelist{columns:3;column-gap:28px;font-size:.95rem}.statelist a{display:block;padding:3px 0;text-decoration:none}.statelist a:hover{text-decoration:underline}@media(max-width:640px){.statelist{columns:2}}
 .card{border:1px solid var(--ink);padding:22px}
 .card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
 .card p,.card li{font-size:.92rem}
@@ -105,8 +116,8 @@ footer p{margin:14px 0 0}
 <a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
 <h1>Everything Is Broken</h1>
 <div class="rule-double"></div>
-<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
-<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a><a href="/reports/hospital-ceo-pay/for-local-groups.html">For local groups</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; Annual Report, 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
 </header>
 <main>
 
@@ -123,7 +134,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.822305879463121">2.82%</td>
 <td class="num" data-v="233093209.0">$233.1M</td>
 <td class="num ratio" data-v="7.070621692801011">7%</td></tr><tr data-name="university health system" data-ceo="joseph r landsman jr" data-state="TN" data-kids="0">
-<td class="num">73</td>
+<td class="num">67</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/university-health-system-inc-31-1626179.html">University Health System</a><span class="sub">Joseph R Landsman Jr</span></td>
 
 <td class="num" data-v="4119053.0">$4.1M</td>
@@ -131,7 +142,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.878655653923169">2.88%</td>
 <td class="num" data-v="46340174.0">$46.3M</td>
 <td class="num ratio" data-v="8.888730111371615">9%</td></tr><tr data-name="parkwest medical center" data-ceo="james d vandersteeg" data-state="TN" data-kids="0">
-<td class="num">107</td>
+<td class="num">99</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/parkwest-medical-center-58-1897274.html">Parkwest Medical Center</a><span class="sub">James D Vandersteeg</span></td>
 
 <td class="num" data-v="3242830.0">$3.2M</td>
@@ -139,7 +150,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="3.5127381728028353">3.51%</td>
 <td class="num" data-v="56508204.0">$56.5M</td>
 <td class="num ratio" data-v="5.738688845959429">6%</td></tr><tr data-name="methodist healthcare-memphis hospitals" data-ceo="michael ugwueke" data-state="TN" data-kids="0">
-<td class="num">156</td>
+<td class="num">142</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/methodist-healthcare-memphis-hospitals-62-0479367.html">Methodist Healthcare-Memphis Hospitals</a><span class="sub">Michael Ugwueke</span></td>
 
 <td class="num" data-v="2444821.0">$2.4M</td>
@@ -147,7 +158,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="4.5871954547468805">4.59%</td>
 <td class="num" data-v="100355118.0">$100.4M</td>
 <td class="num ratio" data-v="2.4361697228037738">2%</td></tr><tr class="kids" data-name="st jude children&#x27;s research hospital" data-ceo="james r downing" data-state="TN" data-kids="1">
-<td class="num">259</td>
+<td class="num">233</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/st-jude-children-s-research-hospital-inc-62-0646012.html">St Jude Children&#x27;S Research Hospital</a><span class="sub">James R Downing · children’s</span></td>
 
 <td class="num" data-v="1713883.0">$1.7M</td>
@@ -155,7 +166,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="7.520456060900828">7.52%</td>
 <td class="num" data-v="142706056.0">$142.7M</td>
 <td class="num ratio" data-v="1.2009882748073424">1%</td></tr><tr data-name="erlanger health" data-ceo="jim coleman" data-state="TN" data-kids="0">
-<td class="num">268</td>
+<td class="num">242</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/erlanger-health-88-3616696.html">Erlanger Health</a><span class="sub">Jim Coleman</span></td>
 
 <td class="num" data-v="1672028.0">$1.7M</td>
@@ -163,7 +174,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="5.687099881383699">5.69%</td>
 <td class="num" data-v="92690920.0">$92.7M</td>
 <td class="num ratio" data-v="1.8038746405796815">2%</td></tr><tr data-name="shelby county health care" data-ceo="reginald coopwood" data-state="TN" data-kids="0">
-<td class="num">281</td>
+<td class="num">255</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/shelby-county-health-care-corporation-62-1113169.html">Shelby County Health Care</a><span class="sub">Reginald Coopwood</span></td>
 
 <td class="num" data-v="1615714.0">$1.6M</td>
@@ -171,7 +182,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="7.285445099195448">7.29%</td>
 <td class="num" data-v="59110483.0">$59.1M</td>
 <td class="num ratio" data-v="2.7333797966090043">3%</td></tr><tr class="kids" data-name="east tennessee children&#x27;s hospital association" data-ceo="matt schaefer" data-state="TN" data-kids="1">
-<td class="num">452</td>
+<td class="num">423</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/east-tennessee-children-s-hospital-association-inc-62-6002604.html">East Tennessee Children&#x27;S Hospital Association</a><span class="sub">Matt Schaefer · children’s</span></td>
 
 <td class="num" data-v="1000831.0">$1.0M</td>
@@ -179,7 +190,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.247409262850446">1.25%</td>
 <td class="num" data-v="4389872.0">$4.4M</td>
 <td class="num ratio" data-v="22.79863740901785">23%</td></tr><tr data-name="baptist memorial hospital" data-ceo="edwin p cade" data-state="TN" data-kids="0">
-<td class="num">496</td>
+<td class="num">466</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/baptist-memorial-hospital-62-0123940.html">Baptist Memorial Hospital</a><span class="sub">Edwin P Cade</span></td>
 
 <td class="num" data-v="907999.0">$907,999</td>
@@ -187,7 +198,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="5.387455027358742">5.39%</td>
 <td class="num" data-v="54848142.0">$54.8M</td>
 <td class="num ratio" data-v="1.6554781381655552">2%</td></tr><tr data-name="siskin hospital for physical rehabilitation" data-ceo="matthew a gibson phd fache" data-state="TN" data-kids="0">
-<td class="num">622</td>
+<td class="num">590</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/siskin-hospital-for-physical-rehabilitation-inc-62-1220402.html">Siskin Hospital for Physical Rehabilitation</a><span class="sub">Matthew A Gibson PhD FACHE</span></td>
 
 <td class="num" data-v="652806.0">$652,806</td>
@@ -195,7 +206,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.3999485960617808">0.40%</td>
 <td class="num" data-v="232357.0">$232,357</td>
 <td class="num ratio" data-v="280.949573285935">281%</td></tr><tr data-name="wellmont health system" data-ceo="john jeter" data-state="TN" data-kids="0">
-<td class="num">672</td>
+<td class="num">640</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/wellmont-health-system-62-1636465.html">Wellmont Health System</a><span class="sub">John Jeter</span></td>
 
 <td class="num" data-v="576994.0">$576,994</td>
@@ -203,7 +214,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.0261738223968653">2.03%</td>
 <td class="num" data-v="22240687.0">$22.2M</td>
 <td class="num ratio" data-v="2.594317342805103">3%</td></tr><tr data-name="mountain states health alliance" data-ceo="kenneth shafer" data-state="TN" data-kids="0">
-<td class="num">684</td>
+<td class="num">652</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/mountain-states-health-alliance-62-0476282.html">Mountain States Health Alliance</a><span class="sub">Kenneth Shafer</span></td>
 
 <td class="num" data-v="551509.0">$551,509</td>
@@ -211,7 +222,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.968434561757505">2.97%</td>
 <td class="num" data-v="36086907.0">$36.1M</td>
 <td class="num ratio" data-v="1.5282800490493684">2%</td></tr><tr data-name="dickenson community hospital" data-ceo="shannon showalter" data-state="TN" data-kids="0">
-<td class="num">740</td>
+<td class="num">708</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/dickenson-community-hospital-77-0599553.html">Dickenson Community Hospital</a><span class="sub">Shannon Showalter</span></td>
 
 <td class="num" data-v="481360.0">$481,360</td>
@@ -219,7 +230,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.463350914516821">1.46%</td>
 <td class="num" data-v="172297.0">$172,297</td>
 <td class="num ratio" data-v="279.3780506915384">279%</td></tr><tr data-name="smyth county community hospital" data-ceo="dale clark" data-state="TN" data-kids="0">
-<td class="num">773</td>
+<td class="num">740</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/smyth-county-community-hospital-54-0794913.html">Smyth County Community Hospital</a><span class="sub">Dale Clark</span></td>
 
 <td class="num" data-v="446072.0">$446,072</td>
@@ -227,7 +238,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.4902245386947555">1.49%</td>
 <td class="num" data-v="737169.0">$737,169</td>
 <td class="num ratio" data-v="60.5114973635625">61%</td></tr><tr data-name="baptist memorial hospital- huntingdon" data-ceo="susan m breeden" data-state="TN" data-kids="0">
-<td class="num">799</td>
+<td class="num">765</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/baptist-memorial-hospital-huntingdon-inc-62-1166050.html">Baptist Memorial Hospital- Huntingdon</a><span class="sub">Susan M Breeden</span></td>
 
 <td class="num" data-v="412293.0">$412,293</td>
@@ -235,7 +246,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="3.1888279255913115">3.19%</td>
 <td class="num" data-v="1737830.0">$1.7M</td>
 <td class="num ratio" data-v="23.72458756034825">24%</td></tr><tr data-name="takoma regional hospital" data-ceo="eric carroll" data-state="TN" data-kids="0">
-<td class="num">804</td>
+<td class="num">770</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/takoma-regional-hospital-inc-51-0603966.html">Takoma Regional Hospital</a><span class="sub">Eric Carroll</span></td>
 
 <td class="num" data-v="407273.0">$407,273</td>
@@ -243,7 +254,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="3.9504870528197364">3.95%</td>
 <td class="num" data-v="5461171.0">$5.5M</td>
 <td class="num ratio" data-v="7.457613028414602">7%</td></tr><tr data-name="baptist memorial hospital- jonesboro" data-ceo="samuel s lynd" data-state="TN" data-kids="0">
-<td class="num">806</td>
+<td class="num">772</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/baptist-memorial-hospital-jonesboro-inc-26-1214372.html">Baptist Memorial Hospital- Jonesboro</a><span class="sub">Samuel S Lynd</span></td>
 
 <td class="num" data-v="404864.0">$404,864</td>
@@ -251,7 +262,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.68730739743012">2.69%</td>
 <td class="num" data-v="7738838.0">$7.7M</td>
 <td class="num ratio" data-v="5.231586447474414">5%</td></tr><tr data-name="baptist memorial hospital-crittenden" data-ceo="samuel pieh" data-state="TN" data-kids="0">
-<td class="num">846</td>
+<td class="num">812</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/baptist-memorial-hospital-crittenden-inc-82-3844150.html">Baptist Memorial Hospital-Crittenden</a><span class="sub">Samuel Pieh</span></td>
 
 <td class="num" data-v="366727.0">$366,727</td>
@@ -259,7 +270,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="11.278142878959073">11.28%</td>
 <td class="num" data-v="2896461.0">$2.9M</td>
 <td class="num ratio" data-v="12.661209662412165">13%</td></tr><tr data-name="baptist memorial hospital-union city" data-ceo="barry bondurant" data-state="TN" data-kids="0">
-<td class="num">848</td>
+<td class="num">815</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/baptist-memorial-hospital-union-city-inc-62-1138045.html">Baptist Memorial Hospital-Union City</a><span class="sub">Barry Bondurant</span></td>
 
 <td class="num" data-v="361091.0">$361,091</td>
@@ -267,7 +278,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="3.60433017473865">3.60%</td>
 <td class="num" data-v="2391434.0">$2.4M</td>
 <td class="num ratio" data-v="15.099350431582053">15%</td></tr><tr data-name="baptist memorial hospital-tipton" data-ceo="parker harris" data-state="TN" data-kids="0">
-<td class="num">868</td>
+<td class="num">837</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/baptist-memorial-hospital-tipton-inc-62-1113167.html">Baptist Memorial Hospital-Tipton</a><span class="sub">Parker Harris</span></td>
 
 <td class="num" data-v="338965.0">$338,965</td>
@@ -275,7 +286,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.4602377086352796">2.46%</td>
 <td class="num" data-v="9178475.0">$9.2M</td>
 <td class="num ratio" data-v="3.693042689553548">4%</td></tr><tr data-name="sweetwater hospital association" data-ceo="andrea henry" data-state="TN" data-kids="0">
-<td class="num">911</td>
+<td class="num">880</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/sweetwater-hospital-association-62-0544855.html">Sweetwater Hospital Association</a><span class="sub">Andrea Henry</span></td>
 
 <td class="num" data-v="292468.0">$292,468</td>
@@ -283,7 +294,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.085736688570923">2.09%</td>
 <td class="num" data-v="1710086.0">$1.7M</td>
 <td class="num ratio" data-v="17.10253168554096">17%</td></tr><tr data-name="baptist memorial hospital-calhoun" data-ceo="christopher threadgill" data-state="TN" data-kids="0">
-<td class="num">942</td>
+<td class="num">911</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/baptist-memorial-hospital-calhoun-inc-81-3257997.html">Baptist Memorial Hospital-Calhoun</a><span class="sub">Christopher Threadgill</span></td>
 
 <td class="num" data-v="260946.0">$260,946</td>
@@ -291,7 +302,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="4.340263795244872">4.34%</td>
 <td class="num" data-v="777632.0">$777,632</td>
 <td class="num ratio" data-v="33.556489444878814">34%</td></tr><tr data-name="ridgeview psychiatric hospital &amp; center" data-ceo="brian buuck" data-state="TN" data-kids="0">
-<td class="num">954</td>
+<td class="num">923</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/ridgeview-psychiatric-hospital-center-inc-62-0579512.html">Ridgeview Psychiatric Hospital &amp; Center</a><span class="sub">Brian Buuck</span></td>
 
 <td class="num" data-v="250931.0">$250,931</td>
@@ -299,7 +310,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.666804938364636">1.67%</td>
 <td class="num" data-v="368066.0">$368,066</td>
 <td class="num ratio" data-v="68.17554460341351">68%</td></tr><tr data-name="baptist memorial regional rehabilitation services" data-ceo="mark kelly" data-state="TN" data-kids="0">
-<td class="num">1023</td>
+<td class="num">992</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/baptist-memorial-regional-rehabilitation-services-inc-58-1645396.html">Baptist Memorial Regional Rehabilitation Services</a><span class="sub">Mark Kelly</span></td>
 
 <td class="num" data-v="189479.0">$189,479</td>
@@ -308,6 +319,13 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="94235.0">$94,235</td>
 <td class="num ratio" data-v="201.07072743672734">201%</td></tr></tbody></table></div>
 <p class="note">Systems not shown: 4 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/unity-medical-center-inc-82-5388429.html">Unity Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/macon-hospital-inc-62-0988604.html">Macon Hospital</a>, <a href="/reports/hospital-ceo-pay/system/wellmont-hawkins-county-memorial-hospital-inc-62-1816368.html">Wellmont Hawkins County Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/case-management-inc-dba-cmi-health-services-62-1434530.html">Case Management INC dba Cmi Health Services</a>.</p>
+<h2><span class="n">&sect;</span>Share</h2>
+<div class="sharebox"><img src="/reports/hospital-ceo-pay/cards/state/TN.png" alt="Tennessee nonprofit hospitals: CEO pay vs charity care" width="600" height="315">
+<div class="sharelinks">
+<p>This card is what appears when the link to this page is posted. Use it, the sentence, or the embed code. No permission needed; attribution is on the card.</p>
+<p><a class="btn" href="/reports/hospital-ceo-pay/cards/state/TN.png" download>Download card</a> <button class="btn ghost" data-copy="https://everythingisbroken.org/reports/hospital-ceo-pay/state/TN.html">Copy link</button> <button class="btn ghost" data-copy="Nonprofit hospital CEO pay vs charity care in Tennessee, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/TN.html">Copy sentence</button> <button class="btn ghost" data-copy="&lt;a href=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/state/TN.html&quot;&gt;&lt;img src=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/TN.png&quot; alt=&quot;Tennessee nonprofit hospitals: CEO pay vs charity care&quot; width=&quot;600&quot; height=&quot;315&quot; style=&quot;max-width:100%;height:auto&quot;&gt;&lt;/a&gt;">Copy embed code</button></p>
+<p class="note" style="margin:0">Nonprofit hospital CEO pay vs charity care in Tennessee, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/TN.html</p>
+</div></div>
 <script>
 (function(){
   var tables=document.querySelectorAll('table.sortable');
@@ -328,10 +346,10 @@ footer p{margin:14px 0 0}
       r.hidden=!ok;});}
   if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
 })();
-</script></main>
+</script><script>document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){navigator.clipboard.writeText(b.dataset.copy).then(function(){var t=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=t},1400)})})});</script></main>
 <footer><div class="rule-single"></div>
 <div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
-<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-20 &middot; Built 2026-10-20</p>
+<p>Report No. 1, Annual Report, 2026 edition &middot; Data as of 2026-10-21 &middot; Built 2026-10-21</p>
 <p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to contact@everythingisbroken.org.</p>
 <p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate. Donations are not tax-deductible.</p>
 <p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>

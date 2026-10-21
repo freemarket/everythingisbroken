@@ -1,17 +1,17 @@
 ein,fye,action,system_key_override,reason,date
-95-2321786,2025-06,split,CHOC,"Children's Hospital of Orange County: CEO-name merge with Rady Children's because Patrick Frias appears on both filings (left CHOC for Rady during the period). Separate systems.",2026-10-18
-34-0714585,2024-12,drop_duplicate,,"The Cleveland Clinic Foundation (EIN 34-0714585) is included within The Cleveland Clinic Foundation Group Return; keeping both double-counts revenue and charity care. Keep the group return only.",2026-10-18
-39-2014409,2025-06,merge,IMRAN ANDRABI MD,"Froedtert ThedaCare Health Inc (the $1.35B filer at 0.03% charity care) is the parent/holding entity; hospital-level charity care sits in Froedtert Memorial Lutheran and ThedaCare filers (10-filer roll-up under Andrabi). The 1654% ratio computed on this filer alone is not a system figure. Merge under Andrabi system.",2026-10-18
+95-2321786,2025-06,split,CHOC,Children's Hospital of Orange County: CEO-name merge with Rady Children's because Patrick Frias appears on both filings (left CHOC for Rady during the period). Separate systems.,2026-10-18
+34-0714585,2024-12,drop_duplicate,,The Cleveland Clinic Foundation (EIN 34-0714585) is included within The Cleveland Clinic Foundation Group Return; keeping both double-counts revenue and charity care. Keep the group return only.,2026-10-18
+39-2014409,2025-06,merge,IMRAN ANDRABI MD,Froedtert ThedaCare Health Inc (the $1.35B filer at 0.03% charity care) is the parent/holding entity; hospital-level charity care sits in Froedtert Memorial Lutheran and ThedaCare filers (10-filer roll-up under Andrabi). The 1654% ratio computed on this filer alone is not a system figure. Merge under Andrabi system.,2026-10-18
 88-4157429,2024-12,parent,ADVOCATE HEALTH SYSTEM,"Advocate Health Inc (NC) is the parent of the Advocate Aurora Midwest entities and of Atrium Health. It files no Schedule H (owns no hospitals directly) and was loaded for Part VII only. Its CEO (Eugene Woods, $25.78M) and co-CEO (James Skogsbergh, $30.86M) are the system executives. Atrium Health is a NC public hospital authority and files no Form 990, so the system's Southeast charity care is not available here.",2026-10-18
-36-2169147,2024-12,join,ADVOCATE HEALTH SYSTEM,"Advocate Health and Hospitals Corp (6 IL hospitals): member of Advocate Health system under the NC parent.",2026-10-18
-36-3196629,2024-12,join,ADVOCATE HEALTH SYSTEM,"Advocate North Side Health Network (Illinois Masonic): member of Advocate Health system.",2026-10-18
-26-2525968,2024-12,join,ADVOCATE HEALTH SYSTEM,"Advocate Condell Medical Center: member of Advocate Health system.",2026-10-18
-36-2167920,2024-12,join,ADVOCATE HEALTH SYSTEM,"Advocate Sherman Hospital: member of Advocate Health system.",2026-10-18
-61-1649250,2024-12,join,ADVOCATE HEALTH SYSTEM,"Aurora Health Care Inc group return (WI): member of Advocate Health system.",2026-10-18
-43-1617558,2024-12,join,BJC LIEKWEG RICHARD,"BJC Health System dba BJC HealthCare joins the BJC group return system (CEO Liekweg).",2026-10-18
-36-2167847,2025-06,join,JAVON BEA,"Javon Bea Hospital (Rockford) is part of Mercyhealth (Javon Bea CEO); the filing spells his name 'JAVON R BEA' so the name merge missed it.",2026-10-18
-20-1673011,2025-06,join,JAVON BEA,"Mercy Crystal Lake: Mercyhealth system (Javon Bea).",2026-10-18
-31-1551871,2025-06,join,JAVON BEA,"Mercy Harvard: Mercyhealth system (Javon Bea).",2026-10-18
+36-2169147,2024-12,join,ADVOCATE HEALTH SYSTEM,Advocate Health and Hospitals Corp (6 IL hospitals): member of Advocate Health system under the NC parent.,2026-10-18
+36-3196629,2024-12,join,ADVOCATE HEALTH SYSTEM,Advocate North Side Health Network (Illinois Masonic): member of Advocate Health system.,2026-10-18
+26-2525968,2024-12,join,ADVOCATE HEALTH SYSTEM,Advocate Condell Medical Center: member of Advocate Health system.,2026-10-18
+36-2167920,2024-12,join,ADVOCATE HEALTH SYSTEM,Advocate Sherman Hospital: member of Advocate Health system.,2026-10-18
+61-1649250,2024-12,join,ADVOCATE HEALTH SYSTEM,Aurora Health Care Inc group return (WI): member of Advocate Health system.,2026-10-18
+43-1617558,2024-12,join,BJC LIEKWEG RICHARD,BJC Health System dba BJC HealthCare joins the BJC group return system (CEO Liekweg).,2026-10-18
+36-2167847,2025-06,join,JAVON BEA,Javon Bea Hospital (Rockford) is part of Mercyhealth (Javon Bea CEO); the filing spells his name 'JAVON R BEA' so the name merge missed it.,2026-10-18
+20-1673011,2025-06,join,JAVON BEA,Mercy Crystal Lake: Mercyhealth system (Javon Bea).,2026-10-18
+31-1551871,2025-06,join,JAVON BEA,Mercy Harvard: Mercyhealth system (Javon Bea).,2026-10-18
 81-1244422,2024-12,parent,ERIK WEXLER,"Providence St Joseph Health is the Providence system parent (files Schedule H for one facility only). It reports Rod Hochman as President/CEO at $12.26M for 2024; Hochman retired and Erik Wexler became CEO 1 Jan 2025, and Wexler appears on the subsidiaries' 2024 filings as President/CEO at $9.13M. Joined to the Wexler system as parent; the system CEO for 2024 is taken from this parent (Hochman), with Wexler's figure also reported.",2026-10-18
 35-1972384,2024-12,parent,RICK HENVEY,"Parkview Health System Inc (Fort Wayne, IN) is the system parent; its filing reports Rick Henvey as 'PH Chief Executive Officer' ($3.68M) and only $84,340 of charity care because the hospitals file separately. The 4,360% ratio computed on this filer alone is not a system figure.",2026-10-20
 35-0868085,2024-12,join,RICK HENVEY,"Parkview Hospital Inc (Fort Wayne; $2.1B revenue, $8.36M charity care) is Parkview Health's main hospital filer. Part VII lists John Bowen as 'PVHOS President' and Parkview Health CFO Jeanne' Wickens, so the CEO-name merge missed the parent.",2026-10-20
@@ -23,3 +23,31 @@ ein,fye,action,system_key_override,reason,date
 35-1967665,2024-12,join,RICK HENVEY,Whitley Memorial Hospital Inc (Parkview Whitley): Part VII lists Parkview Health CFO Jeanne' Wickens.,2026-10-20
 34-1048666,2024-12,join,RICK HENVEY,"Community Hospitals and Wellness Centers (Bryan, OH; Parkview Bryan): Part VII lists Parkview Health CFO Jeanne' Wickens.",2026-10-20
 35-1135451,2024-12,join,RICK HENVEY,Park Center Inc (Fort Wayne; Parkview behavioral health): Part VII lists Parkview Health CFO Jeanne' Wickens.,2026-10-20
+99-0107330,2024-12,join,HEINRICH KERRY,"Castle Medical Center (Adventist Health Castle): the filing runs the system CEO's name together ('HeinrichKerry'), so the name merge missed the 20-filer Adventist Health system under Kerry Heinrich. Joined.",2026-10-21
+11-1352310,2024-12,join,BRENDAN CARR,Mount Sinai South Nassau: Part VII reports Mount Sinai Health System CEO Brendan Carr; his name is spelled three ways across the Mount Sinai filings. Joined to one system.,2026-10-21
+13-1624096,2024-12,join,BRENDAN CARR,The Mount Sinai Hospital: system CEO Brendan Carr (spelled 'BRENDAN CARR 1'). Joined.,2026-10-21
+13-2997301,2024-12,join,BRENDAN CARR,Mount Sinai Morningside/West (St Luke's-Roosevelt): system CEO Brendan Carr. Joined.,2026-10-21
+13-5562304,2024-12,join,BRENDAN CARR,New York Eye and Ear Infirmary of Mount Sinai: system CEO Brendan Carr. Joined.,2026-10-21
+13-5564934,2024-12,join,BRENDAN CARR,Mount Sinai Beth Israel: system CEO Brendan Carr (spelled 'Brendan G Carr MD 1'). Joined.,2026-10-21
+55-0383321,2024-12,join,ALBERT WRIGHT JR,"City Hospital (WVU Medicine Berkeley): Part VII reports WVU Health System CEO Albert Wright ($2.73M), same person and amount as on the Thomas Hospitals and Jefferson Memorial filings. Joined to those.",2026-10-21
+46-0360899,2025-06,join,PAULETTE R DAVIDSON,"Monument Health Network: system CEO Paulette Davidson is reported here and, with middle initial, on Monument Health Rapid City Hospital. Joined to the Rapid City system.",2026-10-21
+01-0211501,2025-09,parent,TIM DENTRY PRESIDENTCEO,"Eastern Maine Medical Center is the Northern Light Health flagship; the filing reports system President/CEO Tim Dentry. Every Northern Light filer lists him as 'NLH President' ex officio, so his pay is the system's, not this hospital's. Parent of the Northern Light system.",2026-10-21
+01-0211534,2025-09,join,TIM DENTRY PRESIDENTCEO,Northern Light Mercy Hospital: Part VII lists Northern Light Health President/CEO Tim Dentry ex officio; local filer under the system. Joined.,2026-10-21
+01-0372148,2025-09,join,TIM DENTRY PRESIDENTCEO,Northern Light Aroostook Medical Center: Part VII lists Northern Light Health President/CEO Tim Dentry ex officio; local filer under the system. Joined.,2026-10-21
+01-0198331,2025-09,join,TIM DENTRY PRESIDENTCEO,Northern Light Maine Coast Regional Health Facilities: Part VII lists Northern Light Health President/CEO Tim Dentry ex officio; local filer under the system. Joined.,2026-10-21
+01-0459837,2025-09,join,TIM DENTRY PRESIDENTCEO,Northern Light Acadia Hospital: Part VII lists Northern Light Health President/CEO Tim Dentry ex officio; local filer under the system. Joined.,2026-10-21
+84-3689003,2025-09,join,TIM DENTRY PRESIDENTCEO,Northern Light Mayo Hospital: Part VII lists Northern Light Health President/CEO Tim Dentry ex officio; local filer under the system. Joined.,2026-10-21
+01-0263628,2025-09,join,TIM DENTRY PRESIDENTCEO,Northern Light Sebasticook Valley Health: Part VII lists Northern Light Health President/CEO Tim Dentry ex officio; local filer under the system. Joined.,2026-10-21
+01-0227195,2025-09,join,TIM DENTRY PRESIDENTCEO,Northern Light Blue Hill Memorial Hospital: Part VII lists Northern Light Health President/CEO Tim Dentry ex officio; local filer under the system. Joined.,2026-10-21
+01-0217211,2025-09,join,TIM DENTRY PRESIDENTCEO,Northern Light Inland Hospital: Part VII lists Northern Light Health President/CEO Tim Dentry ex officio; local filer under the system. Joined.,2026-10-21
+04-3341666,2025-09,join,TIM DENTRY PRESIDENTCEO,Northern Light Charles A Dean Memorial Hospital: Part VII lists Northern Light Health President/CEO Tim Dentry ex officio; local filer under the system. Joined.,2026-10-21
+95-2321786,2025-06,join,PATRICK FRIAS MD,"Children's Hospital of Orange County: supersedes the Oct 18 'split' row. CHOC joined Rady Children's Health in 2024; its filing reports Rady Children's Health President/CEO Patrick Frias with the same total pay as Rady's filing, and Rady's filing lists CHOC. One system.",2026-10-21
+39-2031968,2025-06,join,TIM BRICKER,"Nebraska Heart Hospital: Part VII reports Tim Bricker (spelled 'Timothy') as 'President & CEO Central Region', the same person and pay as the nine-filer CHI Health Nebraska system under Bricker. Joined. (EIN corrected Oct 21: first row carried a wrong EIN.)",2026-10-21
+43-1960221,2025-06,join,CHERYL R NESTER WOLFE,"Salem Health West Valley: same chief executive (Cheryl Nester Wolfe, spelled with and without middle initial) and same pay as Salem Health. Joined.",2026-10-21
+83-0279242,2024-12,join,PETER S FINE,"Wyoming Medical Center (Banner Wyoming Medical Center): Part VII is Banner Health's executive team (Fine, Perry, Nordlund, Lance, Bessel, Dickerson) at the same pay as on Banner's filing. Joined to Banner.",2026-10-21
+11-1631781,2024-12,join,BRUCE FLANZ,"MediSys Health Network: Flushing and Jamaica hospitals report the same chief executive (Bruce Flanz, with and without middle initial) at the same pay. Joined.",2026-10-21
+43-1240629,2025-03,join,PAULA F BAKER,Freeman Neosho Hospital: same chief executive (Paula Baker) and pay as Freeman Health System. Joined.,2026-10-21
+65-1219504,2025-06,join,REED MONICA,"AdventHealth Bolingbrook: same chief executive (Monica Reed, spelled with MD) and pay as Adventist Midwest Health. Joined.",2026-10-21
+16-0835446,2024-12,join,JONATHAN LAWRENCE,"Ira Davenport Memorial Hospital: same chief executive (Jonathan Lawrence, with and without middle initial) and pay as Arnot Ogden Medical Center (Arnot Health). Joined.",2026-10-21
+47-3884840,2024-06,join,BROOK T WARD,UPMC Greene: same chief executive (Brook Ward) and pay as UPMC Washington. Joined.,2026-10-21
+16-0743192,2024-12,join,JOSE A ACEVEDO MD,Soldiers and Sailors Memorial Hospital: same chief executive (Jose Acevedo MD) and pay as Geneva General Hospital (Finger Lakes Health). Joined.,2026-10-21

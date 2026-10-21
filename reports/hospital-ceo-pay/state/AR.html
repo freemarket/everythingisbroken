@@ -2,9 +2,13 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Arkansas hospitals - Everything Is Broken</title>
 <meta name="description" content="Nonprofit hospital systems in Arkansas ranked by CEO pay.">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Everything Is Broken">
+<meta property="og:title" content="Arkansas hospitals"><meta property="og:description" content="Nonprofit hospital systems in Arkansas ranked by CEO pay.">
+<meta property="og:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/AR.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://everythingisbroken.org/reports/hospital-ceo-pay/state/AR.html">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Arkansas hospitals"><meta name="twitter:description" content="Nonprofit hospital systems in Arkansas ranked by CEO pay."><meta name="twitter:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/AR.png">
 <link rel="icon" type="image/png" href="/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 :root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
 --serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
@@ -77,6 +81,13 @@ dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:
 .cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
 .cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.sharebox{display:grid;grid-template-columns:minmax(0,600px) 1fr;gap:22px;align-items:start;border:1px solid var(--ink);padding:18px;margin:22px 0;background:var(--surface)}
+.sharebox img{width:100%;height:auto;border:1px solid var(--border);display:block}
+.sharelinks p{margin:0 0 10px;font-size:.92rem}
+.sharelinks .btn{margin:4px 6px 4px 0;cursor:pointer;font-family:var(--mono)}
+button.btn{border:2px solid var(--ink);background:var(--ink);color:#fff}button.btn.ghost{background:transparent;color:var(--ink)}button.btn.ghost:hover{background:var(--ink);color:#fff}
+@media(max-width:800px){.sharebox{grid-template-columns:1fr}}
+.statelist{columns:3;column-gap:28px;font-size:.95rem}.statelist a{display:block;padding:3px 0;text-decoration:none}.statelist a:hover{text-decoration:underline}@media(max-width:640px){.statelist{columns:2}}
 .card{border:1px solid var(--ink);padding:22px}
 .card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
 .card p,.card li{font-size:.92rem}
@@ -105,8 +116,8 @@ footer p{margin:14px 0 0}
 <a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
 <h1>Everything Is Broken</h1>
 <div class="rule-double"></div>
-<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
-<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a><a href="/reports/hospital-ceo-pay/for-local-groups.html">For local groups</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; Annual Report, 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
 </header>
 <main>
 
@@ -115,7 +126,7 @@ footer p{margin:14px 0 0}
 <p class="lede">32 nonprofit hospital systems file from Arkansas. Median charity care: 0.82% of expenses.</p>
 <div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
 <div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and CEO</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr class="kids" data-name="arkansas children&#x27;s hospital" data-ceo="marcella doderer" data-state="AR" data-kids="1">
-<td class="num">134</td>
+<td class="num">122</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/arkansas-children-s-hospital-71-0236857.html">Arkansas Children&#x27;S Hospital</a><span class="sub">Marcella Doderer · children’s</span></td>
 
 <td class="num" data-v="2712312.0">$2.7M</td>
@@ -123,7 +134,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.8597118064219518">2.86%</td>
 <td class="num" data-v="28478254.0">$28.5M</td>
 <td class="num ratio" data-v="9.524151305062452">10%</td></tr><tr data-name="baptist health" data-ceo="troy wells" data-state="AR" data-kids="0">
-<td class="num">172</td>
+<td class="num">156</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/baptist-health-71-0236856.html">Baptist Health</a><span class="sub">Troy Wells</span></td>
 
 <td class="num" data-v="2295979.0">$2.3M</td>
@@ -131,7 +142,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.827888322837039">1.83%</td>
 <td class="num" data-v="35167718.0">$35.2M</td>
 <td class="num ratio" data-v="6.528655058027934">7%</td></tr><tr data-name="st bernards hospital" data-ceo="chris barber" data-state="AR" data-kids="0">
-<td class="num">451</td>
+<td class="num">421</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/st-bernards-hospital-inc-71-0290019.html">St Bernards Hospital</a><span class="sub">Chris Barber</span></td>
 
 <td class="num" data-v="1001859.0">$1.0M</td>
@@ -139,7 +150,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.8941623762216615">1.89%</td>
 <td class="num" data-v="12688891.0">$12.7M</td>
 <td class="num ratio" data-v="7.895559982349916">8%</td></tr><tr data-name="washington regional medical center" data-ceo="larry shackelford" data-state="AR" data-kids="0">
-<td class="num">469</td>
+<td class="num">438</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/washington-regional-medical-center-71-0664687.html">Washington Regional Medical Center</a><span class="sub">Larry Shackelford</span></td>
 
 <td class="num" data-v="967624.0">$967,624</td>
@@ -147,7 +158,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.884334410181963">1.88%</td>
 <td class="num" data-v="7819518.0">$7.8M</td>
 <td class="num ratio" data-v="12.374471163056342">12%</td></tr><tr data-name="white county medical center" data-ceo="ladonna johnston" data-state="AR" data-kids="0">
-<td class="num">739</td>
+<td class="num">707</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/white-county-medical-center-inc-71-0772737.html">White County Medical Center</a><span class="sub">Ladonna Johnston</span></td>
 
 <td class="num" data-v="483012.0">$483,012</td>
@@ -155,7 +166,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.6380812543799032">0.64%</td>
 <td class="num" data-v="2413135.0">$2.4M</td>
 <td class="num ratio" data-v="20.015954349839525">20%</td></tr><tr data-name="north arkansas regional medical center" data-ceo="sammie r roberson" data-state="AR" data-kids="0">
-<td class="num">749</td>
+<td class="num">717</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/north-arkansas-regional-medical-center-71-0787860.html">North Arkansas Regional Medical Center</a><span class="sub">Sammie R Roberson</span></td>
 
 <td class="num" data-v="468978.0">$468,978</td>
@@ -163,7 +174,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.5258977775261126">0.53%</td>
 <td class="num" data-v="580186.0">$580,186</td>
 <td class="num ratio" data-v="80.83235376241412">81%</td></tr><tr data-name="united methodist behavioral hospital - j" data-ceo="andy altom" data-state="AR" data-kids="0">
-<td class="num">879</td>
+<td class="num">847</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/united-methodist-behavioral-hospital-j-99-4409432.html">United Methodist Behavioral Hospital - J</a><span class="sub">Andy Altom</span></td>
 
 <td class="num" data-v="329647.0">$329,647</td>
@@ -171,7 +182,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.7954573037211363">0.80%</td>
 <td class="num" data-v="191714.0">$191,714</td>
 <td class="num ratio" data-v="171.94727562932283">172%</td></tr><tr data-name="ouachita county medical center" data-ceo="peggy abbott" data-state="AR" data-kids="0">
-<td class="num">901</td>
+<td class="num">869</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/ouachita-county-medical-center-71-0766341.html">Ouachita County Medical Center</a><span class="sub">Peggy Abbott</span></td>
 
 <td class="num" data-v="301298.0">$301,298</td>
@@ -179,7 +190,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.09894401320458761">0.10%</td>
 <td class="num" data-v="42470.0">$42,470</td>
 <td class="num ratio" data-v="709.4372498234047">709%</td></tr><tr data-name="magnolia regional health system" data-ceo="brett kinman" data-state="AR" data-kids="0">
-<td class="num">902</td>
+<td class="num">870</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/magnolia-regional-health-system-inc-85-0512754.html">Magnolia Regional Health System</a><span class="sub">Brett Kinman</span></td>
 
 <td class="num" data-v="301262.0">$301,262</td>
@@ -187,7 +198,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.9479408085932952">1.95%</td>
 <td class="num" data-v="575887.0">$575,887</td>
 <td class="num ratio" data-v="52.31269328878756">52%</td></tr><tr data-name="arkansas methodist hospital corporation d/b/a arkansas methodist medical center" data-ceo="brad bloemer" data-state="AR" data-kids="0">
-<td class="num">939</td>
+<td class="num">908</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/arkansas-methodist-hospital-corporation-d-b-a-arkansas-methodist-medical-center-.html">Arkansas Methodist Hospital Corporation D/B/A Arkansas Methodist Medical Center</a><span class="sub">Brad Bloemer</span></td>
 
 <td class="num" data-v="262134.0">$262,134</td>
@@ -195,7 +206,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.2264436626621659">0.23%</td>
 <td class="num" data-v="226611.0">$226,611</td>
 <td class="num ratio" data-v="115.67576154732117">116%</td></tr><tr data-name="johnson regional medical center" data-ceo="tommy hobbs" data-state="AR" data-kids="0">
-<td class="num">951</td>
+<td class="num">920</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/johnson-regional-medical-center-71-0403278.html">Johnson Regional Medical Center</a><span class="sub">Tommy Hobbs</span></td>
 
 <td class="num" data-v="252929.0">$252,929</td>
@@ -203,7 +214,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.19452833756862267">0.19%</td>
 <td class="num" data-v="90283.0">$90,283</td>
 <td class="num ratio" data-v="280.151302016991">280%</td></tr><tr data-name="crossett health foundation dba ashley county medical center" data-ceo="phillip gilmore" data-state="AR" data-kids="0">
-<td class="num">980</td>
+<td class="num">949</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/crossett-health-foundation-dba-ashley-county-medical-center-71-0236870.html">Crossett Health Foundation dba Ashley County Medical Center</a><span class="sub">Phillip Gilmore</span></td>
 
 <td class="num" data-v="229651.0">$229,651</td>
@@ -211,7 +222,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.22840314794156008">0.23%</td>
 <td class="num" data-v="92000.0">$92,000</td>
 <td class="num ratio" data-v="249.62065217391304">250%</td></tr><tr data-name="ozark health inc van buren co mem hosp &amp; nursing home" data-ceo="david deaton" data-state="AR" data-kids="0">
-<td class="num">992</td>
+<td class="num">962</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/ozark-health-inc-van-buren-co-mem-hosp-nursing-home-71-0407683.html">Ozark Health INC Van Buren Co Mem Hosp &amp; Nursing Home</a><span class="sub">David Deaton</span></td>
 
 <td class="num" data-v="215449.0">$215,449</td>
@@ -219,7 +230,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.5724079214233924">0.57%</td>
 <td class="num" data-v="236710.0">$236,710</td>
 <td class="num ratio" data-v="91.01812344218663">91%</td></tr><tr data-name="little river medical center" data-ceo="james dowell" data-state="AR" data-kids="0">
-<td class="num">1026</td>
+<td class="num">995</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/little-river-medical-center-inc-81-2677745.html">Little River Medical Center</a><span class="sub">James Dowell</span></td>
 
 <td class="num" data-v="188512.0">$188,512</td>
@@ -227,7 +238,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.06182728884573027">0.06%</td>
 <td class="num" data-v="7378.0">$7,378</td>
 <td class="num ratio" data-v="2555.0555706153427">2555%</td></tr><tr data-name="delta memorial hospital" data-ceo="jeremy capps" data-state="AR" data-kids="0">
-<td class="num">1036</td>
+<td class="num">1007</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/delta-memorial-hospital-71-0276839.html">Delta Memorial Hospital</a><span class="sub">Jeremy Capps</span></td>
 
 <td class="num" data-v="178093.0">$178,093</td>
@@ -235,7 +246,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.789488121762685">0.79%</td>
 <td class="num" data-v="187505.0">$187,505</td>
 <td class="num ratio" data-v="94.98040052265273">95%</td></tr><tr data-name="drew memorial hospital" data-ceo="scott barrilleaux" data-state="AR" data-kids="0">
-<td class="num">1040</td>
+<td class="num">1011</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/drew-memorial-hospital-inc-35-2414105.html">Drew Memorial Hospital</a><span class="sub">Scott Barrilleaux</span></td>
 
 <td class="num" data-v="175162.0">$175,162</td>
@@ -243,7 +254,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.2736315023760436">0.27%</td>
 <td class="num" data-v="99561.0">$99,561</td>
 <td class="num ratio" data-v="175.9343518044214">176%</td></tr><tr data-name="mcgehee hospital" data-ceo="terry amstutz" data-state="AR" data-kids="0">
-<td class="num">1041</td>
+<td class="num">1012</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/mcgehee-hospital-inc-36-4664248.html">Mcgehee Hospital</a><span class="sub">Terry Amstutz</span></td>
 
 <td class="num" data-v="170846.0">$170,846</td>
@@ -251,7 +262,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.20060571176258166">0.20%</td>
 <td class="num" data-v="34047.0">$34,047</td>
 <td class="num ratio" data-v="501.79457808323787">502%</td></tr><tr data-name="chicot memorial medical center" data-ceo="john heard" data-state="AR" data-kids="0">
-<td class="num">1047</td>
+<td class="num">1016</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/chicot-memorial-medical-center-38-3807713.html">Chicot Memorial Medical Center</a><span class="sub">John Heard</span></td>
 
 <td class="num" data-v="164361.0">$164,361</td>
@@ -259,7 +270,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.8820611410668188">0.88%</td>
 <td class="num" data-v="200609.0">$200,609</td>
 <td class="num ratio" data-v="81.93102004396611">82%</td></tr><tr data-name="bradley county medical center" data-ceo="leslie huitt" data-state="AR" data-kids="0">
-<td class="num">1048</td>
+<td class="num">1017</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/bradley-county-medical-center-71-0797499.html">Bradley County Medical Center</a><span class="sub">Leslie Huitt</span></td>
 
 <td class="num" data-v="164059.0">$164,059</td>
@@ -267,7 +278,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.288841422437409">1.29%</td>
 <td class="num" data-v="338250.0">$338,250</td>
 <td class="num ratio" data-v="48.50229120473023">49%</td></tr><tr data-name="leo n levi memorial hospital association" data-ceo="zane jeffers" data-state="AR" data-kids="0">
-<td class="num">1055</td>
+<td class="num">1025</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/leo-n-levi-memorial-hospital-association-71-0246565.html">Leo N Levi Memorial Hospital Association</a><span class="sub">Zane Jeffers</span></td>
 
 <td class="num" data-v="148499.0">$148,499</td>
@@ -275,7 +286,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.833960156740611">2.83%</td>
 <td class="num" data-v="244594.0">$244,594</td>
 <td class="num ratio" data-v="60.71244593080779">61%</td></tr><tr data-name="howard memorial hospital" data-ceo="stacy harberson" data-state="AR" data-kids="0">
-<td class="num">1059</td>
+<td class="num">1029</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/howard-memorial-hospital-71-0644637.html">Howard Memorial Hospital</a><span class="sub">Stacy Harberson</span></td>
 
 <td class="num" data-v="145828.0">$145,828</td>
@@ -283,7 +294,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.179552309751716">1.18%</td>
 <td class="num" data-v="404908.0">$404,908</td>
 <td class="num ratio" data-v="36.01509478696395">36%</td></tr><tr data-name="conway regional medical center" data-ceo="matthew troup" data-state="AR" data-kids="0">
-<td class="num">1074</td>
+<td class="num">1051</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/conway-regional-medical-center-inc-71-0249735.html">Conway Regional Medical Center</a><span class="sub">Matthew Troup</span></td>
 
 <td class="num" data-v="793.0">$793</td>
@@ -292,6 +303,13 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="843028.0">$843,028</td>
 <td class="num ratio" data-v="0.09406567753384229">0%</td></tr></tbody></table></div>
 <p class="note">Systems not shown: 10 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/mercy-hospital-fort-smith-71-0240352.html">Mercy Hospital Fort Smith</a>, <a href="/reports/hospital-ceo-pay/system/white-river-health-system-inc-71-0411459.html">White River Health System</a>, <a href="/reports/hospital-ceo-pay/system/baxter-county-regional-hospital-inc-71-0561765.html">Baxter County Regional Hospital</a>, <a href="/reports/hospital-ceo-pay/system/jefferson-hospital-association-inc-71-0329353.html">Jefferson Hospital Association</a>, <a href="/reports/hospital-ceo-pay/system/sarh-holdings-inc-92-2332099.html">Sarh Holdings</a>, <a href="/reports/hospital-ceo-pay/system/lawrence-memorial-health-foundation-inc-73-1547175.html">Lawrence Memorial Health Foundation</a>, <a href="/reports/hospital-ceo-pay/system/dewitt-hospital-nursing-home-inc-95-4896822.html">Dewitt Hospital &amp; Nursing Home</a>, <a href="/reports/hospital-ceo-pay/system/baptist-health-extended-care-hospital-26-1286647.html">Baptist Health Extended Care Hospital</a>, <a href="/reports/hospital-ceo-pay/system/advanced-care-hospital-of-white-county-20-8459270.html">Advanced Care Hospital of White County</a>, <a href="/reports/hospital-ceo-pay/system/saline-county-medical-center-71-0772959.html">Saline County Medical Center</a>.</p>
+<h2><span class="n">&sect;</span>Share</h2>
+<div class="sharebox"><img src="/reports/hospital-ceo-pay/cards/state/AR.png" alt="Arkansas nonprofit hospitals: CEO pay vs charity care" width="600" height="315">
+<div class="sharelinks">
+<p>This card is what appears when the link to this page is posted. Use it, the sentence, or the embed code. No permission needed; attribution is on the card.</p>
+<p><a class="btn" href="/reports/hospital-ceo-pay/cards/state/AR.png" download>Download card</a> <button class="btn ghost" data-copy="https://everythingisbroken.org/reports/hospital-ceo-pay/state/AR.html">Copy link</button> <button class="btn ghost" data-copy="Nonprofit hospital CEO pay vs charity care in Arkansas, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/AR.html">Copy sentence</button> <button class="btn ghost" data-copy="&lt;a href=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/state/AR.html&quot;&gt;&lt;img src=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/AR.png&quot; alt=&quot;Arkansas nonprofit hospitals: CEO pay vs charity care&quot; width=&quot;600&quot; height=&quot;315&quot; style=&quot;max-width:100%;height:auto&quot;&gt;&lt;/a&gt;">Copy embed code</button></p>
+<p class="note" style="margin:0">Nonprofit hospital CEO pay vs charity care in Arkansas, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/AR.html</p>
+</div></div>
 <script>
 (function(){
   var tables=document.querySelectorAll('table.sortable');
@@ -312,10 +330,10 @@ footer p{margin:14px 0 0}
       r.hidden=!ok;});}
   if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
 })();
-</script></main>
+</script><script>document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){navigator.clipboard.writeText(b.dataset.copy).then(function(){var t=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=t},1400)})})});</script></main>
 <footer><div class="rule-single"></div>
 <div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
-<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-20 &middot; Built 2026-10-20</p>
+<p>Report No. 1, Annual Report, 2026 edition &middot; Data as of 2026-10-21 &middot; Built 2026-10-21</p>
 <p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to contact@everythingisbroken.org.</p>
 <p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate. Donations are not tax-deductible.</p>
 <p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>

@@ -2,9 +2,13 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Kansas hospitals - Everything Is Broken</title>
 <meta name="description" content="Nonprofit hospital systems in Kansas ranked by CEO pay.">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Everything Is Broken">
+<meta property="og:title" content="Kansas hospitals"><meta property="og:description" content="Nonprofit hospital systems in Kansas ranked by CEO pay.">
+<meta property="og:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/KS.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://everythingisbroken.org/reports/hospital-ceo-pay/state/KS.html">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Kansas hospitals"><meta name="twitter:description" content="Nonprofit hospital systems in Kansas ranked by CEO pay."><meta name="twitter:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/KS.png">
 <link rel="icon" type="image/png" href="/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 :root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
 --serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
@@ -77,6 +81,13 @@ dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:
 .cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
 .cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.sharebox{display:grid;grid-template-columns:minmax(0,600px) 1fr;gap:22px;align-items:start;border:1px solid var(--ink);padding:18px;margin:22px 0;background:var(--surface)}
+.sharebox img{width:100%;height:auto;border:1px solid var(--border);display:block}
+.sharelinks p{margin:0 0 10px;font-size:.92rem}
+.sharelinks .btn{margin:4px 6px 4px 0;cursor:pointer;font-family:var(--mono)}
+button.btn{border:2px solid var(--ink);background:var(--ink);color:#fff}button.btn.ghost{background:transparent;color:var(--ink)}button.btn.ghost:hover{background:var(--ink);color:#fff}
+@media(max-width:800px){.sharebox{grid-template-columns:1fr}}
+.statelist{columns:3;column-gap:28px;font-size:.95rem}.statelist a{display:block;padding:3px 0;text-decoration:none}.statelist a:hover{text-decoration:underline}@media(max-width:640px){.statelist{columns:2}}
 .card{border:1px solid var(--ink);padding:22px}
 .card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
 .card p,.card li{font-size:.92rem}
@@ -105,8 +116,8 @@ footer p{margin:14px 0 0}
 <a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
 <h1>Everything Is Broken</h1>
 <div class="rule-double"></div>
-<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
-<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a><a href="/reports/hospital-ceo-pay/for-local-groups.html">For local groups</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; Annual Report, 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
 </header>
 <main>
 
@@ -114,16 +125,8 @@ footer p{margin:14px 0 0}
 <h1 class="title">Kansas</h1>
 <p class="lede">36 nonprofit hospital systems file from Kansas. Median charity care: 0.63% of expenses.</p>
 <div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
-<div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and CEO</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="stormont-vail healthcare" data-ceo="robert s kenagy" data-state="KS" data-kids="0">
-<td class="num">233</td>
-<td class="name"><a href="/reports/hospital-ceo-pay/system/stormont-vail-healthcare-inc-48-0543789.html">Stormont-Vail Healthcare</a><span class="sub">Robert S Kenagy</span></td>
-
-<td class="num" data-v="1829935.0">$1.8M</td>
-<td class="num" data-v="1240351230.0">$1.2B</td>
-<td class="num" data-v="2.1966407933079717">2.20%</td>
-<td class="num" data-v="24226131.0">$24.2M</td>
-<td class="num ratio" data-v="7.553558593404783">8%</td></tr><tr data-name="hays medical center" data-ceo="edward herrman" data-state="KS" data-kids="0">
-<td class="num">457</td>
+<div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and CEO</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="hays medical center" data-ceo="edward herrman" data-state="KS" data-kids="0">
+<td class="num">428</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/hays-medical-center-inc-48-0559088.html">Hays Medical Center</a><span class="sub">Edward Herrman</span></td>
 
 <td class="num" data-v="993531.0">$993,531</td>
@@ -131,23 +134,15 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.0999243790280103">0.10%</td>
 <td class="num" data-v="279379.0">$279,379</td>
 <td class="num ratio" data-v="355.6212170564001">356%</td></tr><tr data-name="salina regional health center" data-ceo="joel phelps" data-state="KS" data-kids="0">
-<td class="num">477</td>
+<td class="num">446</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/salina-regional-health-center-inc-48-1169103.html">Salina Regional Health Center</a><span class="sub">Joel Phelps</span></td>
 
 <td class="num" data-v="944826.0">$944,826</td>
 <td class="num" data-v="434935359.0">$434.9M</td>
 <td class="num" data-v="0.4734513138396355">0.47%</td>
 <td class="num" data-v="1967935.0">$2.0M</td>
-<td class="num ratio" data-v="48.011036949899264">48%</td></tr><tr data-name="adventhealth south overland park" data-ceo="verrillmdalan" data-state="KS" data-kids="0">
-<td class="num">514</td>
-<td class="name"><a href="/reports/hospital-ceo-pay/system/adventhealth-south-overland-park-inc-36-4595806.html">Adventhealth South Overland Park</a><span class="sub">Verrillmdalan</span></td>
-
-<td class="num" data-v="860236.0">$860,236</td>
-<td class="num" data-v="85700277.0">$85.7M</td>
-<td class="num" data-v="1.6152381502876276">1.62%</td>
-<td class="num" data-v="1383803.0">$1.4M</td>
-<td class="num ratio" data-v="62.16462892478193">62%</td></tr><tr data-name="hutchinson regional medical center" data-ceo="benjamin anderson" data-state="KS" data-kids="0">
-<td class="num">581</td>
+<td class="num ratio" data-v="48.011036949899264">48%</td></tr><tr data-name="hutchinson regional medical center" data-ceo="benjamin anderson" data-state="KS" data-kids="0">
+<td class="num">551</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/hutchinson-regional-medical-center-inc-48-0774005.html">Hutchinson Regional Medical Center</a><span class="sub">Benjamin Anderson</span></td>
 
 <td class="num" data-v="712598.0">$712,598</td>
@@ -155,15 +150,23 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.9414561247824851">0.94%</td>
 <td class="num" data-v="2018554.0">$2.0M</td>
 <td class="num ratio" data-v="35.30239963855315">35%</td></tr><tr data-name="labette county medical center" data-ceo="brian williams" data-state="KS" data-kids="0">
-<td class="num">641</td>
+<td class="num">608</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/labette-county-medical-center-48-6099245.html">Labette County Medical Center</a><span class="sub">Brian Williams</span></td>
 
 <td class="num" data-v="615052.0">$615,052</td>
 <td class="num" data-v="132905717.0">$132.9M</td>
 <td class="num" data-v="0.3859008013049874">0.39%</td>
 <td class="num" data-v="515779.0">$515,779</td>
-<td class="num ratio" data-v="119.2471969583872">119%</td></tr><tr data-name="adventhealth ransom memorial" data-ceo="purkeypile dallas" data-state="KS" data-kids="0">
-<td class="num">658</td>
+<td class="num ratio" data-v="119.2471969583872">119%</td></tr><tr data-name="adventhealth south overland park" data-ceo="purkeypiledallas" data-state="KS" data-kids="0">
+<td class="num">626</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/adventhealth-south-overland-park-inc-36-4595806.html">Adventhealth South Overland Park</a><span class="sub">Purkeypiledallas</span></td>
+
+<td class="num" data-v="596649.0">$596,649</td>
+<td class="num" data-v="85700277.0">$85.7M</td>
+<td class="num" data-v="1.6152381502876276">1.62%</td>
+<td class="num" data-v="1383803.0">$1.4M</td>
+<td class="num ratio" data-v="43.11661414233095">43%</td></tr><tr data-name="adventhealth ransom memorial" data-ceo="purkeypile dallas" data-state="KS" data-kids="0">
+<td class="num">627</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/adventhealth-ransom-memorial-inc-83-0976641.html">Adventhealth Ransom Memorial</a><span class="sub">Purkeypile Dallas</span></td>
 
 <td class="num" data-v="596649.0">$596,649</td>
@@ -171,7 +174,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="3.407930182287069">3.41%</td>
 <td class="num" data-v="1972279.0">$2.0M</td>
 <td class="num ratio" data-v="30.251754442449574">30%</td></tr><tr data-name="newton healthcare" data-ceo="vallerie l gleason" data-state="KS" data-kids="0">
-<td class="num">700</td>
+<td class="num">668</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/newton-healthcare-corporation-48-1040759.html">Newton Healthcare</a><span class="sub">Vallerie L Gleason</span></td>
 
 <td class="num" data-v="522264.0">$522,264</td>
@@ -179,7 +182,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.1968586355008182">1.20%</td>
 <td class="num" data-v="1348859.0">$1.3M</td>
 <td class="num ratio" data-v="38.71894690253021">39%</td></tr><tr data-name="southwest medical center" data-ceo="amber williams" data-state="KS" data-kids="0">
-<td class="num">772</td>
+<td class="num">739</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/southwest-medical-center-48-0684878.html">Southwest Medical Center</a><span class="sub">Amber Williams</span></td>
 
 <td class="num" data-v="447610.0">$447,610</td>
@@ -187,7 +190,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.5215725039928353">0.52%</td>
 <td class="num" data-v="426811.0">$426,811</td>
 <td class="num ratio" data-v="104.8731171408422">105%</td></tr><tr data-name="coffeyville regional medical center" data-ceo="brian lawrence" data-state="KS" data-kids="0">
-<td class="num">800</td>
+<td class="num">766</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/coffeyville-regional-medical-center-inc-48-1178846.html">Coffeyville Regional Medical Center</a><span class="sub">Brian Lawrence</span></td>
 
 <td class="num" data-v="409039.0">$409,039</td>
@@ -195,7 +198,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.1838609291042315">1.18%</td>
 <td class="num" data-v="629448.0">$629,448</td>
 <td class="num ratio" data-v="64.98376355155628">65%</td></tr><tr data-name="citizens medical center" data-ceo="david mccorkle" data-state="KS" data-kids="0">
-<td class="num">899</td>
+<td class="num">867</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/citizens-medical-center-inc-48-0892178.html">Citizens Medical Center</a><span class="sub">David Mccorkle</span></td>
 
 <td class="num" data-v="302875.0">$302,875</td>
@@ -203,7 +206,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.4592345004271388">0.46%</td>
 <td class="num" data-v="327445.0">$327,445</td>
 <td class="num ratio" data-v="92.49644978546016">92%</td></tr><tr data-name="great plains of republic co" data-ceo="curt colson" data-state="KS" data-kids="0">
-<td class="num">918</td>
+<td class="num">887</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/great-plains-of-republic-co-inc-48-1226977.html">Great Plains of Republic Co</a><span class="sub">Curt Colson</span></td>
 
 <td class="num" data-v="284684.0">$284,684</td>
@@ -211,7 +214,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.408162693177713">0.41%</td>
 <td class="num" data-v="442606.0">$442,606</td>
 <td class="num ratio" data-v="64.31995951252355">64%</td></tr><tr data-name="greeley county health services" data-ceo="trice watts" data-state="KS" data-kids="0">
-<td class="num">930</td>
+<td class="num">899</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/greeley-county-health-services-inc-30-0078435.html">Greeley County Health Services</a><span class="sub">Trice Watts</span></td>
 
 <td class="num" data-v="272258.0">$272,258</td>
@@ -219,7 +222,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.8162724324154147">1.82%</td>
 <td class="num" data-v="313838.0">$313,838</td>
 <td class="num ratio" data-v="86.75112637730294">87%</td></tr><tr data-name="great plains of cheyenne county" data-ceo="jeremy clingenpeel" data-state="KS" data-kids="0">
-<td class="num">945</td>
+<td class="num">914</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/great-plains-of-cheyenne-county-inc-48-1226831.html">Great Plains of Cheyenne County</a><span class="sub">Jeremy Clingenpeel</span></td>
 
 <td class="num" data-v="257705.0">$257,705</td>
@@ -227,7 +230,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.8177060901159461">0.82%</td>
 <td class="num" data-v="183439.0">$183,439</td>
 <td class="num ratio" data-v="140.48539296441868">140%</td></tr><tr data-name="west central kansas association" data-ceo="david caudill" data-state="KS" data-kids="0">
-<td class="num">948</td>
+<td class="num">917</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/west-central-kansas-association-inc-74-2842747.html">West Central Kansas Association</a><span class="sub">David Caudill</span></td>
 
 <td class="num" data-v="255258.0">$255,258</td>
@@ -235,7 +238,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.5516783472904142">0.55%</td>
 <td class="num" data-v="129103.0">$129,103</td>
 <td class="num ratio" data-v="197.7165519004206">198%</td></tr><tr data-name="clara barton hospital association" data-ceo="james tusten" data-state="KS" data-kids="0">
-<td class="num">950</td>
+<td class="num">919</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/clara-barton-hospital-association-inc-48-0576039.html">Clara Barton Hospital Association</a><span class="sub">James Tusten</span></td>
 
 <td class="num" data-v="253225.0">$253,225</td>
@@ -243,7 +246,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.169320894776916">1.17%</td>
 <td class="num" data-v="541857.0">$541,857</td>
 <td class="num ratio" data-v="46.73280957891104">47%</td></tr><tr data-name="susan b allen memorial hospital" data-ceo="melissa hall" data-state="KS" data-kids="0">
-<td class="num">961</td>
+<td class="num">930</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/susan-b-allen-memorial-hospital-48-0581968.html">Susan B Allen Memorial Hospital</a><span class="sub">Melissa Hall</span></td>
 
 <td class="num" data-v="241335.0">$241,335</td>
@@ -251,7 +254,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="3.805851547972666">3.81%</td>
 <td class="num" data-v="1581819.0">$1.6M</td>
 <td class="num ratio" data-v="15.256802453378041">15%</td></tr><tr data-name="nemaha valley community hospital" data-ceo="kiley floyd" data-state="KS" data-kids="0">
-<td class="num">963</td>
+<td class="num">932</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/nemaha-valley-community-hospital-48-0764456.html">Nemaha Valley Community Hospital</a><span class="sub">Kiley Floyd</span></td>
 
 <td class="num" data-v="240711.0">$240,711</td>
@@ -259,7 +262,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.019024550788273933">0.02%</td>
 <td class="num" data-v="5425.0">$5,425</td>
 <td class="num ratio" data-v="4437.069124423963">4437%</td></tr><tr data-name="prairie view" data-ceo="marcy johnson" data-state="KS" data-kids="0">
-<td class="num">975</td>
+<td class="num">944</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/prairie-view-inc-48-0642318.html">Prairie View</a><span class="sub">Marcy Johnson</span></td>
 
 <td class="num" data-v="232213.0">$232,213</td>
@@ -267,7 +270,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.3328174046173287">1.33%</td>
 <td class="num" data-v="380956.0">$380,956</td>
 <td class="num ratio" data-v="60.95533342433247">61%</td></tr><tr data-name="community memorial healthcare" data-ceo="curtis r hawkinson" data-state="KS" data-kids="0">
-<td class="num">978</td>
+<td class="num">947</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/community-memorial-healthcare-inc-48-0630224.html">Community Memorial Healthcare</a><span class="sub">Curtis R Hawkinson</span></td>
 
 <td class="num" data-v="231055.0">$231,055</td>
@@ -275,7 +278,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.6285893988102894">0.63%</td>
 <td class="num" data-v="182293.0">$182,293</td>
 <td class="num ratio" data-v="126.7492443483842">127%</td></tr><tr data-name="rural health resources of jackson co" data-ceo="carrie l lutz" data-state="KS" data-kids="0">
-<td class="num">982</td>
+<td class="num">951</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/rural-health-resources-of-jackson-co-inc-74-2826278.html">Rural Health Resources of Jackson Co</a><span class="sub">Carrie L Lutz</span></td>
 
 <td class="num" data-v="228369.0">$228,369</td>
@@ -283,7 +286,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.15514752459902867">0.16%</td>
 <td class="num" data-v="36349.0">$36,349</td>
 <td class="num ratio" data-v="628.2676277201574">628%</td></tr><tr data-name="ninnescah valley health systems" data-ceo="preston sauers" data-state="KS" data-kids="0">
-<td class="num">985</td>
+<td class="num">955</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/ninnescah-valley-health-systems-inc-48-0761700.html">Ninnescah Valley Health Systems</a><span class="sub">Preston Sauers</span></td>
 
 <td class="num" data-v="225046.0">$225,046</td>
@@ -291,7 +294,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.2092573787260262">0.21%</td>
 <td class="num" data-v="45318.0">$45,318</td>
 <td class="num ratio" data-v="496.59296526766406">497%</td></tr><tr data-name="community healthcare system" data-ceo="todd willert" data-state="KS" data-kids="0">
-<td class="num">1004</td>
+<td class="num">974</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/community-healthcare-system-inc-48-1020227.html">Community Healthcare System</a><span class="sub">Todd Willert</span></td>
 
 <td class="num" data-v="206516.0">$206,516</td>
@@ -299,7 +302,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.13120291354929547">0.13%</td>
 <td class="num" data-v="50175.0">$50,175</td>
 <td class="num ratio" data-v="411.5914299950174">412%</td></tr><tr data-name="william newton memorial hospital" data-ceo="brian barta" data-state="KS" data-kids="0">
-<td class="num">1007</td>
+<td class="num">977</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/william-newton-memorial-hospital-48-6005089.html">William Newton Memorial Hospital</a><span class="sub">Brian Barta</span></td>
 
 <td class="num" data-v="204581.0">$204,581</td>
@@ -307,7 +310,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.48236012625089236">0.48%</td>
 <td class="num" data-v="246878.0">$246,878</td>
 <td class="num ratio" data-v="82.86724617017313">83%</td></tr><tr data-name="amberwell atchison association" data-ceo="jared abel" data-state="KS" data-kids="0">
-<td class="num">1028</td>
+<td class="num">997</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/amberwell-atchison-association-48-0561974.html">Amberwell Atchison Association</a><span class="sub">Jared Abel</span></td>
 
 <td class="num" data-v="188124.0">$188,124</td>
@@ -315,7 +318,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.6657807813131094">0.67%</td>
 <td class="num" data-v="643000.0">$643,000</td>
 <td class="num ratio" data-v="29.257231726283052">29%</td></tr><tr data-name="jefferson county memorial hospital" data-ceo="heidi pickerell" data-state="KS" data-kids="0">
-<td class="num">1034</td>
+<td class="num">1004</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/jefferson-county-memorial-hospital-inc-48-0576046.html">Jefferson County Memorial Hospital</a><span class="sub">Heidi Pickerell</span></td>
 
 <td class="num" data-v="183179.0">$183,179</td>
@@ -323,7 +326,14 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.14561130266559671">0.15%</td>
 <td class="num" data-v="13747.0">$13,747</td>
 <td class="num ratio" data-v="1332.501636720739">1333%</td></tr></tbody></table></div>
-<p class="note">Systems not shown: 10 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/mercy-hospital-pittsburg-inc-99-1489524.html">Mercy Hospital Pittsburg</a>, <a href="/reports/hospital-ceo-pay/system/pratt-regional-medical-center-corporation-48-1058737.html">Pratt Regional Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/mercy-specialty-hospital-southeast-kansas-84-3730625.html">Mercy Specialty Hospital Southeast Kansas</a>, <a href="/reports/hospital-ceo-pay/system/kvc-hospitals-inc-27-1672159.html">Kvc Hospitals</a>, <a href="/reports/hospital-ceo-pay/system/mcpherson-hospital-inc-48-0799105.html">Mcpherson Hospital</a>, <a href="/reports/hospital-ceo-pay/system/catholic-care-center-inc-48-1067110.html">Catholic Care Center</a>, <a href="/reports/hospital-ceo-pay/system/cloud-county-health-center-inc-48-0545923.html">Cloud County Health Center</a>, <a href="/reports/hospital-ceo-pay/system/pawnee-valley-community-hospital-inc-48-1253246.html">Pawnee Valley Community Hospital</a>, <a href="/reports/hospital-ceo-pay/system/lindsborg-community-hospital-association-48-0545183.html">Lindsborg Community Hospital Association</a>, <a href="/reports/hospital-ceo-pay/system/mercy-hospital-inc-48-0663711.html">Mercy Hospital</a>.</p>
+<p class="note">Systems not shown: 11 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/stormont-vail-healthcare-inc-48-0543789.html">Stormont-Vail Healthcare</a>, <a href="/reports/hospital-ceo-pay/system/mercy-hospital-pittsburg-inc-99-1489524.html">Mercy Hospital Pittsburg</a>, <a href="/reports/hospital-ceo-pay/system/pratt-regional-medical-center-corporation-48-1058737.html">Pratt Regional Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/mercy-specialty-hospital-southeast-kansas-84-3730625.html">Mercy Specialty Hospital Southeast Kansas</a>, <a href="/reports/hospital-ceo-pay/system/kvc-hospitals-inc-27-1672159.html">Kvc Hospitals</a>, <a href="/reports/hospital-ceo-pay/system/mcpherson-hospital-inc-48-0799105.html">Mcpherson Hospital</a>, <a href="/reports/hospital-ceo-pay/system/catholic-care-center-inc-48-1067110.html">Catholic Care Center</a>, <a href="/reports/hospital-ceo-pay/system/cloud-county-health-center-inc-48-0545923.html">Cloud County Health Center</a>, <a href="/reports/hospital-ceo-pay/system/pawnee-valley-community-hospital-inc-48-1253246.html">Pawnee Valley Community Hospital</a>, <a href="/reports/hospital-ceo-pay/system/lindsborg-community-hospital-association-48-0545183.html">Lindsborg Community Hospital Association</a>, <a href="/reports/hospital-ceo-pay/system/mercy-hospital-inc-48-0663711.html">Mercy Hospital</a>.</p>
+<h2><span class="n">&sect;</span>Share</h2>
+<div class="sharebox"><img src="/reports/hospital-ceo-pay/cards/state/KS.png" alt="Kansas nonprofit hospitals: CEO pay vs charity care" width="600" height="315">
+<div class="sharelinks">
+<p>This card is what appears when the link to this page is posted. Use it, the sentence, or the embed code. No permission needed; attribution is on the card.</p>
+<p><a class="btn" href="/reports/hospital-ceo-pay/cards/state/KS.png" download>Download card</a> <button class="btn ghost" data-copy="https://everythingisbroken.org/reports/hospital-ceo-pay/state/KS.html">Copy link</button> <button class="btn ghost" data-copy="Nonprofit hospital CEO pay vs charity care in Kansas, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/KS.html">Copy sentence</button> <button class="btn ghost" data-copy="&lt;a href=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/state/KS.html&quot;&gt;&lt;img src=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/KS.png&quot; alt=&quot;Kansas nonprofit hospitals: CEO pay vs charity care&quot; width=&quot;600&quot; height=&quot;315&quot; style=&quot;max-width:100%;height:auto&quot;&gt;&lt;/a&gt;">Copy embed code</button></p>
+<p class="note" style="margin:0">Nonprofit hospital CEO pay vs charity care in Kansas, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/KS.html</p>
+</div></div>
 <script>
 (function(){
   var tables=document.querySelectorAll('table.sortable');
@@ -344,10 +354,10 @@ footer p{margin:14px 0 0}
       r.hidden=!ok;});}
   if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
 })();
-</script></main>
+</script><script>document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){navigator.clipboard.writeText(b.dataset.copy).then(function(){var t=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=t},1400)})})});</script></main>
 <footer><div class="rule-single"></div>
 <div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
-<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-20 &middot; Built 2026-10-20</p>
+<p>Report No. 1, Annual Report, 2026 edition &middot; Data as of 2026-10-21 &middot; Built 2026-10-21</p>
 <p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to contact@everythingisbroken.org.</p>
 <p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate. Donations are not tax-deductible.</p>
 <p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>

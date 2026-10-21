@@ -2,9 +2,13 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Michigan hospitals - Everything Is Broken</title>
 <meta name="description" content="Nonprofit hospital systems in Michigan ranked by CEO pay.">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Everything Is Broken">
+<meta property="og:title" content="Michigan hospitals"><meta property="og:description" content="Nonprofit hospital systems in Michigan ranked by CEO pay.">
+<meta property="og:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/MI.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://everythingisbroken.org/reports/hospital-ceo-pay/state/MI.html">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Michigan hospitals"><meta name="twitter:description" content="Nonprofit hospital systems in Michigan ranked by CEO pay."><meta name="twitter:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/MI.png">
 <link rel="icon" type="image/png" href="/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 :root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
 --serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
@@ -77,6 +81,13 @@ dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:
 .cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
 .cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.sharebox{display:grid;grid-template-columns:minmax(0,600px) 1fr;gap:22px;align-items:start;border:1px solid var(--ink);padding:18px;margin:22px 0;background:var(--surface)}
+.sharebox img{width:100%;height:auto;border:1px solid var(--border);display:block}
+.sharelinks p{margin:0 0 10px;font-size:.92rem}
+.sharelinks .btn{margin:4px 6px 4px 0;cursor:pointer;font-family:var(--mono)}
+button.btn{border:2px solid var(--ink);background:var(--ink);color:#fff}button.btn.ghost{background:transparent;color:var(--ink)}button.btn.ghost:hover{background:var(--ink);color:#fff}
+@media(max-width:800px){.sharebox{grid-template-columns:1fr}}
+.statelist{columns:3;column-gap:28px;font-size:.95rem}.statelist a{display:block;padding:3px 0;text-decoration:none}.statelist a:hover{text-decoration:underline}@media(max-width:640px){.statelist{columns:2}}
 .card{border:1px solid var(--ink);padding:22px}
 .card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
 .card p,.card li{font-size:.92rem}
@@ -105,8 +116,8 @@ footer p{margin:14px 0 0}
 <a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
 <h1>Everything Is Broken</h1>
 <div class="rule-double"></div>
-<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
-<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a><a href="/reports/hospital-ceo-pay/for-local-groups.html">For local groups</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; Annual Report, 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
 </header>
 <main>
 
@@ -115,7 +126,7 @@ footer p{margin:14px 0 0}
 <p class="lede">51 nonprofit hospital systems file from Michigan. Median charity care: 1.10% of expenses.</p>
 <div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
 <div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and CEO</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="corewell health" data-ceo="christina freese decker" data-state="MI" data-kids="0">
-<td class="num">32</td>
+<td class="num">31</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/corewell-health-group-return-61-1740292.html">Corewell Health</a><span class="sub">Christina Freese Decker</span></td>
 
 <td class="num" data-v="6952800.0">$7.0M</td>
@@ -123,23 +134,15 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.48192945102488005">0.48%</td>
 <td class="num" data-v="54079110.0">$54.1M</td>
 <td class="num ratio" data-v="12.856720460081537">13%</td></tr><tr data-name="bronson methodist hospital" data-ceo="bill manns" data-state="MI" data-kids="0">
-<td class="num">96</td>
+<td class="num">88</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/bronson-methodist-hospital-38-1359087.html">Bronson Methodist Hospital</a><span class="sub">Bill Manns</span></td>
 
 <td class="num" data-v="3569592.0">$3.6M</td>
 <td class="num" data-v="1983016904.0">$2.0B</td>
 <td class="num" data-v="0.36089099660588303">0.36%</td>
 <td class="num" data-v="6700610.0">$6.7M</td>
-<td class="num ratio" data-v="53.272642341518164">53%</td></tr><tr data-name="mclaren greater lansing" data-ceo="chad grant" data-state="MI" data-kids="0">
-<td class="num">243</td>
-<td class="name"><a href="/reports/hospital-ceo-pay/system/mclaren-greater-lansing-38-1434090.html">Mclaren Greater Lansing</a><span class="sub">Chad Grant</span></td>
-
-<td class="num" data-v="1782679.0">$1.8M</td>
-<td class="num" data-v="531291801.0">$531.3M</td>
-<td class="num" data-v="1.1649737561444744">1.16%</td>
-<td class="num" data-v="5838724.0">$5.8M</td>
-<td class="num ratio" data-v="30.53199637455033">31%</td></tr><tr data-name="trinity health - michigan" data-ceo="shannon striebich" data-state="MI" data-kids="0">
-<td class="num">300</td>
+<td class="num ratio" data-v="53.272642341518164">53%</td></tr><tr data-name="trinity health - michigan" data-ceo="shannon striebich" data-state="MI" data-kids="0">
+<td class="num">274</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/trinity-health-michigan-38-2113393.html">Trinity Health - Michigan</a><span class="sub">Shannon Striebich</span></td>
 
 <td class="num" data-v="1528569.0">$1.5M</td>
@@ -147,7 +150,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.9404793238122309">0.94%</td>
 <td class="num" data-v="39838341.0">$39.8M</td>
 <td class="num ratio" data-v="3.836929354061205">4%</td></tr><tr data-name="holland community hospital" data-ceo="patti vandort" data-state="MI" data-kids="0">
-<td class="num">305</td>
+<td class="num">279</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/holland-community-hospital-38-2800065.html">Holland Community Hospital</a><span class="sub">Patti Vandort</span></td>
 
 <td class="num" data-v="1496063.0">$1.5M</td>
@@ -155,7 +158,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.5790897359304333">0.58%</td>
 <td class="num" data-v="1895132.0">$1.9M</td>
 <td class="num ratio" data-v="78.9424166759888">79%</td></tr><tr data-name="mary free bed rehabilitation hospital" data-ceo="kent riddle" data-state="MI" data-kids="0">
-<td class="num">369</td>
+<td class="num">341</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/mary-free-bed-rehabilitation-hospital-38-1359265.html">Mary Free Bed Rehabilitation Hospital</a><span class="sub">Kent Riddle</span></td>
 
 <td class="num" data-v="1216897.0">$1.2M</td>
@@ -163,15 +166,23 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.5011582178584986">0.50%</td>
 <td class="num" data-v="987652.0">$987,652</td>
 <td class="num ratio" data-v="123.21111079611038">123%</td></tr><tr data-name="ella e m brown charitable circle" data-ceo="gregg beeg" data-state="MI" data-kids="0">
-<td class="num">378</td>
+<td class="num">349</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/ella-e-m-brown-charitable-circle-38-1368347.html">Ella E M Brown Charitable Circle</a><span class="sub">Gregg Beeg</span></td>
 
 <td class="num" data-v="1193790.0">$1.2M</td>
 <td class="num" data-v="208193299.0">$208.2M</td>
 <td class="num" data-v="0.17123319613208543">0.17%</td>
 <td class="num" data-v="355242.0">$355,242</td>
-<td class="num ratio" data-v="336.0497914097995">336%</td></tr><tr data-name="mclaren flint" data-ceo="christopher candela" data-state="MI" data-kids="0">
-<td class="num">447</td>
+<td class="num ratio" data-v="336.0497914097995">336%</td></tr><tr data-name="mclaren greater lansing" data-ceo="kirk ray" data-state="MI" data-kids="0">
+<td class="num">393</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/mclaren-greater-lansing-38-1434090.html">Mclaren Greater Lansing</a><span class="sub">Kirk Ray</span></td>
+
+<td class="num" data-v="1046420.0">$1.0M</td>
+<td class="num" data-v="531291801.0">$531.3M</td>
+<td class="num" data-v="1.1649737561444744">1.16%</td>
+<td class="num" data-v="5838724.0">$5.8M</td>
+<td class="num ratio" data-v="17.922066533715245">18%</td></tr><tr data-name="mclaren flint" data-ceo="christopher candela" data-state="MI" data-kids="0">
+<td class="num">417</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/mclaren-flint-38-2383119.html">Mclaren Flint</a><span class="sub">Christopher Candela</span></td>
 
 <td class="num" data-v="1011297.0">$1.0M</td>
@@ -179,7 +190,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.1738231964747823">1.17%</td>
 <td class="num" data-v="6433161.0">$6.4M</td>
 <td class="num ratio" data-v="15.720063589268168">16%</td></tr><tr data-name="mclaren macomb" data-ceo="tracey franovich" data-state="MI" data-kids="0">
-<td class="num">489</td>
+<td class="num">459</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/mclaren-macomb-38-1218516.html">Mclaren Macomb</a><span class="sub">Tracey Franovich</span></td>
 
 <td class="num" data-v="921540.0">$921,540</td>
@@ -187,7 +198,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.8804216900024082">1.88%</td>
 <td class="num" data-v="7564838.0">$7.6M</td>
 <td class="num ratio" data-v="12.181886776689732">12%</td></tr><tr data-name="memorial hospital" data-ceo="brian l long" data-state="MI" data-kids="0">
-<td class="num">491</td>
+<td class="num">461</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/memorial-hospital-38-1358208.html">Memorial Hospital</a><span class="sub">Brian L Long</span></td>
 
 <td class="num" data-v="918081.0">$918,081</td>
@@ -195,7 +206,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.09905298182673809">0.10%</td>
 <td class="num" data-v="337571.0">$337,571</td>
 <td class="num ratio" data-v="271.9667862464489">272%</td></tr><tr data-name="mclaren thumb region" data-ceo="connie koutouzos" data-state="MI" data-kids="0">
-<td class="num">507</td>
+<td class="num">477</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/mclaren-thumb-region-38-1474929.html">Mclaren Thumb Region</a><span class="sub">Connie Koutouzos</span></td>
 
 <td class="num" data-v="889060.0">$889,060</td>
@@ -203,7 +214,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.6841588337074196">2.68%</td>
 <td class="num" data-v="1884755.0">$1.9M</td>
 <td class="num ratio" data-v="47.17111773148234">47%</td></tr><tr data-name="mclaren central michigan" data-ceo="robert david" data-state="MI" data-kids="0">
-<td class="num">551</td>
+<td class="num">520</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/mclaren-central-michigan-38-1420304.html">Mclaren Central Michigan</a><span class="sub">Robert David</span></td>
 
 <td class="num" data-v="793635.0">$793,635</td>
@@ -211,7 +222,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.520470900206249">1.52%</td>
 <td class="num" data-v="2772010.0">$2.8M</td>
 <td class="num ratio" data-v="28.630307971471964">29%</td></tr><tr data-name="hillsdale community health center" data-ceo="jeremiah j hodshire" data-state="MI" data-kids="0">
-<td class="num">554</td>
+<td class="num">524</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/hillsdale-community-health-center-38-6005550.html">Hillsdale Community Health Center</a><span class="sub">Jeremiah J Hodshire</span></td>
 
 <td class="num" data-v="782633.0">$782,633</td>
@@ -219,7 +230,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.5444139395515629">0.54%</td>
 <td class="num" data-v="542302.0">$542,302</td>
 <td class="num ratio" data-v="144.3168197793849">144%</td></tr><tr data-name="pine rest christian mental health services" data-ceo="mark c eastburg phd" data-state="MI" data-kids="0">
-<td class="num">593</td>
+<td class="num">562</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/pine-rest-christian-mental-health-services-38-1368360.html">Pine Rest Christian Mental Health Services</a><span class="sub">Mark C Eastburg PhD</span></td>
 
 <td class="num" data-v="694133.0">$694,133</td>
@@ -227,7 +238,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.65529810056065">2.66%</td>
 <td class="num" data-v="6273896.0">$6.3M</td>
 <td class="num ratio" data-v="11.063827006376899">11%</td></tr><tr data-name="wa foote memorial hospital" data-ceo="emily s moorhead" data-state="MI" data-kids="0">
-<td class="num">594</td>
+<td class="num">563</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/wa-foote-memorial-hospital-38-2027689.html">Wa Foote Memorial Hospital</a><span class="sub">Emily S Moorhead</span></td>
 
 <td class="num" data-v="692439.0">$692,439</td>
@@ -235,7 +246,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.3674373273047389">1.37%</td>
 <td class="num" data-v="11229343.0">$11.2M</td>
 <td class="num ratio" data-v="6.166335822140263">6%</td></tr><tr data-name="scheurer hospital" data-ceo="ross ramsey md" data-state="MI" data-kids="0">
-<td class="num">629</td>
+<td class="num">597</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/scheurer-hospital-38-1456056.html">Scheurer Hospital</a><span class="sub">Ross Ramsey MD</span></td>
 
 <td class="num" data-v="647875.0">$647,875</td>
@@ -243,7 +254,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.4401271670930229">0.44%</td>
 <td class="num" data-v="325262.0">$325,262</td>
 <td class="num ratio" data-v="199.18557962504073">199%</td></tr><tr data-name="st joseph mercy chelsea" data-ceo="benjamin miles" data-state="MI" data-kids="0">
-<td class="num">630</td>
+<td class="num">598</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/st-joseph-mercy-chelsea-inc-82-4757260.html">St Joseph Mercy Chelsea</a><span class="sub">Benjamin Miles</span></td>
 
 <td class="num" data-v="644481.0">$644,481</td>
@@ -251,7 +262,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.5241656747290031">0.52%</td>
 <td class="num" data-v="1161978.0">$1.2M</td>
 <td class="num ratio" data-v="55.46413099043184">55%</td></tr><tr data-name="mclaren northern michigan" data-ceo="garfield atchison" data-state="MI" data-kids="0">
-<td class="num">633</td>
+<td class="num">601</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/mclaren-northern-michigan-38-2146751.html">Mclaren Northern Michigan</a><span class="sub">Garfield Atchison</span></td>
 
 <td class="num" data-v="632609.0">$632,609</td>
@@ -259,7 +270,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.6160511546288079">1.62%</td>
 <td class="num" data-v="4864989.0">$4.9M</td>
 <td class="num ratio" data-v="13.003297643632905">13%</td></tr><tr data-name="mclaren bay region" data-ceo="tim vargas" data-state="MI" data-kids="0">
-<td class="num">637</td>
+<td class="num">605</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/mclaren-bay-region-38-1976271.html">Mclaren Bay Region</a><span class="sub">Tim Vargas</span></td>
 
 <td class="num" data-v="623817.0">$623,817</td>
@@ -267,7 +278,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.688898404923158">1.69%</td>
 <td class="num" data-v="8025374.0">$8.0M</td>
 <td class="num ratio" data-v="7.773058302329586">8%</td></tr><tr data-name="mclaren port huron" data-ceo="eric cecava" data-state="MI" data-kids="0">
-<td class="num">654</td>
+<td class="num">622</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/mclaren-port-huron-38-1369611.html">Mclaren Port Huron</a><span class="sub">Eric Cecava</span></td>
 
 <td class="num" data-v="602048.0">$602,048</td>
@@ -275,7 +286,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.5773784201326992">1.58%</td>
 <td class="num" data-v="4192263.0">$4.2M</td>
 <td class="num ratio" data-v="14.360931077081757">14%</td></tr><tr data-name="hills &amp; dales general hospital" data-ceo="andrew daniels" data-state="MI" data-kids="0">
-<td class="num">784</td>
+<td class="num">751</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/hills-dales-general-hospital-inc-38-1619577.html">Hills &amp; Dales General Hospital</a><span class="sub">Andrew Daniels</span></td>
 
 <td class="num" data-v="432375.0">$432,375</td>
@@ -283,7 +294,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.15617926335083884">0.16%</td>
 <td class="num" data-v="194740.0">$194,740</td>
 <td class="num ratio" data-v="222.0268049707302">222%</td></tr><tr data-name="mackinac straits health system" data-ceo="karen cheeseman" data-state="MI" data-kids="0">
-<td class="num">833</td>
+<td class="num">799</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/mackinac-straits-health-system-inc-20-8756459.html">Mackinac Straits Health System</a><span class="sub">Karen Cheeseman</span></td>
 
 <td class="num" data-v="375968.0">$375,968</td>
@@ -291,7 +302,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.5797697518804235">0.58%</td>
 <td class="num" data-v="451791.0">$451,791</td>
 <td class="num ratio" data-v="83.21723982992135">83%</td></tr><tr data-name="eaton rapids medical center" data-ceo="timothy johnson" data-state="MI" data-kids="0">
-<td class="num">839</td>
+<td class="num">805</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/eaton-rapids-medical-center-38-1559180.html">Eaton Rapids Medical Center</a><span class="sub">Timothy Johnson</span></td>
 
 <td class="num" data-v="370328.0">$370,328</td>
@@ -299,7 +310,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.020378718805229793">0.02%</td>
 <td class="num" data-v="10322.0">$10,322</td>
 <td class="num ratio" data-v="3587.7543111800037">3588%</td></tr><tr data-name="schoolcraft memorial hospital" data-ceo="andrew bertapelle" data-state="MI" data-kids="0">
-<td class="num">928</td>
+<td class="num">897</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/schoolcraft-memorial-hospital-74-2517055.html">Schoolcraft Memorial Hospital</a><span class="sub">Andrew Bertapelle</span></td>
 
 <td class="num" data-v="273295.0">$273,295</td>
@@ -307,23 +318,15 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.4728870583983234">0.47%</td>
 <td class="num" data-v="312000.0">$312,000</td>
 <td class="num ratio" data-v="87.59455128205128">88%</td></tr><tr data-name="helen newberry joy hospital &amp; healthcare center" data-ceo="hunter nostrant" data-state="MI" data-kids="0">
-<td class="num">983</td>
+<td class="num">952</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/helen-newberry-joy-hospital-healthcare-center-38-2873485.html">Helen Newberry Joy Hospital &amp; Healthcare Center</a><span class="sub">Hunter Nostrant</span></td>
 
 <td class="num" data-v="228333.0">$228,333</td>
 <td class="num" data-v="44506295.0">$44.5M</td>
 <td class="num" data-v="0.27670289105469875">0.28%</td>
 <td class="num" data-v="107209.0">$107,209</td>
-<td class="num ratio" data-v="212.97932076598048">213%</td></tr><tr data-name="munising memorial hospital association" data-ceo="jim parker" data-state="MI" data-kids="0">
-<td class="num">998</td>
-<td class="name"><a href="/reports/hospital-ceo-pay/system/munising-memorial-hospital-association-38-1507046.html">Munising Memorial Hospital Association</a><span class="sub">Jim Parker</span></td>
-
-<td class="num" data-v="214036.0">$214,036</td>
-<td class="num" data-v="16297817.0">$16.3M</td>
-<td class="num" data-v="0.3005389961983866">0.30%</td>
-<td class="num" data-v="44000.0">$44,000</td>
-<td class="num ratio" data-v="486.4454545454546">486%</td></tr><tr data-name="mclaren oakland" data-ceo="lorenzo suter" data-state="MI" data-kids="0">
-<td class="num">1025</td>
+<td class="num ratio" data-v="212.97932076598048">213%</td></tr><tr data-name="mclaren oakland" data-ceo="lorenzo suter" data-state="MI" data-kids="0">
+<td class="num">994</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/mclaren-oakland-38-1428164.html">Mclaren Oakland</a><span class="sub">Lorenzo Suter</span></td>
 
 <td class="num" data-v="188514.0">$188,514</td>
@@ -331,15 +334,30 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.3883303505981837">2.39%</td>
 <td class="num" data-v="6813031.0">$6.8M</td>
 <td class="num ratio" data-v="2.7669623109009778">3%</td></tr><tr data-name="harbor beach community hospital" data-ceo="jill wehner" data-state="MI" data-kids="0">
-<td class="num">1052</td>
+<td class="num">1022</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/harbor-beach-community-hospital-38-1565380.html">Harbor Beach Community Hospital</a><span class="sub">Jill Wehner</span></td>
 
 <td class="num" data-v="156740.0">$156,740</td>
 <td class="num" data-v="19445474.0">$19.4M</td>
 <td class="num" data-v="1.313133087455828">1.31%</td>
 <td class="num" data-v="259400.0">$259,400</td>
-<td class="num ratio" data-v="60.424055512721665">60%</td></tr></tbody></table></div>
+<td class="num ratio" data-v="60.424055512721665">60%</td></tr><tr data-name="munising memorial hospital association" data-ceo="dennis smith" data-state="MI" data-kids="0">
+<td class="num">1049</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/munising-memorial-hospital-association-38-1507046.html">Munising Memorial Hospital Association</a><span class="sub">Dennis Smith</span></td>
+
+<td class="num" data-v="17406.0">$17,406</td>
+<td class="num" data-v="16297817.0">$16.3M</td>
+<td class="num" data-v="0.3005389961983866">0.30%</td>
+<td class="num" data-v="44000.0">$44,000</td>
+<td class="num ratio" data-v="39.55909090909091">40%</td></tr></tbody></table></div>
 <p class="note">Systems not shown: 23 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/henry-ford-health-system-38-1357020.html">Henry Ford Health</a>, <a href="/reports/hospital-ceo-pay/system/edward-w-sparrow-hospital-38-1360584.html">Edward W Sparrow Hospital</a>, <a href="/reports/hospital-ceo-pay/system/covenant-medical-center-inc-38-3369438.html">Covenant Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/munson-medical-center-38-1362830.html">Munson Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/mymichigan-medical-center-midland-38-0833014.html">Mymichigan Medical Center Midland</a>, <a href="/reports/hospital-ceo-pay/system/munson-healthcare-cadillac-47-1156297.html">Munson Healthcare Cadillac</a>, <a href="/reports/hospital-ceo-pay/system/metropolitan-hospital-38-0593405.html">Metropolitan Hospital</a>, <a href="/reports/hospital-ceo-pay/system/barbara-ann-karmanos-cancer-hospital-20-1649466.html">Barbara Ann Karmanos Cancer Hospital</a>, <a href="/reports/hospital-ceo-pay/system/mymichigan-medical-center-saginaw-38-0997730.html">Mymichigan Medical Center Saginaw</a>, <a href="/reports/hospital-ceo-pay/system/mymichigan-medical-center-alpena-38-6000029.html">Mymichigan Medical Center Alpena</a>, <a href="/reports/hospital-ceo-pay/system/mymichigan-medical-center-alma-38-1437919.html">Mymichigan Medical Center Alma</a>, <a href="/reports/hospital-ceo-pay/system/mymichigan-medical-center-west-branch-46-4088182.html">Mymichigan Medical Center West Branch</a>, <a href="/reports/hospital-ceo-pay/system/mymichigan-medical-center-sault-38-2602147.html">Mymichigan Medical Center Sault</a>, <a href="/reports/hospital-ceo-pay/system/sparrow-eaton-hospital-38-2007629.html">Sparrow Eaton Hospital</a>, <a href="/reports/hospital-ceo-pay/system/sparrow-clinton-hospital-38-1358172.html">Sparrow Clinton Hospital</a>, <a href="/reports/hospital-ceo-pay/system/sparrow-ionia-hospital-38-3218134.html">Sparrow Ionia Hospital</a>, <a href="/reports/hospital-ceo-pay/system/sparrow-carson-hospital-38-1490180.html">Sparrow Carson Hospital</a>, <a href="/reports/hospital-ceo-pay/system/mckenzie-memorial-hospital-38-1738615.html">Mckenzie Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/sheridan-community-hospital-38-1369796.html">Sheridan Community Hospital</a>, <a href="/reports/hospital-ceo-pay/system/sparrow-specialty-hospital-14-1885340.html">Sparrow Specialty Hospital</a>, <a href="/reports/hospital-ceo-pay/system/straith-hospital-for-special-surgery-38-1455020.html">Straith Hospital for Special Surgery</a>, <a href="/reports/hospital-ceo-pay/system/madison-community-hospital-inc-c-o-behavioral-center-of-michigan-38-1901104.html">Madison Community Hospital INC C/O Behavioral Center of Michigan</a>, <a href="/reports/hospital-ceo-pay/system/mclaren-bay-special-care-38-3161753.html">Mclaren Bay Special Care</a>.</p>
+<h2><span class="n">&sect;</span>Share</h2>
+<div class="sharebox"><img src="/reports/hospital-ceo-pay/cards/state/MI.png" alt="Michigan nonprofit hospitals: CEO pay vs charity care" width="600" height="315">
+<div class="sharelinks">
+<p>This card is what appears when the link to this page is posted. Use it, the sentence, or the embed code. No permission needed; attribution is on the card.</p>
+<p><a class="btn" href="/reports/hospital-ceo-pay/cards/state/MI.png" download>Download card</a> <button class="btn ghost" data-copy="https://everythingisbroken.org/reports/hospital-ceo-pay/state/MI.html">Copy link</button> <button class="btn ghost" data-copy="Nonprofit hospital CEO pay vs charity care in Michigan, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/MI.html">Copy sentence</button> <button class="btn ghost" data-copy="&lt;a href=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/state/MI.html&quot;&gt;&lt;img src=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/MI.png&quot; alt=&quot;Michigan nonprofit hospitals: CEO pay vs charity care&quot; width=&quot;600&quot; height=&quot;315&quot; style=&quot;max-width:100%;height:auto&quot;&gt;&lt;/a&gt;">Copy embed code</button></p>
+<p class="note" style="margin:0">Nonprofit hospital CEO pay vs charity care in Michigan, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/MI.html</p>
+</div></div>
 <script>
 (function(){
   var tables=document.querySelectorAll('table.sortable');
@@ -360,10 +378,10 @@ footer p{margin:14px 0 0}
       r.hidden=!ok;});}
   if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
 })();
-</script></main>
+</script><script>document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){navigator.clipboard.writeText(b.dataset.copy).then(function(){var t=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=t},1400)})})});</script></main>
 <footer><div class="rule-single"></div>
 <div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
-<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-20 &middot; Built 2026-10-20</p>
+<p>Report No. 1, Annual Report, 2026 edition &middot; Data as of 2026-10-21 &middot; Built 2026-10-21</p>
 <p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to contact@everythingisbroken.org.</p>
 <p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate. Donations are not tax-deductible.</p>
 <p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>

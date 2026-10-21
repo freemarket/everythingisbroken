@@ -2,9 +2,13 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Indiana hospitals - Everything Is Broken</title>
 <meta name="description" content="Nonprofit hospital systems in Indiana ranked by CEO pay.">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Everything Is Broken">
+<meta property="og:title" content="Indiana hospitals"><meta property="og:description" content="Nonprofit hospital systems in Indiana ranked by CEO pay.">
+<meta property="og:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/IN.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://everythingisbroken.org/reports/hospital-ceo-pay/state/IN.html">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Indiana hospitals"><meta name="twitter:description" content="Nonprofit hospital systems in Indiana ranked by CEO pay."><meta name="twitter:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/IN.png">
 <link rel="icon" type="image/png" href="/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 :root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
 --serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
@@ -77,6 +81,13 @@ dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:
 .cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
 .cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.sharebox{display:grid;grid-template-columns:minmax(0,600px) 1fr;gap:22px;align-items:start;border:1px solid var(--ink);padding:18px;margin:22px 0;background:var(--surface)}
+.sharebox img{width:100%;height:auto;border:1px solid var(--border);display:block}
+.sharelinks p{margin:0 0 10px;font-size:.92rem}
+.sharelinks .btn{margin:4px 6px 4px 0;cursor:pointer;font-family:var(--mono)}
+button.btn{border:2px solid var(--ink);background:var(--ink);color:#fff}button.btn.ghost{background:transparent;color:var(--ink)}button.btn.ghost:hover{background:var(--ink);color:#fff}
+@media(max-width:800px){.sharebox{grid-template-columns:1fr}}
+.statelist{columns:3;column-gap:28px;font-size:.95rem}.statelist a{display:block;padding:3px 0;text-decoration:none}.statelist a:hover{text-decoration:underline}@media(max-width:640px){.statelist{columns:2}}
 .card{border:1px solid var(--ink);padding:22px}
 .card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
 .card p,.card li{font-size:.92rem}
@@ -105,8 +116,8 @@ footer p{margin:14px 0 0}
 <a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
 <h1>Everything Is Broken</h1>
 <div class="rule-double"></div>
-<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
-<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a><a href="/reports/hospital-ceo-pay/for-local-groups.html">For local groups</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; Annual Report, 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
 </header>
 <main>
 
@@ -115,7 +126,7 @@ footer p{margin:14px 0 0}
 <p class="lede">35 nonprofit hospital systems file from Indiana. Median charity care: 1.09% of expenses.</p>
 <div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
 <div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and CEO</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="indiana university health" data-ceo="dennis m murphy" data-state="IN" data-kids="0">
-<td class="num">42</td>
+<td class="num">40</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/indiana-university-health-inc-35-1955872.html">Indiana University Health</a><span class="sub">Dennis M Murphy</span></td>
 
 <td class="num" data-v="5720461.0">$5.7M</td>
@@ -123,7 +134,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.064635050096476">2.06%</td>
 <td class="num" data-v="110440779.0">$110.4M</td>
 <td class="num ratio" data-v="5.179663754454322">5%</td></tr><tr data-name="community health network" data-ceo="bryan a mills" data-state="IN" data-kids="0">
-<td class="num">85</td>
+<td class="num">78</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/community-health-network-inc-35-0983617.html">Community Health Network</a><span class="sub">Bryan A Mills</span></td>
 
 <td class="num" data-v="3879760.0">$3.9M</td>
@@ -131,7 +142,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.22432768908341366">0.22%</td>
 <td class="num" data-v="4360143.0">$4.4M</td>
 <td class="num ratio" data-v="88.98240264138126">89%</td></tr><tr data-name="parkview health" data-ceo="rick henvey" data-state="IN" data-kids="0">
-<td class="num">93</td>
+<td class="num">85</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/parkview-hospital-inc-35-0868085.html">Parkview Health</a><span class="sub">Rick Henvey</span></td>
 
 <td class="num" data-v="3677159.0">$3.7M</td>
@@ -139,7 +150,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.3030696370947076">0.30%</td>
 <td class="num" data-v="11622668.0">$11.6M</td>
 <td class="num ratio" data-v="31.637821883925447">32%</td></tr><tr data-name="reid hospital &amp; health care services" data-ceo="craig kinyon" data-state="IN" data-kids="0">
-<td class="num">135</td>
+<td class="num">123</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/reid-hospital-health-care-services-inc-35-0892672.html">Reid Hospital &amp; Health Care Services</a><span class="sub">Craig Kinyon</span></td>
 
 <td class="num" data-v="2692980.0">$2.7M</td>
@@ -147,7 +158,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="5.15816103461065">5.16%</td>
 <td class="num" data-v="26762330.0">$26.8M</td>
 <td class="num ratio" data-v="10.062576763682385">10%</td></tr><tr data-name="deaconess hospital" data-ceo="shawn mccoy" data-state="IN" data-kids="0">
-<td class="num">165</td>
+<td class="num">149</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/deaconess-hospital-inc-35-0593390.html">Deaconess Hospital</a><span class="sub">Shawn Mccoy</span></td>
 
 <td class="num" data-v="2377687.0">$2.4M</td>
@@ -155,7 +166,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.1439083761730426">1.14%</td>
 <td class="num" data-v="18172973.0">$18.2M</td>
 <td class="num ratio" data-v="13.0836434963063">13%</td></tr><tr data-name="memorial hospital of south bend" data-ceo="kreg r gruber" data-state="IN" data-kids="0">
-<td class="num">190</td>
+<td class="num">172</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/memorial-hospital-of-south-bend-inc-35-0868132.html">Memorial Hospital of South Bend</a><span class="sub">Kreg R Gruber</span></td>
 
 <td class="num" data-v="2136422.0">$2.1M</td>
@@ -163,7 +174,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.6406601475309286">0.64%</td>
 <td class="num" data-v="7030409.0">$7.0M</td>
 <td class="num ratio" data-v="30.388303155620104">30%</td></tr><tr data-name="union hospital" data-ceo="steven holman" data-state="IN" data-kids="0">
-<td class="num">223</td>
+<td class="num">201</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/union-hospital-inc-35-0876396.html">Union Hospital</a><span class="sub">Steven Holman</span></td>
 
 <td class="num" data-v="1928000.0">$1.9M</td>
@@ -171,7 +182,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.07785320238612516">0.08%</td>
 <td class="num" data-v="504337.0">$504,337</td>
 <td class="num ratio" data-v="382.28406799421816">382%</td></tr><tr data-name="marion general hospital" data-ceo="stephanie hilton-siebert" data-state="IN" data-kids="0">
-<td class="num">257</td>
+<td class="num">231</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/marion-general-hospital-inc-35-0868130.html">Marion General Hospital</a><span class="sub">Stephanie Hilton-Siebert</span></td>
 
 <td class="num" data-v="1718184.0">$1.7M</td>
@@ -179,7 +190,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.0956952992172826">1.10%</td>
 <td class="num" data-v="2690305.0">$2.7M</td>
 <td class="num ratio" data-v="63.865769866241926">64%</td></tr><tr data-name="goshen hospital association" data-ceo="randal christophel" data-state="IN" data-kids="0">
-<td class="num">345</td>
+<td class="num">318</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/goshen-hospital-association-inc-35-6001540.html">Goshen Hospital Association</a><span class="sub">Randal Christophel</span></td>
 
 <td class="num" data-v="1327232.0">$1.3M</td>
@@ -187,7 +198,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.9231520500386537">0.92%</td>
 <td class="num" data-v="2840923.0">$2.8M</td>
 <td class="num ratio" data-v="46.71833766701879">47%</td></tr><tr data-name="franciscan health rensselaer" data-ceo="terrance wilson" data-state="IN" data-kids="0">
-<td class="num">399</td>
+<td class="num">369</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/franciscan-health-rensselaer-inc-47-3825106.html">Franciscan Health Rensselaer</a><span class="sub">Terrance Wilson</span></td>
 
 <td class="num" data-v="1133173.0">$1.1M</td>
@@ -195,23 +206,15 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.5577899121100374">2.56%</td>
 <td class="num" data-v="1005658.0">$1.0M</td>
 <td class="num ratio" data-v="112.67975792963414">113%</td></tr><tr data-name="the methodist hospitals" data-ceo="matthew doyle" data-state="IN" data-kids="0">
-<td class="num">582</td>
+<td class="num">552</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/the-methodist-hospitals-inc-35-0868133.html">The Methodist Hospitals</a><span class="sub">Matthew Doyle</span></td>
 
 <td class="num" data-v="712496.0">$712,496</td>
 <td class="num" data-v="493388211.0">$493.4M</td>
 <td class="num" data-v="2.757725719045259">2.76%</td>
 <td class="num" data-v="14647208.0">$14.6M</td>
-<td class="num ratio" data-v="4.864380979637894">5%</td></tr><tr data-name="rehabilitation hospital of indiana" data-ceo="daniel b woloszyn" data-state="IN" data-kids="0">
-<td class="num">655</td>
-<td class="name"><a href="/reports/hospital-ceo-pay/system/rehabilitation-hospital-of-indiana-inc-35-1786005.html">Rehabilitation Hospital of Indiana</a><span class="sub">Daniel B Woloszyn</span></td>
-
-<td class="num" data-v="599318.0">$599,318</td>
-<td class="num" data-v="47116155.0">$47.1M</td>
-<td class="num" data-v="0.25640954574353214">0.26%</td>
-<td class="num" data-v="119342.0">$119,342</td>
-<td class="num ratio" data-v="502.18531615022374">502%</td></tr><tr data-name="cameron memorial community hospital" data-ceo="angela logan" data-state="IN" data-kids="0">
-<td class="num">702</td>
+<td class="num ratio" data-v="4.864380979637894">5%</td></tr><tr data-name="cameron memorial community hospital" data-ceo="angela logan" data-state="IN" data-kids="0">
+<td class="num">670</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/cameron-memorial-community-hospital-35-0211370.html">Cameron Memorial Community Hospital</a><span class="sub">Angela Logan</span></td>
 
 <td class="num" data-v="521787.0">$521,787</td>
@@ -219,7 +222,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.10955511733910629">0.11%</td>
 <td class="num" data-v="145343.0">$145,343</td>
 <td class="num ratio" data-v="359.00387359556356">359%</td></tr><tr data-name="margaret mary community hospital" data-ceo="liz leising" data-state="IN" data-kids="0">
-<td class="num">716</td>
+<td class="num">684</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/margaret-mary-community-hospital-inc-35-6067049.html">Margaret Mary Community Hospital</a><span class="sub">Liz Leising</span></td>
 
 <td class="num" data-v="509215.0">$509,215</td>
@@ -227,15 +230,30 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.8455914606252324">2.85%</td>
 <td class="num" data-v="3702003.0">$3.7M</td>
 <td class="num ratio" data-v="13.755121214110307">14%</td></tr><tr data-name="north central health services" data-ceo="stephanie long" data-state="IN" data-kids="0">
-<td class="num">755</td>
+<td class="num">723</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/north-central-health-services-inc-31-1118357.html">North Central Health Services</a><span class="sub">Stephanie Long</span></td>
 
 <td class="num" data-v="464970.0">$464,970</td>
 <td class="num" data-v="7689115.0">$7.7M</td>
 <td class="num" data-v="2.3793697690658093">2.38%</td>
 <td class="num" data-v="672720.0">$672,720</td>
-<td class="num ratio" data-v="69.11790938280414">69%</td></tr></tbody></table></div>
+<td class="num ratio" data-v="69.11790938280414">69%</td></tr><tr data-name="rehabilitation hospital of indiana" data-ceo="monte m spence" data-state="IN" data-kids="0">
+<td class="num">821</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/rehabilitation-hospital-of-indiana-inc-35-1786005.html">Rehabilitation Hospital of Indiana</a><span class="sub">Monte M Spence</span></td>
+
+<td class="num" data-v="352635.0">$352,635</td>
+<td class="num" data-v="47116155.0">$47.1M</td>
+<td class="num" data-v="0.25640954574353214">0.26%</td>
+<td class="num" data-v="119342.0">$119,342</td>
+<td class="num ratio" data-v="295.48273030450304">295%</td></tr></tbody></table></div>
 <p class="note">Systems not shown: 20 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/franciscan-alliance-inc-35-1330472.html">Franciscan Alliance</a>, <a href="/reports/hospital-ceo-pay/system/indiana-university-health-north-hospital-inc-35-1932442.html">Indiana University Health North Hospital</a>, <a href="/reports/hospital-ceo-pay/system/indiana-university-health-bloomington-inc-35-1720796.html">Indiana University Health Bloomington</a>, <a href="/reports/hospital-ceo-pay/system/munster-medical-research-foundation-inc-35-1107009.html">Munster Medical Research Foundation</a>, <a href="/reports/hospital-ceo-pay/system/indiana-university-health-arnett-inc-26-3162145.html">Indiana University Health Arnett</a>, <a href="/reports/hospital-ceo-pay/system/indiana-university-health-ball-memorial-hospital-inc-35-0867958.html">Indiana University Health Ball Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/ascension-borgess-hospital-38-1360526.html">Ascension Borgess Hospital</a>, <a href="/reports/hospital-ceo-pay/system/saint-joseph-regional-medical-center-south-bend-campus-inc-35-0868157.html">Saint Joseph Regional Medical Center- South Bend Campus</a>, <a href="/reports/hospital-ceo-pay/system/st-mary-medical-center-inc-35-2007327.html">St Mary Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/community-hospital-south-inc-35-1088640.html">Community Hospital South</a>, <a href="/reports/hospital-ceo-pay/system/deaconess-memorial-medical-center-inc-35-0985964.html">Deaconess Memorial Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/community-howard-regional-health-inc-35-1865344.html">Community Howard Regional Health</a>, <a href="/reports/hospital-ceo-pay/system/community-hospital-of-anderson-and-madison-county-inc-35-1069822.html">Community Hospital of Anderson and Madison County</a>, <a href="/reports/hospital-ceo-pay/system/st-catherine-hospital-inc-35-1738708.html">St Catherine Hospital</a>, <a href="/reports/hospital-ceo-pay/system/gibson-general-hospital-35-0877575.html">Gibson General Hospital</a>, <a href="/reports/hospital-ceo-pay/system/saint-joseph-regional-medical-center-plymouth-campus-inc-35-1142669.html">Saint Joseph Regional Medical Center - Plymouth Campus</a>, <a href="/reports/hospital-ceo-pay/system/community-stroke-and-rehabilitation-center-inc-82-0854709.html">Community Stroke and Rehabilitation Center</a>, <a href="/reports/hospital-ceo-pay/system/uchicago-medicine-northwest-indiana-inc-92-2355855.html">Uchicago Medicine Northwest Indiana</a>, <a href="/reports/hospital-ceo-pay/system/northeastern-center-inc-35-1403134.html">Northeastern Center</a>, <a href="/reports/hospital-ceo-pay/system/franciscan-beacon-hospital-llc-83-2457155.html">Franciscan Beacon Hospital</a>.</p>
+<h2><span class="n">&sect;</span>Share</h2>
+<div class="sharebox"><img src="/reports/hospital-ceo-pay/cards/state/IN.png" alt="Indiana nonprofit hospitals: CEO pay vs charity care" width="600" height="315">
+<div class="sharelinks">
+<p>This card is what appears when the link to this page is posted. Use it, the sentence, or the embed code. No permission needed; attribution is on the card.</p>
+<p><a class="btn" href="/reports/hospital-ceo-pay/cards/state/IN.png" download>Download card</a> <button class="btn ghost" data-copy="https://everythingisbroken.org/reports/hospital-ceo-pay/state/IN.html">Copy link</button> <button class="btn ghost" data-copy="Nonprofit hospital CEO pay vs charity care in Indiana, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/IN.html">Copy sentence</button> <button class="btn ghost" data-copy="&lt;a href=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/state/IN.html&quot;&gt;&lt;img src=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/IN.png&quot; alt=&quot;Indiana nonprofit hospitals: CEO pay vs charity care&quot; width=&quot;600&quot; height=&quot;315&quot; style=&quot;max-width:100%;height:auto&quot;&gt;&lt;/a&gt;">Copy embed code</button></p>
+<p class="note" style="margin:0">Nonprofit hospital CEO pay vs charity care in Indiana, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/IN.html</p>
+</div></div>
 <script>
 (function(){
   var tables=document.querySelectorAll('table.sortable');
@@ -256,10 +274,10 @@ footer p{margin:14px 0 0}
       r.hidden=!ok;});}
   if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
 })();
-</script></main>
+</script><script>document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){navigator.clipboard.writeText(b.dataset.copy).then(function(){var t=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=t},1400)})})});</script></main>
 <footer><div class="rule-single"></div>
 <div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
-<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-20 &middot; Built 2026-10-20</p>
+<p>Report No. 1, Annual Report, 2026 edition &middot; Data as of 2026-10-21 &middot; Built 2026-10-21</p>
 <p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to contact@everythingisbroken.org.</p>
 <p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate. Donations are not tax-deductible.</p>
 <p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>

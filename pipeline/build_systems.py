@@ -64,9 +64,11 @@ def pick_ceo(plist, object_id=None):
         t = p['title'] or ''
         if re.search(r'SCHEDULE O', t, re.I) and name in so:
             t = so[name]; p['title'] = t + ' [from Sch O]'
-        if 'former' in p['flags'] or re.search(r'\bFORMER\b|EMERIT', t, re.I): continue
+        if 'former' in p['flags'] or re.search(r'\bFORMER\b|EMERIT|RETIRED|\bFRMR\b|\bFMR\b', t, re.I): continue
         if EXCL_RE.search(t): continue
-        p['departed'] = bool(re.search(r'TERMED|TERM\.|THRU \d|THROUGH \d|\(TO \d|UNTIL \d', t, re.I))
+        # end-dated or interim titles yield to a current successor; start-dated titles (EFF, BEG, AS OF, START) are current
+        p['departed'] = bool(re.search(r'\bTERMED\b|\bTERM\b|\bTERM\.|\bTHRU\b|\bTHROUGH\b|\bUNTIL\b|\bTIL\b|\bENDED\b|\bEND\b|\bENDING\b|\(TO \d|\bTO \d{1,2}/|\bRESIGNED\b|\bDEPARTED\b', t, re.I))
+        p['interim'] = bool(re.search(r'\bINTERIM\b|\bINTERM\b|\bACTING\b', t, re.I))
         tot = p['org'] + p['rel'] + p['oth']
         if CEO_RE.search(t): cands.append((0, -tot, name, p))
         elif PRES_RE.search(t): cands.append((1, -tot, name, p))
@@ -77,9 +79,11 @@ def pick_ceo(plist, object_id=None):
     cands.sort()
     # A CEO whose title carries an end date (termed, through <date>) is kept only if no current
     # (undated) CEO-tier candidate exists; the departing CEO stands for a year with no successor listed.
+    # Order within the top tier: current and not interim, then interim (current at year end), then end-dated.
     top_tier = cands[0][0]
-    current = [c for c in cands if c[0] == top_tier and not c[3].get('departed')]
-    if current: cands = current + [c for c in cands if c not in current]
+    cur = [c for c in cands if c[0] == top_tier and not c[3].get('departed') and not c[3].get('interim')]
+    inter = [c for c in cands if c[0] == top_tier and not c[3].get('departed') and c[3].get('interim')]
+    if cur or inter: cands = cur + inter + [c for c in cands if c not in cur and c not in inter]
     tier, _, name, p = cands[0]
     conf = {0: 'ceo_title', 1: 'president_title', 2: 'administrator_title'}[tier]
     # if several CEO-titled people, note it

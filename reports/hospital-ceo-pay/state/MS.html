@@ -2,9 +2,13 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Mississippi hospitals - Everything Is Broken</title>
 <meta name="description" content="Nonprofit hospital systems in Mississippi ranked by CEO pay.">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Everything Is Broken">
+<meta property="og:title" content="Mississippi hospitals"><meta property="og:description" content="Nonprofit hospital systems in Mississippi ranked by CEO pay.">
+<meta property="og:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/MS.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://everythingisbroken.org/reports/hospital-ceo-pay/state/MS.html">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Mississippi hospitals"><meta name="twitter:description" content="Nonprofit hospital systems in Mississippi ranked by CEO pay."><meta name="twitter:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/MS.png">
 <link rel="icon" type="image/png" href="/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 :root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
 --serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
@@ -77,6 +81,13 @@ dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:
 .cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
 .cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.sharebox{display:grid;grid-template-columns:minmax(0,600px) 1fr;gap:22px;align-items:start;border:1px solid var(--ink);padding:18px;margin:22px 0;background:var(--surface)}
+.sharebox img{width:100%;height:auto;border:1px solid var(--border);display:block}
+.sharelinks p{margin:0 0 10px;font-size:.92rem}
+.sharelinks .btn{margin:4px 6px 4px 0;cursor:pointer;font-family:var(--mono)}
+button.btn{border:2px solid var(--ink);background:var(--ink);color:#fff}button.btn.ghost{background:transparent;color:var(--ink)}button.btn.ghost:hover{background:var(--ink);color:#fff}
+@media(max-width:800px){.sharebox{grid-template-columns:1fr}}
+.statelist{columns:3;column-gap:28px;font-size:.95rem}.statelist a{display:block;padding:3px 0;text-decoration:none}.statelist a:hover{text-decoration:underline}@media(max-width:640px){.statelist{columns:2}}
 .card{border:1px solid var(--ink);padding:22px}
 .card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
 .card p,.card li{font-size:.92rem}
@@ -105,8 +116,8 @@ footer p{margin:14px 0 0}
 <a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
 <h1>Everything Is Broken</h1>
 <div class="rule-double"></div>
-<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
-<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a><a href="/reports/hospital-ceo-pay/for-local-groups.html">For local groups</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; Annual Report, 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
 </header>
 <main>
 
@@ -115,7 +126,7 @@ footer p{margin:14px 0 0}
 <p class="lede">24 nonprofit hospital systems file from Mississippi. Median charity care: 3.53% of expenses.</p>
 <div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
 <div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and CEO</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="st dominic - jackson memorial hospital" data-ceo="evert kuiper" data-state="MS" data-kids="0">
-<td class="num">371</td>
+<td class="num">343</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/st-dominic-jackson-memorial-hospital-64-0303091.html">St Dominic - Jackson Memorial Hospital</a><span class="sub">Evert Kuiper</span></td>
 
 <td class="num" data-v="1212532.0">$1.2M</td>
@@ -123,7 +134,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.458170263673635">1.46%</td>
 <td class="num" data-v="8549063.0">$8.5M</td>
 <td class="num ratio" data-v="14.183215166387239">14%</td></tr><tr data-name="kemper cah" data-ceo="d larkin kennedy" data-state="MS" data-kids="0">
-<td class="num">580</td>
+<td class="num">550</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/kemper-cah-inc-27-1757642.html">Kemper Cah</a><span class="sub">D Larkin Kennedy</span></td>
 
 <td class="num" data-v="714433.0">$714,433</td>
@@ -131,7 +142,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.8109353635317946">1.81%</td>
 <td class="num" data-v="696580.0">$696,580</td>
 <td class="num ratio" data-v="102.56295041488414">103%</td></tr><tr data-name="singing river gulfport" data-ceo="laurin st pe" data-state="MS" data-kids="0">
-<td class="num">605</td>
+<td class="num">573</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/singing-river-gulfport-85-1538878.html">Singing River Gulfport</a><span class="sub">Laurin St Pe</span></td>
 
 <td class="num" data-v="675302.0">$675,302</td>
@@ -139,7 +150,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="11.56270380531082">11.56%</td>
 <td class="num" data-v="12104922.0">$12.1M</td>
 <td class="num ratio" data-v="5.578738962547631">6%</td></tr><tr data-name="mississippi baptist medical center" data-ceo="bobbie k ware" data-state="MS" data-kids="0">
-<td class="num">636</td>
+<td class="num">604</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/mississippi-baptist-medical-center-inc-64-0881013.html">Mississippi Baptist Medical Center</a><span class="sub">Bobbie K Ware</span></td>
 
 <td class="num" data-v="625060.0">$625,060</td>
@@ -147,7 +158,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="3.31547449724259">3.32%</td>
 <td class="num" data-v="19787024.0">$19.8M</td>
 <td class="num ratio" data-v="3.1589389086504367">3%</td></tr><tr data-name="kings daughters medical center" data-ceo="scott christensen" data-state="MS" data-kids="0">
-<td class="num">644</td>
+<td class="num">611</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/kings-daughters-medical-center-64-0333594.html">Kings Daughters Medical Center</a><span class="sub">Scott Christensen</span></td>
 
 <td class="num" data-v="610804.0">$610,804</td>
@@ -155,7 +166,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="3.9005081185728936">3.90%</td>
 <td class="num" data-v="4023034.0">$4.0M</td>
 <td class="num ratio" data-v="15.182670591399427">15%</td></tr><tr data-name="mississippi methodist hospital rehabilitation center" data-ceo="david l mcmillin" data-state="MS" data-kids="0">
-<td class="num">657</td>
+<td class="num">625</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/mississippi-methodist-hospital-rehabilitation-center-inc-23-7067206.html">Mississippi Methodist Hospital Rehabilitation Center</a><span class="sub">David L Mcmillin</span></td>
 
 <td class="num" data-v="598444.0">$598,444</td>
@@ -163,7 +174,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.574290007075928">0.57%</td>
 <td class="num" data-v="458690.0">$458,690</td>
 <td class="num ratio" data-v="130.4680721184242">130%</td></tr><tr data-name="methodist healthcare-olive branch hospital" data-ceo="david baytos" data-state="MS" data-kids="0">
-<td class="num">687</td>
+<td class="num">655</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/methodist-healthcare-olive-branch-hospital-64-0889822.html">Methodist Healthcare-Olive Branch Hospital</a><span class="sub">David Baytos</span></td>
 
 <td class="num" data-v="547273.0">$547,273</td>
@@ -171,7 +182,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="6.191385711943041">6.19%</td>
 <td class="num" data-v="7017581.0">$7.0M</td>
 <td class="num ratio" data-v="7.79859897591492">8%</td></tr><tr data-name="baptist memorial hospital-union county" data-ceo="anna k bishop" data-state="MS" data-kids="0">
-<td class="num">779</td>
+<td class="num">746</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/baptist-memorial-hospital-union-county-inc-63-0997281.html">Baptist Memorial Hospital-Union County</a><span class="sub">Anna K Bishop</span></td>
 
 <td class="num" data-v="438712.0">$438,712</td>
@@ -179,7 +190,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="4.992176653460574">4.99%</td>
 <td class="num" data-v="11255542.0">$11.3M</td>
 <td class="num ratio" data-v="3.897742107843407">4%</td></tr><tr data-name="baptist memorial hospital-desoto" data-ceo="brian k hogan" data-state="MS" data-kids="0">
-<td class="num">797</td>
+<td class="num">763</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/baptist-memorial-hospital-desoto-inc-64-0682111.html">Baptist Memorial Hospital-Desoto</a><span class="sub">Brian K Hogan</span></td>
 
 <td class="num" data-v="413996.0">$413,996</td>
@@ -187,7 +198,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="6.3949294105291195">6.39%</td>
 <td class="num" data-v="22084686.0">$22.1M</td>
 <td class="num ratio" data-v="1.8745840443463855">2%</td></tr><tr data-name="baptist memorial hospital- north mississippi" data-ceo="brian welton" data-state="MS" data-kids="0">
-<td class="num">807</td>
+<td class="num">773</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/baptist-memorial-hospital-north-mississippi-inc-64-0772726.html">Baptist Memorial Hospital- North Mississippi</a><span class="sub">Brian Welton</span></td>
 
 <td class="num" data-v="403714.0">$403,714</td>
@@ -195,7 +206,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="4.9878128397660415">4.99%</td>
 <td class="num" data-v="13417785.0">$13.4M</td>
 <td class="num ratio" data-v="3.008797651773374">3%</td></tr><tr data-name="baptist memorial hospital- golden triangle" data-ceo="robert coleman" data-state="MS" data-kids="0">
-<td class="num">819</td>
+<td class="num">785</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/baptist-memorial-hospital-golden-triangle-inc-62-1519754.html">Baptist Memorial Hospital- Golden Triangle</a><span class="sub">Robert Coleman</span></td>
 
 <td class="num" data-v="388552.0">$388,552</td>
@@ -203,7 +214,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="5.927183141483998">5.93%</td>
 <td class="num" data-v="15415647.0">$15.4M</td>
 <td class="num ratio" data-v="2.520504004794609">3%</td></tr><tr data-name="baptist medical center - leake" data-ceo="daryl weaver" data-state="MS" data-kids="0">
-<td class="num">914</td>
+<td class="num">883</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/baptist-medical-center-leake-inc-45-2896080.html">Baptist Medical Center - Leake</a><span class="sub">Daryl Weaver</span></td>
 
 <td class="num" data-v="290033.0">$290,033</td>
@@ -211,7 +222,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="5.323737403436327">5.32%</td>
 <td class="num" data-v="1222205.0">$1.2M</td>
 <td class="num ratio" data-v="23.730307108872896">24%</td></tr><tr data-name="anderson regional medical center" data-ceo="john g anderson" data-state="MS" data-kids="0">
-<td class="num">927</td>
+<td class="num">896</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/anderson-regional-medical-center-64-0362400.html">Anderson Regional Medical Center</a><span class="sub">John G Anderson</span></td>
 
 <td class="num" data-v="273518.0">$273,518</td>
@@ -219,7 +230,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="3.1013351742904685">3.10%</td>
 <td class="num" data-v="8418847.0">$8.4M</td>
 <td class="num ratio" data-v="3.2488771918529937">3%</td></tr><tr data-name="mississippi baptist health systems" data-ceo="allison schuler" data-state="MS" data-kids="0">
-<td class="num">1029</td>
+<td class="num">998</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/mississippi-baptist-health-systems-inc-64-0306253.html">Mississippi Baptist Health Systems</a><span class="sub">Allison Schuler</span></td>
 
 <td class="num" data-v="188121.0">$188,121</td>
@@ -227,7 +238,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="5.8789802314733395">5.88%</td>
 <td class="num" data-v="1261904.0">$1.3M</td>
 <td class="num ratio" data-v="14.907710887674499">15%</td></tr><tr data-name="winston county medical foundation" data-ceo="micahel nester" data-state="MS" data-kids="0">
-<td class="num">1045</td>
+<td class="num">1014</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/winston-county-medical-foundation-64-6010402.html">Winston County Medical Foundation</a><span class="sub">Micahel Nester</span></td>
 
 <td class="num" data-v="165611.0">$165,611</td>
@@ -235,7 +246,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="4.554329168588566">4.55%</td>
 <td class="num" data-v="1585627.0">$1.6M</td>
 <td class="num ratio" data-v="10.4445118555625">10%</td></tr><tr data-name="baptist medical center - yazoo" data-ceo="stefanie dendy" data-state="MS" data-kids="0">
-<td class="num">1050</td>
+<td class="num">1019</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/baptist-medical-center-yazoo-inc-64-0844470.html">Baptist Medical Center - Yazoo</a><span class="sub">Stefanie Dendy</span></td>
 
 <td class="num" data-v="162347.0">$162,347</td>
@@ -244,6 +255,13 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1769125.0">$1.8M</td>
 <td class="num ratio" data-v="9.176683388680845">9%</td></tr></tbody></table></div>
 <p class="note">Systems not shown: 8 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/north-mississippi-medical-center-inc-64-0662976.html">North Mississippi Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/clay-county-medical-corporation-64-0668465.html">Clay County Medical</a>, <a href="/reports/hospital-ceo-pay/system/rush-medical-foundation-64-0345119.html">Rush Medical Foundation</a>, <a href="/reports/hospital-ceo-pay/system/independent-healthcare-management-64-0770155.html">Independent Healthcare Management</a>, <a href="/reports/hospital-ceo-pay/system/laird-hospital-inc-20-1835779.html">Laird Hospital</a>, <a href="/reports/hospital-ceo-pay/system/rush-hospital-butler-inc-64-0655993.html">Rush Hospital - Butler</a>, <a href="/reports/hospital-ceo-pay/system/magee-benevolent-association-64-0324402.html">Magee Benevolent Association</a>, <a href="/reports/hospital-ceo-pay/system/rush-care-inc-64-0833381.html">Rush Care</a>.</p>
+<h2><span class="n">&sect;</span>Share</h2>
+<div class="sharebox"><img src="/reports/hospital-ceo-pay/cards/state/MS.png" alt="Mississippi nonprofit hospitals: CEO pay vs charity care" width="600" height="315">
+<div class="sharelinks">
+<p>This card is what appears when the link to this page is posted. Use it, the sentence, or the embed code. No permission needed; attribution is on the card.</p>
+<p><a class="btn" href="/reports/hospital-ceo-pay/cards/state/MS.png" download>Download card</a> <button class="btn ghost" data-copy="https://everythingisbroken.org/reports/hospital-ceo-pay/state/MS.html">Copy link</button> <button class="btn ghost" data-copy="Nonprofit hospital CEO pay vs charity care in Mississippi, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/MS.html">Copy sentence</button> <button class="btn ghost" data-copy="&lt;a href=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/state/MS.html&quot;&gt;&lt;img src=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/MS.png&quot; alt=&quot;Mississippi nonprofit hospitals: CEO pay vs charity care&quot; width=&quot;600&quot; height=&quot;315&quot; style=&quot;max-width:100%;height:auto&quot;&gt;&lt;/a&gt;">Copy embed code</button></p>
+<p class="note" style="margin:0">Nonprofit hospital CEO pay vs charity care in Mississippi, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/MS.html</p>
+</div></div>
 <script>
 (function(){
   var tables=document.querySelectorAll('table.sortable');
@@ -264,10 +282,10 @@ footer p{margin:14px 0 0}
       r.hidden=!ok;});}
   if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
 })();
-</script></main>
+</script><script>document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){navigator.clipboard.writeText(b.dataset.copy).then(function(){var t=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=t},1400)})})});</script></main>
 <footer><div class="rule-single"></div>
 <div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
-<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-20 &middot; Built 2026-10-20</p>
+<p>Report No. 1, Annual Report, 2026 edition &middot; Data as of 2026-10-21 &middot; Built 2026-10-21</p>
 <p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to contact@everythingisbroken.org.</p>
 <p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate. Donations are not tax-deductible.</p>
 <p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>

@@ -2,9 +2,13 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Iowa hospitals - Everything Is Broken</title>
 <meta name="description" content="Nonprofit hospital systems in Iowa ranked by CEO pay.">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Everything Is Broken">
+<meta property="og:title" content="Iowa hospitals"><meta property="og:description" content="Nonprofit hospital systems in Iowa ranked by CEO pay.">
+<meta property="og:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/IA.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://everythingisbroken.org/reports/hospital-ceo-pay/state/IA.html">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Iowa hospitals"><meta name="twitter:description" content="Nonprofit hospital systems in Iowa ranked by CEO pay."><meta name="twitter:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/IA.png">
 <link rel="icon" type="image/png" href="/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 :root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
 --serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
@@ -77,6 +81,13 @@ dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:
 .cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
 .cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.sharebox{display:grid;grid-template-columns:minmax(0,600px) 1fr;gap:22px;align-items:start;border:1px solid var(--ink);padding:18px;margin:22px 0;background:var(--surface)}
+.sharebox img{width:100%;height:auto;border:1px solid var(--border);display:block}
+.sharelinks p{margin:0 0 10px;font-size:.92rem}
+.sharelinks .btn{margin:4px 6px 4px 0;cursor:pointer;font-family:var(--mono)}
+button.btn{border:2px solid var(--ink);background:var(--ink);color:#fff}button.btn.ghost{background:transparent;color:var(--ink)}button.btn.ghost:hover{background:var(--ink);color:#fff}
+@media(max-width:800px){.sharebox{grid-template-columns:1fr}}
+.statelist{columns:3;column-gap:28px;font-size:.95rem}.statelist a{display:block;padding:3px 0;text-decoration:none}.statelist a:hover{text-decoration:underline}@media(max-width:640px){.statelist{columns:2}}
 .card{border:1px solid var(--ink);padding:22px}
 .card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
 .card p,.card li{font-size:.92rem}
@@ -105,8 +116,8 @@ footer p{margin:14px 0 0}
 <a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
 <h1>Everything Is Broken</h1>
 <div class="rule-double"></div>
-<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
-<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a><a href="/reports/hospital-ceo-pay/for-local-groups.html">For local groups</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; Annual Report, 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
 </header>
 <main>
 
@@ -115,7 +126,7 @@ footer p{margin:14px 0 0}
 <p class="lede">40 nonprofit hospital systems file from Iowa. Median charity care: 0.39% of expenses.</p>
 <div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
 <div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and CEO</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="catholic health initiatives - iowa" data-ceo="robert ritz" data-state="IA" data-kids="0">
-<td class="num">153</td>
+<td class="num">139</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/catholic-health-initiatives-iowa-corp-42-0680448.html">Catholic Health Initiatives - Iowa</a><span class="sub">Robert Ritz</span></td>
 
 <td class="num" data-v="2471013.0">$2.5M</td>
@@ -123,7 +134,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.43846828451677633">0.44%</td>
 <td class="num" data-v="8559386.0">$8.6M</td>
 <td class="num ratio" data-v="28.869045045988113">29%</td></tr><tr data-name="southeast iowa regional medical center" data-ceo="dr michael mccoy" data-state="IA" data-kids="0">
-<td class="num">398</td>
+<td class="num">368</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/southeast-iowa-regional-medical-center-inc-42-0680407.html">Southeast Iowa Regional Medical Center</a><span class="sub">Dr Michael Mccoy</span></td>
 
 <td class="num" data-v="1136923.0">$1.1M</td>
@@ -131,7 +142,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.0675378697217213">1.07%</td>
 <td class="num" data-v="4866544.0">$4.9M</td>
 <td class="num ratio" data-v="23.362020357773403">23%</td></tr><tr data-name="mercy medical center" data-ceo="timothy quinn md" data-state="IA" data-kids="0">
-<td class="num">539</td>
+<td class="num">509</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/mercy-medical-center-42-0698295.html">Mercy Medical Center</a><span class="sub">Timothy Quinn MD</span></td>
 
 <td class="num" data-v="818087.0">$818,087</td>
@@ -139,7 +150,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="3.614132236217074">3.61%</td>
 <td class="num" data-v="18979802.0">$19.0M</td>
 <td class="num ratio" data-v="4.310303131718656">4%</td></tr><tr data-name="henry county health center" data-ceo="teresa colgan" data-state="IA" data-kids="0">
-<td class="num">683</td>
+<td class="num">651</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/henry-county-health-center-inc-86-2701018.html">Henry County Health Center</a><span class="sub">Teresa Colgan</span></td>
 
 <td class="num" data-v="553203.0">$553,203</td>
@@ -147,7 +158,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.31563546196374914">0.32%</td>
 <td class="num" data-v="232778.0">$232,778</td>
 <td class="num ratio" data-v="237.65261321946235">238%</td></tr><tr data-name="pella regional health center" data-ceo="robert kroese" data-state="IA" data-kids="0">
-<td class="num">715</td>
+<td class="num">683</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/pella-regional-health-center-42-0842204.html">Pella Regional Health Center</a><span class="sub">Robert Kroese</span></td>
 
 <td class="num" data-v="510626.0">$510,626</td>
@@ -155,7 +166,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.33554398473071556">0.34%</td>
 <td class="num" data-v="499072.0">$499,072</td>
 <td class="num ratio" data-v="102.31509681969735">102%</td></tr><tr data-name="shenandoah medical center" data-ceo="matthew sells" data-state="IA" data-kids="0">
-<td class="num">818</td>
+<td class="num">784</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/shenandoah-medical-center-42-1101835.html">Shenandoah Medical Center</a><span class="sub">Matthew Sells</span></td>
 
 <td class="num" data-v="388716.0">$388,716</td>
@@ -163,7 +174,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.030350229508435543">0.03%</td>
 <td class="num" data-v="19000.0">$19,000</td>
 <td class="num ratio" data-v="2045.8736842105263">2046%</td></tr><tr data-name="sioux center health" data-ceo="cory nelson" data-state="IA" data-kids="0">
-<td class="num">844</td>
+<td class="num">810</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/sioux-center-health-42-0796764.html">Sioux Center Health</a><span class="sub">Cory Nelson</span></td>
 
 <td class="num" data-v="368120.0">$368,120</td>
@@ -171,7 +182,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.36113684739126617">0.36%</td>
 <td class="num" data-v="266000.0">$266,000</td>
 <td class="num ratio" data-v="138.39097744360902">138%</td></tr><tr data-name="st anthony regional hospital and nursing home" data-ceo="allen anderson" data-state="IA" data-kids="0">
-<td class="num">845</td>
+<td class="num">811</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/st-anthony-regional-hospital-and-nursing-home-42-0733472.html">St Anthony Regional Hospital and Nursing Home</a><span class="sub">Allen Anderson</span></td>
 
 <td class="num" data-v="367068.0">$367,068</td>
@@ -179,7 +190,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.2187012066320786">1.22%</td>
 <td class="num" data-v="1437000.0">$1.4M</td>
 <td class="num ratio" data-v="25.544050104384137">26%</td></tr><tr data-name="hegg memorial hospital d/b/a hegg health center" data-ceo="glenn zevenbergen" data-state="IA" data-kids="0">
-<td class="num">847</td>
+<td class="num">813</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/hegg-memorial-hospital-d-b-a-hegg-health-center-42-0932564.html">Hegg Memorial Hospital D/B/A Hegg Health Center</a><span class="sub">Glenn Zevenbergen</span></td>
 
 <td class="num" data-v="366507.0">$366,507</td>
@@ -187,7 +198,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.30516717193308346">0.31%</td>
 <td class="num" data-v="90000.0">$90,000</td>
 <td class="num ratio" data-v="407.23">407%</td></tr><tr data-name="burgess health center" data-ceo="lynn wold" data-state="IA" data-kids="0">
-<td class="num">919</td>
+<td class="num">888</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/burgess-health-center-42-0859940.html">Burgess Health Center</a><span class="sub">Lynn Wold</span></td>
 
 <td class="num" data-v="284367.0">$284,367</td>
@@ -195,7 +206,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.008279817194884045">0.01%</td>
 <td class="num" data-v="3000.0">$3,000</td>
 <td class="num ratio" data-v="9478.9">9479%</td></tr><tr data-name="loring hospital" data-ceo="matthew d johnson" data-state="IA" data-kids="0">
-<td class="num">943</td>
+<td class="num">912</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/loring-hospital-42-1418132.html">Loring Hospital</a><span class="sub">Matthew D Johnson</span></td>
 
 <td class="num" data-v="260624.0">$260,624</td>
@@ -203,7 +214,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.14079058751571724">0.14%</td>
 <td class="num" data-v="26591.0">$26,591</td>
 <td class="num ratio" data-v="980.1210936030988">980%</td></tr><tr data-name="ida county iowa community hospital" data-ceo="glen winekauf" data-state="IA" data-kids="0">
-<td class="num">977</td>
+<td class="num">946</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/ida-county-iowa-community-hospital-inc-42-0843389.html">Ida County Iowa Community Hospital</a><span class="sub">Glen Winekauf</span></td>
 
 <td class="num" data-v="231642.0">$231,642</td>
@@ -211,7 +222,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.023635461498424104">0.02%</td>
 <td class="num" data-v="7000.0">$7,000</td>
 <td class="num ratio" data-v="3309.171428571429">3309%</td></tr><tr data-name="osceola community hospital" data-ceo="joseph heitritter" data-state="IA" data-kids="0">
-<td class="num">997</td>
+<td class="num">967</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/osceola-community-hospital-inc-42-0890973.html">Osceola Community Hospital</a><span class="sub">Joseph Heitritter</span></td>
 
 <td class="num" data-v="214926.0">$214,926</td>
@@ -219,7 +230,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.14757302872686093">0.15%</td>
 <td class="num" data-v="25000.0">$25,000</td>
 <td class="num ratio" data-v="859.704">860%</td></tr><tr data-name="virginia gay hospital" data-ceo="tina eden" data-state="IA" data-kids="0">
-<td class="num">1006</td>
+<td class="num">976</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/virginia-gay-hospital-inc-42-1231996.html">Virginia Gay Hospital</a><span class="sub">Tina Eden</span></td>
 
 <td class="num" data-v="204871.0">$204,871</td>
@@ -227,23 +238,15 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.13090604986085566">0.13%</td>
 <td class="num" data-v="52000.0">$52,000</td>
 <td class="num ratio" data-v="393.9826923076923">394%</td></tr><tr data-name="community hospital" data-ceo="cristin hendrickson" data-state="IA" data-kids="0">
-<td class="num">1014</td>
+<td class="num">984</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/community-hospital-inc-42-0738969.html">Community Hospital</a><span class="sub">Cristin Hendrickson</span></td>
 
 <td class="num" data-v="198205.0">$198,205</td>
 <td class="num" data-v="18085474.0">$18.1M</td>
 <td class="num" data-v="0.1878865873288033">0.19%</td>
 <td class="num" data-v="33000.0">$33,000</td>
-<td class="num ratio" data-v="600.6212121212121">601%</td></tr><tr data-name="avera holy family" data-ceo="deb herzberg" data-state="IA" data-kids="0">
-<td class="num">1020</td>
-<td class="name"><a href="/reports/hospital-ceo-pay/system/avera-holy-family-42-0680370.html">Avera Holy Family</a><span class="sub">Deb Herzberg</span></td>
-
-<td class="num" data-v="190839.0">$190,839</td>
-<td class="num" data-v="38249103.0">$38.2M</td>
-<td class="num" data-v="0.51606912742547">0.52%</td>
-<td class="num" data-v="160947.0">$160,947</td>
-<td class="num ratio" data-v="118.57257358012265">119%</td></tr><tr data-name="manning regional healthcare center" data-ceo="shannon black" data-state="IA" data-kids="0">
-<td class="num">1033</td>
+<td class="num ratio" data-v="600.6212121212121">601%</td></tr><tr data-name="manning regional healthcare center" data-ceo="shannon black" data-state="IA" data-kids="0">
+<td class="num">1002</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/manning-regional-healthcare-center-39-1902797.html">Manning Regional Healthcare Center</a><span class="sub">Shannon Black</span></td>
 
 <td class="num" data-v="185889.0">$185,889</td>
@@ -251,7 +254,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.6711745427121272">0.67%</td>
 <td class="num" data-v="137000.0">$137,000</td>
 <td class="num ratio" data-v="135.685401459854">136%</td></tr><tr data-name="knoxville hospital and clinics" data-ceo="kevin kincaid" data-state="IA" data-kids="0">
-<td class="num">1046</td>
+<td class="num">1015</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/knoxville-hospital-and-clinics-90-0126510.html">Knoxville Hospital and Clinics</a><span class="sub">Kevin Kincaid</span></td>
 
 <td class="num" data-v="164364.0">$164,364</td>
@@ -259,15 +262,30 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.3940319474250567">0.39%</td>
 <td class="num" data-v="422829.0">$422,829</td>
 <td class="num ratio" data-v="38.87245198413543">39%</td></tr><tr data-name="central community hospital" data-ceo="brooke kensinger" data-state="IA" data-kids="0">
-<td class="num">1057</td>
+<td class="num">1027</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/central-community-hospital-42-0818642.html">Central Community Hospital</a><span class="sub">Brooke Kensinger</span></td>
 
 <td class="num" data-v="146028.0">$146,028</td>
 <td class="num" data-v="15816061.0">$15.8M</td>
 <td class="num" data-v="0.4661333723058247">0.47%</td>
 <td class="num" data-v="65831.0">$65,831</td>
-<td class="num ratio" data-v="221.82254560921146">222%</td></tr></tbody></table></div>
+<td class="num ratio" data-v="221.82254560921146">222%</td></tr><tr data-name="avera holy family" data-ceo="michelle majerus" data-state="IA" data-kids="0">
+<td class="num">1043</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/avera-holy-family-42-0680370.html">Avera Holy Family</a><span class="sub">Michelle Majerus</span></td>
+
+<td class="num" data-v="59279.0">$59,279</td>
+<td class="num" data-v="38249103.0">$38.2M</td>
+<td class="num" data-v="0.51606912742547">0.52%</td>
+<td class="num" data-v="160947.0">$160,947</td>
+<td class="num ratio" data-v="36.83137927392247">37%</td></tr></tbody></table></div>
 <p class="note">Systems not shown: 21 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/central-iowa-hospital-corporation-42-0680452.html">Central Iowa Hospital</a>, <a href="/reports/hospital-ceo-pay/system/mercy-health-services-iowa-corp-31-1373080.html">Mercy Health Services - Iowa</a>, <a href="/reports/hospital-ceo-pay/system/allen-memorial-hospital-corporation-42-0698265.html">Allen Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/st-luke-s-methodist-hospital-42-0504780.html">St Luke&#x27;S Methodist Hospital</a>, <a href="/reports/hospital-ceo-pay/system/covenant-medical-center-inc-42-1264647.html">Covenant Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/northwest-iowa-hospital-corporation-42-1019872.html">Northwest Iowa Hospital</a>, <a href="/reports/hospital-ceo-pay/system/trinity-regional-medical-center-42-1009175.html">Trinity Regional Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/jennie-edmundson-memorial-hospital-42-0680355.html">Jennie Edmundson Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/the-finley-hospital-42-0680354.html">The Finley Hospital</a>, <a href="/reports/hospital-ceo-pay/system/mercy-medical-center-clinton-inc-42-1336618.html">Mercy Medical Center - Clinton</a>, <a href="/reports/hospital-ceo-pay/system/grinnell-regional-medical-center-42-0933383.html">Grinnell Regional Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/st-luke-sjones-regional-medical-center-42-1487967.html">St Luke&#x27;Sjones Regional Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/sioux-valley-memorial-hospital-assocation-42-0707096.html">Sioux Valley Memorial Hospital Assocation</a>, <a href="/reports/hospital-ceo-pay/system/mercy-medical-center-centerville-42-0680308.html">Mercy Medical Center - Centerville</a>, <a href="/reports/hospital-ceo-pay/system/sartori-memorial-hospital-inc-42-0758901.html">Sartori Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/stewart-memorial-community-hospital-42-0860039.html">Stewart Memorial Community Hospital</a>, <a href="/reports/hospital-ceo-pay/system/mercy-medical-center-newton-42-1470935.html">Mercy Medical Center - Newton</a>, <a href="/reports/hospital-ceo-pay/system/mercy-hospital-of-franciscan-sisters-inc-42-1178403.html">Mercy Hospital of Franciscan Sisters</a>, <a href="/reports/hospital-ceo-pay/system/mercy-hospital-iowa-city-iowa-42-0680391.html">Mercy Hospital Iowa City Iowa</a>, <a href="/reports/hospital-ceo-pay/system/sumner-community-club-42-0670596.html">Sumner Community Club</a>, <a href="/reports/hospital-ceo-pay/system/baum-harmon-mercy-hospital-42-1500277.html">Baum Harmon Mercy Hospital</a>.</p>
+<h2><span class="n">&sect;</span>Share</h2>
+<div class="sharebox"><img src="/reports/hospital-ceo-pay/cards/state/IA.png" alt="Iowa nonprofit hospitals: CEO pay vs charity care" width="600" height="315">
+<div class="sharelinks">
+<p>This card is what appears when the link to this page is posted. Use it, the sentence, or the embed code. No permission needed; attribution is on the card.</p>
+<p><a class="btn" href="/reports/hospital-ceo-pay/cards/state/IA.png" download>Download card</a> <button class="btn ghost" data-copy="https://everythingisbroken.org/reports/hospital-ceo-pay/state/IA.html">Copy link</button> <button class="btn ghost" data-copy="Nonprofit hospital CEO pay vs charity care in Iowa, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/IA.html">Copy sentence</button> <button class="btn ghost" data-copy="&lt;a href=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/state/IA.html&quot;&gt;&lt;img src=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/IA.png&quot; alt=&quot;Iowa nonprofit hospitals: CEO pay vs charity care&quot; width=&quot;600&quot; height=&quot;315&quot; style=&quot;max-width:100%;height:auto&quot;&gt;&lt;/a&gt;">Copy embed code</button></p>
+<p class="note" style="margin:0">Nonprofit hospital CEO pay vs charity care in Iowa, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/IA.html</p>
+</div></div>
 <script>
 (function(){
   var tables=document.querySelectorAll('table.sortable');
@@ -288,10 +306,10 @@ footer p{margin:14px 0 0}
       r.hidden=!ok;});}
   if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
 })();
-</script></main>
+</script><script>document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){navigator.clipboard.writeText(b.dataset.copy).then(function(){var t=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=t},1400)})})});</script></main>
 <footer><div class="rule-single"></div>
 <div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
-<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-20 &middot; Built 2026-10-20</p>
+<p>Report No. 1, Annual Report, 2026 edition &middot; Data as of 2026-10-21 &middot; Built 2026-10-21</p>
 <p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to contact@everythingisbroken.org.</p>
 <p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate. Donations are not tax-deductible.</p>
 <p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>

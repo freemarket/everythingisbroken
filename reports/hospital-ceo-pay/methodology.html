@@ -2,9 +2,13 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Methodology - Everything Is Broken</title>
 <meta name="description" content="How the figures were taken from IRS filings, and the rules used.">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Everything Is Broken">
+<meta property="og:title" content="Methodology"><meta property="og:description" content="How the figures were taken from IRS filings, and the rules used.">
+<meta property="og:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/summary.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Methodology"><meta name="twitter:description" content="How the figures were taken from IRS filings, and the rules used."><meta name="twitter:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/summary.png">
 <link rel="icon" type="image/png" href="/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 :root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
 --serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
@@ -77,6 +81,13 @@ dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:
 .cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
 .cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.sharebox{display:grid;grid-template-columns:minmax(0,600px) 1fr;gap:22px;align-items:start;border:1px solid var(--ink);padding:18px;margin:22px 0;background:var(--surface)}
+.sharebox img{width:100%;height:auto;border:1px solid var(--border);display:block}
+.sharelinks p{margin:0 0 10px;font-size:.92rem}
+.sharelinks .btn{margin:4px 6px 4px 0;cursor:pointer;font-family:var(--mono)}
+button.btn{border:2px solid var(--ink);background:var(--ink);color:#fff}button.btn.ghost{background:transparent;color:var(--ink)}button.btn.ghost:hover{background:var(--ink);color:#fff}
+@media(max-width:800px){.sharebox{grid-template-columns:1fr}}
+.statelist{columns:3;column-gap:28px;font-size:.95rem}.statelist a{display:block;padding:3px 0;text-decoration:none}.statelist a:hover{text-decoration:underline}@media(max-width:640px){.statelist{columns:2}}
 .card{border:1px solid var(--ink);padding:22px}
 .card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
 .card p,.card li{font-size:.92rem}
@@ -105,8 +116,8 @@ footer p{margin:14px 0 0}
 <a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
 <h1>Everything Is Broken</h1>
 <div class="rule-double"></div>
-<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
-<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html">By state</a><a href="/reports/hospital-ceo-pay/methodology.html" class=on>Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a><a href="/reports/hospital-ceo-pay/for-local-groups.html">For local groups</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; Annual Report, 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html">By state</a><a href="/reports/hospital-ceo-pay/methodology.html" class=on>Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
 </header>
 <main>
 
@@ -115,8 +126,8 @@ footer p{margin:14px 0 0}
 <p class="lede">No figure here is an estimate. Each is copied from a form the hospital filed, or computed from such figures with the formula stated.</p>
 <h2>Source</h2><p>Every nonprofit hospital files IRS Form 990 with Schedule H. The IRS publishes every e-filed return as XML. This report reads the 2025 and 2026 releases (about 1.2 million filings), keeps the 19,245 that include Schedule H, and takes the latest fiscal year for each of the 2,306 filers. Each page links the filing it was built from.</p>
 <h2>CEO pay</h2><p>Form 990 Part VII, Section A lists officers, directors, key employees and the five highest-paid employees with three compensation columns: from the organization, from related organizations, and other compensation (deferred pay and benefits). CEO pay is the sum of the three. The chief executive is the person whose title contains CEO or chief executive and who is not marked former; where titles are ambiguous, the filing was read by hand and the decision recorded with its reason. Systems whose chief executive could not be identified from the filing are shown on their own pages but not ranked.</p>
-<h2>Charity care</h2><p>Schedule H Part I line 7a, "financial assistance at cost": free or discounted care given under the hospital's written financial assistance policy, valued at cost. Column (e), net of any grants received for it. The percentage of expenses is the figure the hospital itself filed in column (f). It excludes bad debt (Part III) and Medicaid shortfall (line 7b), which the IRS reports separately.</p>
-<h2>Systems</h2><p>Many systems file one return per hospital. Filings that report the same chief executive are combined into one system: revenue, expenses and charity care are summed and the chief executive is counted once. Every combination above $1 billion in revenue was checked by hand. A parent entity that files no Schedule H but pays the chief executive (Advocate Health, for example) is joined to its hospitals' filings.</p>
+<h2>Charity care</h2><p>Schedule H Part I line 7a, "financial assistance at cost": free or discounted care given under the hospital's written financial assistance policy, valued at cost. Column (e), net of any grants received for it. The percentage of expenses shown on this site is that figure divided by total expenses from Form 990 line 18, computed the same way for every system; the percentage the hospital itself entered in column (f) is published in the data files for comparison. It excludes bad debt (Part III) and Medicaid shortfall (line 7b), which the IRS reports separately.</p>
+<h2>Systems, and what one row is</h2><p>Many systems file one return per hospital. Filings that report the same chief executive are combined into one row: revenue, expenses and charity care are summed and the chief executive is counted once. Where a system's hospitals file under their own presidents, each hospital appears as its own row under its own president, and the parent's executives are attributed to no hospital. So a row is a filing, or a set of filings, with the chief executive that filing reports; it is not always the whole corporate system, and a hospital president's pay is compared only with that hospital's charity care. Where a filing reports a parent organization's executive rather than the hospital's own, the hospital is shown but excluded from CEO figures, with the reason in the data files. Every combination above $1 billion in revenue was checked by hand, as was every row on the headline list.</p>
 <h2>Children's hospitals</h2><p>Medicaid and CHIP cover most low-income children, so children's hospitals report little uncompensated care and appear at the bottom of any charity care ranking. They are shown in grey and can be hidden from any table.</p>
 <h2>What this report does not do</h2><p>It does not estimate the value of the tax exemption. It does not count public hospitals (county, state, veterans), which file no Form 990. It does not judge whether a chief executive is overpaid. It puts two of the hospital's own numbers beside each other.</p>
 <h2>Independent check</h2><p>CEO pay figures were compared against CEO Paycheck, which reads the same filings with its own method: of 129 systems present in both, 121 agree on the person and the dollar amount. The eight differences are explained in section 7 of the <a href="/reports/hospital-ceo-pay/manual.html">reproduction manual</a>.</p>
@@ -125,7 +136,7 @@ footer p{margin:14px 0 0}
 </div></main>
 <footer><div class="rule-single"></div>
 <div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
-<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-20 &middot; Built 2026-10-20</p>
+<p>Report No. 1, Annual Report, 2026 edition &middot; Data as of 2026-10-21 &middot; Built 2026-10-21</p>
 <p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to contact@everythingisbroken.org.</p>
 <p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate. Donations are not tax-deductible.</p>
 <p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>

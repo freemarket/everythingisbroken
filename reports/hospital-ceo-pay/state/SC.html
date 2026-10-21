@@ -2,9 +2,13 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>South Carolina hospitals - Everything Is Broken</title>
 <meta name="description" content="Nonprofit hospital systems in South Carolina ranked by CEO pay.">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Everything Is Broken">
+<meta property="og:title" content="South Carolina hospitals"><meta property="og:description" content="Nonprofit hospital systems in South Carolina ranked by CEO pay.">
+<meta property="og:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/SC.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://everythingisbroken.org/reports/hospital-ceo-pay/state/SC.html">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="South Carolina hospitals"><meta name="twitter:description" content="Nonprofit hospital systems in South Carolina ranked by CEO pay."><meta name="twitter:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/SC.png">
 <link rel="icon" type="image/png" href="/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 :root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
 --serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
@@ -77,6 +81,13 @@ dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:
 .cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
 .cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.sharebox{display:grid;grid-template-columns:minmax(0,600px) 1fr;gap:22px;align-items:start;border:1px solid var(--ink);padding:18px;margin:22px 0;background:var(--surface)}
+.sharebox img{width:100%;height:auto;border:1px solid var(--border);display:block}
+.sharelinks p{margin:0 0 10px;font-size:.92rem}
+.sharelinks .btn{margin:4px 6px 4px 0;cursor:pointer;font-family:var(--mono)}
+button.btn{border:2px solid var(--ink);background:var(--ink);color:#fff}button.btn.ghost{background:transparent;color:var(--ink)}button.btn.ghost:hover{background:var(--ink);color:#fff}
+@media(max-width:800px){.sharebox{grid-template-columns:1fr}}
+.statelist{columns:3;column-gap:28px;font-size:.95rem}.statelist a{display:block;padding:3px 0;text-decoration:none}.statelist a:hover{text-decoration:underline}@media(max-width:640px){.statelist{columns:2}}
 .card{border:1px solid var(--ink);padding:22px}
 .card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
 .card p,.card li{font-size:.92rem}
@@ -105,8 +116,8 @@ footer p{margin:14px 0 0}
 <a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
 <h1>Everything Is Broken</h1>
 <div class="rule-double"></div>
-<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
-<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a><a href="/reports/hospital-ceo-pay/for-local-groups.html">For local groups</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; Annual Report, 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
 </header>
 <main>
 
@@ -115,7 +126,7 @@ footer p{margin:14px 0 0}
 <p class="lede">11 nonprofit hospital systems file from South Carolina. Median charity care: 2.52% of expenses.</p>
 <div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
 <div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and CEO</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="prisma health-upstate" data-ceo="mark s o&#x27;halla" data-state="SC" data-kids="0">
-<td class="num">87</td>
+<td class="num">80</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/prisma-health-upstate-81-1723202.html">Prisma Health-Upstate</a><span class="sub">Mark S O&#x27;Halla</span></td>
 
 <td class="num" data-v="3807923.0">$3.8M</td>
@@ -123,7 +134,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="3.4555024845515496">3.46%</td>
 <td class="num" data-v="159160647.0">$159.2M</td>
 <td class="num ratio" data-v="2.392502840227836">2%</td></tr><tr data-name="anmed health" data-ceo="william kenley" data-state="SC" data-kids="0">
-<td class="num">193</td>
+<td class="num">174</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/anmed-health-57-0359174.html">Anmed Health</a><span class="sub">William Kenley</span></td>
 
 <td class="num" data-v="2115961.0">$2.1M</td>
@@ -131,23 +142,15 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.7138902772239955">1.71%</td>
 <td class="num" data-v="12952200.0">$13.0M</td>
 <td class="num ratio" data-v="16.336691836135948">16%</td></tr><tr data-name="conway hospital" data-ceo="brian argo" data-state="SC" data-kids="0">
-<td class="num">410</td>
+<td class="num">379</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/conway-hospital-inc-57-0314381.html">Conway Hospital</a><span class="sub">Brian Argo</span></td>
 
 <td class="num" data-v="1083093.0">$1.1M</td>
 <td class="num" data-v="416525532.0">$416.5M</td>
 <td class="num" data-v="4.131285454950046">4.13%</td>
 <td class="num" data-v="16161252.0">$16.2M</td>
-<td class="num ratio" data-v="6.701788945559415">7%</td></tr><tr data-name="bon secours-st francis xavier hospital" data-ceo="megan baker md" data-state="SC" data-kids="0">
-<td class="num">465</td>
-<td class="name"><a href="/reports/hospital-ceo-pay/system/bon-secours-st-francis-xavier-hospital-inc-57-1067254.html">Bon Secours-St Francis Xavier Hospital</a><span class="sub">Megan Baker MD</span></td>
-
-<td class="num" data-v="980327.0">$980,327</td>
-<td class="num" data-v="1451818191.0">$1.5B</td>
-<td class="num" data-v="2.651438478388921">2.65%</td>
-<td class="num" data-v="31203911.0">$31.2M</td>
-<td class="num ratio" data-v="3.141679900317624">3%</td></tr><tr data-name="georgetown memorial hospital" data-ceo="bruce bailey" data-state="SC" data-kids="0">
-<td class="num">532</td>
+<td class="num ratio" data-v="6.701788945559415">7%</td></tr><tr data-name="georgetown memorial hospital" data-ceo="bruce bailey" data-state="SC" data-kids="0">
+<td class="num">501</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/georgetown-memorial-hospital-57-0341194.html">Georgetown Memorial Hospital</a><span class="sub">Bruce Bailey</span></td>
 
 <td class="num" data-v="829249.0">$829,249</td>
@@ -155,15 +158,23 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.5252295452182733">0.53%</td>
 <td class="num" data-v="2493381.0">$2.5M</td>
 <td class="num ratio" data-v="33.25801391764836">33%</td></tr><tr data-name="hampton regional medical center" data-ceo="dave hamill" data-state="SC" data-kids="0">
-<td class="num">642</td>
+<td class="num">609</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/hampton-regional-medical-center-57-1017988.html">Hampton Regional Medical Center</a><span class="sub">Dave Hamill</span></td>
 
 <td class="num" data-v="613729.0">$613,729</td>
 <td class="num" data-v="40873048.0">$40.9M</td>
 <td class="num" data-v="2.4913841220819894">2.49%</td>
 <td class="num" data-v="868563.0">$868,563</td>
-<td class="num ratio" data-v="70.66027449937425">71%</td></tr><tr data-name="prisma health - blount memorial hospital" data-ceo="george h naramore" data-state="SC" data-kids="0">
-<td class="num">1063</td>
+<td class="num ratio" data-v="70.66027449937425">71%</td></tr><tr data-name="bon secours-st francis xavier hospital" data-ceo="joseph deleon" data-state="SC" data-kids="0">
+<td class="num">621</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/bon-secours-st-francis-xavier-hospital-inc-57-1067254.html">Bon Secours-St Francis Xavier Hospital</a><span class="sub">Joseph Deleon</span></td>
+
+<td class="num" data-v="602447.0">$602,447</td>
+<td class="num" data-v="1451818191.0">$1.5B</td>
+<td class="num" data-v="2.651438478388921">2.65%</td>
+<td class="num" data-v="31203911.0">$31.2M</td>
+<td class="num ratio" data-v="1.9306778563751192">2%</td></tr><tr data-name="prisma health - blount memorial hospital" data-ceo="george h naramore" data-state="SC" data-kids="0">
+<td class="num">1035</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/prisma-health-blount-memorial-hospital-inc-62-0505512.html">Prisma Health - Blount Memorial Hospital</a><span class="sub">George H Naramore</span></td>
 
 <td class="num" data-v="120401.0">$120,401</td>
@@ -172,6 +183,13 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="5662072.0">$5.7M</td>
 <td class="num ratio" data-v="2.126447703243618">2%</td></tr></tbody></table></div>
 <p class="note">Systems not shown: 4 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/mcleod-regional-medical-center-of-the-pee-dee-inc-57-0370242.html">Mcleod Regional Medical Center of the Pee Dee</a>, <a href="/reports/hospital-ceo-pay/system/lexington-health-inc-85-2276567.html">Lexington Health</a>, <a href="/reports/hospital-ceo-pay/system/st-francis-hospital-inc-58-2504530.html">St Francis Hospital</a>, <a href="/reports/hospital-ceo-pay/system/self-regional-healthcare-partners-83-0893719.html">Self Regional Healthcare Partners</a>.</p>
+<h2><span class="n">&sect;</span>Share</h2>
+<div class="sharebox"><img src="/reports/hospital-ceo-pay/cards/state/SC.png" alt="South Carolina nonprofit hospitals: CEO pay vs charity care" width="600" height="315">
+<div class="sharelinks">
+<p>This card is what appears when the link to this page is posted. Use it, the sentence, or the embed code. No permission needed; attribution is on the card.</p>
+<p><a class="btn" href="/reports/hospital-ceo-pay/cards/state/SC.png" download>Download card</a> <button class="btn ghost" data-copy="https://everythingisbroken.org/reports/hospital-ceo-pay/state/SC.html">Copy link</button> <button class="btn ghost" data-copy="Nonprofit hospital CEO pay vs charity care in South Carolina, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/SC.html">Copy sentence</button> <button class="btn ghost" data-copy="&lt;a href=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/state/SC.html&quot;&gt;&lt;img src=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/SC.png&quot; alt=&quot;South Carolina nonprofit hospitals: CEO pay vs charity care&quot; width=&quot;600&quot; height=&quot;315&quot; style=&quot;max-width:100%;height:auto&quot;&gt;&lt;/a&gt;">Copy embed code</button></p>
+<p class="note" style="margin:0">Nonprofit hospital CEO pay vs charity care in South Carolina, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/SC.html</p>
+</div></div>
 <script>
 (function(){
   var tables=document.querySelectorAll('table.sortable');
@@ -192,10 +210,10 @@ footer p{margin:14px 0 0}
       r.hidden=!ok;});}
   if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
 })();
-</script></main>
+</script><script>document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){navigator.clipboard.writeText(b.dataset.copy).then(function(){var t=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=t},1400)})})});</script></main>
 <footer><div class="rule-single"></div>
 <div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
-<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-20 &middot; Built 2026-10-20</p>
+<p>Report No. 1, Annual Report, 2026 edition &middot; Data as of 2026-10-21 &middot; Built 2026-10-21</p>
 <p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to contact@everythingisbroken.org.</p>
 <p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate. Donations are not tax-deductible.</p>
 <p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>

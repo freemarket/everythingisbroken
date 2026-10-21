@@ -2,9 +2,13 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pennsylvania hospitals - Everything Is Broken</title>
 <meta name="description" content="Nonprofit hospital systems in Pennsylvania ranked by CEO pay.">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Everything Is Broken">
+<meta property="og:title" content="Pennsylvania hospitals"><meta property="og:description" content="Nonprofit hospital systems in Pennsylvania ranked by CEO pay.">
+<meta property="og:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/PA.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://everythingisbroken.org/reports/hospital-ceo-pay/state/PA.html">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Pennsylvania hospitals"><meta name="twitter:description" content="Nonprofit hospital systems in Pennsylvania ranked by CEO pay."><meta name="twitter:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/PA.png">
 <link rel="icon" type="image/png" href="/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 :root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
 --serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
@@ -77,6 +81,13 @@ dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:
 .cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
 .cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.sharebox{display:grid;grid-template-columns:minmax(0,600px) 1fr;gap:22px;align-items:start;border:1px solid var(--ink);padding:18px;margin:22px 0;background:var(--surface)}
+.sharebox img{width:100%;height:auto;border:1px solid var(--border);display:block}
+.sharelinks p{margin:0 0 10px;font-size:.92rem}
+.sharelinks .btn{margin:4px 6px 4px 0;cursor:pointer;font-family:var(--mono)}
+button.btn{border:2px solid var(--ink);background:var(--ink);color:#fff}button.btn.ghost{background:transparent;color:var(--ink)}button.btn.ghost:hover{background:var(--ink);color:#fff}
+@media(max-width:800px){.sharebox{grid-template-columns:1fr}}
+.statelist{columns:3;column-gap:28px;font-size:.95rem}.statelist a{display:block;padding:3px 0;text-decoration:none}.statelist a:hover{text-decoration:underline}@media(max-width:640px){.statelist{columns:2}}
 .card{border:1px solid var(--ink);padding:22px}
 .card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
 .card p,.card li{font-size:.92rem}
@@ -105,14 +116,14 @@ footer p{margin:14px 0 0}
 <a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
 <h1>Everything Is Broken</h1>
 <div class="rule-double"></div>
-<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
-<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a><a href="/reports/hospital-ceo-pay/for-local-groups.html">For local groups</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; Annual Report, 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
 </header>
 <main>
 
 <p class="doc-no">Report No. 1 &middot; 2026 edition &middot; <a href="/reports/hospital-ceo-pay/states.html">all states</a></p>
 <h1 class="title">Pennsylvania</h1>
-<p class="lede">78 nonprofit hospital systems file from Pennsylvania. Median charity care: 0.75% of expenses.</p>
+<p class="lede">77 nonprofit hospital systems file from Pennsylvania. Median charity care: 0.76% of expenses.</p>
 <div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
 <div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and CEO</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="upmc" data-ceo="leslie c davis" data-state="PA" data-kids="0">
 <td class="num">10</td>
@@ -131,7 +142,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.7325788842627289">0.73%</td>
 <td class="num" data-v="43106066.0">$43.1M</td>
 <td class="num ratio" data-v="22.540632680328564">23%</td></tr><tr class="kids" data-name="the children&#x27;s hospital of philadelphia" data-ceo="madeline bell" data-state="PA" data-kids="1">
-<td class="num">48</td>
+<td class="num">43</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/the-children-s-hospital-of-philadelphia-23-1352166.html">The Children&#x27;S Hospital of Philadelphia</a><span class="sub">Madeline Bell · children’s</span></td>
 
 <td class="num" data-v="5479580.0">$5.5M</td>
@@ -139,7 +150,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.17256832584705653">0.17%</td>
 <td class="num" data-v="6622372.0">$6.6M</td>
 <td class="num ratio" data-v="82.7434641243349">83%</td></tr><tr data-name="excela health" data-ceo="kenneth p defurio" data-state="PA" data-kids="0">
-<td class="num">94</td>
+<td class="num">86</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/excela-health-group-90-0759236.html">Excela Health</a><span class="sub">Kenneth P Defurio</span></td>
 
 <td class="num" data-v="3637924.0">$3.6M</td>
@@ -147,7 +158,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.244674004675499">1.24%</td>
 <td class="num" data-v="11141367.0">$11.1M</td>
 <td class="num ratio" data-v="32.652402528343245">33%</td></tr><tr data-name="penn medicine (university of pennsylvania)" data-ceo="kevin mahoney" data-state="PA" data-kids="0">
-<td class="num">103</td>
+<td class="num">95</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/trustees-of-the-university-of-pennsylvania-23-1352685.html">Penn Medicine (University of Pennsylvania)</a><span class="sub">Kevin Mahoney</span></td>
 
 <td class="num" data-v="3329164.0">$3.3M</td>
@@ -155,7 +166,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.22866105942086234">0.23%</td>
 <td class="num" data-v="25175402.0">$25.2M</td>
 <td class="num ratio" data-v="13.223876226484885">13%</td></tr><tr data-name="main line hospitals" data-ceo="john j lynch iii" data-state="PA" data-kids="0">
-<td class="num">105</td>
+<td class="num">97</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/main-line-hospitals-inc-23-1352160.html">Main Line Hospitals</a><span class="sub">John J Lynch III</span></td>
 
 <td class="num" data-v="3302622.0">$3.3M</td>
@@ -163,7 +174,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.32245602067410656">0.32%</td>
 <td class="num" data-v="6683801.0">$6.7M</td>
 <td class="num ratio" data-v="49.41233289261604">49%</td></tr><tr data-name="the milton s hershey medical center" data-ceo="stephen massini" data-state="PA" data-kids="0">
-<td class="num">108</td>
+<td class="num">100</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/the-milton-s-hershey-medical-center-25-1854772.html">The Milton S Hershey Medical Center</a><span class="sub">Stephen Massini</span></td>
 
 <td class="num" data-v="3235216.0">$3.2M</td>
@@ -171,7 +182,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.43329400111521293">0.43%</td>
 <td class="num" data-v="16408582.0">$16.4M</td>
 <td class="num ratio" data-v="19.71660927190418">20%</td></tr><tr data-name="millcreek community hospital" data-ceo="john m ferretti do" data-state="PA" data-kids="0">
-<td class="num">282</td>
+<td class="num">256</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/millcreek-community-hospital-25-1002937.html">Millcreek Community Hospital</a><span class="sub">John M Ferretti DO</span></td>
 
 <td class="num" data-v="1609483.0">$1.6M</td>
@@ -179,7 +190,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.6094437798119253">0.61%</td>
 <td class="num" data-v="810825.0">$810,825</td>
 <td class="num ratio" data-v="198.49942959331545">198%</td></tr><tr data-name="doylestown hospital" data-ceo="james l brexler fache" data-state="PA" data-kids="0">
-<td class="num">285</td>
+<td class="num">259</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/doylestown-hospital-23-1352174.html">Doylestown Hospital</a><span class="sub">James L Brexler FACHE</span></td>
 
 <td class="num" data-v="1594700.0">$1.6M</td>
@@ -187,7 +198,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.7215598743854954">0.72%</td>
 <td class="num" data-v="2823703.0">$2.8M</td>
 <td class="num ratio" data-v="56.47548626750051">56%</td></tr><tr data-name="the american oncologic hospital" data-ceo="dr robert uzzo" data-state="PA" data-kids="0">
-<td class="num">288</td>
+<td class="num">262</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/the-american-oncologic-hospital-23-1352156.html">The American Oncologic Hospital</a><span class="sub">Dr Robert Uzzo</span></td>
 
 <td class="num" data-v="1582504.0">$1.6M</td>
@@ -195,7 +206,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.11894672235899359">0.12%</td>
 <td class="num" data-v="388000.0">$388,000</td>
 <td class="num ratio" data-v="407.86185567010307">408%</td></tr><tr data-name="tower health" data-ceo="michael stern" data-state="PA" data-kids="0">
-<td class="num">294</td>
+<td class="num">268</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/tower-health-23-2201344.html">Tower Health</a><span class="sub">Michael Stern</span></td>
 
 <td class="num" data-v="1565707.0">$1.6M</td>
@@ -203,7 +214,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.262912014165903">2.26%</td>
 <td class="num" data-v="11313628.0">$11.3M</td>
 <td class="num ratio" data-v="13.839123930891134">14%</td></tr><tr data-name="st mary medical center" data-ceo="james woodward" data-state="PA" data-kids="0">
-<td class="num">308</td>
+<td class="num">282</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/st-mary-medical-center-23-1913910.html">St Mary Medical Center</a><span class="sub">James Woodward</span></td>
 
 <td class="num" data-v="1492517.0">$1.5M</td>
@@ -211,7 +222,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.7130136307170725">1.71%</td>
 <td class="num" data-v="16875123.0">$16.9M</td>
 <td class="num ratio" data-v="8.844480718747946">9%</td></tr><tr data-name="dubois regional medical center" data-ceo="steven m fontaine" data-state="PA" data-kids="0">
-<td class="num">325</td>
+<td class="num">298</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/dubois-regional-medical-center-25-1490707.html">Dubois Regional Medical Center</a><span class="sub">Steven M Fontaine</span></td>
 
 <td class="num" data-v="1404204.0">$1.4M</td>
@@ -219,7 +230,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.2914930395353765">0.29%</td>
 <td class="num" data-v="1917937.0">$1.9M</td>
 <td class="num ratio" data-v="73.21429223170522">73%</td></tr><tr data-name="lancaster general hospital" data-ceo="john j herman" data-state="PA" data-kids="0">
-<td class="num">356</td>
+<td class="num">329</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/lancaster-general-hospital-23-1365353.html">Lancaster General Hospital</a><span class="sub">John J Herman</span></td>
 
 <td class="num" data-v="1288283.0">$1.3M</td>
@@ -227,7 +238,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.6620617703687738">0.66%</td>
 <td class="num" data-v="10950778.0">$11.0M</td>
 <td class="num ratio" data-v="11.764305695905806">12%</td></tr><tr data-name="reading hospital" data-ceo="charles barbera md" data-state="PA" data-kids="0">
-<td class="num">366</td>
+<td class="num">338</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/reading-hospital-23-1352204.html">Reading Hospital</a><span class="sub">Charles Barbera MD</span></td>
 
 <td class="num" data-v="1229468.0">$1.2M</td>
@@ -235,7 +246,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="3.358079485447977">3.36%</td>
 <td class="num" data-v="45787330.0">$45.8M</td>
 <td class="num ratio" data-v="2.685170766672789">3%</td></tr><tr data-name="st clair health corporation" data-ceo="michael j flanagan" data-state="PA" data-kids="0">
-<td class="num">382</td>
+<td class="num">352</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/st-clair-health-corporation-group-return-61-1663540.html">St Clair Health Corporation</a><span class="sub">Michael J Flanagan</span></td>
 
 <td class="num" data-v="1185782.0">$1.2M</td>
@@ -243,7 +254,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.032984066348915">1.03%</td>
 <td class="num" data-v="4780054.0">$4.8M</td>
 <td class="num ratio" data-v="24.806874566688997">25%</td></tr><tr data-name="temple university hospital" data-ceo="abhinav rastogi" data-state="PA" data-kids="0">
-<td class="num">384</td>
+<td class="num">354</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/temple-university-hospital-inc-23-2825878.html">Temple University Hospital</a><span class="sub">Abhinav Rastogi</span></td>
 
 <td class="num" data-v="1176873.0">$1.2M</td>
@@ -251,7 +262,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.149918133166959">1.15%</td>
 <td class="num" data-v="30510993.0">$30.5M</td>
 <td class="num ratio" data-v="3.857209760429626">4%</td></tr><tr data-name="chester county hospital" data-ceo="lori gustave" data-state="PA" data-kids="0">
-<td class="num">404</td>
+<td class="num">374</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/chester-county-hospital-23-0469150.html">Chester County Hospital</a><span class="sub">Lori Gustave</span></td>
 
 <td class="num" data-v="1109479.0">$1.1M</td>
@@ -259,7 +270,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.316168130707921">1.32%</td>
 <td class="num" data-v="6495285.0">$6.5M</td>
 <td class="num ratio" data-v="17.081298203235114">17%</td></tr><tr data-name="indiana regional medical center" data-ceo="stephen a wolfe" data-state="PA" data-kids="0">
-<td class="num">419</td>
+<td class="num">388</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/indiana-regional-medical-center-25-0965404.html">Indiana Regional Medical Center</a><span class="sub">Stephen A Wolfe</span></td>
 
 <td class="num" data-v="1058151.0">$1.1M</td>
@@ -267,7 +278,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.5251153278913898">0.53%</td>
 <td class="num" data-v="1640115.0">$1.6M</td>
 <td class="num ratio" data-v="64.51687838962512">65%</td></tr><tr data-name="pennsylvania hospital of the university of pennsylvania health system" data-ceo="theresa m larivee" data-state="PA" data-kids="0">
-<td class="num">425</td>
+<td class="num">395</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/pennsylvania-hospital-of-the-university-of-pennsylvania-health-system-31-1538725.html">Pennsylvania Hospital of the University of Pennsylvania Health System</a><span class="sub">Theresa M Larivee</span></td>
 
 <td class="num" data-v="1041027.0">$1.0M</td>
@@ -275,7 +286,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.7741280983373336">0.77%</td>
 <td class="num" data-v="7289874.0">$7.3M</td>
 <td class="num ratio" data-v="14.280452583954126">14%</td></tr><tr data-name="meadville medical center" data-ceo="philip e pandolph" data-state="PA" data-kids="0">
-<td class="num">474</td>
+<td class="num">443</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/meadville-medical-center-25-1512436.html">Meadville Medical Center</a><span class="sub">Philip E Pandolph</span></td>
 
 <td class="num" data-v="955594.0">$955,594</td>
@@ -283,7 +294,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.4998335837083394">0.50%</td>
 <td class="num" data-v="1428441.0">$1.4M</td>
 <td class="num ratio" data-v="66.89768775889239">67%</td></tr><tr data-name="valley medical facilities" data-ceo="norman f mitry" data-state="PA" data-kids="0">
-<td class="num">484</td>
+<td class="num">454</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/valley-medical-facilities-inc-25-1801532.html">Valley Medical Facilities</a><span class="sub">Norman F Mitry</span></td>
 
 <td class="num" data-v="925862.0">$925,862</td>
@@ -291,7 +302,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="6.811554626887073">6.81%</td>
 <td class="num" data-v="28444827.0">$28.4M</td>
 <td class="num ratio" data-v="3.2549398173523785">3%</td></tr><tr data-name="presbyterian medical center of the university of pennsylvania health system" data-ceo="robert j russell mpanhafache" data-state="PA" data-kids="0">
-<td class="num">524</td>
+<td class="num">493</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/presbyterian-medical-center-of-the-university-of-pennsylvania-health-system-23-2.html">Presbyterian Medical Center of the University of Pennsylvania Health System</a><span class="sub">Robert J Russell Mpanhafache</span></td>
 
 <td class="num" data-v="843695.0">$843,695</td>
@@ -299,23 +310,15 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.5848062372147218">0.58%</td>
 <td class="num" data-v="8185128.0">$8.2M</td>
 <td class="num ratio" data-v="10.307657986533625">10%</td></tr><tr data-name="upmc washington" data-ceo="brook t ward" data-state="PA" data-kids="0">
-<td class="num">541</td>
+<td class="num">511</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/upmc-washington-25-0965600.html">UPMC Washington</a><span class="sub">Brook T Ward</span></td>
 
 <td class="num" data-v="811318.0">$811,318</td>
-<td class="num" data-v="276679026.0">$276.7M</td>
-<td class="num" data-v="0.15612403835842095">0.16%</td>
-<td class="num" data-v="406447.0">$406,447</td>
-<td class="num ratio" data-v="199.6122495675943">200%</td></tr><tr data-name="upmc greene" data-ceo="brook ward" data-state="PA" data-kids="0">
-<td class="num">542</td>
-<td class="name"><a href="/reports/hospital-ceo-pay/system/upmc-greene-47-3884840.html">UPMC Greene</a><span class="sub">Brook Ward</span></td>
-
-<td class="num" data-v="811318.0">$811,318</td>
-<td class="num" data-v="20630425.0">$20.6M</td>
-<td class="num" data-v="0.06363061168176891">0.06%</td>
-<td class="num" data-v="13112.0">$13,112</td>
-<td class="num ratio" data-v="6187.599145820623">6188%</td></tr><tr data-name="holy redeemer health system" data-ceo="michael b laign until 1024" data-state="PA" data-kids="0">
-<td class="num">548</td>
+<td class="num" data-v="297309451.0">$297.3M</td>
+<td class="num" data-v="0.14933987265752013">0.15%</td>
+<td class="num" data-v="419559.0">$419,559</td>
+<td class="num ratio" data-v="193.37399507578195">193%</td></tr><tr data-name="holy redeemer health system" data-ceo="michael b laign until 1024" data-state="PA" data-kids="0">
+<td class="num">517</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/holy-redeemer-health-system-23-1534300.html">Holy Redeemer Health System</a><span class="sub">Michael B Laign Until 1024</span></td>
 
 <td class="num" data-v="798107.0">$798,107</td>
@@ -323,7 +326,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.42058858024803186">0.42%</td>
 <td class="num" data-v="1640156.0">$1.6M</td>
 <td class="num ratio" data-v="48.66043230034216">49%</td></tr><tr data-name="grand view hospital" data-ceo="douglas hughes rn mba fache" data-state="PA" data-kids="0">
-<td class="num">549</td>
+<td class="num">518</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/grand-view-hospital-23-1352181.html">Grand View Hospital</a><span class="sub">Douglas Hughes RN MBA FACHE</span></td>
 
 <td class="num" data-v="795731.0">$795,731</td>
@@ -331,7 +334,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.27085567198675786">0.27%</td>
 <td class="num" data-v="940873.0">$940,873</td>
 <td class="num ratio" data-v="84.57368847867885">85%</td></tr><tr data-name="the good shepherd rehabilitation hospital" data-ceo="michael r spigel" data-state="PA" data-kids="0">
-<td class="num">571</td>
+<td class="num">541</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/the-good-shepherd-rehabilitation-hospital-23-1371947.html">The Good Shepherd Rehabilitation Hospital</a><span class="sub">Michael R Spigel</span></td>
 
 <td class="num" data-v="748271.0">$748,271</td>
@@ -339,7 +342,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.1036209808629476">0.10%</td>
 <td class="num" data-v="122073.0">$122,073</td>
 <td class="num ratio" data-v="612.9701080501012">613%</td></tr><tr data-name="warren general hospital" data-ceo="richard l allen" data-state="PA" data-kids="0">
-<td class="num">589</td>
+<td class="num">558</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/warren-general-hospital-25-0965598.html">Warren General Hospital</a><span class="sub">Richard L Allen</span></td>
 
 <td class="num" data-v="702665.0">$702,665</td>
@@ -347,7 +350,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.02838739727222224">0.03%</td>
 <td class="num" data-v="29708.0">$29,708</td>
 <td class="num ratio" data-v="2365.2383196445403">2365%</td></tr><tr data-name="robert packer hospital" data-ceo="joseph sawyer" data-state="PA" data-kids="0">
-<td class="num">648</td>
+<td class="num">615</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/robert-packer-hospital-24-0795463.html">Robert Packer Hospital</a><span class="sub">Joseph Sawyer</span></td>
 
 <td class="num" data-v="606062.0">$606,062</td>
@@ -355,7 +358,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.3959677969746718">2.40%</td>
 <td class="num" data-v="15773692.0">$15.8M</td>
 <td class="num ratio" data-v="3.8422330041692203">4%</td></tr><tr data-name="stc healthcare partners" data-ceo="robert brooks" data-state="PA" data-kids="0">
-<td class="num">705</td>
+<td class="num">673</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/stc-healthcare-partners-llc-84-3467958.html">Stc Healthcare Partners</a><span class="sub">Robert Brooks</span></td>
 
 <td class="num" data-v="518141.0">$518,141</td>
@@ -363,7 +366,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.363617876544395">2.36%</td>
 <td class="num" data-v="9332988.0">$9.3M</td>
 <td class="num ratio" data-v="5.551716127782442">6%</td></tr><tr data-name="armstrong county memorial hospital" data-ceo="nichole geraci" data-state="PA" data-kids="0">
-<td class="num">717</td>
+<td class="num">685</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/armstrong-county-memorial-hospital-25-0965237.html">Armstrong County Memorial Hospital</a><span class="sub">Nichole Geraci</span></td>
 
 <td class="num" data-v="506494.0">$506,494</td>
@@ -371,7 +374,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.27688232383868827">0.28%</td>
 <td class="num" data-v="422278.0">$422,278</td>
 <td class="num ratio" data-v="119.94326012721477">120%</td></tr><tr data-name="titusville area hospital" data-ceo="lee m clinton" data-state="PA" data-kids="0">
-<td class="num">756</td>
+<td class="num">724</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/titusville-area-hospital-25-0965579.html">Titusville Area Hospital</a><span class="sub">Lee M Clinton</span></td>
 
 <td class="num" data-v="464242.0">$464,242</td>
@@ -379,7 +382,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.9512684021622033">0.95%</td>
 <td class="num" data-v="579876.0">$579,876</td>
 <td class="num ratio" data-v="80.05884016582856">80%</td></tr><tr data-name="the behavioral wellness center at girard" data-ceo="gerri walker" data-state="PA" data-kids="0">
-<td class="num">758</td>
+<td class="num">726</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/the-behavioral-wellness-center-at-girard-23-2610538.html">The Behavioral Wellness Center at Girard</a><span class="sub">Gerri Walker</span></td>
 
 <td class="num" data-v="464012.0">$464,012</td>
@@ -387,7 +390,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.16903750659010558">0.17%</td>
 <td class="num" data-v="105775.0">$105,775</td>
 <td class="num ratio" data-v="438.67832663672897">439%</td></tr><tr data-name="montgomery county emergency service" data-ceo="william myers" data-state="PA" data-kids="0">
-<td class="num">763</td>
+<td class="num">731</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/montgomery-county-emergency-service-inc-23-1894907.html">Montgomery County Emergency Service</a><span class="sub">William Myers</span></td>
 
 <td class="num" data-v="457365.0">$457,365</td>
@@ -395,7 +398,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.8698255326028623">2.87%</td>
 <td class="num" data-v="524360.0">$524,360</td>
 <td class="num ratio" data-v="87.22347242352583">87%</td></tr><tr data-name="city of philadelphia trustee administering wills eye hospital" data-ceo="joseph p bilson" data-state="PA" data-kids="0">
-<td class="num">777</td>
+<td class="num">744</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/city-of-philadelphia-trustee-administering-wills-eye-hospital-23-6000204.html">City of Philadelphia Trustee Administering Wills Eye Hospital</a><span class="sub">Joseph P Bilson</span></td>
 
 <td class="num" data-v="441293.0">$441,293</td>
@@ -403,7 +406,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.9432620676301099">0.94%</td>
 <td class="num" data-v="551000.0">$551,000</td>
 <td class="num ratio" data-v="80.08947368421052">80%</td></tr><tr data-name="wayne memorial hospital" data-ceo="james pettinato" data-state="PA" data-kids="0">
-<td class="num">802</td>
+<td class="num">768</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/wayne-memorial-hospital-24-0798839.html">Wayne Memorial Hospital</a><span class="sub">James Pettinato</span></td>
 
 <td class="num" data-v="407931.0">$407,931</td>
@@ -411,7 +414,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.2505760509104174">0.25%</td>
 <td class="num" data-v="434748.0">$434,748</td>
 <td class="num ratio" data-v="93.83159899528002">94%</td></tr><tr data-name="windber hospital inc chan soon-shiong medical center windber" data-ceo="richard sukenik" data-state="PA" data-kids="0">
-<td class="num">843</td>
+<td class="num">809</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/windber-hospital-inc-chan-soon-shiong-medical-center-windber-25-1244202.html">Windber Hospital INC Chan Soon-Shiong Medical Center Windber</a><span class="sub">Richard Sukenik</span></td>
 
 <td class="num" data-v="368466.0">$368,466</td>
@@ -419,7 +422,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.104439801751812">2.10%</td>
 <td class="num" data-v="1360938.0">$1.4M</td>
 <td class="num ratio" data-v="27.074414852109353">27%</td></tr><tr data-name="fulton county medical center" data-ceo="michael makosky" data-state="PA" data-kids="0">
-<td class="num">862</td>
+<td class="num">831</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/fulton-county-medical-center-23-1401561.html">Fulton County Medical Center</a><span class="sub">Michael Makosky</span></td>
 
 <td class="num" data-v="342894.0">$342,894</td>
@@ -427,7 +430,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.02624060280962398">0.03%</td>
 <td class="num" data-v="16000.0">$16,000</td>
 <td class="num ratio" data-v="2143.0875">2143%</td></tr><tr data-name="chh community health" data-ceo="richard newell" data-state="PA" data-kids="0">
-<td class="num">894</td>
+<td class="num">862</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/chh-community-health-88-3577015.html">Chh Community Health</a><span class="sub">Richard Newell</span></td>
 
 <td class="num" data-v="308074.0">$308,074</td>
@@ -435,7 +438,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.3811425991109925">1.38%</td>
 <td class="num" data-v="2828714.0">$2.8M</td>
 <td class="num ratio" data-v="10.89095610231363">11%</td></tr><tr class="kids" data-name="the children&#x27;s home of pittsburgh" data-ceo="stacy schesler" data-state="PA" data-kids="1">
-<td class="num">1022</td>
+<td class="num">991</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/the-children-s-home-of-pittsburgh-25-0965292.html">The Children&#x27;S Home of Pittsburgh</a><span class="sub">Stacy Schesler · children’s</span></td>
 
 <td class="num" data-v="189837.0">$189,837</td>
@@ -443,7 +446,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="18.928224061979854">18.93%</td>
 <td class="num" data-v="3635498.0">$3.6M</td>
 <td class="num ratio" data-v="5.22176054009657">5%</td></tr><tr data-name="bucktail medical center" data-ceo="laura murnyack" data-state="PA" data-kids="0">
-<td class="num">1031</td>
+<td class="num">1000</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/bucktail-medical-center-24-0701920.html">Bucktail Medical Center</a><span class="sub">Laura Murnyack</span></td>
 
 <td class="num" data-v="187701.0">$187,701</td>
@@ -451,7 +454,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.013627253314243824">0.01%</td>
 <td class="num" data-v="1280.0">$1,280</td>
 <td class="num ratio" data-v="14664.140624999998">14664%</td></tr><tr data-name="endless mountains health systems" data-ceo="loren stone" data-state="PA" data-kids="0">
-<td class="num">1054</td>
+<td class="num">1024</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/endless-mountains-health-systems-inc-23-2720289.html">Endless Mountains Health Systems</a><span class="sub">Loren Stone</span></td>
 
 <td class="num" data-v="150448.0">$150,448</td>
@@ -460,6 +463,13 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="8810.0">$8,810</td>
 <td class="num ratio" data-v="1707.6958002270146">1708%</td></tr></tbody></table></div>
 <p class="note">Systems not shown: 35 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/lehigh-valley-hospital-23-1689692.html">Lehigh Valley Hospital</a>, <a href="/reports/hospital-ceo-pay/system/york-hospital-23-1352222.html">York Hospital</a>, <a href="/reports/hospital-ceo-pay/system/geisinger-medical-center-24-0795959.html">Geisinger Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/thomas-jefferson-university-hospitals-inc-23-2829095.html">Thomas Jefferson University Hospitals</a>, <a href="/reports/hospital-ceo-pay/system/upmc-pinnacle-hospitals-25-1778644.html">UPMC Pinnacle Hospitals</a>, <a href="/reports/hospital-ceo-pay/system/st-luke-s-hospital-of-bethlehem-pa-23-1352213.html">St Luke&#x27;S Hospital of Bethlehem Pa</a>, <a href="/reports/hospital-ceo-pay/system/albert-einstein-healthcare-network-group-letter-ruling-46-5338502.html">Albert Einstein Healthcare Network Group Letter Ruling</a>, <a href="/reports/hospital-ceo-pay/system/kennedy-university-hospital-inc-22-1773439.html">Kennedy University Hospital</a>, <a href="/reports/hospital-ceo-pay/system/abington-memorial-hospital-23-1352152.html">Abington Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/jefferson-health-northeast-23-0596940.html">Jefferson Health - Northeast</a>, <a href="/reports/hospital-ceo-pay/system/st-luke-s-hospital-anderson-campus-45-4394739.html">St Luke&#x27;S Hospital Anderson Campus</a>, <a href="/reports/hospital-ceo-pay/system/mount-nittany-medical-center-24-0795682.html">Mount Nittany Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/lehigh-valley-hospital-pocono-24-0795623.html">Lehigh Valley Hospital - Pocono</a>, <a href="/reports/hospital-ceo-pay/system/the-devereux-foundation-23-1390618.html">The Devereux Foundation</a>, <a href="/reports/hospital-ceo-pay/system/uniontown-hospital-25-0965588.html">Uniontown Hospital</a>, <a href="/reports/hospital-ceo-pay/system/st-luke-s-hospital-monroe-campus-46-5143606.html">St Luke&#x27;S Hospital Monroe Campus</a>, <a href="/reports/hospital-ceo-pay/system/lehigh-valley-hospital-hazleton-23-2421970.html">Lehigh Valley Hospital-Hazleton</a>, <a href="/reports/hospital-ceo-pay/system/st-luke-s-warren-hospital-inc-22-1494454.html">St Luke&#x27;S Warren Hospital</a>, <a href="/reports/hospital-ceo-pay/system/upmc-hanover-23-1360851.html">UPMC Hanover</a>, <a href="/reports/hospital-ceo-pay/system/st-luke-s-quakertown-hospital-23-1352203.html">St Luke&#x27;S Quakertown Hospital</a>, <a href="/reports/hospital-ceo-pay/system/lehigh-valley-hospital-schuylkill-23-1352202.html">Lehigh Valley Hospital - Schuylkill</a>, <a href="/reports/hospital-ceo-pay/system/carbon-schuylkill-community-hospital-inc-25-1550350.html">Carbon-Schuylkill Community Hospital</a>, <a href="/reports/hospital-ceo-pay/system/jc-blair-memorial-hospital-23-1352159.html">Jc Blair Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/monongahela-valley-hospital-inc-23-7218917.html">Monongahela Valley Hospital</a>, <a href="/reports/hospital-ceo-pay/system/lansdale-hospital-26-3359979.html">Lansdale Hospital</a>, <a href="/reports/hospital-ceo-pay/system/gsl-hospital-82-4432109.html">Gsl Hospital</a>, <a href="/reports/hospital-ceo-pay/system/st-luke-s-hospital-carbon-campus-86-1248931.html">St Luke&#x27;S Hospital - Carbon Campus</a>, <a href="/reports/hospital-ceo-pay/system/st-luke-s-hospital-easton-campus-84-4475996.html">St Luke&#x27;S Hospital - Easton Campus</a>, <a href="/reports/hospital-ceo-pay/system/abh-pennsylvania-childrens-services-inc-87-3801572.html">Abh Pennsylvania Childrens Services</a>, <a href="/reports/hospital-ceo-pay/system/allied-services-institute-of-rehabilitation-medicine-23-2523395.html">Allied Services Institute of Rehabilitation Medicine</a>, <a href="/reports/hospital-ceo-pay/system/eagleville-hospital-23-1352115.html">Eagleville Hospital</a>, <a href="/reports/hospital-ceo-pay/system/kidspeace-children-s-hospital-23-2654910.html">Kidspeace Children&#x27;S Hospital</a>, <a href="/reports/hospital-ceo-pay/system/lancaster-general-health-holdings-inc-20-4943109.html">Lancaster General Health Holdings</a>, <a href="/reports/hospital-ceo-pay/system/kensington-hospital-23-1381447.html">Kensington Hospital</a>, <a href="/reports/hospital-ceo-pay/system/geisinger-medical-center-muncy-85-1226106.html">Geisinger Medical Center Muncy</a>.</p>
+<h2><span class="n">&sect;</span>Share</h2>
+<div class="sharebox"><img src="/reports/hospital-ceo-pay/cards/state/PA.png" alt="Pennsylvania nonprofit hospitals: CEO pay vs charity care" width="600" height="315">
+<div class="sharelinks">
+<p>This card is what appears when the link to this page is posted. Use it, the sentence, or the embed code. No permission needed; attribution is on the card.</p>
+<p><a class="btn" href="/reports/hospital-ceo-pay/cards/state/PA.png" download>Download card</a> <button class="btn ghost" data-copy="https://everythingisbroken.org/reports/hospital-ceo-pay/state/PA.html">Copy link</button> <button class="btn ghost" data-copy="Nonprofit hospital CEO pay vs charity care in Pennsylvania, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/PA.html">Copy sentence</button> <button class="btn ghost" data-copy="&lt;a href=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/state/PA.html&quot;&gt;&lt;img src=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/PA.png&quot; alt=&quot;Pennsylvania nonprofit hospitals: CEO pay vs charity care&quot; width=&quot;600&quot; height=&quot;315&quot; style=&quot;max-width:100%;height:auto&quot;&gt;&lt;/a&gt;">Copy embed code</button></p>
+<p class="note" style="margin:0">Nonprofit hospital CEO pay vs charity care in Pennsylvania, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/PA.html</p>
+</div></div>
 <script>
 (function(){
   var tables=document.querySelectorAll('table.sortable');
@@ -480,10 +490,10 @@ footer p{margin:14px 0 0}
       r.hidden=!ok;});}
   if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
 })();
-</script></main>
+</script><script>document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){navigator.clipboard.writeText(b.dataset.copy).then(function(){var t=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=t},1400)})})});</script></main>
 <footer><div class="rule-single"></div>
 <div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
-<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-20 &middot; Built 2026-10-20</p>
+<p>Report No. 1, Annual Report, 2026 edition &middot; Data as of 2026-10-21 &middot; Built 2026-10-21</p>
 <p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to contact@everythingisbroken.org.</p>
 <p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate. Donations are not tax-deductible.</p>
 <p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>

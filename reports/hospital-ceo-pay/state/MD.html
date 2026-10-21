@@ -2,9 +2,13 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Maryland hospitals - Everything Is Broken</title>
 <meta name="description" content="Nonprofit hospital systems in Maryland ranked by CEO pay.">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Everything Is Broken">
+<meta property="og:title" content="Maryland hospitals"><meta property="og:description" content="Nonprofit hospital systems in Maryland ranked by CEO pay.">
+<meta property="og:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/MD.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://everythingisbroken.org/reports/hospital-ceo-pay/state/MD.html">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Maryland hospitals"><meta name="twitter:description" content="Nonprofit hospital systems in Maryland ranked by CEO pay."><meta name="twitter:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/MD.png">
 <link rel="icon" type="image/png" href="/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 :root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
 --serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
@@ -77,6 +81,13 @@ dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:
 .cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
 .cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.sharebox{display:grid;grid-template-columns:minmax(0,600px) 1fr;gap:22px;align-items:start;border:1px solid var(--ink);padding:18px;margin:22px 0;background:var(--surface)}
+.sharebox img{width:100%;height:auto;border:1px solid var(--border);display:block}
+.sharelinks p{margin:0 0 10px;font-size:.92rem}
+.sharelinks .btn{margin:4px 6px 4px 0;cursor:pointer;font-family:var(--mono)}
+button.btn{border:2px solid var(--ink);background:var(--ink);color:#fff}button.btn.ghost{background:transparent;color:var(--ink)}button.btn.ghost:hover{background:var(--ink);color:#fff}
+@media(max-width:800px){.sharebox{grid-template-columns:1fr}}
+.statelist{columns:3;column-gap:28px;font-size:.95rem}.statelist a{display:block;padding:3px 0;text-decoration:none}.statelist a:hover{text-decoration:underline}@media(max-width:640px){.statelist{columns:2}}
 .card{border:1px solid var(--ink);padding:22px}
 .card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
 .card p,.card li{font-size:.92rem}
@@ -105,8 +116,8 @@ footer p{margin:14px 0 0}
 <a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
 <h1>Everything Is Broken</h1>
 <div class="rule-double"></div>
-<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
-<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a><a href="/reports/hospital-ceo-pay/for-local-groups.html">For local groups</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; Annual Report, 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
 </header>
 <main>
 
@@ -115,7 +126,7 @@ footer p{margin:14px 0 0}
 <p class="lede">32 nonprofit hospital systems file from Maryland. Median charity care: 2.13% of expenses.</p>
 <div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
 <div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and CEO</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="carroll hospital center" data-ceo="neil m meltzer" data-state="MD" data-kids="0">
-<td class="num">75</td>
+<td class="num">69</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/carroll-hospital-center-inc-52-1452024.html">Carroll Hospital Center</a><span class="sub">Neil M Meltzer</span></td>
 
 <td class="num" data-v="4111501.0">$4.1M</td>
@@ -123,7 +134,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="3.1342466622743586">3.13%</td>
 <td class="num" data-v="8787310.0">$8.8M</td>
 <td class="num ratio" data-v="46.78907424456404">47%</td></tr><tr data-name="frederick health hospital" data-ceo="thomas a kleinhanzl" data-state="MD" data-kids="0">
-<td class="num">82</td>
+<td class="num">75</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/frederick-health-hospital-inc-52-0591612.html">Frederick Health Hospital</a><span class="sub">Thomas A Kleinhanzl</span></td>
 
 <td class="num" data-v="3982901.0">$4.0M</td>
@@ -131,7 +142,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="3.5124991737566202">3.51%</td>
 <td class="num" data-v="15085800.0">$15.1M</td>
 <td class="num ratio" data-v="26.401655861803814">26%</td></tr><tr data-name="university of maryland medical system" data-ceo="mohan suntha md" data-state="MD" data-kids="0">
-<td class="num">83</td>
+<td class="num">76</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/university-of-maryland-medical-system-corporation-52-1362793.html">University of Maryland Medical System</a><span class="sub">Mohan Suntha MD</span></td>
 
 <td class="num" data-v="3940617.0">$3.9M</td>
@@ -139,7 +150,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.8574542175212054">0.86%</td>
 <td class="num" data-v="38943903.0">$38.9M</td>
 <td class="num ratio" data-v="10.118700737314388">10%</td></tr><tr data-name="luminis health anne arundel medical center" data-ceo="victoria bayless" data-state="MD" data-kids="0">
-<td class="num">101</td>
+<td class="num">93</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/luminis-health-anne-arundel-medical-center-inc-52-1169362.html">Luminis Health Anne Arundel Medical Center</a><span class="sub">Victoria Bayless</span></td>
 
 <td class="num" data-v="3409414.0">$3.4M</td>
@@ -147,7 +158,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.994368393486121">1.99%</td>
 <td class="num" data-v="19548754.0">$19.5M</td>
 <td class="num ratio" data-v="17.440569358026604">17%</td></tr><tr data-name="sheppard pratt health system" data-ceo="harsh trivedi md mba" data-state="MD" data-kids="0">
-<td class="num">244</td>
+<td class="num">220</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/sheppard-pratt-health-system-inc-52-0591684.html">Sheppard Pratt Health System</a><span class="sub">Harsh Trivedi MD MBA</span></td>
 
 <td class="num" data-v="1778699.0">$1.8M</td>
@@ -155,7 +166,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.183651585584408">2.18%</td>
 <td class="num" data-v="7309294.0">$7.3M</td>
 <td class="num ratio" data-v="24.334757912323678">24%</td></tr><tr data-name="meritus medical center" data-ceo="maulik joshi dr ph" data-state="MD" data-kids="0">
-<td class="num">273</td>
+<td class="num">247</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/meritus-medical-center-inc-52-0607949.html">Meritus Medical Center</a><span class="sub">Maulik Joshi Dr Ph</span></td>
 
 <td class="num" data-v="1662052.0">$1.7M</td>
@@ -163,7 +174,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.91149809575854">2.91%</td>
 <td class="num" data-v="20825305.0">$20.8M</td>
 <td class="num ratio" data-v="7.980925129307829">8%</td></tr><tr data-name="tidalhealth peninsula regional" data-ceo="steven leonard" data-state="MD" data-kids="0">
-<td class="num">277</td>
+<td class="num">251</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/tidalhealth-peninsula-regional-inc-52-0591628.html">Tidalhealth Peninsula Regional</a><span class="sub">Steven Leonard</span></td>
 
 <td class="num" data-v="1650521.0">$1.7M</td>
@@ -171,7 +182,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.5601932592656186">0.56%</td>
 <td class="num" data-v="4586977.0">$4.6M</td>
 <td class="num ratio" data-v="35.98276163146229">36%</td></tr><tr data-name="adventist healthcare" data-ceo="john sackett" data-state="MD" data-kids="0">
-<td class="num">322</td>
+<td class="num">295</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/adventist-healthcare-inc-52-1532556.html">Adventist Healthcare</a><span class="sub">John Sackett</span></td>
 
 <td class="num" data-v="1408653.0">$1.4M</td>
@@ -179,7 +190,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.0297970412402706">2.03%</td>
 <td class="num" data-v="20070810.0">$20.1M</td>
 <td class="num ratio" data-v="7.018416297100118">7%</td></tr><tr data-name="greater baltimore medical center" data-ceo="john b chessare md" data-state="MD" data-kids="0">
-<td class="num">386</td>
+<td class="num">356</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/greater-baltimore-medical-center-inc-52-6049658.html">Greater Baltimore Medical Center</a><span class="sub">John B Chessare MD</span></td>
 
 <td class="num" data-v="1172384.0">$1.2M</td>
@@ -187,7 +198,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.6515511468594948">0.65%</td>
 <td class="num" data-v="4421094.0">$4.4M</td>
 <td class="num ratio" data-v="26.517961391456502">27%</td></tr><tr class="kids" data-name="kennedy krieger children&#x27;s hospital" data-ceo="bradley l schlaggar md phd" data-state="MD" data-kids="1">
-<td class="num">396</td>
+<td class="num">366</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/kennedy-krieger-children-s-hospital-inc-52-0607971.html">Kennedy Krieger Children&#x27;S Hospital</a><span class="sub">Bradley L Schlaggar MD PhD · children’s</span></td>
 
 <td class="num" data-v="1144459.0">$1.1M</td>
@@ -195,7 +206,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.3189732797923885">2.32%</td>
 <td class="num" data-v="6212088.0">$6.2M</td>
 <td class="num ratio" data-v="18.423097032752917">18%</td></tr><tr data-name="umsj health system" data-ceo="thomas b smyth md" data-state="MD" data-kids="0">
-<td class="num">454</td>
+<td class="num">425</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/umsj-health-system-llc-46-2097818.html">Umsj Health System</a><span class="sub">Thomas B Smyth MD</span></td>
 
 <td class="num" data-v="995604.0">$995,604</td>
@@ -203,7 +214,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.7403299061797755">0.74%</td>
 <td class="num" data-v="4474616.0">$4.5M</td>
 <td class="num ratio" data-v="22.25004335567566">22%</td></tr><tr data-name="calverthealth medical center" data-ceo="jeremy s bradford" data-state="MD" data-kids="0">
-<td class="num">470</td>
+<td class="num">439</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/calverthealth-medical-center-inc-52-0619000.html">Calverthealth Medical Center</a><span class="sub">Jeremy S Bradford</span></td>
 
 <td class="num" data-v="965242.0">$965,242</td>
@@ -211,7 +222,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.962831512741313">1.96%</td>
 <td class="num" data-v="3290864.0">$3.3M</td>
 <td class="num ratio" data-v="29.330959893815116">29%</td></tr><tr class="kids" data-name="mt washington pediatric hospital" data-ceo="scott klein" data-state="MD" data-kids="1">
-<td class="num">493</td>
+<td class="num">463</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/mt-washington-pediatric-hospital-inc-52-0591483.html">Mt Washington Pediatric Hospital</a><span class="sub">Scott Klein · children’s</span></td>
 
 <td class="num" data-v="916410.0">$916,410</td>
@@ -219,7 +230,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.4676968434492131">0.47%</td>
 <td class="num" data-v="357819.0">$357,819</td>
 <td class="num ratio" data-v="256.1099326754588">256%</td></tr><tr data-name="holy cross health" data-ceo="doug strong" data-state="MD" data-kids="0">
-<td class="num">550</td>
+<td class="num">519</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/holy-cross-health-inc-52-0738041.html">Holy Cross Health</a><span class="sub">Doug Strong</span></td>
 
 <td class="num" data-v="794025.0">$794,025</td>
@@ -227,7 +238,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2.9900226498752813">2.99%</td>
 <td class="num" data-v="21372958.0">$21.4M</td>
 <td class="num ratio" data-v="3.7150917528589162">4%</td></tr><tr data-name="shore health system" data-ceo="kenneth d kozel" data-state="MD" data-kids="0">
-<td class="num">564</td>
+<td class="num">534</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/shore-health-system-inc-52-0610538.html">Shore Health System</a><span class="sub">Kenneth D Kozel</span></td>
 
 <td class="num" data-v="765691.0">$765,691</td>
@@ -235,7 +246,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.8699499838136704">0.87%</td>
 <td class="num" data-v="2950385.0">$3.0M</td>
 <td class="num ratio" data-v="25.952240131372683">26%</td></tr><tr data-name="atlantic general hospital" data-ceo="donald owrey" data-state="MD" data-kids="0">
-<td class="num">579</td>
+<td class="num">549</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/atlantic-general-hospital-52-1656507.html">Atlantic General Hospital</a><span class="sub">Donald Owrey</span></td>
 
 <td class="num" data-v="718753.0">$718,753</td>
@@ -244,6 +255,13 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="503897.0">$503,897</td>
 <td class="num ratio" data-v="142.63887262674712">143%</td></tr></tbody></table></div>
 <p class="note">Systems not shown: 16 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/the-johns-hopkins-hospital-52-0591656.html">The Johns Hopkins Hospital</a>, <a href="/reports/hospital-ceo-pay/system/sinai-hospital-of-baltimore-inc-52-0486540.html">Sinai Hospital of Baltimore</a>, <a href="/reports/hospital-ceo-pay/system/johns-hopkins-all-children-s-hospital-inc-59-0683252.html">Johns Hopkins All Children&#x27;S Hospital</a>, <a href="/reports/hospital-ceo-pay/system/johns-hopkins-bayview-medical-center-inc-52-1341890.html">Johns Hopkins Bayview Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/the-union-memorial-hospital-52-0591685.html">The Union Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/mercy-medical-center-52-0591658.html">Mercy Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/franklin-square-hospital-center-inc-52-0608007.html">Franklin Square Hospital Center</a>, <a href="/reports/hospital-ceo-pay/system/suburban-hospital-inc-52-0610545.html">Suburban Hospital</a>, <a href="/reports/hospital-ceo-pay/system/upmc-western-maryland-corporation-52-0591531.html">UPMC Western Maryland</a>, <a href="/reports/hospital-ceo-pay/system/howard-county-general-hospital-inc-52-2093120.html">Howard County General Hospital</a>, <a href="/reports/hospital-ceo-pay/system/medstar-southern-md-hospital-center-inc-46-0726303.html">Medstar Southern MD Hospital Center</a>, <a href="/reports/hospital-ceo-pay/system/northwest-hospital-center-inc-52-1372665.html">Northwest Hospital Center</a>, <a href="/reports/hospital-ceo-pay/system/st-marys-hospital-of-st-marys-county-inc-52-0619006.html">St Marys Hospital of St Marys County</a>, <a href="/reports/hospital-ceo-pay/system/harbor-hospital-inc-52-0491660.html">Harbor Hospital</a>, <a href="/reports/hospital-ceo-pay/system/montgomery-general-hospital-inc-52-0646893.html">Montgomery General Hospital</a>, <a href="/reports/hospital-ceo-pay/system/levindale-hebrew-geriatric-center-and-hospital-inc-52-0607913.html">Levindale Hebrew Geriatric Center and Hospital</a>.</p>
+<h2><span class="n">&sect;</span>Share</h2>
+<div class="sharebox"><img src="/reports/hospital-ceo-pay/cards/state/MD.png" alt="Maryland nonprofit hospitals: CEO pay vs charity care" width="600" height="315">
+<div class="sharelinks">
+<p>This card is what appears when the link to this page is posted. Use it, the sentence, or the embed code. No permission needed; attribution is on the card.</p>
+<p><a class="btn" href="/reports/hospital-ceo-pay/cards/state/MD.png" download>Download card</a> <button class="btn ghost" data-copy="https://everythingisbroken.org/reports/hospital-ceo-pay/state/MD.html">Copy link</button> <button class="btn ghost" data-copy="Nonprofit hospital CEO pay vs charity care in Maryland, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/MD.html">Copy sentence</button> <button class="btn ghost" data-copy="&lt;a href=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/state/MD.html&quot;&gt;&lt;img src=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/MD.png&quot; alt=&quot;Maryland nonprofit hospitals: CEO pay vs charity care&quot; width=&quot;600&quot; height=&quot;315&quot; style=&quot;max-width:100%;height:auto&quot;&gt;&lt;/a&gt;">Copy embed code</button></p>
+<p class="note" style="margin:0">Nonprofit hospital CEO pay vs charity care in Maryland, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/MD.html</p>
+</div></div>
 <script>
 (function(){
   var tables=document.querySelectorAll('table.sortable');
@@ -264,10 +282,10 @@ footer p{margin:14px 0 0}
       r.hidden=!ok;});}
   if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
 })();
-</script></main>
+</script><script>document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){navigator.clipboard.writeText(b.dataset.copy).then(function(){var t=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=t},1400)})})});</script></main>
 <footer><div class="rule-single"></div>
 <div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
-<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-20 &middot; Built 2026-10-20</p>
+<p>Report No. 1, Annual Report, 2026 edition &middot; Data as of 2026-10-21 &middot; Built 2026-10-21</p>
 <p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to contact@everythingisbroken.org.</p>
 <p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate. Donations are not tax-deductible.</p>
 <p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>

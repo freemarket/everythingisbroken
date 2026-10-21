@@ -2,9 +2,13 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Vermont hospitals - Everything Is Broken</title>
 <meta name="description" content="Nonprofit hospital systems in Vermont ranked by CEO pay.">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Everything Is Broken">
+<meta property="og:title" content="Vermont hospitals"><meta property="og:description" content="Nonprofit hospital systems in Vermont ranked by CEO pay.">
+<meta property="og:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/VT.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://everythingisbroken.org/reports/hospital-ceo-pay/state/VT.html">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Vermont hospitals"><meta name="twitter:description" content="Nonprofit hospital systems in Vermont ranked by CEO pay."><meta name="twitter:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/VT.png">
 <link rel="icon" type="image/png" href="/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 :root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
 --serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
@@ -77,6 +81,13 @@ dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:
 .cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
 .cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
+.sharebox{display:grid;grid-template-columns:minmax(0,600px) 1fr;gap:22px;align-items:start;border:1px solid var(--ink);padding:18px;margin:22px 0;background:var(--surface)}
+.sharebox img{width:100%;height:auto;border:1px solid var(--border);display:block}
+.sharelinks p{margin:0 0 10px;font-size:.92rem}
+.sharelinks .btn{margin:4px 6px 4px 0;cursor:pointer;font-family:var(--mono)}
+button.btn{border:2px solid var(--ink);background:var(--ink);color:#fff}button.btn.ghost{background:transparent;color:var(--ink)}button.btn.ghost:hover{background:var(--ink);color:#fff}
+@media(max-width:800px){.sharebox{grid-template-columns:1fr}}
+.statelist{columns:3;column-gap:28px;font-size:.95rem}.statelist a{display:block;padding:3px 0;text-decoration:none}.statelist a:hover{text-decoration:underline}@media(max-width:640px){.statelist{columns:2}}
 .card{border:1px solid var(--ink);padding:22px}
 .card h3{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.1em}
 .card p,.card li{font-size:.92rem}
@@ -105,17 +116,17 @@ footer p{margin:14px 0 0}
 <a class="seal" href="/" aria-label="Everything Is Broken home"><img src="/logo.png" alt="Official Seal, Everything Is Broken (2026)"></a>
 <h1>Everything Is Broken</h1>
 <div class="rule-double"></div>
-<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a></nav>
-<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
+<nav class="site"><a href="/#main">Main</a><a href="/#reports" class=on>Reports</a><a href="/#data">Data</a><a href="/#contact">Contact</a><a href="/#about">About</a><a href="/#standards">Standards</a><a href="/reports/hospital-ceo-pay/for-local-groups.html">For local groups</a></nav>
+<div class="band"><span class="rep">Report No. 1 &middot; Nonprofit Hospital Executive Pay vs Charity Care &middot; Annual Report, 2026 edition</span><nav><a href="/reports/hospital-ceo-pay/">Ranking</a><a href="/reports/hospital-ceo-pay/all.html">Complete list</a><a href="/reports/hospital-ceo-pay/states.html" class=on>By state</a><a href="/reports/hospital-ceo-pay/methodology.html">Methodology</a><a href="/reports/hospital-ceo-pay/manual.html">Reproduction manual</a><a href="/reports/hospital-ceo-pay/data.html">Data files</a></nav></div>
 </header>
 <main>
 
 <p class="doc-no">Report No. 1 &middot; 2026 edition &middot; <a href="/reports/hospital-ceo-pay/states.html">all states</a></p>
 <h1 class="title">Vermont</h1>
-<p class="lede">15 nonprofit hospital systems file from Vermont. Median charity care: 0.98% of expenses.</p>
+<p class="lede">15 nonprofit hospital systems file from Vermont. Median charity care: 0.97% of expenses.</p>
 <div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
 <div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and CEO</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="the university of vermont medical center" data-ceo="dr sunil eappen" data-state="VT" data-kids="0">
-<td class="num">175</td>
+<td class="num">159</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/the-university-of-vermont-medical-center-03-0219309.html">The University of Vermont Medical Center</a><span class="sub">Dr Sunil Eappen</span></td>
 
 <td class="num" data-v="2235745.0">$2.2M</td>
@@ -123,7 +134,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.719892908903986">1.72%</td>
 <td class="num" data-v="41511080.0">$41.5M</td>
 <td class="num ratio" data-v="5.38589937915371">5%</td></tr><tr data-name="brattleboro memorial hospital" data-ceo="elizabeth mclarney md" data-state="VT" data-kids="0">
-<td class="num">481</td>
+<td class="num">451</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/brattleboro-memorial-hospital-03-0107300.html">Brattleboro Memorial Hospital</a><span class="sub">Elizabeth Mclarney MD</span></td>
 
 <td class="num" data-v="931943.0">$931,943</td>
@@ -131,7 +142,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.2968168052067247">0.30%</td>
 <td class="num" data-v="375635.0">$375,635</td>
 <td class="num ratio" data-v="248.09802068497345">248%</td></tr><tr data-name="rutland hospital" data-ceo="judi k fox" data-state="VT" data-kids="0">
-<td class="num">536</td>
+<td class="num">506</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/rutland-hospital-inc-03-0183483.html">Rutland Hospital</a><span class="sub">Judi K Fox</span></td>
 
 <td class="num" data-v="820052.0">$820,052</td>
@@ -139,23 +150,15 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.3460912591101877">1.35%</td>
 <td class="num" data-v="4850315.0">$4.9M</td>
 <td class="num ratio" data-v="16.90719056391183">17%</td></tr><tr data-name="southwestern vermont medical center" data-ceo="thomas a dee" data-state="VT" data-kids="0">
-<td class="num">543</td>
+<td class="num">512</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/southwestern-vermont-medical-center-22-2563241.html">Southwestern Vermont Medical Center</a><span class="sub">Thomas A Dee</span></td>
 
 <td class="num" data-v="806849.0">$806,849</td>
 <td class="num" data-v="240334825.0">$240.3M</td>
 <td class="num" data-v="0.5641670381688059">0.56%</td>
 <td class="num" data-v="1332239.0">$1.3M</td>
-<td class="num ratio" data-v="60.563382396101595">61%</td></tr><tr data-name="porter hospital" data-ceo="dr ramsey herrington" data-state="VT" data-kids="0">
-<td class="num">556</td>
-<td class="name"><a href="/reports/hospital-ceo-pay/system/porter-hospital-inc-03-0181058.html">Porter Hospital</a><span class="sub">Dr Ramsey Herrington</span></td>
-
-<td class="num" data-v="777218.0">$777,218</td>
-<td class="num" data-v="364149679.0">$364.1M</td>
-<td class="num" data-v="1.369590652427471">1.37%</td>
-<td class="num" data-v="4667694.0">$4.7M</td>
-<td class="num ratio" data-v="16.65100582857402">17%</td></tr><tr data-name="copley hospital" data-ceo="joseph woodin" data-state="VT" data-kids="0">
-<td class="num">667</td>
+<td class="num ratio" data-v="60.563382396101595">61%</td></tr><tr data-name="copley hospital" data-ceo="joseph woodin" data-state="VT" data-kids="0">
+<td class="num">635</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/copley-hospital-inc-03-0179423.html">Copley Hospital</a><span class="sub">Joseph Woodin</span></td>
 
 <td class="num" data-v="588440.0">$588,440</td>
@@ -163,7 +166,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.7711867795585601">0.77%</td>
 <td class="num" data-v="893690.0">$893,690</td>
 <td class="num ratio" data-v="65.84386084660228">66%</td></tr><tr data-name="north country hospital &amp; health center" data-ceo="thomas frank" data-state="VT" data-kids="0">
-<td class="num">729</td>
+<td class="num">697</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/north-country-hospital-health-center-inc-03-0185556.html">North Country Hospital &amp; Health Center</a><span class="sub">Thomas Frank</span></td>
 
 <td class="num" data-v="497314.0">$497,314</td>
@@ -171,7 +174,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="1.1555554847579297">1.16%</td>
 <td class="num" data-v="1334773.0">$1.3M</td>
 <td class="num ratio" data-v="37.25832032862517">37%</td></tr><tr data-name="northwestern medical center" data-ceo="peter wright" data-state="VT" data-kids="0">
-<td class="num">752</td>
+<td class="num">720</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/northwestern-medical-center-03-0266986.html">Northwestern Medical Center</a><span class="sub">Peter Wright</span></td>
 
 <td class="num" data-v="467038.0">$467,038</td>
@@ -179,23 +182,15 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.47334406429903425">0.47%</td>
 <td class="num" data-v="701833.0">$701,833</td>
 <td class="num ratio" data-v="66.54546024481608">67%</td></tr><tr data-name="gifford medical center" data-ceo="daniel bennett" data-state="VT" data-kids="0">
-<td class="num">780</td>
+<td class="num">747</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/gifford-medical-center-inc-03-0179418.html">Gifford Medical Center</a><span class="sub">Daniel Bennett</span></td>
 
 <td class="num" data-v="438236.0">$438,236</td>
 <td class="num" data-v="86130283.0">$86.1M</td>
 <td class="num" data-v="1.2666218792100032">1.27%</td>
 <td class="num" data-v="1033868.0">$1.0M</td>
-<td class="num ratio" data-v="42.388003110648555">42%</td></tr><tr data-name="carlos g otis health care center" data-ceo="douglas divello" data-state="VT" data-kids="0">
-<td class="num">791</td>
-<td class="name"><a href="/reports/hospital-ceo-pay/system/carlos-g-otis-health-care-center-03-0177161.html">Carlos G Otis Health Care Center</a><span class="sub">Douglas Divello</span></td>
-
-<td class="num" data-v="427091.0">$427,091</td>
-<td class="num" data-v="39893206.0">$39.9M</td>
-<td class="num" data-v="0.7368731083322859">0.74%</td>
-<td class="num" data-v="293294.0">$293,294</td>
-<td class="num ratio" data-v="145.6187306934339">146%</td></tr><tr data-name="northeastern vermont regional hosp" data-ceo="shawn tester" data-state="VT" data-kids="0">
-<td class="num">792</td>
+<td class="num ratio" data-v="42.388003110648555">42%</td></tr><tr data-name="northeastern vermont regional hosp" data-ceo="shawn tester" data-state="VT" data-kids="0">
+<td class="num">758</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/northeastern-vermont-regional-hosp-inc-03-6013761.html">Northeastern Vermont Regional Hosp</a><span class="sub">Shawn Tester</span></td>
 
 <td class="num" data-v="426214.0">$426,214</td>
@@ -203,7 +198,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="0.8140763260590899">0.81%</td>
 <td class="num" data-v="1121123.0">$1.1M</td>
 <td class="num ratio" data-v="38.01670289522202">38%</td></tr><tr data-name="brattleboro retreat" data-ceo="steven cummings" data-state="VT" data-kids="0">
-<td class="num">824</td>
+<td class="num">790</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/brattleboro-retreat-03-0107360.html">Brattleboro Retreat</a><span class="sub">Steven Cummings</span></td>
 
 <td class="num" data-v="385217.0">$385,217</td>
@@ -211,15 +206,30 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="4.323339663171644">4.32%</td>
 <td class="num" data-v="4081346.0">$4.1M</td>
 <td class="num ratio" data-v="9.438479364405762">9%</td></tr><tr data-name="springfield hospital" data-ceo="robert s adcock mba fache" data-state="VT" data-kids="0">
-<td class="num">827</td>
+<td class="num">793</td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/springfield-hospital-inc-03-0179437.html">Springfield Hospital</a><span class="sub">Robert S Adcock MBA FACHE</span></td>
 
 <td class="num" data-v="378977.0">$378,977</td>
 <td class="num" data-v="72243430.0">$72.2M</td>
 <td class="num" data-v="1.5026497434109274">1.50%</td>
 <td class="num" data-v="1060154.0">$1.1M</td>
-<td class="num ratio" data-v="35.74735368635123">36%</td></tr></tbody></table></div>
-<p class="note">Systems not shown: 2 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/central-vermont-medical-center-inc-22-2547186.html">Central Vermont Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/northeast-washington-county-community-health-inc-03-0240129.html">Northeast Washington County Community Health</a>.</p>
+<td class="num ratio" data-v="35.74735368635123">36%</td></tr><tr data-name="carlos g otis health care center" data-ceo="laure olivia sweetnam" data-state="VT" data-kids="0">
+<td class="num">954</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/carlos-g-otis-health-care-center-03-0177161.html">Carlos G Otis Health Care Center</a><span class="sub">Laure Olivia Sweetnam</span></td>
+
+<td class="num" data-v="225203.0">$225,203</td>
+<td class="num" data-v="39893206.0">$39.9M</td>
+<td class="num" data-v="0.7368731083322859">0.74%</td>
+<td class="num" data-v="293294.0">$293,294</td>
+<td class="num ratio" data-v="76.78404604253753">77%</td></tr></tbody></table></div>
+<p class="note">Systems not shown: 3 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/central-vermont-medical-center-inc-22-2547186.html">Central Vermont Medical Center</a>, <a href="/reports/hospital-ceo-pay/system/porter-hospital-inc-03-0181058.html">Porter Hospital</a>, <a href="/reports/hospital-ceo-pay/system/northeast-washington-county-community-health-inc-03-0240129.html">Northeast Washington County Community Health</a>.</p>
+<h2><span class="n">&sect;</span>Share</h2>
+<div class="sharebox"><img src="/reports/hospital-ceo-pay/cards/state/VT.png" alt="Vermont nonprofit hospitals: CEO pay vs charity care" width="600" height="315">
+<div class="sharelinks">
+<p>This card is what appears when the link to this page is posted. Use it, the sentence, or the embed code. No permission needed; attribution is on the card.</p>
+<p><a class="btn" href="/reports/hospital-ceo-pay/cards/state/VT.png" download>Download card</a> <button class="btn ghost" data-copy="https://everythingisbroken.org/reports/hospital-ceo-pay/state/VT.html">Copy link</button> <button class="btn ghost" data-copy="Nonprofit hospital CEO pay vs charity care in Vermont, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/VT.html">Copy sentence</button> <button class="btn ghost" data-copy="&lt;a href=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/state/VT.html&quot;&gt;&lt;img src=&quot;https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/VT.png&quot; alt=&quot;Vermont nonprofit hospitals: CEO pay vs charity care&quot; width=&quot;600&quot; height=&quot;315&quot; style=&quot;max-width:100%;height:auto&quot;&gt;&lt;/a&gt;">Copy embed code</button></p>
+<p class="note" style="margin:0">Nonprofit hospital CEO pay vs charity care in Vermont, from the hospitals&#x27; own IRS filings. https://everythingisbroken.org/reports/hospital-ceo-pay/state/VT.html</p>
+</div></div>
 <script>
 (function(){
   var tables=document.querySelectorAll('table.sortable');
@@ -240,10 +250,10 @@ footer p{margin:14px 0 0}
       r.hidden=!ok;});}
   if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
 })();
-</script></main>
+</script><script>document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){navigator.clipboard.writeText(b.dataset.copy).then(function(){var t=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=t},1400)})})});</script></main>
 <footer><div class="rule-single"></div>
 <div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
-<p>Report No. 1, 2026 edition &middot; Data as of 2026-10-20 &middot; Built 2026-10-20</p>
+<p>Report No. 1, Annual Report, 2026 edition &middot; Data as of 2026-10-21 &middot; Built 2026-10-21</p>
 <p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to contact@everythingisbroken.org.</p>
 <p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate. Donations are not tax-deductible.</p>
 <p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>
