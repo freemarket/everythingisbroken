@@ -27,7 +27,7 @@ PUBLISHER = 'Everything Is Broken'
 SUBLINE = ''
 SITE = 'https://everythingisbroken.org'
 EDITION = '2026'
-DATA_ASOF = '2026-10-21'        # date the IRS releases were pulled and the tables built
+DATA_ASOF = '2026-10-22'        # date the IRS releases were pulled and the tables built
 BUILD = datetime.date.today().isoformat()
 
 STATES = {'AL':'Alabama','AK':'Alaska','AZ':'Arizona','AR':'Arkansas','CA':'California','CO':'Colorado','CT':'Connecticut','DE':'Delaware','DC':'District of Columbia','FL':'Florida','GA':'Georgia','HI':'Hawaii','ID':'Idaho','IL':'Illinois','IN':'Indiana','IA':'Iowa','KS':'Kansas','KY':'Kentucky','LA':'Louisiana','ME':'Maine','MD':'Maryland','MA':'Massachusetts','MI':'Michigan','MN':'Minnesota','MS':'Mississippi','MO':'Missouri','MT':'Montana','NE':'Nebraska','NV':'Nevada','NH':'New Hampshire','NJ':'New Jersey','NM':'New Mexico','NY':'New York','NC':'North Carolina','ND':'North Dakota','OH':'Ohio','OK':'Oklahoma','OR':'Oregon','PA':'Pennsylvania','RI':'Rhode Island','SC':'South Carolina','SD':'South Dakota','TN':'Tennessee','TX':'Texas','UT':'Utah','VT':'Vermont','VA':'Virginia','WA':'Washington','WV':'West Virginia','WI':'Wisconsin','WY':'Wyoming','PR':'Puerto Rico'}
@@ -83,19 +83,19 @@ for s in S:
     s['members'] = [(e, F[e]) for e in s['member_eins'].split(';') if e in F]
 ranked = sorted([s for s in S if s['pub'] and s['pay']], key=lambda s: -s['pay'])
 for i, s in enumerate(ranked, 1): s['rank'] = i
-big = [s for s in ranked if (s['rev'] or 0) >= 1e9 and not s['kids']]
-MED_CC = st.median([s['ccp'] for s in big if s['ccp'] is not None]); MED_RATIO = st.median([s['ratio'] for s in big if s['ratio']])
-UNDER1 = sum(1 for s in big if s['ccp'] is not None and s['ccp'] < 1) / len(big) * 100
-OVER100 = [s for s in big if s['ratio'] and s['ratio'] >= 100]
 N_FILINGS = 19245  # Schedule H XML filings read from the 2025 and 2026 IRS releases (Reproduction manual, section 5)
 # headline group: general hospital systems with revenue over HEADLINE_MIN_REV, children's and specialty filers excluded
 XCL = {r['ein']: r for r in csv.DictReader(open(os.path.join(DATA, 'headline_exclusions.csv')))}
 for s in S: s['xcl'] = XCL.get(s['lead_ein'])
+big = [s for s in ranked if (s['rev'] or 0) >= 1e9 and not s['kids'] and not s['xcl']]   # general hospitals only, as in the headline
+MED_CC = st.median([s['ccp'] for s in big if s['ccp'] is not None]); MED_RATIO = st.median([s['ratio'] for s in big if s['ratio']])
+UNDER1 = sum(1 for s in big if s['ccp'] is not None and s['ccp'] < 1) / len(big) * 100
+OVER100 = [s for s in big if s['ratio'] and s['ratio'] >= 100]
 hl_all = [s for s in ranked if (s['rev'] or 0) >= HEADLINE_MIN_REV and not s['kids'] and not s['xcl'] and s['cc']]
 hl_over = sorted([s for s in hl_all if s['ratio'] and s['ratio'] > 100], key=lambda s: -s['pay'])
 HL_PAY = sum(s['pay'] for s in hl_over); HL_CC = sum(s['cc'] for s in hl_over)
-HEADLINE = f"{len(hl_over)} nonprofit hospital chief executives were paid more than their hospitals gave in charity care."
-HEADLINE_SUB = f"Among {len(hl_all):,} general hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million, by the hospitals' own IRS filings. Together the {len(hl_over)} were paid {money(HL_PAY)}; their hospitals gave {money(HL_CC)} to patients who could not pay."
+HEADLINE = f"{len(hl_over)} nonprofit hospital chief executives received more in reported compensation than their hospitals gave in charity care."
+HEADLINE_SUB = f"Among {len(hl_all):,} general hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million, by the hospitals' own IRS filings. Together the {len(hl_over)} reported {money(HL_PAY)} in compensation; their hospitals gave {money(HL_CC)} to patients who could not pay."
 
 # other chief executives (co-CEO, former CEO, executive chair) listed in the same filings
 _pp = defaultdict(lambda: defaultdict(lambda: {'org':0,'rel':0,'oth':0,'title':''}))
@@ -315,7 +315,7 @@ STATS = f"""<div class="stat-row">
 <div class="stat"><div class="v">{len(ranked):,}</div><div class="l">systems ranked, of {len(S):,} identified in {N_FILINGS:,} IRS Schedule H filings</div></div>
 <div class="stat"><div class="v">{MED_CC:.2f}%</div><div class="l">median share of expenses spent on charity care, systems over $1B</div></div>
 <div class="stat"><div class="v">{UNDER1:.0f}%</div><div class="l">of systems over $1B spend under one percent</div></div>
-<div class="stat"><div class="v red">{len(hl_over)}</div><div class="l">chief executives paid more than their hospital gave in charity care, hospitals over ${HEADLINE_MIN_REV/1e6:.0f}M</div></div>
+<div class="stat"><div class="v red">{len(hl_over)}</div><div class="l">chief executives whose reported compensation exceeded their hospital's charity care, hospitals over ${HEADLINE_MIN_REV/1e6:.0f}M</div></div>
 </div>"""
 
 
@@ -343,7 +343,7 @@ FINDINGS = f"""
 </div>
 {ftable(hl_over, ['sys','st','rev','cc','ccp','pay','ratio'])}
 <div class="prose">
-<p><strong>The biggest systems can do it. Most don't.</strong> Among the {len(giants)} systems with revenue over $10 billion, {E(kaiser['name'])} gave the most charity care in dollars ({money(kaiser['cc'])}) and the most as a share of expenses ({pct(kaiser['ccp'])}), and paid its chief executive, {E(kaiser['ceo'])}, {money(kaiser['pay'])}, which is {pct(kaiser['ratio'],1)} of that charity care, the lowest ratio of any system its size.{adv_txt} Same tax exemption, same filing, same line of the form.</p>
+<p><strong>The biggest systems can do it. Most don't.</strong> Among the {len(giants)} systems with revenue over $10 billion, {E(kaiser['name'])} gave the most charity care in dollars ({money(kaiser['cc'])}) and the most as a share of expenses ({pct(kaiser['ccp'])}), and reported {money(kaiser['pay'])} in compensation for its chief executive, {E(kaiser['ceo'])}, which is {pct(kaiser['ratio'],1)} of that charity care, the lowest ratio of any system its size.{adv_txt} Same tax exemption, same filing, same line of the form.</p>
 </div>
 {ftable(giants, ['sys','st','rev','cc','ccp','pay','ratio'])}
 <div class="prose">
@@ -365,7 +365,7 @@ top = ranked[:100]
 index = HEAD(REPORT_TITLE, HEADLINE + ' ' + f'{len(ranked)} nonprofit hospital systems ranked by CEO pay, beside what each spent on charity care, from their own IRS filings.', here=f'{BASE}/', url=f'{BASE}/') + f"""
 <p class="doc-no">Report No. {REPORT_NO} &middot; {EDITION} edition &middot; Data as of {DATA_ASOF}</p>
 <h1 class="title">{E(REPORT_TITLE)}</h1>
-<p class="lede">{HEADLINE} The median large system spends about one cent of every dollar on charity care and pays its chief executive {MED_RATIO:.0f} percent of that. Every figure on this page is from the hospital's own IRS Form 990, linked on every row.</p>
+<p class="lede">{HEADLINE} The median large system spends about one cent of every dollar on charity care and reports compensation for its chief executive equal to {MED_RATIO:.0f} percent of that. Every figure on this page is from the hospital's own IRS Form 990, linked on every row.</p>
 {STATS}
 <div class="sharebox"><img src="{BASE}/cards/summary.png" alt="Summary card" width="1200" height="630"><div class="sharelinks"><strong>Share this report.</strong> The card above is what appears when this page's link is posted. <a href="{BASE}/cards/summary.png" download>Download the card</a> &middot; <a href="{BASE}/press-kit.zip" download>Press kit</a> &middot; <a href="{BASE}/for-local-groups.html">For local groups</a></div></div>
 <h2><span class="n">&sect;1</span>Top 100 by CEO pay</h2>
@@ -381,7 +381,7 @@ index = HEAD(REPORT_TITLE, HEADLINE + ' ' + f'{len(ranked)} nonprofit hospital s
 <p><strong>CEO pay</strong> is total compensation reported on Form 990 Part VII: salary and bonus from the organization and its related organizations, plus deferred compensation and benefits (columns D, E and F). It is the figure the hospital's board approved and the hospital reported.</p>
 <p><strong>Charity care</strong> is Schedule H Part I line 7a: free or discounted care given under the hospital's own financial assistance policy, at the hospital's cost. It is not bad debt and not the Medicaid shortfall, which hospitals often add when they describe their community benefit publicly. The IRS form keeps them separate; so does this report.</p>
 <p>Hospitals usually describe their charity care at charges, the list prices on their chargemaster, which run several times what the care costs to deliver. The IRS does not accept that figure. Line 7a must be reported at cost, using either the hospital’s cost accounting system or its own ratio of total expenses to total charges, and net of any payment received for the care. When a hospital’s press release gives a larger charity-care number than this report, that is almost always the difference.</p>
-<p><strong>The ratio</strong> is CEO pay divided by charity care. At 100 percent, one person was paid as much as the system gave to every patient who could not pay.</p>
+<p><strong>The ratio</strong> is CEO pay divided by charity care. At 100 percent, one person's reported compensation equals what the system gave to every patient who could not pay. Reported compensation is Form 990 Part VII columns D, E and F: salary, bonus, deferred compensation as it vests, and benefits, not cash alone.</p>
 <p>A nonprofit hospital pays no federal income tax and, in nearly every state, no property or sales tax. The exemption is granted on the premise that the hospital serves the community in ways a business would not. This report puts two of the hospital's own numbers beside each other and lets the reader decide whether the premise holds.</p>
 </div>
 <h2><span class="n">&sect;4</span>Rebuttals</h2>
@@ -455,17 +455,17 @@ CARD_JOBS = []   # (path, html)
 top4 = hl_over[:5]
 CARD_JOBS.append(('summary.png', card_html(f"""
 <div class="title">{E(HEADLINE)}</div>
-<p class="sub">Among {len(hl_all):,} general hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million. Together the {len(hl_over)} were paid {money(HL_PAY)}; their hospitals gave {money(HL_CC)} to patients who could not pay.</p>
-<table>{''.join(f'<tr><td>{E(s["ceo"])} <span class="ceo">· {E(s["name"])}, {s["state"]}</span></td><td class="num">{money(s["pay"], False)} paid</td><td class="num">{money(s["cc"], False)} charity care</td><td class="num red">{s["ratio"]:.0f}%</td></tr>' for s in top4)}</table>
+<p class="sub">Among {len(hl_all):,} general hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million. Together the {len(hl_over)} reported {money(HL_PAY)} in compensation; their hospitals gave {money(HL_CC)} to patients who could not pay.</p>
+<table>{''.join(f'<tr><td>{E(s["ceo"])} <span class="ceo">· {E(s["name"])}, {s["state"]}</span></td><td class="num">{money(s["pay"], False)} compensation</td><td class="num">{money(s["cc"], False)} charity care</td><td class="num red">{s["ratio"]:.0f}%</td></tr>' for s in top4)}</table>
 {foot(f'Source: each hospital’s IRS Form 990 Schedule H · {len(ranked):,} systems ranked')}""")))
 # system cards
 def sys_card(s):
     fy = s['fye'] or ''
     ratio_txt = f"{s['ratio']:.0f}%" if s['ratio'] else 'n/a'
     rank_txt = f"Ranked {s['rank']} of {len(ranked):,} by CEO pay" if s.get('rank') else 'Not ranked'
-    if s['ratio'] and s['ratio'] > 100: say = f"{E(s['ceo'])} was paid {s['ratio']/100:.1f} times what the system gave in charity care to every patient who could not pay."
+    if s['ratio'] and s['ratio'] > 100: say = f"{E(s['ceo'])}'s reported compensation was {s['ratio']/100:.1f} times what the system gave in charity care to every patient who could not pay."
     elif s['ratio'] and s['ratio'] >= 15: say = f"{E(s['ceo'])}’s pay equals {s['ratio']:.0f} percent of all the charity care the system gave in the same year."
-    elif s['ratio']: say = f"For every dollar the system gave in charity care, it paid its chief executive {s['ratio']:.0f} cents."
+    elif s['ratio']: say = f"For every dollar the system gave in charity care, it reported {s['ratio']:.0f} cents of compensation for its chief executive."
     else: say = "The figures below are as filed; see the page for why this system is not ranked."
     return card_html(f"""
 <div class="title{' small' if len(s['name'])>34 else ''}">{E(s['name'])}</div>
@@ -489,9 +489,9 @@ def state_card(st_, lst):
     over_here = [s for s in hl_over if s['state'] == st_]
     general = sorted([s for s in lst if s in hl_all], key=lambda s: s['ccp'])
     if over_here:
-        rows_ = over_here[:5]; label = f"{len(over_here)} chief executive{'s' if len(over_here)!=1 else ''} paid more than the hospital gave in charity care" + (", the largest five:" if len(over_here) > 5 else ":")
+        rows_ = over_here[:5]; label = f"{len(over_here)} chief executive{'s' if len(over_here)!=1 else ''} with reported compensation above the hospital's charity care" + (", the largest five:" if len(over_here) > 5 else ":")
     else:
-        rows_ = general[:5]; label = "No chief executive was paid more than the hospital gave in charity care. The lowest charity care rates among general hospitals over $100 million:"
+        rows_ = general[:5]; label = "No chief executive's reported compensation exceeded the hospital's charity care. The lowest charity care rates among general hospitals over $100 million:"
     return card_html(f"""
 <div class="title">{E(STATES.get(st_, st_))}: {len(lst)} nonprofit hospital systems</div>
 <p class="sub">Median charity care {pct(med)} of expenses. {label}</p>
@@ -517,7 +517,7 @@ if os.environ.get('EIB_SKIP_CARDS') != '1':
 def sharebox(s=None, st_=None):
     if s is not None:
         url = f"{SITE}{BASE}/system/{s['slug']}.html"; img = f"{BASE}/cards/system/{s['slug']}.png"
-        sent = f"{s['name']} paid chief executive {s['ceo']} {money(s['pay'], False)} in the fiscal year ending {s['fye']}. It spent {pct(s['ccp'])} of expenses on charity care, {money(s['cc'], False)}. Source: its own IRS Form 990. {url}"
+        sent = f"{s['name']} reported {money(s['pay'], False)} in compensation for chief executive {s['ceo']} in the fiscal year ending {s['fye']}. It spent {pct(s['ccp'])} of expenses on charity care, {money(s['cc'], False)}. Source: its own IRS Form 990. {url}"
         alt = f"{s['name']}: CEO pay {money(s['pay'])}, charity care {pct(s['ccp'])} of expenses"
     else:
         url = f"{SITE}{BASE}/state/{st_}.html"; img = f"{BASE}/cards/state/{st_}.png"
@@ -541,7 +541,7 @@ for s in S:
     ratio_txt = f"{s['ratio']:.0f}%" if s['ratio'] else 'n/a'
     callout = ''
     if s['ratio'] and s['ratio'] >= 100:
-        callout = f'<div class="callout">In the most recent filing year, {E(s["ceo"])} was paid {money(s["pay"], False)}. The system’s charity care for the same year was {money(s["cc"], False)}. One person was paid {s["ratio"]/100:.1f} times what the system gave to every patient who could not pay.</div>'
+        callout = f'<div class="callout">In the most recent filing year, {E(s["ceo"])}’s reported compensation was {money(s["pay"], False)}. The system’s charity care for the same year was {money(s["cc"], False)}. One person’s reported compensation was {s["ratio"]/100:.1f} times what the system gave to every patient who could not pay.</div>'
     elif s['ratio'] and s['ratio'] >= 15:
         callout = f'<div class="callout">{E(s["ceo"])}’s pay of {money(s["pay"], False)} equals {s["ratio"]:.0f} percent of the {money(s["cc"], False)} the system spent on charity care in the same year.</div>'
     note = ''
@@ -700,6 +700,7 @@ data = HEAD('Data files', 'Download the full dataset, the manual decisions, and 
 </ul>
 <h2>Version log</h2>
 <ul class="files">
+<li><span class="fn">{EDITION}.4</span> &middot; 2026-10-22<br>Corrections from an outside audit. (1) Weirton Medical Center: the chief executive for 2024 is John C. Frankovitch; his successor's title gives a start date after the year ended, and such titles no longer count for that year. (2) Dana-Farber: a senior advisor to the CEO had been taken as the CEO; titles that serve the chief executive are now excluded. (3) A system is no longer kept out of the ranking because one small member (10 percent of revenue or less) reports $0 on line 7a; this adds the Navicent group (GA). (4) Grant Memorial (WV) is no longer combined with Uniontown Hospital (PA): Uniontown's CEO sits on Grant's board ex officio and is not Grant's CEO; this adds Uniontown. (5) Names that differ only by credentials or word order are joined (Adventist GlenOaks, Schuyler/Cayuga, AdventHealth Heartland). (6) Where the IRS releases hold two or three returns for the same year, only the last one filed is used. (7) Memorial Sloan Kettering and Dana-Farber, cancer centers, are left out of the headline and the large-system medians. (8) "Paid" is now "reported compensation": the Form 990 figure includes deferred compensation as it vests and benefits, not cash alone. {len(S):,} systems, {len(ranked):,} ranked; headline {len(hl_over)} of {len(hl_all):,}.</li>
 <li><span class="fn">{EDITION}.3</span> &middot; 2026-10-21<br>Audit of the full table, started from the list of systems where CEO pay exceeded charity care (98 before review) and extended to all ranked systems. Findings and fixes: (1) parent or regional executives reported on a subsidiary's return were being compared with that subsidiary's charity care; where the filings allow it the system is assembled (Mount Sinai, Adventist Health, WVU Health System, Northern Light, Monument Health, Banner Wyoming, CHI Health Nebraska Heart, Rady/CHOC) and where they do not the filer is excluded from CEO figures with the reason (SSM Regional, Touro, Calvary, Covenant Specialty, St Anthony's, Baptist Southeast Texas, Holy Cross Fort Lauderdale, Maple Grove, Cedars-Sinai Marina, Porter, Otero). (2) The same person was split into several rows by spelling: nine joins. (3) The chief-executive rule now excludes titles marked retired, FRMR or FMR, and a chief executive whose title carries an end date yields to a successor whose title carries a start date or is interim; 40 rows changed executive. (4) Two closed hospitals' wind-down years excluded. (5) Ten specialty filers listed in headline_exclusions.csv. (6) Narratives read for 64 filings with small line 7a; none reports charity care elsewhere. (7) Fifty filings re-parsed from XML: no mismatches. Open limitation: systems whose hospitals file under local presidents appear as separate rows; a shared-officer test found 129 such clusters, listed for the next edition. {len(S):,} systems, {len(ranked):,} ranked; headline {len(hl_over)} of {len(hl_all):,}.</li>
 <li><span class="fn">{EDITION}.2</span> &middot; 2026-10-20<br>Parkview Health (IN) assembled from its ten filings: the parent filer alone had shown $84,340 of charity care and a 4,360% ratio. 1,642 systems, 1,074 ranked. Ten rows added to rollup_overrides.csv with the filing evidence. No figures changed otherwise.</li>
 <li><span class="fn">{EDITION}.1</span> &middot; 2026-10-18<br>Initial release. 2025 and 2026 IRS releases; {N_FILINGS:,} Schedule H filings; {len(F):,} filers; 1,649 systems; 1,074 ranked.</li>
@@ -726,7 +727,7 @@ local = HEAD('For local groups and officeholders', 'How to use this report for y
 <h2><span class="n">&sect;3</span>What you can take</h2>
 <div class="prose">
 <p><strong>The card.</strong> Every system and every state has a 1200 by 630 image with its numbers, the fiscal year, the EIN and the source on it, so it survives being screenshotted and forwarded. Download it from the system's page, or just post the page's link: the card appears on its own.</p>
-<p><strong>The sentence.</strong> Each system page has a one-sentence version with the numbers and the link, ready to paste into a post, a newsletter, or a floor speech. It reads like this: <em>{E(hl_over[0]['name'])} paid chief executive {E(hl_over[0]['ceo'])} {money(hl_over[0]['pay'], False)} in the fiscal year ending {hl_over[0]['fye']}. It spent {pct(hl_over[0]['ccp'])} of expenses on charity care, {money(hl_over[0]['cc'], False)}. Source: its own IRS Form 990.</em></p>
+<p><strong>The sentence.</strong> Each system page has a one-sentence version with the numbers and the link, ready to paste into a post, a newsletter, or a floor speech. It reads like this: <em>{E(hl_over[0]['name'])} reported {money(hl_over[0]['pay'], False)} in compensation for chief executive {E(hl_over[0]['ceo'])} in the fiscal year ending {hl_over[0]['fye']}. It spent {pct(hl_over[0]['ccp'])} of expenses on charity care, {money(hl_over[0]['cc'], False)}. Source: its own IRS Form 990.</em></p>
 <p><strong>The embed.</strong> One line of HTML that puts the card on your site, linked to the page.</p>
 <p><strong>The data.</strong> The whole dataset is on the <a href="{BASE}/data.html">data page</a>, with a <a href="{BASE}/manual.html">manual</a> for rebuilding it, and a <a href="{BASE}/press-kit.zip" download>press kit</a> with the summary card and the list of {len(hl_over)} as a spreadsheet.</p>
 <h2><span class="n">&sect;4</span>If the hospital answers</h2>
@@ -803,7 +804,7 @@ BLOCKS = {
 <p class="text-sm text-gray-700 mb-4">{E(HEADLINE_SUB)}</p>
 {STATS}
 <ul class="list-disc list-outside ml-5 mb-5 text-sm space-y-1">
-<li>The largest of the {len(hl_over)}: {E(hl_over[0]['name'])} ({E(hl_over[0]['state'])}) paid {E(hl_over[0]['ceo'])} {money(hl_over[0]['pay'])} and gave {money(hl_over[0]['cc'])} to patients who could not pay.</li>
+<li>The largest of the {len(hl_over)}: {E(hl_over[0]['name'])} ({E(hl_over[0]['state'])}) reported {money(hl_over[0]['pay'])} in compensation for {E(hl_over[0]['ceo'])} and gave {money(hl_over[0]['cc'])} to patients who could not pay.</li>
 <li>{E(kaiser['name'])} shows the biggest systems can do it: {pct(kaiser['ccp'])} of expenses, {money(kaiser['cc'])}, the most of any system over $10 billion.{(' ' + E(advocate['name']) + ', at ' + pct(advocate['ccp']) + ', is near the bottom.') if advocate else ''}</li>
 <li>The highest rates are at large regional systems: {E(best[0]['name'])} ({best[0]['state']}) {pct(best[0]['ccp'])}, {E(best[1]['name'])} ({best[1]['state']}) {pct(best[1]['ccp'])}, {E(best[2]['name'])} ({best[2]['state']}) {pct(best[2]['ccp'])}.</li>
 </ul>
@@ -816,7 +817,7 @@ BLOCKS = {
 <h2 class="text-3xl font-bold mb-3"><a href="{BASE}/" class="hover:underline">{E(REPORT_TITLE)}</a></h2>
 <p class="text-xl font-bold leading-snug mb-2">{E(HEADLINE)}</p>
 <p class="text-sm text-gray-700 mb-4">{E(HEADLINE_SUB)}</p>
-<p class="mb-4">Annual. Built from <span class="fig">{N_FILINGS:,}</span> IRS Schedule H filings covering <span class="fig">{len(F):,}</span> filers, combined into <span class="fig">{len(S):,}</span> hospital systems, of which <span class="fig">{len(ranked):,}</span> have an identifiable chief executive and positive charity care and are ranked. The median large system spends <span class="fig">{MED_CC:.2f}</span> percent of expenses on charity care and pays its chief executive <span class="fig">{MED_RATIO:.0f}</span> percent of that amount.</p>
+<p class="mb-4">Annual. Built from <span class="fig">{N_FILINGS:,}</span> IRS Schedule H filings covering <span class="fig">{len(F):,}</span> filers, combined into <span class="fig">{len(S):,}</span> hospital systems, of which <span class="fig">{len(ranked):,}</span> have an identifiable chief executive and positive charity care and are ranked. The median large system spends <span class="fig">{MED_CC:.2f}</span> percent of expenses on charity care and reports compensation for its chief executive equal to <span class="fig">{MED_RATIO:.0f}</span> percent of that amount.</p>
 {STATS}
 <p class="mb-2 font-bold uppercase text-sm tracking-widest">Highest-paid CEOs (Top 10 of {len(ranked):,})</p>
 <p class="text-xs text-gray-600 mb-2">Click any column header to sort, or click a system to inspect its full IRS Form 990 filing breakdown.</p>

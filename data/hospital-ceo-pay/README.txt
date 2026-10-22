@@ -1,13 +1,13 @@
 Everything Is Broken
-Nonprofit Hospital Executive Pay vs Charity Care, Annual Report, 2026 edition. Data as of 2026-10-21.
+Nonprofit Hospital Executive Pay vs Charity Care, Annual Report, 2026 edition. Data as of 2026-10-22.
 https://everythingisbroken.org/reports/hospital-ceo-pay/
 
 HEADLINE
-75 nonprofit hospital chief executives were paid more than their hospitals gave in charity care. Among 667 general hospital systems with revenue over $100 million, by the hospitals' own IRS filings. Together the 75 were paid $85.8M; their hospitals gave $41.1M to patients who could not pay.
+77 nonprofit hospital chief executives received more in reported compensation than their hospitals gave in charity care. Among 672 general hospital systems with revenue over $100 million, by the hospitals' own IRS filings. Together the 77 reported $89.6M in compensation; their hospitals gave $43.9M to patients who could not pay.
 
 WHAT IS IN THIS KIT
 summary.png                         The headline card (1200 x 630), free to publish.
-ceo_pay_exceeds_charity_care.csv    The 75 systems, with CEO pay, charity care, the ratio, fiscal year, EIN, a link to the filing and a link to the page.
+ceo_pay_exceeds_charity_care.csv    The 77 systems, with CEO pay, charity care, the ratio, fiscal year, EIN, a link to the filing and a link to the page.
 method.txt                          The method in one page.
 
 DEFINITIONS

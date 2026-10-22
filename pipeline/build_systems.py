@@ -10,6 +10,18 @@ from collections import defaultdict
 SRC = '../hospital_data.csv'
 rows = [r for r in csv.DictReader(open(SRC)) if r['status'] == 'active' and r['retrieval_method'].startswith('IRS bulk')]
 
+# One return per (EIN, FYE). Late and amended filings put two or three returns for the same year in the
+# releases; mixing them could take a title from one, pay from another and financials from a third.
+# Keep the return filed last (source_doc carries the filing date), then the highest object ID.
+def _doc_key(doc):
+    m = re.search(r'filed (\d{4}-\d{2}-\d{2})', doc or ''); o = re.search(r'ObjectId (\d+)', doc or '')
+    return (m.group(1) if m else '', o.group(1) if o else '')
+_chosen = {}
+for r in rows:
+    k = (r['ein'], r['fiscal_year_end'])
+    if k not in _chosen or _doc_key(r['source_doc']) > _doc_key(_chosen[k]): _chosen[k] = r['source_doc']
+rows = [r for r in rows if r['source_doc'] == _chosen[(r['ein'], r['fiscal_year_end'])]]
+
 # group by (ein, fye)
 filings = defaultdict(dict); people = defaultdict(list); meta = {}
 for r in rows:
@@ -31,7 +43,15 @@ for (ein, fye) in filings:
 CEO_RE = re.compile(r'\bCEO\b|CHIEF EXEC|CHIEF EXECUTIVE', re.I)
 PRES_RE = re.compile(r'\bPRESIDENT\b', re.I)
 ADMIN_RE = re.compile(r'ADMINISTRATOR|EXECUTIVE DIRECTOR', re.I)
-EXCL_RE = re.compile(r'VICE PRES|\bVP\b|ASSISTANT|ASSOC|REGIONAL|DIVISION|FOUNDATION|AUXILIARY|MEDICAL STAFF|COACH|SEE SCHEDULE', re.I)
+EXCL_RE = re.compile(r'VICE PRES|\bVP\b|ASSISTANT|ASSOC|REGIONAL|DIVISION|FOUNDATION|AUXILIARY|MEDICAL STAFF|COACH|SEE SCHEDULE|ADVIS[OE]R TO|CHIEF OF STAFF|\bTO THE (PRES|CEO|CHIEF)|\bTO (PRES|CEO|CHIEF)', re.I)
+
+# Start date in a title ('CEO AS OF 1/2025', 'EFF 7/1/24', 'BEG 08/24', 'START 10/2024') as (year, month)
+START_RE = re.compile(r'\b(?:AS OF|EFF\.?|EFFECTIVE|BEG\.?|BEGINNING|BEGAN|START|STARTED|STARTING)\s*:?\s*(\d{1,2})/(?:\d{1,2}/)?(\d{2,4})\b', re.I)
+def start_after_fye(title, fye):
+    m = START_RE.search(title or '')
+    if not m or not fye: return False
+    mo, yr = int(m.group(1)), int(m.group(2)); yr += 2000 if yr < 100 else 0
+    return (yr, mo) > (int(fye[:4]), int(fye[5:7]))
 
 import parse_xml as _P, os as _os
 _so_cache = {}
@@ -44,9 +64,13 @@ def _so_titles(object_id):
             for p in d.get('people', []):
                 if p.get('sched_o_titles'): res[p['person']] = p['sched_o_titles']
         except Exception: pass
+    if not res and _os.path.exists('sch_o_titles_cache.csv'):
+        # Fallback when the raw XML is not on disk: Schedule O titles recovered by an earlier build
+        for c in csv.DictReader(open('sch_o_titles_cache.csv')):
+            if c['object_id'] == object_id: res[c['person']] = c['title']
     _so_cache[object_id] = res; return res
 
-def pick_ceo(plist, object_id=None):
+def pick_ceo(plist, object_id=None, fye=None):
     so = _so_titles(object_id) if object_id else {}
     # aggregate per person: org + related + other
     agg = defaultdict(lambda: {'title': '', 'org': 0, 'rel': 0, 'oth': 0, 'flags': ''})
@@ -66,6 +90,8 @@ def pick_ceo(plist, object_id=None):
             t = so[name]; p['title'] = t + ' [from Sch O]'
         if 'former' in p['flags'] or re.search(r'\bFORMER\b|EMERIT|RETIRED|\bFRMR\b|\bFMR\b', t, re.I): continue
         if EXCL_RE.search(t): continue
+        # Took the role after this fiscal year ended (Weirton 2024-12: 'COO (CEO AS OF 1/2025)')
+        if start_after_fye(t, fye): continue
         # end-dated or interim titles yield to a current successor; start-dated titles (EFF, BEG, AS OF, START) are current
         p['departed'] = bool(re.search(r'\bTERMED\b|\bTERM\b|\bTERM\.|\bTHRU\b|\bTHROUGH\b|\bUNTIL\b|\bTIL\b|\bENDED\b|\bEND\b|\bENDING\b|\(TO \d|\bTO \d{1,2}/|\bRESIGNED\b|\bDEPARTED\b', t, re.I))
         p['interim'] = bool(re.search(r'\bINTERIM\b|\bINTERM\b|\bACTING\b', t, re.I))
@@ -99,7 +125,7 @@ if _os2.path.exists('ceo_overrides.csv'):
 out = []; unresolved = []
 for ein, fye in latest.items():
     k = (ein, fye); f = filings[k]; name, doc = meta[k]
-    ceo, conf, top = pick_ceo(people[k], doc.split('ObjectId ')[-1].strip())
+    ceo, conf, top = pick_ceo(people[k], doc.split('ObjectId ')[-1].strip(), fye)
     ovr = OVR.get((ein, fye))
     if ovr:
         if ovr['ceo_name_override']:
@@ -144,16 +170,21 @@ with open('ceo_unresolved.csv', 'w', newline='') as fh:
 
 # Roll-up: filers sharing the same CEO name (normalized) are one system
 def norm(n): return re.sub(r'[^A-Z ]', '', (n or '').upper()).strip()
+# Grouping key: the same person filed as 'Reed MD Monica' and 'REED MONICA', or 'Martin Stallone MD' and
+# 'MARTIN STALLONE', or surname first. Drop credentials and sort the words.
+CREDS = {'MD','DO','PHD','DR','RN','BSN','MSN','DNP','MBA','MHA','MPH','MS','JD','FACHE','FACS','FACP','FAAP','CPA','JR','SR','II','III','IV','DRPH','DPM','DDS','PA','NP','LFACHE','FACC','MSHA','EDD','PHARMD'}
+def canon(n): return ' '.join(sorted(w for w in norm(n).split() if w not in CREDS))
 RO = {}
 if _os2.path.exists('rollup_overrides.csv'):
     for o in csv.DictReader(open('rollup_overrides.csv')): RO[(o['ein'], o['fye'])] = o
-groups = defaultdict(list)
+groups = defaultdict(list); display = {}
 for r in out:
     o = RO.get((r['ein'], r['fye']))
     if o and o['action'] == 'drop_duplicate': continue
     key = norm(r['ceo_name']) if r['ceo_name'] else 'EIN:' + r['ein']
     if o and o['action'] in ('split', 'merge', 'join', 'parent') and o['system_key_override']: key = o['system_key_override']
-    groups[key].append(r)
+    ck = key if key.startswith('EIN:') else canon(key)
+    display.setdefault(ck, key); groups[ck].append(r)
 # Generic rule: if a group contains a filer named '... GROUP RETURN' and another filer whose name is a prefix of it, drop the latter (contained in the group return)
 for key, members in list(groups.items()):
     grp = [m for m in members if 'GROUP RETURN' in m['name'].upper() or ' GROUP' in m['name'].upper()[-7:]]
@@ -173,8 +204,11 @@ for key, members in groups.items():
     def s(field):
         v = [r[field] for r in members if r[field] is not None]; return sum(v) if v else None
     cc = s('charity_care_net'); ex = s('total_expenses')
+    # Share of the group's revenue in members reporting $0 net on 7a. Above 10 percent the group's charity
+    # care may be understated (Bethesda, Cayuga), so the zero flag still applies.
+    zero_share = sum(r['total_revenue'] or 0 for r in members if r['zero_charity_care_flag'] == 'yes') / (s('total_revenue') or 1)
     systems.append({
-        'system_key': key, 'lead_filer': m_rev['name'], 'lead_ein': m_rev['ein'], 'state': (m_rev['city_state'] or '').split(',')[-1].strip()[:2], 'ceo_filer': m0['name'],
+        'system_key': display.get(key, key), 'lead_filer': m_rev['name'], 'lead_ein': m_rev['ein'], 'state': (m_rev['city_state'] or '').split(',')[-1].strip()[:2], 'ceo_filer': m0['name'],
         'n_filers': len(members), 'member_eins': ';'.join(r['ein'] for r in members), 'member_names': ' | '.join(r['name'] for r in members),
         'total_revenue': s('total_revenue'), 'total_expenses': ex, 'net_assets': s('net_assets'), 'employees': s('employees'),
         'charity_care_net': cc, 'charity_care_pct_computed': (cc / ex * 100) if cc is not None and ex else None,
@@ -182,8 +216,11 @@ for key, members in groups.items():
         'ceo_name': m0['ceo_name'], 'ceo_title': m0['ceo_title'], 'ceo_comp_total': m0['ceo_comp_total'], 'ceo_confidence': m0['ceo_confidence'],
         'ceo_pay_pct_of_charity_care': (m0['ceo_comp_total'] / cc * 100) if m0['ceo_comp_total'] and cc else None,
         'childrens_hospital': 'yes' if all(r['childrens_hospital'] == 'yes' for r in members) else ('mixed' if any(r['childrens_hospital'] == 'yes' for r in members) else ''),
-        'zero_charity_care_flag': 'yes' if any(r['zero_charity_care_flag'] == 'yes' for r in members) else '',
-        'publishable': 'yes' if (m0['ceo_confidence'] in ('ceo_title','ceo_title_multiple','manual_override') and cc and cc > 0 and not any(r['zero_charity_care_flag']=='yes' for r in members)) else 'no',
+        # Group-level: a small member reporting $0 net on 7a does not bar a group whose summed 7a is positive
+        # (Navicent Baldwin, 5.5 percent of revenue: 7a cost fully offset by revenue). Members with $0 are listed.
+        'zero_charity_care_flag': 'yes' if ((cc or 0) <= 0 and (s('total_cb_net') or 0) > 0) or zero_share > 0.10 else '',
+        'zero_7a_members': ';'.join(r['ein'] for r in members if r['zero_charity_care_flag'] == 'yes'),
+        'publishable': 'yes' if (m0['ceo_confidence'] in ('ceo_title','ceo_title_multiple','manual_override') and cc and cc > 0 and zero_share <= 0.10) else 'no',
     })
 systems.sort(key=lambda r: -(r['total_revenue'] or 0))
 with open('systems_rollup.csv', 'w', newline='') as fh:

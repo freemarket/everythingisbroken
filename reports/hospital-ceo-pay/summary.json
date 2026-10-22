@@ -3,25 +3,25 @@
  "title": "Nonprofit Hospital Executive Pay vs Charity Care",
  "series": "Annual Report",
  "edition": "2026",
- "data_as_of": "2026-10-21",
- "built": "2026-10-21",
- "headline": "75 nonprofit hospital chief executives were paid more than their hospitals gave in charity care.",
- "headline_sub": "Among 667 general hospital systems with revenue over $100 million, by the hospitals' own IRS filings. Together the 75 were paid $85.8M; their hospitals gave $41.1M to patients who could not pay.",
+ "data_as_of": "2026-10-22",
+ "built": "2026-10-22",
+ "headline": "77 nonprofit hospital chief executives received more in reported compensation than their hospitals gave in charity care.",
+ "headline_sub": "Among 672 general hospital systems with revenue over $100 million, by the hospitals' own IRS filings. Together the 77 reported $89.6M in compensation; their hospitals gave $43.9M to patients who could not pay.",
  "headline_min_revenue": 100000000.0,
- "headline_universe": 667,
- "headline_count": 75,
- "headline_ceo_pay_total": 85795512.0,
- "headline_charity_care_total": 41134494.0,
+ "headline_universe": 672,
+ "headline_count": 77,
+ "headline_ceo_pay_total": 89639124.0,
+ "headline_charity_care_total": 43898453.0,
  "summary_card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/summary.png",
  "filings": 19245,
  "filers": 2306,
- "systems": 1629,
- "ranked": 1051,
- "systems_over_1b": 224,
- "median_charity_care_pct_over_1b": 1.22,
+ "systems": 1627,
+ "ranked": 1057,
+ "systems_over_1b": 229,
+ "median_charity_care_pct_over_1b": 1.23,
  "median_ceo_pay_pct_of_charity_care_over_1b": 7.6,
  "share_over_1b_under_1pct": 41,
- "over_1b_ceo_paid_more_than_charity_care": 2,
+ "over_1b_ceo_paid_more_than_charity_care": 3,
  "ceo_paid_more_than_charity_care": [
   {
    "system": "Mercyhealth",
@@ -52,6 +52,16 @@
    "ratio_pct": 277.154298294647,
    "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/eisenhower-medical-center-95-6130458.png",
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/eisenhower-medical-center-95-6130458.html"
+  },
+  {
+   "system": "Medical Center of Central Georgia",
+   "state": "GA",
+   "ceo": "Delvecchio Finley",
+   "ceo_pay": 2542256.0,
+   "charity_care": 2296667.0,
+   "ratio_pct": 110.69327856411051,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/medical-center-of-central-georgia-inc-58-2149128.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/medical-center-of-central-georgia-inc-58-2149128.html"
   },
   {
    "system": "Marin General Hospital",
@@ -334,6 +344,16 @@
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/york-hospital-01-0212444.html"
   },
   {
+   "system": "Weirton Medical Center",
+   "state": "WV",
+   "ceo": "John C Frankovitch",
+   "ceo_pay": 863136.0,
+   "charity_care": 200552.0,
+   "ratio_pct": 430.3801507838366,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/weirton-medical-center-inc-55-0387249.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/weirton-medical-center-inc-55-0387249.html"
+  },
+  {
    "system": "Kingman Healthcare",
    "state": "AZ",
    "ceo": "Evans Heath",
@@ -352,6 +372,16 @@
    "ratio_pct": 193.37399507578195,
    "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/upmc-washington-25-0965600.png",
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/upmc-washington-25-0965600.html"
+  },
+  {
+   "system": "Uniontown Hospital",
+   "state": "PA",
+   "ceo": "Carrie Willetts",
+   "ceo_pay": 810855.0,
+   "charity_care": 467292.0,
+   "ratio_pct": 173.52212321203874,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/uniontown-hospital-25-0965588.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/uniontown-hospital-25-0965588.html"
   },
   {
    "system": "Norton - King'S Daughters' Health",
@@ -742,16 +772,6 @@
    "ratio_pct": 580.0270520395813,
    "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/adirondack-medical-center-14-1731786.png",
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/adirondack-medical-center-14-1731786.html"
-  },
-  {
-   "system": "Weirton Medical Center",
-   "state": "WV",
-   "ceo": "David Scott Artman",
-   "ceo_pay": 372635.0,
-   "charity_care": 200552.0,
-   "ratio_pct": 185.8046790857234,
-   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/weirton-medical-center-inc-55-0387249.png",
-   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/weirton-medical-center-inc-55-0387249.html"
   },
   {
    "system": "St Joseph'S Hospital - Hospital Sisters - Third Order of St Francis",
