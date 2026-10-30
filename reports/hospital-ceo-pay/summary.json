@@ -4,22 +4,22 @@
  "series": "Annual Report",
  "edition": "2026",
  "data_as_of": "2026-10-22",
- "built": "2026-10-22",
+ "built": "2026-10-30",
  "headline": "77 nonprofit hospital chief executives received more in reported compensation than their hospitals gave in charity care.",
- "headline_sub": "Among 672 general hospital systems with revenue over $100 million, by the hospitals' own IRS filings. Together the 77 reported $89.6M in compensation; their hospitals gave $43.9M to patients who could not pay.",
+ "headline_sub": "Among 669 general hospital systems with revenue over $100 million, by the hospitals' own IRS filings. Together the 77 reported $89.6M in compensation; their hospitals gave $43.9M to patients who could not pay.",
  "headline_min_revenue": 100000000.0,
- "headline_universe": 672,
+ "headline_universe": 669,
  "headline_count": 77,
  "headline_ceo_pay_total": 89639124.0,
  "headline_charity_care_total": 43898453.0,
  "summary_card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/summary.png",
  "filings": 19245,
  "filers": 2306,
- "systems": 1627,
- "ranked": 1057,
+ "systems": 1625,
+ "ranked": 1052,
  "systems_over_1b": 229,
  "median_charity_care_pct_over_1b": 1.23,
- "median_ceo_pay_pct_of_charity_care_over_1b": 7.6,
+ "median_ceo_pay_pct_of_charity_care_over_1b": 7.5,
  "share_over_1b_under_1pct": 41,
  "over_1b_ceo_paid_more_than_charity_care": 3,
  "ceo_paid_more_than_charity_care": [
@@ -195,7 +195,7 @@
   },
   {
    "system": "Tarzana Medical Center",
-   "state": "WA",
+   "state": "CA",
    "ceo": "Nick Lymberopoulos",
    "ceo_pay": 1146741.0,
    "charity_care": 1141109.0,
@@ -224,7 +224,7 @@
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/st-claire-medical-center-inc-61-0605336.html"
   },
   {
-   "system": "Usc Verdugo Hills Hospital",
+   "system": "USC Verdugo Hills Hospital",
    "state": "CA",
    "ceo": "Armand Dorian MD",
    "ceo_pay": 1033161.0,
@@ -296,7 +296,7 @@
   {
    "system": "Brattleboro Memorial Hospital",
    "state": "VT",
-   "ceo": "Elizabeth Mclarney MD",
+   "ceo": "Elizabeth McLarney MD",
    "ceo_pay": 931943.0,
    "charity_care": 375635.0,
    "ratio_pct": 248.09802068497345,
@@ -384,8 +384,8 @@
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/uniontown-hospital-25-0965588.html"
   },
   {
-   "system": "Norton - King'S Daughters' Health",
-   "state": "KY",
+   "system": "Norton - King's Daughters' Health",
+   "state": "IN",
    "ceo": "Carol Dozier",
    "ceo_pay": 806836.0,
    "charity_care": 485927.0,
@@ -544,7 +544,7 @@
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/union-county-hospital-authority-58-6025393.html"
   },
   {
-   "system": "St Mary'S Healthcare",
+   "system": "St Mary's Healthcare",
    "state": "NY",
    "ceo": "Jeffrey Methven",
    "ceo_pay": 649242.0,
@@ -644,7 +644,7 @@
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/crisp-regional-hospital-inc-58-2175978.html"
   },
   {
-   "system": "Siskiyou Hospital INC dba Fairchild Medical Center",
+   "system": "Siskiyou Hospital Inc dba Fairchild Medical Center",
    "state": "CA",
    "ceo": "Jonathon Andrus",
    "ceo_pay": 526567.0,
@@ -676,7 +676,7 @@
   {
    "system": "Monadnock Community Hospital",
    "state": "NH",
-   "ceo": "Cynthia Mcguire",
+   "ceo": "Cynthia McGuire",
    "ceo_pay": 516289.0,
    "charity_care": 507323.0,
    "ratio_pct": 101.76731589145376,
@@ -774,7 +774,7 @@
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/adirondack-medical-center-14-1731786.html"
   },
   {
-   "system": "St Joseph'S Hospital - Hospital Sisters - Third Order of St Francis",
+   "system": "St Joseph's Hospital - Hospital Sisters - Third Order of St Francis",
    "state": "IL",
    "ceo": "Michael Janis",
    "ceo_pay": 337805.0,
@@ -942,9 +942,9 @@
   {
    "system": "Penn Medicine (University of Pennsylvania)",
    "state": "PA",
-   "revenue": 11670540000.0,
-   "charity_care": 25175402.0,
-   "charity_care_pct": 0.22866105942086234,
+   "revenue": 12308854433.0,
+   "charity_care": 29082531.0,
+   "charity_care_pct": 0.24963678448808674,
    "ceo": "Kevin Mahoney",
    "ceo_pay": 3329164.0
   }

@@ -173,7 +173,8 @@ def norm(n): return re.sub(r'[^A-Z ]', '', (n or '').upper()).strip()
 # Grouping key: the same person filed as 'Reed MD Monica' and 'REED MONICA', or 'Martin Stallone MD' and
 # 'MARTIN STALLONE', or surname first. Drop credentials and sort the words.
 CREDS = {'MD','DO','PHD','DR','RN','BSN','MSN','DNP','MBA','MHA','MPH','MS','JD','FACHE','FACS','FACP','FAAP','CPA','JR','SR','II','III','IV','DRPH','DPM','DDS','PA','NP','LFACHE','FACC','MSHA','EDD','PHARMD'}
-def canon(n): return ' '.join(sorted(w for w in norm(n).split() if w not in CREDS))
+# Single-letter words (middle initials: 'KEVIN B MAHONEY' and 'MAHONEY KEVIN') are dropped too (2026-10-30).
+def canon(n): return ' '.join(sorted(w for w in norm(n).split() if w not in CREDS and len(w) > 1))
 RO = {}
 if _os2.path.exists('rollup_overrides.csv'):
     for o in csv.DictReader(open('rollup_overrides.csv')): RO[(o['ein'], o['fye'])] = o

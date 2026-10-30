@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Wyoming hospitals - Everything Is Broken</title>
-<meta name="description" content="Nonprofit hospital systems in Wyoming ranked by CEO pay.">
+<meta name="description" content="In Wyoming, 0 of the 1 general hospital system over $100 million with a hospital in the state reported more in chief executive compensation than it gave in charity care; nationally, 77 of 669. Only 4 systems with a hospital in Wyoming report a charity care figure, too few for a median; nationally the median is 1.06%. Highest reported chief executive compensation: $13,535,312, Peter S Fine, Banner Health (files from Arizona).">
 <meta property="og:type" content="article"><meta property="og:site_name" content="Everything Is Broken">
-<meta property="og:title" content="Wyoming hospitals"><meta property="og:description" content="Nonprofit hospital systems in Wyoming ranked by CEO pay.">
+<meta property="og:title" content="Wyoming hospitals"><meta property="og:description" content="In Wyoming, 0 of the 1 general hospital system over $100 million with a hospital in the state reported more in chief executive compensation than it gave in charity care; nationally, 77 of 669. Only 4 systems with a hospital in Wyoming report a charity care figure, too few for a median; nationally the median is 1.06%. Highest reported chief executive compensation: $13,535,312, Peter S Fine, Banner Health (files from Arizona).">
 <meta property="og:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/WY.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta property="og:url" content="https://everythingisbroken.org/reports/hospital-ceo-pay/state/WY.html">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Wyoming hospitals"><meta name="twitter:description" content="Nonprofit hospital systems in Wyoming ranked by CEO pay."><meta name="twitter:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/WY.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Wyoming hospitals"><meta name="twitter:description" content="In Wyoming, 0 of the 1 general hospital system over $100 million with a hospital in the state reported more in chief executive compensation than it gave in charity care; nationally, 77 of 669. Only 4 systems with a hospital in Wyoming report a charity care figure, too few for a median; nationally the median is 1.06%. Highest reported chief executive compensation: $13,535,312, Peter S Fine, Banner Health (files from Arizona)."><meta name="twitter:image" content="https://everythingisbroken.org/reports/hospital-ceo-pay/cards/state/WY.png">
 <link rel="icon" type="image/png" href="/logo.png">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <style>
@@ -122,9 +122,18 @@ footer p{margin:14px 0 0}
 
 <p class="doc-no">Report No. 1 &middot; 2026 edition &middot; <a href="/reports/hospital-ceo-pay/states.html">all states</a></p>
 <h1 class="title">Wyoming</h1>
-<p class="lede">3 nonprofit hospital systems file from Wyoming. Median charity care: 0.83% of expenses.</p>
+<p class="lede">In Wyoming, 0 of the 1 general hospital system over $100 million with a hospital in the state reported more in chief executive compensation than it gave in charity care; nationally, 77 of 669. Only 4 systems with a hospital in Wyoming report a charity care figure, too few for a median; nationally the median is 1.06%. Highest reported chief executive compensation: $13,535,312, Peter S Fine, Banner Health (files from Arizona).</p>
+<p class="note">4 nonprofit hospital systems have a hospital in Wyoming, 1 of them filing from another state. A system with hospitals in several states is listed on each of those states' pages with its system-wide figures.</p>
 <div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
-<div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and CEO</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody></tbody></table></div>
+<div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and CEO</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="banner health" data-ceo="peter s fine" data-state="AZ CO NV CA WY NE" data-kids="0">
+<td class="num">9</td>
+<td class="name"><a href="/reports/hospital-ceo-pay/system/banner-health-45-0233470.html">Banner Health</a><span class="sub">Peter S Fine · files from Arizona</span></td>
+
+<td class="num" data-v="13535312.0">$13.5M</td>
+<td class="num" data-v="11126367953.0">$11.1B</td>
+<td class="num" data-v="1.9201789345528">1.92%</td>
+<td class="num" data-v="184168412.0">$184.2M</td>
+<td class="num ratio" data-v="7.349421028835282">7%</td></tr></tbody></table></div>
 <p class="note">Systems not shown: 3 with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: <a href="/reports/hospital-ceo-pay/system/ivinson-memorial-hospital-30-0975387.html">Ivinson Memorial Hospital</a>, <a href="/reports/hospital-ceo-pay/system/powell-valley-health-care-inc-83-0300467.html">Powell Valley Health Care</a>, <a href="/reports/hospital-ceo-pay/system/hot-springs-county-hospital-district-83-6000182.html">Hot Springs County Hospital District</a>.</p>
 <h2><span class="n">&sect;</span>Share</h2>
 <div class="sharebox"><img src="/reports/hospital-ceo-pay/cards/state/WY.png" alt="Wyoming nonprofit hospitals: CEO pay vs charity care" width="1200" height="630">
@@ -149,15 +158,15 @@ footer p{margin:14px 0 0}
   var q=document.getElementById('q'), kids=document.getElementById('kids');
   function filter(){var v=(q?q.value:'').trim().toLowerCase(), showKids=kids?kids.checked:true;
     document.querySelectorAll('table.sortable tbody tr').forEach(function(r){
-      var ok=(!v||r.dataset.name.indexOf(v)>=0||r.dataset.ceo.indexOf(v)>=0||r.dataset.state.toLowerCase()===v)&&(showKids||r.dataset.kids!=='1');
+      var ok=(!v||r.dataset.name.indexOf(v)>=0||r.dataset.ceo.indexOf(v)>=0||(' '+r.dataset.state.toLowerCase()+' ').indexOf(' '+v+' ')>=0)&&(showKids||r.dataset.kids!=='1');
       r.hidden=!ok;});}
   if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
 })();
 </script><script>document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){navigator.clipboard.writeText(b.dataset.copy).then(function(){var t=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=t},1400)})})});</script></main>
 <footer><div class="rule-single"></div>
 <div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
-<p>Report No. 1, Annual Report, 2026 edition &middot; Data as of 2026-10-22 &middot; Built 2026-10-22</p>
+<p>Report No. 1, Annual Report, 2026 edition &middot; Data as of 2026-10-22 &middot; Built 2026-10-30</p>
 <p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to contact@everythingisbroken.org.</p>
-<p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate. Donations are not tax-deductible.</p>
+<p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate.</p>
 <p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>
 </div></body></html>

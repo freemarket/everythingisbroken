@@ -1,0 +1,14 @@
+name_as_filed,display_name,evidence,date
+MIHALJEVIC MD TOMISLAV,Tomislav Mihaljevic MD,Surname first on the Cleveland Clinic filing; Cleveland Clinic's own site gives Tomislav Mihaljevic MD as CEO.,2026-10-18
+BJC LIEKWEG RICHARD,Richard Liekweg,Name field carries a 'BJC' prefix; see ceo_overrides.csv (BJC group return).,2026-10-18
+FARRUGIA MD GIANRICO,Gianrico Farrugia MD,Surname first on the Mayo Clinic filing; Mayo Clinic's own site gives Gianrico Farrugia MD as CEO.,2026-10-18
+MAHONEY KEVIN,Kevin Mahoney,"Surname first on the University of Pennsylvania filing; the Princeton HealthCare filing lists the same person as KEVIN B MAHONEY, CEO - UPHS.",2026-10-18
+BerdanBarclay E,Barclay E Berdan,"Surname and given name run together on Texas Health Resources filings; Fairview Health Services filings list him as 'Barclay Berdan'.",2026-10-18
+Shaw Terry D,Terry D Shaw,AdventHealth's own announcement of his retirement names Terry Shaw as president and CEO (adventhealth.com/news/announces-retirement-its-president-ceo).,2026-10-30
+Markovich Stephen E MD,Stephen E Markovich MD,OhioHealth's leadership page: 'Meet Stephen E. Markovich, MD' (ohiohealth.com/about-us/leadership/stephen-markovich-md).,2026-10-30
+TABB MD KEVIN,Kevin Tabb MD,Beth Israel Lahey Health leadership page: Kevin Tabb MD (bilh.org/about/leadership/executive-team/kevin-tabb-md).,2026-10-30
+MEGERIAN CLIFF MD,Cliff Megerian MD,University Hospitals named Dr. Cliff Megerian CEO effective January 2021 (Becker's Hospital Review; WVIZ/Ideastream).,2026-10-30
+Heinrich Kerry,Kerry Heinrich,Adventist Health named Kerry Heinrich president and CEO (Becker's Hospital Review; Adventist Review 2021-10).,2026-10-30
+CAGLE MD MARY JO,Mary Jo Cagle MD,Cone Health news releases name Dr. Mary Jo Cagle as CEO (conehealth.com 2021 and 2023 news releases).,2026-10-30
+NorthernTiffany S,Tiffany S Northern,Texas Health Resources newsroom 2025-03-06: Tiffany Northern named president of Texas Health Frisco.,2026-10-30
+DR FRAN WITT DNPMBALNHARN,Fran Witt,"Credentials run together in the name field (DNP, MBA, LNHA, RN); name as on the filing without them.",2026-10-30
