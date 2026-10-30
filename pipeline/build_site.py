@@ -235,6 +235,7 @@ tr.kids td{color:var(--muted)}tr.kids td.name a{color:var(--muted);font-weight:4
 .toolbar input[type=search]{font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);min-width:min(340px,100%);border-radius:0}
 .toolbar label{display:flex;gap:8px;align-items:center;color:var(--muted)}
 .note{font-size:.88rem;color:var(--muted);max-width:70ch;line-height:1.55}
+.context{font-size:.92rem;line-height:1.55;max-width:70ch;border-left:3px solid var(--border);padding:2px 0 2px 12px;margin:14px 0 18px}
 .src{font-size:.85rem;color:var(--muted);margin-top:8px}
 dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 24px;font-size:.95rem;max-width:70ch;border-top:1px solid var(--border);padding-top:12px;margin:0}
 dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:.9rem;min-width:0}
@@ -615,6 +616,19 @@ def sharebox(s=None, st_=None):
 </div></div>"""
 COPY_JS = """<script>document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){navigator.clipboard.writeText(b.dataset.copy).then(function(){var t=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=t},1400)})})});</script>"""
 
+# context notes (context_notes.csv): dated, sourced background shown near the top of a system page; never a figure
+CTX = defaultdict(list)
+for r in csv.DictReader(open(os.path.join(DATA, 'context_notes.csv'))): CTX[r['ein']].append(r)
+EIN_SLUG = {e: s['slug'] for s in S for e, _ in s['members']}
+def ctx_html(s):
+    out = []
+    for e, _ in s['members']:
+        for r in CTX.get(e, []):
+            src = f'<a href="{E(r["source_url"])}">{E(r["source"])}</a>'
+            txt = re.sub(r'\[([^\]]+)\]\(ein:([\d-]+)\)', lambda m: f'<a href="{BASE}/system/{EIN_SLUG[m.group(2)]}.html">{m.group(1)}</a>', E(r['note'], quote=False)).replace('{source}', src)
+            out.append(f'<p class="context"><strong>Context:</strong> {txt}</p>')
+    return ''.join(out)
+
 n_sys = 0
 for s in S:
     if not s['pay'] and not s['cc']: continue
@@ -653,7 +667,7 @@ for s in S:
 <p class="doc-no">{' &middot; '.join(f'<a href="{BASE}/state/{x}.html">{E(STATES[x])}</a>' for x in s['states']) or f'<a href="{BASE}/state/{OUTSIDE}.html">Outside the US</a>'} &middot; {rank_line}</p>
 <h1 class="title">{E(s['name'])}</h1>
 <p class="lede">{E(s['ceo'])}, {E(disp_title(s['ceo_title']) if s['ceo_title'] else 'chief executive')}. Fiscal year ending {s['fye']}.</p>
-<div class="stat-row big3">
+{ctx_html(s)}<div class="stat-row big3">
 <div class="stat"><div class="v">{money(s['pay'])}</div><div class="l">CEO total compensation<br>Form 990 Part VII, columns D+E+F</div></div>
 <div class="stat"><div class="v">{pct(s['ccp'])}</div><div class="l">of expenses spent on charity care<br>Schedule H Part I line 7a</div></div>
 <div class="stat"><div class="v red">{ratio_txt}</div><div class="l">CEO pay as a share of all charity care</div></div>
@@ -752,7 +766,7 @@ write('manual.html', manual)
 # ---------- version 2026.5 and the corrections log ----------
 V5 = (f"Second review of rows where most of the chief executive's pay comes from a related organization. (1) Parent-system executives set against one hospital are no longer counted as that hospital's chief executive: St Luke's Hospital, Maumee OH (McLaren's CEO), Baylor Institute for Rehabilitation (a Baylor Scott & White system executive), Hartford Hospital (Hartford HealthCare's CEO) and Carroll Hospital Center (LifeBridge Health's CEO) are excluded from CEO figures; Piedmont Hospital and Piedmont Athens Regional now show their own chief executives instead of Piedmont Healthcare's; Millcreek Community Hospital and Corry Memorial now show their own chief executives instead of LECOM's, which takes Millcreek off the headline list. Two filers whose Schedule H figures cannot be reconciled with their Form 990 (Cdt Gmsp, PR; UCF Academic Health) are excluded from CEO figures. "
       f"(2) Single-letter middle initials are ignored when matching a chief executive across filings: Princeton HealthCare joins Penn Medicine (Kevin B Mahoney), UVA Culpeper joins UVA Prince William (Erik Shannon), and Berkshire Medical Center joins Fairview Hospital and North Adams (Darlene Rodowicz); HealthPartners RC is kept apart from Hutchinson Health by override. "
-      f"(3) State pages list a system in every state where it has a hospital; Puerto Rico filers without a US address are on the Puerto Rico page and {len(abroad)} filers with no US hospital are listed outside the US. (4) System pages show Part VII columns D, E and F. (5) Dated citations recorded for the Mass General Brigham, Houston Methodist and United Health Services overrides. (6) Name display: apostrophes, prefixes, digits and title text in name fields; hand-checked display names in display_names.csv. {len(S):,} systems, {len(ranked):,} ranked; headline {len(hl_over)} of {len(hl_all):,}.")
+      f"(3) State pages list a system in every state where it has a hospital; Puerto Rico filers without a US address are on the Puerto Rico page and {len(abroad)} filers with no US hospital are listed outside the US. (4) System pages show Part VII columns D, E and F. (5) Dated citations recorded for the Mass General Brigham, Houston Methodist and United Health Services overrides. (6) Name display: apostrophes, prefixes, digits and title text in name fields; hand-checked display names in display_names.csv. {len(S):,} systems, {len(ranked):,} ranked; headline {len(hl_over)} of {len(hl_all):,}. Context notes added (Freeport Memorial/FHN, Mercyhealth).")
 CORRECTIONS = [
  ('2026-10-30', f"Report No. 1, v{EDITION}.5. St Luke's Hospital, Maumee OH, had been ranked 15th with $10,783,705 of reported compensation for McLaren Health Care's chief executive against $433,503 of charity care (2,488 percent); the pay is the parent system's, and the hospital is now excluded from CEO figures. The same correction applies to Baylor Institute for Rehabilitation ($4,226,519; 203 percent), Hartford Hospital ($4,799,936) and Carroll Hospital Center ($4,111,501). Piedmont Hospital and Piedmont Athens Regional had been shown together under Piedmont Healthcare's chief executive (Kevin Brown, $4,428,574, against $61,068,624 of charity care); each now shows its own chief executive: Patrick Battey, $1,509,519 against $24,635,231, and J Michael Burnett, $1,274,458 against $36,433,393. Millcreek Community Hospital (PA) had been on the headline list under LECOM's chief executive, John M Ferretti DO ($1,609,483, against Millcreek and Corry Memorial's combined charity care of $810,825, 198.5 percent); Ferretti is titled 'CHAIR, LECOM CEO' on Corry's filing, and Millcreek's filing lists its own President/CEO, Mary L Eckert, at $723,538 against $796,878 (90.8 percent), so Millcreek leaves the headline list; Corry Memorial now shows its own CEO, Dan Grolemund ($214,485 against $13,947). UCF Academic Health had been ranked with $930,511 against $5,947,991 of charity care reported on $1,750,088 of total expenses; Cdt Gmsp (PR) reported charity care of 97 percent of expenses; both are excluded as likely filing errors and shown as filed. Emory University's page (not ranked) had shown the university president's $3,024,831 as CEO pay because an override was keyed to the prior fiscal year; the exclusion is renewed. Princeton HealthCare is now part of the Penn Medicine row (charity care $25,175,402 before, $29,082,531 after). Ranked systems: 1,057 before, {len(ranked):,} after. Headline: 77 of 672 before, {len(hl_over)} of {len(hl_all):,} after. Tarzana Medical Center is listed under California, where its hospital is, not Washington, where its parent files."),
  ('2026-10-22', "Report No. 1, v2026.4, after an outside audit. Before this date the report said 75 nonprofit hospital chief executives were paid more than their hospitals gave in charity care (75 of 667 systems over $100 million). Corrected to 77 of 672, and the wording to \"received more in reported compensation\", because Form 990 Part VII columns D, E and F include deferred compensation and benefits, not cash alone. Weirton Medical Center (WV): the chief executive had been given as David Scott Artman ($372,635), whose title starts after the fiscal year ended; corrected to John C. Frankovitch ($863,136), ratio 186 percent before, 430 percent after. Dana-Farber Cancer Institute: a senior advisor to the CEO (Barrett J. Rollins, $625,708) had been taken as the chief executive; corrected to Benjamin Ebert ($531,515). Added to the headline list: Medical Center of Central Georgia (Navicent), no longer excluded because one small member reports $0 on line 7a, and Uniontown Hospital (PA), no longer combined with Grant Memorial. Memorial Sloan Kettering and Dana-Farber, cancer centers, are left out of the headline and the large-system medians. Ranked systems: 1,051 before, 1,057 after."),
@@ -783,6 +797,7 @@ FILES = [
     ('headline_exclusions.csv', 'Specialty filers left out of the headline count, with the reason. They remain in the full ranking.'),
     ('ceo_pay_exceeds_charity_care.csv', 'The headline list: every general hospital system over $100M where CEO pay exceeded charity care, with a link to each filing.'),
     ('rollup_overrides.csv', 'Every manual decision about which filings form one system, with the reason and date.'),
+    ('context_notes.csv', 'Dated, sourced background notes shown on system pages (for example a later merger). Context only: no note changes any figure.'),
     ('ceopaycheck_crosscheck.csv', 'Result of the independent check of CEO pay figures against CEO Paycheck.'),
     ('ceopaycheck_snapshot_2026-10-18.csv', 'The CEO Paycheck rows used for that check, as captured on the date in the name.'),
 ]
