@@ -331,7 +331,7 @@ def row(s, show_state=True, here=None):
 <td class="num" data-v="{s['rev'] or 0}">{money(s['rev'])}</td>
 <td class="num" data-v="{s['ccp'] if s['ccp'] is not None else -1}">{pct(s['ccp'])}</td>
 <td class="num" data-v="{s['cc'] or 0}">{money(s['cc'])}</td>
-<td class="num ratio" data-v="{s['ratio'] or 0}">{pct(s['ratio'],0)}</td></tr>"""
+<td class="num ratio" data-v="{s['ratio'] or 0}">{pct(s['ratio'],1)}</td></tr>"""
 
 TABLE_HEAD = lambda show_state=True: f"""<thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and CEO</th>{'<th data-k="text">State</th>' if show_state else ''}<th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead>"""
 
@@ -383,7 +383,7 @@ advocate = next((s for s in giants if s['lead_ein'] == '36-2169147'), None)
 def frow(s, cols):
     cells = {'sys': f'<td class="name"><a href="{BASE}/system/{s["slug"]}.html">{E(s["name"])}</a><span class="sub">{E(s["ceo"])}</span></td>',
              'st': f'<td>{s["state"]}</td>', 'rev': f'<td class="num">{money(s["rev"])}</td>', 'cc': f'<td class="num">{money(s["cc"])}</td>',
-             'ccp': f'<td class="num">{pct(s["ccp"])}</td>', 'pay': f'<td class="num">{money(s["pay"])}</td>', 'ratio': f'<td class="num ratio">{pct(s["ratio"],0)}</td>'}
+             'ccp': f'<td class="num">{pct(s["ccp"])}</td>', 'pay': f'<td class="num">{money(s["pay"])}</td>', 'ratio': f'<td class="num ratio">{pct(s["ratio"],1)}</td>'}
     return '<tr>' + ''.join(cells[c] for c in cols) + '</tr>'
 FH = {'sys':'<th>System and chief executive</th>','st':'<th>State</th>','rev':'<th class="num">Revenue</th>','cc':'<th class="num">Charity care</th>','ccp':'<th class="num">Charity care,<br>% of expenses</th>','pay':'<th class="num">CEO pay</th>','ratio':'<th class="num">CEO pay as %<br>of charity care</th>'}
 def ftable(rows, cols): return f'<div class="tablewrap"><table><thead><tr>{"".join(FH[c] for c in cols)}</tr></thead><tbody>{"".join(frow(s, cols) for s in rows)}</tbody></table></div>'
@@ -516,15 +516,15 @@ top4 = hl_over[:5]
 CARD_JOBS.append(('summary.png', card_html(f"""
 <div class="title">{E(HEADLINE)}</div>
 <p class="sub">Among {len(hl_all):,} general hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million. Together the {len(hl_over)} reported {money(HL_PAY)} in compensation; their hospitals gave {money(HL_CC)} to patients who could not pay.</p>
-<table>{''.join(f'<tr><td>{E(s["ceo"])} <span class="ceo">· {E(s["name"])}, {s["state"]}</span></td><td class="num">{money(s["pay"], False)} compensation</td><td class="num">{money(s["cc"], False)} charity care</td><td class="num red">{s["ratio"]:.0f}%</td></tr>' for s in top4)}</table>
+<table>{''.join(f'<tr><td>{E(s["ceo"])} <span class="ceo">· {E(s["name"])}, {s["state"]}</span></td><td class="num">{money(s["pay"], False)} compensation</td><td class="num">{money(s["cc"], False)} charity care</td><td class="num red">{s["ratio"]:.1f}%</td></tr>' for s in top4)}</table>
 {foot(f'Source: each hospital’s IRS Form 990 Schedule H · {len(ranked):,} systems ranked')}""")))
 # system cards
 def sys_card(s):
     fy = s['fye'] or ''
-    ratio_txt = f"{s['ratio']:.0f}%" if s['ratio'] else 'n/a'
+    ratio_txt = f"{s['ratio']:.1f}%" if s['ratio'] else 'n/a'
     rank_txt = f"Ranked {s['rank']} of {len(ranked):,} by CEO pay" if s.get('rank') else 'Not ranked'
     if s['ratio'] and s['ratio'] > 100: say = f"{E(s['ceo'])}'s reported compensation was {s['ratio']/100:.1f} times what the system gave in charity care to every patient who could not pay."
-    elif s['ratio'] and s['ratio'] >= 15: say = f"{E(s['ceo'])}’s pay equals {s['ratio']:.0f} percent of all the charity care the system gave in the same year."
+    elif s['ratio'] and s['ratio'] >= 15: say = f"{E(s['ceo'])}’s pay equals {s['ratio']:.1f} percent of all the charity care the system gave in the same year."
     elif s['ratio']: say = f"For every dollar the system gave in charity care, it reported {s['ratio']:.0f} cents of compensation for its chief executive."
     else: say = "The figures below are as filed; see the page for why this system is not ranked."
     return card_html(f"""
@@ -559,7 +559,7 @@ def state_lead(st_, lst):
     else:
         a = f"{nm} has no general hospital system over ${HEADLINE_MIN_REV/1e6:.0f} million in the ranking; nationally, {len(hl_over)} of {len(hl_all):,} such systems reported more in chief executive compensation than they gave in charity care."
     med = med_cc(lst)
-    b = f" The median system with a hospital in {nm} spent {pct(med)} of expenses on charity care, against {pct(NAT_MED)} nationally." if med is not None else f" Only {n_cc(lst)} system{'s' if n_cc(lst) != 1 else ''} with a hospital in {nm} report{'s' if n_cc(lst) == 1 else ''} a charity care figure, too few for a median; nationally the median is {pct(NAT_MED)}."
+    b = f" The median system with a hospital in {nm} spent {pct(med)} of expenses on charity care, against {pct(NAT_MED)} for all systems nationally." if med is not None else f" Only {n_cc(lst)} system{'s' if n_cc(lst) != 1 else ''} with a hospital in {nm} report{'s' if n_cc(lst) == 1 else ''} a charity care figure, too few for a median; the median for all systems nationally is {pct(NAT_MED)}."
     pubs = [s for s in lst if s['pub']]
     c = ''
     if pubs:
@@ -576,8 +576,8 @@ def state_card(st_, lst):
         rows_ = general[:5]; label = "The lowest charity care rates among general hospitals over $100 million:"
     return card_html(f"""
 <div class="title">{E(STATES.get(st_, st_))}: {len(lst)} nonprofit hospital systems</div>
-<p class="sub">{E(state_lead(st_, lst).split(';')[0])}. {f'Median charity care {pct(med)} of expenses, {pct(NAT_MED)} nationally. ' if med is not None else ''}{label}</p>
-<table>{''.join(f'<tr><td>{E(s["name"])} <span class="ceo">· {E(s["ceo"])}</span></td><td class="num">{money(s["pay"], False)} CEO pay</td><td class="num">{money(s["cc"], False)} charity care ({pct(s["ccp"])})</td><td class="num red">{s["ratio"]:.0f}%</td></tr>' for s in rows_)}</table>
+<p class="sub">{E(state_lead(st_, lst).split(';')[0])}. {f'Median charity care {pct(med)} of expenses, {pct(NAT_MED)} for all systems nationally. ' if med is not None else ''}{label}</p>
+<table>{''.join(f'<tr><td>{E(s["name"])} <span class="ceo">· {E(s["ceo"])}</span></td><td class="num">{money(s["pay"], False)} CEO pay</td><td class="num">{money(s["cc"], False)} charity care ({pct(s["ccp"])})</td><td class="num red">{s["ratio"]:.1f}%</td></tr>' for s in rows_)}</table>
 {foot('Source: each hospital’s IRS Form 990 Schedule H')}""")
 for st_, lst in sorted(bystate.items()): CARD_JOBS.append((f"state/{st_}.png", state_card(st_, lst)))
 
@@ -620,12 +620,12 @@ for s in S:
     if not s['pay'] and not s['cc']: continue
     n_sys += 1
     rank_line = f"Ranked {s['rank']} of {len(ranked)} by CEO pay." if s.get('rank') else "Not ranked: see note below."
-    ratio_txt = f"{s['ratio']:.0f}%" if s['ratio'] else 'n/a'
+    ratio_txt = f"{s['ratio']:.1f}%" if s['ratio'] else 'n/a'
     callout = ''
     if s['ratio'] and s['ratio'] >= 100:
         callout = f'<div class="callout">In the most recent filing year, {E(s["ceo"])}’s reported compensation was {money(s["pay"], False)}. The system’s charity care for the same year was {money(s["cc"], False)}. One person’s reported compensation was {s["ratio"]/100:.1f} times what the system gave to every patient who could not pay.</div>'
     elif s['ratio'] and s['ratio'] >= 15:
-        callout = f'<div class="callout">{E(s["ceo"])}’s pay of {money(s["pay"], False)} equals {s["ratio"]:.0f} percent of the {money(s["cc"], False)} the system spent on charity care in the same year.</div>'
+        callout = f'<div class="callout">{E(s["ceo"])}’s pay of {money(s["pay"], False)} equals {s["ratio"]:.1f} percent of the {money(s["cc"], False)} the system spent on charity care in the same year.</div>'
     note = ''
     if re.search(r'\bEFF\b|EFFECTIVE|\bBEG\b|BEGIN|\bSTART|AS OF|\bINTERIM\b|\bINTERM\b|PART.?YEAR|\bPT YR\b|PARTIAL', s['ceo_title'] or '', re.I) and s['pub']:
         note = f'<p class="note">The chief executive\'s title on the filing indicates a change during the year ({E(clean_title(s["ceo_title"]))}); the pay shown is what the filing reports for that person, which may cover part of the year.</p>'
@@ -750,11 +750,11 @@ manual = HEAD('Reproduction manual', 'A complete procedure for rebuilding the da
 write('manual.html', manual)
 
 # ---------- version 2026.5 and the corrections log ----------
-V5 = (f"Second review of rows where most of the chief executive's pay comes from a related organization. (1) Parent-system executives set against one hospital are no longer counted as that hospital's chief executive: St Luke's Hospital, Maumee OH (McLaren's CEO), Baylor Institute for Rehabilitation (a Baylor Scott & White system executive), Hartford Hospital (Hartford HealthCare's CEO) and Carroll Hospital Center (LifeBridge Health's CEO) are excluded from CEO figures; Piedmont Hospital and Piedmont Athens Regional now show their own chief executives instead of Piedmont Healthcare's. "
+V5 = (f"Second review of rows where most of the chief executive's pay comes from a related organization. (1) Parent-system executives set against one hospital are no longer counted as that hospital's chief executive: St Luke's Hospital, Maumee OH (McLaren's CEO), Baylor Institute for Rehabilitation (a Baylor Scott & White system executive), Hartford Hospital (Hartford HealthCare's CEO) and Carroll Hospital Center (LifeBridge Health's CEO) are excluded from CEO figures; Piedmont Hospital and Piedmont Athens Regional now show their own chief executives instead of Piedmont Healthcare's; Millcreek Community Hospital and Corry Memorial now show their own chief executives instead of LECOM's, which takes Millcreek off the headline list. Two filers whose Schedule H figures cannot be reconciled with their Form 990 (Cdt Gmsp, PR; UCF Academic Health) are excluded from CEO figures. "
       f"(2) Single-letter middle initials are ignored when matching a chief executive across filings: Princeton HealthCare joins Penn Medicine (Kevin B Mahoney), UVA Culpeper joins UVA Prince William (Erik Shannon), and Berkshire Medical Center joins Fairview Hospital and North Adams (Darlene Rodowicz); HealthPartners RC is kept apart from Hutchinson Health by override. "
       f"(3) State pages list a system in every state where it has a hospital; Puerto Rico filers without a US address are on the Puerto Rico page and {len(abroad)} filers with no US hospital are listed outside the US. (4) System pages show Part VII columns D, E and F. (5) Dated citations recorded for the Mass General Brigham, Houston Methodist and United Health Services overrides. (6) Name display: apostrophes, prefixes, digits and title text in name fields; hand-checked display names in display_names.csv. {len(S):,} systems, {len(ranked):,} ranked; headline {len(hl_over)} of {len(hl_all):,}.")
 CORRECTIONS = [
- ('2026-10-30', f"Report No. 1, v{EDITION}.5. St Luke's Hospital, Maumee OH, had been ranked 15th with $10,783,705 of reported compensation for McLaren Health Care's chief executive against $433,503 of charity care (2,488 percent); the pay is the parent system's, and the hospital is now excluded from CEO figures. The same correction applies to Baylor Institute for Rehabilitation ($4,226,519; 203 percent), Hartford Hospital ($4,799,936) and Carroll Hospital Center ($4,111,501). Piedmont Hospital and Piedmont Athens Regional had been shown together under Piedmont Healthcare's chief executive (Kevin Brown, $4,428,574, against $61,068,624 of charity care); each now shows its own chief executive: Patrick Battey, $1,509,519 against $24,635,231, and J Michael Burnett, $1,274,458 against $36,433,393. Princeton HealthCare is now part of the Penn Medicine row (charity care $25,175,402 before, $29,082,531 after). Ranked systems: 1,057 before, {len(ranked):,} after. The headline count is {len(hl_over)}, now of {len(hl_all):,} systems over $100 million (672 before). Tarzana Medical Center is listed under California, where its hospital is, not Washington, where its parent files."),
+ ('2026-10-30', f"Report No. 1, v{EDITION}.5. St Luke's Hospital, Maumee OH, had been ranked 15th with $10,783,705 of reported compensation for McLaren Health Care's chief executive against $433,503 of charity care (2,488 percent); the pay is the parent system's, and the hospital is now excluded from CEO figures. The same correction applies to Baylor Institute for Rehabilitation ($4,226,519; 203 percent), Hartford Hospital ($4,799,936) and Carroll Hospital Center ($4,111,501). Piedmont Hospital and Piedmont Athens Regional had been shown together under Piedmont Healthcare's chief executive (Kevin Brown, $4,428,574, against $61,068,624 of charity care); each now shows its own chief executive: Patrick Battey, $1,509,519 against $24,635,231, and J Michael Burnett, $1,274,458 against $36,433,393. Millcreek Community Hospital (PA) had been on the headline list under LECOM's chief executive, John M Ferretti DO ($1,609,483, against Millcreek and Corry Memorial's combined charity care of $810,825, 198.5 percent); Ferretti is titled 'CHAIR, LECOM CEO' on Corry's filing, and Millcreek's filing lists its own President/CEO, Mary L Eckert, at $723,538 against $796,878 (90.8 percent), so Millcreek leaves the headline list; Corry Memorial now shows its own CEO, Dan Grolemund ($214,485 against $13,947). UCF Academic Health had been ranked with $930,511 against $5,947,991 of charity care reported on $1,750,088 of total expenses; Cdt Gmsp (PR) reported charity care of 97 percent of expenses; both are excluded as likely filing errors and shown as filed. Emory University's page (not ranked) had shown the university president's $3,024,831 as CEO pay because an override was keyed to the prior fiscal year; the exclusion is renewed. Princeton HealthCare is now part of the Penn Medicine row (charity care $25,175,402 before, $29,082,531 after). Ranked systems: 1,057 before, {len(ranked):,} after. Headline: 77 of 672 before, {len(hl_over)} of {len(hl_all):,} after. Tarzana Medical Center is listed under California, where its hospital is, not Washington, where its parent files."),
  ('2026-10-22', "Report No. 1, v2026.4, after an outside audit. Before this date the report said 75 nonprofit hospital chief executives were paid more than their hospitals gave in charity care (75 of 667 systems over $100 million). Corrected to 77 of 672, and the wording to \"received more in reported compensation\", because Form 990 Part VII columns D, E and F include deferred compensation and benefits, not cash alone. Weirton Medical Center (WV): the chief executive had been given as David Scott Artman ($372,635), whose title starts after the fiscal year ended; corrected to John C. Frankovitch ($863,136), ratio 186 percent before, 430 percent after. Dana-Farber Cancer Institute: a senior advisor to the CEO (Barrett J. Rollins, $625,708) had been taken as the chief executive; corrected to Benjamin Ebert ($531,515). Added to the headline list: Medical Center of Central Georgia (Navicent), no longer excluded because one small member reports $0 on line 7a, and Uniontown Hospital (PA), no longer combined with Grant Memorial. Memorial Sloan Kettering and Dana-Farber, cancer centers, are left out of the headline and the large-system medians. Ranked systems: 1,051 before, 1,057 after."),
  ('2026-10-21', "Report No. 1, v2026.3. Review of the full table: parent or regional executives reported on subsidiaries' returns were no longer compared with the subsidiary's charity care (eleven filers excluded, eight systems assembled); nine spelling splits joined; 40 rows changed chief executive when end-dated and retired titles were recognized. Ranked systems: 1,074 before, 1,051 after."),
  ('2026-10-20', "Report No. 1, v2026.2. Parkview Health (IN): the parent filer alone had been shown with $84,340 of charity care and a 4,360 percent ratio; the system was assembled from its ten filings."),
@@ -922,6 +922,7 @@ write('summary.json', json.dumps(summary, indent=1))
 top10 = '\n'.join(row(s) for s in ranked[:10])
 
 BLOCKS = {
+'medcc': f'{MED_CC:.2f}',
 'corrections': CORR_HTML,
 'latest': f"""<div class="absolute top-0 right-0 bg-black text-white px-3 py-1 text-xs uppercase tracking-widest">Latest Report</div>
 <div class="text-xs uppercase tracking-widest text-gray-500 mb-2 font-mono">Report <span class="fig">No. {REPORT_NO}</span> | <span class="fig">{EDITION}</span> edition | Data as of <span class="fig">{DATA_ASOF}</span></div>
@@ -994,7 +995,7 @@ BLOCKS = {
 <h3 class="text-xl font-bold mb-3 uppercase tracking-wider">Version Log</h3>
 <p class="text-sm mb-4">What changed in each release of the data, dated.</p>
 <div class="font-mono text-xs text-gray-600 space-y-1">
-<p>[<span class="fig">2026-10-30</span>] v{EDITION}.5 - Parent-system executives no longer set against one hospital; middle initials ignored in name matching; state pages by hospital location; pay shown by Part VII column. {len(ranked):,} ranked; headline {len(hl_over)} of {len(hl_all):,}.</p>
+<p>[<span class="fig">2026-10-30</span>] v{EDITION}.5 - Parent-system executives no longer set against one hospital (Millcreek leaves the headline list); middle initials ignored in name matching; state pages by hospital location; pay shown by Part VII column. {len(ranked):,} ranked; headline {len(hl_over)} of {len(hl_all):,}.</p>
 <p>[<span class="fig">2026-10-22</span>] v{EDITION}.4 - Corrections from an outside audit (Weirton and Dana-Farber chief executives, duplicate returns, name joins, cancer centers out of the headline); "paid" now "reported compensation". 1,057 ranked; headline 77 of 672.</p>
 <p>[<span class="fig">2026-10-21</span>] v{EDITION}.3 - Review of the CEO-pay-exceeds-charity-care list; five systems assembled from their filings; specialty exclusions published. 1,051 ranked; headline 75 of 667.</p>
 <p>[<span class="fig">2026-10-20</span>] v{EDITION}.2 - Parkview Health assembled from ten filings.</p>
@@ -1010,7 +1011,8 @@ ip = os.path.join(REPO, 'index.html'); page = open(ip).read(); missing = []
 for name, body in BLOCKS.items():
     pat = re.compile(rf'(<!-- gen:{name} -->).*?(<!-- /gen:{name} -->)', re.S)
     if not pat.search(page): missing.append(name); continue
-    page = pat.sub(lambda m: m.group(1) + '\n' + body + '\n' + m.group(2), page)
+    sep = '' if name == 'medcc' else '\n'   # medcc sits inside a sentence
+    page = pat.sub(lambda m: m.group(1) + sep + body + sep + m.group(2), page)
 open(ip, 'w').write(page)
 
 print(f'wrote index, all, {n_sys} system pages, {len(bystate)} state pages, methodology, manual, data, summary.json -> {OUT}')
