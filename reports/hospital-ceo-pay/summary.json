@@ -6,7 +6,7 @@
  "data_as_of": "2026-10-22",
  "built": "2026-10-30",
  "headline": "76 nonprofit hospital chief executives received more in reported compensation than their hospitals gave in charity care.",
- "headline_sub": "Among 668 general hospital systems with revenue over $100 million, by the hospitals' own IRS filings. Together the 76 reported $88.0M in compensation; their hospitals gave $43.1M to patients who could not pay.",
+ "headline_sub": "The count covers the 668 general hospital systems with revenue over $100 million, using each hospital's own IRS filings. Together the 76 received $88.0M in reported compensation; their hospitals gave $43.1M to patients who could not pay.",
  "headline_min_revenue": 100000000.0,
  "headline_universe": 668,
  "headline_count": 76,

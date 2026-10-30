@@ -145,7 +145,7 @@ hl_all = [s for s in ranked if (s['rev'] or 0) >= HEADLINE_MIN_REV and not s['ki
 hl_over = sorted([s for s in hl_all if s['ratio'] and s['ratio'] > 100], key=lambda s: -s['pay'])
 HL_PAY = sum(s['pay'] for s in hl_over); HL_CC = sum(s['cc'] for s in hl_over)
 HEADLINE = f"{len(hl_over)} nonprofit hospital chief executives received more in reported compensation than their hospitals gave in charity care."
-HEADLINE_SUB = f"Among {len(hl_all):,} general hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million, by the hospitals' own IRS filings. Together the {len(hl_over)} reported {money(HL_PAY)} in compensation; their hospitals gave {money(HL_CC)} to patients who could not pay."
+HEADLINE_SUB = f"The count covers the {len(hl_all):,} general hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million, using each hospital's own IRS filings. Together the {len(hl_over)} received {money(HL_PAY)} in reported compensation; their hospitals gave {money(HL_CC)} to patients who could not pay."
 
 # other chief executives (co-CEO, former CEO, executive chair) listed in the same filings
 _pp = defaultdict(lambda: defaultdict(lambda: {'org':0,'rel':0,'oth':0,'title':''}))
@@ -367,10 +367,10 @@ def write(path, body):
     open(p, 'w').write(body)
 
 STATS = f"""<div class="stat-row">
-<div class="stat"><div class="v">{len(ranked):,}</div><div class="l">systems ranked, of {len(S):,} identified in {N_FILINGS:,} IRS Schedule H filings</div></div>
-<div class="stat"><div class="v">{MED_CC:.2f}%</div><div class="l">median share of expenses spent on charity care, systems over $1B</div></div>
-<div class="stat"><div class="v">{UNDER1:.0f}%</div><div class="l">of systems over $1B spend under one percent</div></div>
-<div class="stat"><div class="v red">{len(hl_over)}</div><div class="l">chief executives whose reported compensation exceeded their hospital's charity care, hospitals over ${HEADLINE_MIN_REV/1e6:.0f}M</div></div>
+<div class="stat"><div class="v">{len(ranked):,}</div><div class="l">hospital systems ranked by CEO pay</div></div>
+<div class="stat"><div class="v">{MED_CC:.2f}%</div><div class="l">median share of expenses spent on charity care, systems over $1 billion</div></div>
+<div class="stat"><div class="v">{UNDER1:.0f}%</div><div class="l">of systems over $1 billion spend less than 1 percent on charity care</div></div>
+<div class="stat"><div class="v red">{len(hl_over)}</div><div class="l">chief executives whose reported compensation was more than their hospital's charity care, systems over ${HEADLINE_MIN_REV/1e6:.0f} million</div></div>
 </div>"""
 
 
@@ -381,6 +381,7 @@ best = sorted([s for s in big if s['ccp'] is not None and OPERATING(s)], key=lam
 over = sorted(OVER100, key=lambda s: -s['ratio'])
 kaiser = next((s for s in giants if s['lead_ein'] == '94-1105628'), giants[0])
 advocate = next((s for s in giants if s['lead_ein'] == '36-2169147'), None)
+KAISER = kaiser['name'].replace(' (Hospitals)', '')   # prose name; tables keep the filing name
 def frow(s, cols):
     cells = {'sys': f'<td class="name"><a href="{BASE}/system/{s["slug"]}.html">{E(s["name"])}</a><span class="sub">{E(s["ceo"])}</span></td>',
              'st': f'<td>{s["state"]}</td>', 'rev': f'<td class="num">{money(s["rev"])}</td>', 'cc': f'<td class="num">{money(s["cc"])}</td>',
@@ -390,19 +391,19 @@ FH = {'sys':'<th>System and chief executive</th>','st':'<th>State</th>','rev':'<
 def ftable(rows, cols): return f'<div class="tablewrap"><table><thead><tr>{"".join(FH[c] for c in cols)}</tr></thead><tbody>{"".join(frow(s, cols) for s in rows)}</tbody></table></div>'
 adv_txt = ''
 if advocate:
-    adv_txt = f" {E(advocate['name'])}, the system this report's first target runs, is {E(STATES.get(advocate['state'], advocate['state']))}'s largest and sits near the bottom at {pct(advocate['ccp'])}: Kaiser is {kaiser['rev']/advocate['rev']:.1f} times its size and gave {kaiser['cc']/advocate['cc']:.1f} times the charity care."
+    adv_txt = f" {E(advocate['name'])}, {E(STATES.get(advocate['state'], advocate['state']))}'s largest system, sits near the bottom at {pct(advocate['ccp'])}: Kaiser is {kaiser['rev']/advocate['rev']:.1f} times its size and gave {kaiser['cc']/advocate['cc']:.1f} times the charity care."
 FINDINGS = f"""
 <h2><span class="n">&sect;2</span>What the filings show</h2>
 <div class="prose">
-<p><strong>{HEADLINE}</strong> {HEADLINE_SUB} The list is every general hospital system with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million where one person's pay exceeded the cost of all the free and discounted care the system gave in the same year, by CEO pay. Rehabilitation, long-term acute care, cancer, behavioral and other specialty hospitals are left out of this count and listed with the reason in <a href="{DATA_URL}/headline_exclusions.csv">headline_exclusions.csv</a>; they remain in the full ranking. Every row was checked against the filing, including the Part VI narrative, before it was listed.</p>
+<p>Of the {len(hl_all):,} general hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million, these {len(hl_over)} reported more in compensation for their chief executive than they gave in charity care. Together the {len(hl_over)} received {money(HL_PAY)} in reported compensation; their hospitals gave {money(HL_CC)} to patients who could not pay. They are listed by CEO pay.</p>
 </div>
 {ftable(hl_over, ['sys','st','rev','cc','ccp','pay','ratio'])}
 <div class="prose">
-<p><strong>The biggest systems can do it. Most don't.</strong> Among the {len(giants)} systems with revenue over $10 billion, {E(kaiser['name'])} gave the most charity care in dollars ({money(kaiser['cc'])}) and the most as a share of expenses ({pct(kaiser['ccp'])}), and reported {money(kaiser['pay'])} in compensation for its chief executive, {E(kaiser['ceo'])}, which is {pct(kaiser['ratio'],1)} of that charity care, the lowest ratio of any system its size.{adv_txt} Same tax exemption, same filing, same line of the form.</p>
+<p><strong>The biggest systems can do it. Most don't.</strong> Among the {len(giants)} systems with revenue over $10 billion, {E(KAISER)} gave the most charity care in dollars ({money(kaiser['cc'])}) and the most as a share of expenses ({pct(kaiser['ccp'])}), and reported {money(kaiser['pay'])} in compensation for its chief executive, {E(kaiser['ceo'])}, which is {pct(kaiser['ratio'],1)} of that charity care, the lowest ratio of any system its size.{adv_txt} Same tax exemption, same filing, same line of the form.</p>
 </div>
 {ftable(giants, ['sys','st','rev','cc','ccp','pay','ratio'])}
 <div class="prose">
-<p><strong>The highest rates in the country are at large regional systems, not the giants.</strong> Of the {len(big)} systems over $1 billion, these ten gave the largest share of their expenses as charity care. Several are two to three times {E(kaiser['name'])}'s rate. They are the standard the rest of the list should be measured against, because they prove the money is there.</p>
+<p><strong>The highest rates in the country are at large regional systems, not the giants.</strong> Of the {len(big)} systems over $1 billion, these ten gave the largest share of their expenses as charity care. Several give two to three times {E(KAISER)}'s share.</p>
 </div>
 {ftable(best, ['sys','st','rev','cc','ccp','pay','ratio'])}
 """
@@ -422,7 +423,7 @@ index = HEAD(REPORT_TITLE, HEADLINE + ' ' + f'{len(ranked)} nonprofit hospital s
 <h1 class="title">{E(REPORT_TITLE)}</h1>
 <p class="lede">{HEADLINE} The median large system spends about one cent of every dollar on charity care and reports compensation for its chief executive equal to {MED_RATIO:.0f} percent of that. Every figure on this page is from the hospital's own IRS Form 990, linked on every row.</p>
 {STATS}
-<div class="sharebox"><img src="{BASE}/cards/summary.png" alt="Summary card" width="1200" height="630"><div class="sharelinks"><strong>Share this report.</strong> The card above is what appears when this page's link is posted. <a href="{BASE}/cards/summary.png" download>Download the card</a> &middot; <a href="{BASE}/press-kit.zip" download>Press kit</a> &middot; <a href="{BASE}/for-local-groups.html">For local groups</a></div></div>
+<div class="sharebox"><img src="{BASE}/cards/summary.png" alt="Summary card" width="1200" height="630"><div class="sharelinks"><strong>Share this report.</strong> Post the link and this card shows up with it. <a href="{BASE}/cards/summary.png" download>Download the card</a> &middot; <a href="{BASE}/press-kit.zip" download>Press kit</a> &middot; <a href="{BASE}/for-local-groups.html">For local groups</a></div></div>
 <div class="card prose" style="margin:26px 0;background:var(--surface)"><h3>Background</h3>
 <p><strong>1956.</strong> Rev. Rul. 56-185 set the conditions for a hospital's exemption, among them: “It must be operated to the extent of its financial ability for those not able to pay for the services rendered and not exclusively for those who are able and expected to pay.” (<a href="https://www.irs.gov/pub/irs-tege/rr56-185.pdf">IRS, Rev. Rul. 56-185, 1956-1 C.B. 202</a>)</p>
 <p><strong>1969.</strong> Rev. Rul. 69-545 held that “the promotion of health is considered to be a charitable purpose” and stated: “Revenue Ruling 56-185 is hereby modified to remove therefrom the requirements relating to caring for patients without charge or at rates below cost.” (<a href="https://www.irs.gov/pub/irs-tege/rr69-545.pdf">IRS, Rev. Rul. 69-545, 1969-2 C.B. 117</a>)</p>
@@ -435,17 +436,9 @@ index = HEAD(REPORT_TITLE, HEADLINE + ' ' + f'{len(ranked)} nonprofit hospital s
 <div class="tablewrap"><table class="sortable">{TABLE_HEAD()}<tbody>
 {''.join(row(s) for s in top)}
 </tbody></table></div>
-<p class="note">Full list of {len(ranked)} systems on the <a href="{BASE}/all.html">complete ranking</a>. Systems where the chief executive could not be identified from the filing with confidence, or where charity care is reported on a line other than 7a, are excluded from the ranking and explained in the <a href="{BASE}/methodology.html">methodology</a>.</p>
+<p class="note">All {len(ranked):,} systems are on the <a href="{BASE}/all.html">complete ranking</a>. How the figures are defined is on the <a href="/#standards">Standards</a> page.</p>
 {FINDINGS}
-<h2><span class="n">&sect;3</span>How to read it</h2>
-<div class="prose">
-<p><strong>CEO pay</strong> is total compensation reported on Form 990 Part VII: salary and bonus from the organization and its related organizations, plus deferred compensation and benefits (columns D, E and F). It is the figure the hospital's board approved and the hospital reported.</p>
-<p><strong>Charity care</strong> is Schedule H Part I line 7a: free or discounted care given under the hospital's own financial assistance policy, at the hospital's cost. It is not bad debt and not the Medicaid shortfall, which hospitals often add when they describe their community benefit publicly. The IRS form keeps them separate; so does this report.</p>
-<p>Hospitals usually describe their charity care at charges, the list prices on their chargemaster, which run several times what the care costs to deliver. The IRS does not accept that figure. Line 7a must be reported at cost, using either the hospital’s cost accounting system or its own ratio of total expenses to total charges, and net of any payment received for the care. When a hospital’s press release gives a larger charity-care number than this report, that is almost always the difference.</p>
-<p><strong>The ratio</strong> is CEO pay divided by charity care. At 100 percent, one person's reported compensation equals what the system gave to every patient who could not pay. Reported compensation is Form 990 Part VII columns D, E and F: salary, bonus, deferred compensation as it vests, and benefits, not cash alone.</p>
-<p>A nonprofit hospital pays no federal income tax and, in nearly every state, no property or sales tax. The exemption is granted on the premise that the hospital serves the community in ways a business would not. This report puts two of the hospital's own numbers beside each other and lets the reader decide whether the premise holds.</p>
-</div>
-<h2><span class="n">&sect;4</span>Rebuttals</h2>
+<h2><span class="n">&sect;3</span>Rebuttals</h2>
 <div class="prose"><p>Institutions named in this report may reply to contact@everythingisbroken.org. Replies are published here in full. None has been received.</p></div>
 {SORT_JS}{FOOT}"""
 write('index.html', index)
@@ -844,7 +837,7 @@ write('data.html', data)
 
 # ---------- for local groups ----------
 state_links = ''.join(f'<a href="{BASE}/state/{a}.html">{E(n)} <span class="note" style="display:inline">({c})</span></a>' for a, n, c, m in sorted(state_index_rows, key=lambda x: x[1]))
-local = HEAD('For local groups and officeholders', 'How to use this report for your hospital, your state, or your district: pages, cards, sentences and data, free to take.', here=f'{BASE}/for-local-groups.html', url=f'{BASE}/for-local-groups.html') + f"""
+local = HEAD('For local groups and officeholders', 'Find your hospital or your state and use its page, card, sentence and data. Free, and no permission needed.', here=f'{BASE}/for-local-groups.html', url=f'{BASE}/for-local-groups.html') + f"""
 <p class="doc-no">Report No. {REPORT_NO} &middot; {EDITION} edition</p>
 <h1 class="title">For local groups and officeholders</h1>
 <p class="lede">This report was built so that anyone, anywhere in the country, can put their own hospital's numbers in front of their own town. Everything here is free to take. You do not need permission and you do not need to agree with us about anything; the numbers are the hospitals' own.</p>
@@ -939,6 +932,14 @@ top10 = '\n'.join(row(s) for s in ranked[:10])
 BLOCKS = {
 'medcc': f'{MED_CC:.2f}',
 'corrections': CORR_HTML,
+'method': f"""<div class="mb-10 space-y-3">
+<p><strong>CEO pay</strong> is the total compensation a hospital reports for its chief executive on IRS Form 990, Part VII: salary and bonus from the hospital and its related organizations, plus deferred compensation and benefits (columns D, E and F). It is not cash alone.</p>
+<p><strong>Charity care</strong> is Schedule H, Part I, line 7a: free or discounted care given under the hospital's own financial assistance policy, at cost and net of any payment received for it. Bad debt and the Medicaid shortfall are separate lines on the form and are not counted.</p>
+<p><strong>Why a hospital's own figure is often larger.</strong> Hospitals usually describe their charity care at list prices, which run several times what the care costs to deliver. The IRS requires line 7a at cost, and that is the figure used here.</p>
+<p><strong>The ratio</strong> is CEO pay divided by charity care. At 100 percent, one person's reported compensation equals all the charity care the system gave that year.</p>
+<p><strong>What is counted.</strong> Filings that report the same chief executive are combined into one system. Systems where the chief executive could not be identified from the filing with confidence, or where charity care is reported on a line other than 7a, are shown but not ranked. The headline count covers general hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million. Children's hospitals and specialty hospitals (rehabilitation, long-term acute care, cancer, behavioral) are left out of it, each listed with the reason in <a class="underline" href="{DATA_URL}/headline_exclusions.csv">headline_exclusions.csv</a>, and stay in the full ranking. Every system on the headline list was checked by hand against its filing.</p>
+<p>Every rule and every judgment call is in the <a class="underline" href="{BASE}/methodology.html">full methodology</a> and the <a class="underline" href="{BASE}/manual.html">reproduction manual</a>.</p>
+</div>""",
 'latest': f"""<div class="absolute top-0 right-0 bg-black text-white px-3 py-1 text-xs uppercase tracking-widest">Latest Report</div>
 <div class="text-xs uppercase tracking-widest text-gray-500 mb-2 font-mono">Report <span class="fig">No. {REPORT_NO}</span> | <span class="fig">{EDITION}</span> edition | Data as of <span class="fig">{DATA_ASOF}</span></div>
 <h3 class="text-2xl font-bold mb-3">{E(REPORT_TITLE)}</h3>
@@ -946,9 +947,9 @@ BLOCKS = {
 <p class="text-sm text-gray-700 mb-4">{E(HEADLINE_SUB)}</p>
 {STATS}
 <ul class="list-disc list-outside ml-5 mb-5 text-sm space-y-1">
-<li>The highest-paid of the {len(hl_over)}: {E(hl_over[0]['name'])} ({E(hl_over[0]['state'])}) reported {money(hl_over[0]['pay'])} in compensation for {E(hl_over[0]['ceo'])} and gave {money(hl_over[0]['cc'])} to patients who could not pay.</li>
-<li>{E(kaiser['name'])} shows the biggest systems can do it: {pct(kaiser['ccp'])} of expenses, {money(kaiser['cc'])}, the most of any system over $10 billion.{(' ' + E(advocate['name']) + ', at ' + pct(advocate['ccp']) + ', is near the bottom.') if advocate else ''}</li>
-<li>The highest rates are at large regional systems: {E(best[0]['name'])} ({best[0]['state']}) {pct(best[0]['ccp'])}, {E(best[1]['name'])} ({best[1]['state']}) {pct(best[1]['ccp'])}, {E(best[2]['name'])} ({best[2]['state']}) {pct(best[2]['ccp'])}.</li>
+<li>At the top of the {len(hl_over)} is {E(hl_over[0]['name'])} ({E(hl_over[0]['state'])}), which reported {money(hl_over[0]['pay'])} in compensation for {E(hl_over[0]['ceo'])} and gave {money(hl_over[0]['cc'])} to patients who could not pay.</li>
+<li>Among systems over $10 billion, {E(KAISER)} gave the most: {money(kaiser['cc'])}, or {pct(kaiser['ccp'])} of expenses.{(' ' + E(advocate['name']) + ' is near the bottom at ' + pct(advocate['ccp']) + '.') if advocate else ''}</li>
+<li>The highest shares are at large regional systems: {E(best[0]['name'])} ({best[0]['state']}) at {pct(best[0]['ccp'])}, {E(best[1]['name'])} ({best[1]['state']}) at {pct(best[1]['ccp'])} and {E(best[2]['name'])} ({best[2]['state']}) at {pct(best[2]['ccp'])}.</li>
 </ul>
 <p class="mb-5 text-gray-700">Every figure is the hospital's own, from its IRS Form 990, and every row links to the filing.</p>
 <a href="{BASE}/" class="inline-block border-2 border-black px-6 py-2 uppercase tracking-wide text-sm font-bold hover:bg-black hover:text-white transition-colors mr-3 mb-2">Read the Full Report &rarr;</a>
@@ -959,23 +960,23 @@ BLOCKS = {
 <h2 class="text-3xl font-bold mb-3"><a href="{BASE}/" class="hover:underline">{E(REPORT_TITLE)}</a></h2>
 <p class="text-xl font-bold leading-snug mb-2">{E(HEADLINE)}</p>
 <p class="text-sm text-gray-700 mb-4">{E(HEADLINE_SUB)}</p>
-<p class="mb-4">Annual. Built from <span class="fig">{N_FILINGS:,}</span> IRS Schedule H filings covering <span class="fig">{len(F):,}</span> filers, combined into <span class="fig">{len(S):,}</span> hospital systems, of which <span class="fig">{len(ranked):,}</span> have an identifiable chief executive and positive charity care and are ranked. The median large system spends <span class="fig">{MED_CC:.2f}</span> percent of expenses on charity care and reports compensation for its chief executive equal to <span class="fig">{MED_RATIO:.0f}</span> percent of that amount.</p>
+<p class="mb-4">Published every year. The median large system spends <span class="fig">{MED_CC:.2f}</span> percent of its expenses on charity care and reports compensation for its chief executive equal to <span class="fig">{MED_RATIO:.0f}</span> percent of that amount.</p>
 {STATS}
 <p class="mb-2 font-bold uppercase text-sm tracking-widest">Highest-paid CEOs (Top 10 of {len(ranked):,})</p>
-<p class="text-xs text-gray-600 mb-2">Click any column header to sort, or click a system to inspect its full IRS Form 990 filing breakdown.</p>
+<p class="text-xs text-gray-600 mb-2">Click a column to sort, or a system to see its filing.</p>
 <div class="tablewrap"><table class="sortable">{TABLE_HEAD()}<tbody>
 {top10}
 </tbody></table></div>
-<p class="text-sm text-gray-600 mb-8">CEO pay is Form 990 Part VII total compensation. Charity care is Schedule H Part I line 7a, the hospital's own figure. Full definitions in the <a class="underline" href="{BASE}/methodology.html">methodology</a>.</p>
+<p class="text-sm text-gray-600 mb-8">How these figures are defined: <a class="underline" href="#standards" onclick="showSection('standards'); return false;">Standards</a>.</p>
 <div class="space-y-3">
-<a href="{BASE}/" class="block hover:underline font-bold">&#8627; Top 100 systems by CEO pay</a>
-<a href="{BASE}/all.html" class="block hover:underline font-bold">&#8627; Complete ranking, all {len(ranked):,} systems, searchable and sortable</a>
-<a href="{BASE}/states.html" class="block hover:underline font-bold">&#8627; By state: {STATE_COUNT}</a>
-<a href="{BASE}/methodology.html" class="block hover:underline font-bold">&#8627; Methodology, in plain language</a>
-<a href="{BASE}/manual.html" class="block hover:underline font-bold">&#8627; Reproduction manual, every rule and every manual decision</a>
-<a href="{BASE}/data.html" class="block hover:underline font-bold">&#8627; Data files and scripts</a>
-<a href="{BASE}/for-local-groups.html" class="block hover:underline font-bold">&#8627; For local groups and officeholders: cards, sentences and data for your hospital and your state</a>
-<a href="{BASE}/press-kit.zip" class="block hover:underline font-bold" download>&#8627; Press kit: the summary card, the list of {len(hl_over)}, the method in one page</a>
+<a href="{BASE}/" class="block hover:underline font-bold">&#8627; Top 100 by CEO pay</a>
+<a href="{BASE}/all.html" class="block hover:underline font-bold">&#8627; All {len(ranked):,} systems</a>
+<a href="{BASE}/states.html" class="block hover:underline font-bold">&#8627; By state</a>
+<a href="{BASE}/methodology.html" class="block hover:underline font-bold">&#8627; Methodology</a>
+<a href="{BASE}/manual.html" class="block hover:underline font-bold">&#8627; Reproduction manual</a>
+<a href="{BASE}/data.html" class="block hover:underline font-bold">&#8627; Data and scripts</a>
+<a href="{BASE}/for-local-groups.html" class="block hover:underline font-bold">&#8627; For local groups and officeholders</a>
+<a href="{BASE}/press-kit.zip" class="block hover:underline font-bold" download>&#8627; Press kit</a>
 </div>
 <p class="mt-8 text-sm"><strong>Rebuttals received:</strong> none. Institutions named in this report may write to contact@everythingisbroken.org; replies are published in full on the report page.</p>""",
 
@@ -994,7 +995,7 @@ BLOCKS = {
 </div>
 <div class="border border-black p-6">
 <h3 class="text-xl font-bold mb-3 uppercase tracking-wider">Reproduction Manual</h3>
-<p class="text-sm mb-4">A complete, self-contained procedure for rebuilding the dataset from the IRS bulk files: definitions with form lines and XML element names, the scripts in order, every decision rule, the override files, nine validation checks, known limits, and the annual re-run. Written so another person or another LLM can do it with no prior knowledge of this project.</p>
+<p class="text-sm mb-4">A complete, self-contained procedure for rebuilding the dataset from the IRS bulk files: definitions with form lines and XML element names, the scripts in order, every decision rule, the override files, nine validation checks, known limits, and the annual re-run. Written so anyone can follow it with no prior knowledge of this project.</p>
 <a href="{BASE}/manual.html" class="underline hover:text-gray-600 block text-sm font-bold mt-2">Read the Manual &rarr;</a>
 <a href="/pipeline/REPRODUCTION_MANUAL.md" class="underline hover:text-gray-600 block text-sm mt-2">Plain-text version</a>
 </div>
