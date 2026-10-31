@@ -4,24 +4,24 @@
  "series": "Annual Report",
  "edition": "2026",
  "data_as_of": "2026-10-22",
- "built": "2026-10-30",
- "headline": "76 nonprofit hospital chief executives received more in reported compensation than their hospitals gave in charity care.",
- "headline_sub": "The count covers the 668 general hospital systems with revenue over $100 million, using each hospital's own IRS filings. Together the 76 received $88.0M in reported compensation; their hospitals gave $43.1M to patients who could not pay.",
+ "built": "2026-10-31",
+ "headline": "74 nonprofit hospital chief executives received more in reported compensation than their hospitals gave in charity care.",
+ "headline_sub": "The count covers the 656 general hospital systems with revenue over $100 million, using each hospital's own IRS filings. Together the 74 received $84.4M in reported compensation; their hospitals gave $40.4M to patients who could not pay.",
  "headline_min_revenue": 100000000.0,
- "headline_universe": 668,
- "headline_count": 76,
- "headline_ceo_pay_total": 88029641.0,
- "headline_charity_care_total": 43087628.0,
+ "headline_universe": 656,
+ "headline_count": 74,
+ "headline_ceo_pay_total": 84400380.0,
+ "headline_charity_care_total": 40449108.0,
  "summary_card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/summary.png",
  "filings": 19245,
  "filers": 2306,
- "systems": 1626,
- "ranked": 1052,
+ "systems": 1629,
+ "ranked": 1034,
  "systems_over_1b": 229,
  "median_charity_care_pct_over_1b": 1.23,
  "median_ceo_pay_pct_of_charity_care_over_1b": 7.5,
  "share_over_1b_under_1pct": 41,
- "over_1b_ceo_paid_more_than_charity_care": 3,
+ "over_1b_ceo_paid_more_than_charity_care": 2,
  "ceo_paid_more_than_charity_care": [
   {
    "system": "Mercyhealth",
@@ -52,16 +52,6 @@
    "ratio_pct": 277.154298294647,
    "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/eisenhower-medical-center-95-6130458.png",
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/eisenhower-medical-center-95-6130458.html"
-  },
-  {
-   "system": "Medical Center of Central Georgia",
-   "state": "GA",
-   "ceo": "Delvecchio Finley",
-   "ceo_pay": 2542256.0,
-   "charity_care": 2296667.0,
-   "ratio_pct": 110.69327856411051,
-   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/medical-center-of-central-georgia-inc-58-2149128.png",
-   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/medical-center-of-central-georgia-inc-58-2149128.html"
   },
   {
    "system": "Marin General Hospital",
@@ -282,16 +272,6 @@
    "ratio_pct": 158.83415183479818,
    "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/littleton-hospital-association-02-0222152.png",
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/littleton-hospital-association-02-0222152.html"
-  },
-  {
-   "system": "Brattleboro Memorial Hospital",
-   "state": "VT",
-   "ceo": "Elizabeth McLarney MD",
-   "ceo_pay": 931943.0,
-   "charity_care": 375635.0,
-   "ratio_pct": 248.09802068497345,
-   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/brattleboro-memorial-hospital-03-0107300.png",
-   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/brattleboro-memorial-hospital-03-0107300.html"
   },
   {
    "system": "Lima Memorial Joint Operating Company",
@@ -558,20 +538,10 @@
    "state": "KS",
    "ceo": "Brian Williams",
    "ceo_pay": 615052.0,
-   "charity_care": 515779.0,
-   "ratio_pct": 119.2471969583872,
+   "charity_care": 410779.0,
+   "ratio_pct": 149.72819934806793,
    "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/labette-county-medical-center-48-6099245.png",
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/labette-county-medical-center-48-6099245.html"
-  },
-  {
-   "system": "St Nicholas Hospital (HSHS)",
-   "state": "WI",
-   "ceo": "John L Wagner",
-   "ceo_pay": 607307.0,
-   "charity_care": 236853.0,
-   "ratio_pct": 256.40671640215663,
-   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/st-nicholas-hospital-of-the-hospital-sisters-of-the-third-order-of-st-franc-is-3.png",
-   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/st-nicholas-hospital-of-the-hospital-sisters-of-the-third-order-of-st-franc-is-3.html"
   },
   {
    "system": "Southwest Health Center",
@@ -734,6 +704,16 @@
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/community-hospital-of-anaconda-81-0303913.html"
   },
   {
+   "system": "Brattleboro Memorial Hospital",
+   "state": "VT",
+   "ceo": "Christopher Dougherty",
+   "ceo_pay": 452245.0,
+   "charity_care": 375635.0,
+   "ratio_pct": 120.3947981418132,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/brattleboro-memorial-hospital-03-0107300.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/brattleboro-memorial-hospital-03-0107300.html"
+  },
+  {
    "system": "Hills & Dales General Hospital",
    "state": "MI",
    "ceo": "Andrew Daniels",
@@ -809,8 +789,8 @@
    "revenue": 11126367953.0,
    "charity_care": 184168412.0,
    "charity_care_pct": 1.9201789345528,
-   "ceo": "Peter S Fine",
-   "ceo_pay": 13535312.0
+   "ceo": "Amy Perry",
+   "ceo_pay": 9052648.0
   },
   {
    "system": "CommonSpirit Health (Dignity)",
@@ -1030,17 +1010,6 @@
   },
   {
    "rank": 9,
-   "system": "Banner Health",
-   "ceo": "Peter S Fine",
-   "state": "AZ",
-   "ceo_pay": 13535312.0,
-   "charity_care": 184168412.0,
-   "charity_care_pct": 1.9201789345528,
-   "ceo_pay_pct_of_charity_care": 7.349421028835282,
-   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/banner-health-45-0233470.html"
-  },
-  {
-   "rank": 10,
    "system": "UPMC",
    "ceo": "Leslie C Davis",
    "state": "PA",
@@ -1049,6 +1018,17 @@
    "charity_care_pct": 0.5095530687809532,
    "ceo_pay_pct_of_charity_care": 8.725488578166612,
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/upmc-group-20-8295721.html"
+  },
+  {
+   "rank": 10,
+   "system": "Kaiser Permanente (Hospitals)",
+   "ceo": "Gregory Adams",
+   "state": "CA",
+   "ceo_pay": 12976050.0,
+   "charity_care": 876453048.0,
+   "charity_care_pct": 2.2850991923008777,
+   "ceo_pay_pct_of_charity_care": 1.480518554828507,
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/kaiser-foundation-hospitals-94-1105628.html"
   }
  ]
 }
