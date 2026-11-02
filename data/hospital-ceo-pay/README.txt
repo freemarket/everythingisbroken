@@ -1,5 +1,5 @@
 Everything Is Broken
-Nonprofit Hospital Executive Pay vs Charity Care, Annual Report, 2026 edition. Data as of 2026-10-22.
+Nonprofit Hospital Executive Pay vs Charity Care, Annual Report, 2026 edition. Data as of 2026-11-01.
 https://everythingisbroken.org/reports/hospital-ceo-pay/
 
 HEADLINE
