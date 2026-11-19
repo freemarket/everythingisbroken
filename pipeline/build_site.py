@@ -314,7 +314,7 @@ FOOT = f"""</main>
 <footer><div class="rule-single"></div>
 <div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
 <p>Report No. {REPORT_NO}, {E(SERIES)}, {EDITION} edition &middot; Data as of {DATA_ASOF} &middot; Built {BUILD}</p>
-<p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to contact@everythingisbroken.org.</p>
+<p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to asher@everythingisbroken.org.</p>
 <p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate.</p>
 <p>&copy; {EDITION} EVERYTHINGISBROKEN.ORG</p></footer>
 </div></body></html>"""
@@ -439,7 +439,7 @@ index = HEAD(REPORT_TITLE, HEADLINE + ' ' + f'{len(ranked)} nonprofit hospital s
 <p class="note">All {len(ranked):,} systems are on the <a href="{BASE}/all.html">complete ranking</a>. How the figures are defined is on the <a href="/#standards">Standards</a> page.</p>
 {FINDINGS}
 <h2><span class="n">&sect;3</span>Rebuttals</h2>
-<div class="prose"><p>Institutions named in this report may reply to contact@everythingisbroken.org. Replies are published here in full. None has been received.</p></div>
+<div class="prose"><p>Institutions named in this report may reply to asher@everythingisbroken.org. Replies are published here in full. None has been received.</p></div>
 {SORT_JS}{FOOT}"""
 write('index.html', index)
 
@@ -737,7 +737,7 @@ meth = HEAD('Methodology', 'How the figures were taken from IRS filings, and the
 <h2>Children's hospitals</h2><p>Medicaid and CHIP cover most low-income children, so children's hospitals report little uncompensated care and appear at the bottom of any charity care ranking. They are shown in grey and can be hidden from any table.</p>
 <h2>What this report does not do</h2><p>It does not estimate the value of the tax exemption. It does not count public hospitals (county, state, veterans), which file no Form 990. It does not judge whether a chief executive is overpaid. It puts two of the hospital's own numbers beside each other.</p>
 <h2>Independent check</h2><p>CEO pay figures were compared against CEO Paycheck, which reads the same filings with its own method: of 129 systems present in both, 121 agree on the person and the dollar amount. The eight differences are explained in section 7 of the <a href="{BASE}/manual.html">reproduction manual</a>.</p>
-<h2>Corrections</h2><p>If a figure is wrong, send the filing that contradicts it to contact@everythingisbroken.org. The correction runs at the top of the affected page with the date, and in the corrections log on the <a href="/#standards">Standards</a> page.</p>
+<h2>Corrections</h2><p>If a figure is wrong, send the filing that contradicts it to asher@everythingisbroken.org. The correction runs at the top of the affected page with the date, and in the corrections log on the <a href="/#standards">Standards</a> page.</p>
 <p>The full <a href="{BASE}/manual.html">reproduction manual</a>, with every rule and every manual decision, and the <a href="{BASE}/data.html">data files and scripts</a> that build this report from the IRS release, are published alongside it.</p>
 </div>{FOOT}"""
 write('methodology.html', meth)
@@ -854,7 +854,7 @@ local = HEAD('For local groups and officeholders', 'Find your hospital or your s
 </ul>
 <h2><span class="n">&sect;5</span>If the hospital answers</h2>
 <p>Send us the reply. Replies from institutions named in this report are published in full on the report page, and the hospital's own filing is the answer to most of them. The usual one is a larger charity-care number than ours; that number is almost always at list price, and the IRS requires the figure on the form to be at cost. The <a href="{BASE}/methodology.html">methodology</a> explains it in a paragraph you can quote.</p>
-<p>Contact: contact@everythingisbroken.org.</p>
+<p>Contact: asher@everythingisbroken.org.</p>
 </div>
 {SORT_JS}{FOOT}"""
 write('for-local-groups.html', local)
@@ -878,7 +878,7 @@ Charity care: Schedule H Part I line 7a, financial assistance at cost, net of an
 Systems: filings reporting the same chief executive are combined; every combination over $1 billion was checked by hand. Children's hospitals and specialty hospitals (rehabilitation, long-term acute care, cancer, behavioral) are excluded from the headline count and listed with the reason in headline_exclusions.csv on the data page.
 
 EVERY FIGURE links to the filing it came from. Full dataset, scripts and a reproduction manual: {SITE}{BASE}/data.html
-Contact: contact@everythingisbroken.org. Corrections: send the filing that contradicts a figure.
+Contact: asher@everythingisbroken.org. Corrections: send the filing that contradicts a figure.
 """
 method = f"""METHOD, IN ONE PAGE
 
@@ -967,7 +967,7 @@ BLOCKS = {
 <a href="{BASE}/for-local-groups.html" class="block hover:underline font-bold">&#8627; For local groups and officeholders</a>
 <a href="{BASE}/press-kit.zip" class="block hover:underline font-bold" download>&#8627; Press kit</a>
 </div>
-<p class="mt-8 text-sm"><strong>Rebuttals received:</strong> none. Institutions named in this report may write to contact@everythingisbroken.org; replies are published in full on the report page.</p>""",
+<p class="mt-8 text-sm"><strong>Rebuttals received:</strong> none. Institutions named in this report may write to asher@everythingisbroken.org; replies are published in full on the report page.</p>""",
 
 'data': f"""<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 <div class="border border-black p-6">

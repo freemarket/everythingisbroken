@@ -16,4 +16,4 @@ Charity care: Schedule H Part I line 7a, financial assistance at cost, net of an
 Systems: filings reporting the same chief executive are combined; every combination over $1 billion was checked by hand. Children's hospitals and specialty hospitals (rehabilitation, long-term acute care, cancer, behavioral) are excluded from the headline count and listed with the reason in headline_exclusions.csv on the data page.
 
 EVERY FIGURE links to the filing it came from. Full dataset, scripts and a reproduction manual: https://everythingisbroken.org/reports/hospital-ceo-pay/data.html
-Contact: contact@everythingisbroken.org. Corrections: send the filing that contradicts a figure.
+Contact: asher@everythingisbroken.org. Corrections: send the filing that contradicts a figure.
