@@ -559,23 +559,29 @@ def med_cc(lst):
     cc = [s['ccp'] for s in lst if s['ccp'] is not None and s['zero_charity_care_flag'] != 'yes']
     return st.median(cc) if len(cc) >= MIN_MEDIAN else None
 NAT_MED = med_cc([s for s in S if s['pay'] or s['cc']])
-def state_lead(st_, lst):
-    # Uses the headline's own groups (hl_all, hl_over), restricted to systems with a hospital in the state.
+def state_count(st_):
+    # The state's headline count, as one sentence. Uses the headline's own groups (hl_all, hl_over),
+    # restricted to systems with a hospital in the state. Also the first line of the state share card.
     nm = STATES[st_]; elig = [s for s in hl_all if st_ in s['states']]; over_ = [s for s in hl_over if st_ in s['states']]
+    big = f"nonprofit hospital system{'s' if len(elig) != 1 else ''} over ${HEADLINE_MIN_REV/1e6:.0f} million"
+    if len(elig) == 1:
+        return f"One {big} has a hospital in {nm}, and it {'reported more' if over_ else 'did not report more'} in chief executive compensation than it gave in charity care."
     if elig:
-        a = f"In {nm}, {len(over_)} of the {len(elig)} nonprofit hospital system{'s' if len(elig) != 1 else ''} over ${HEADLINE_MIN_REV/1e6:.0f} million with a hospital in the state reported more in chief executive compensation than {'it' if len(elig) == 1 else 'they'} gave in charity care; nationally, {len(hl_over)} of {len(hl_all):,}."
-    else:
-        a = f"{nm} has no nonprofit hospital system over ${HEADLINE_MIN_REV/1e6:.0f} million in the ranking; nationally, {len(hl_over)} of {len(hl_all):,} such systems reported more in chief executive compensation than they gave in charity care."
+        return f"Of the {len(elig)} {big} with a hospital in {nm}, {len(over_)} reported more in chief executive compensation than {'it' if len(over_) == 1 else 'they'} gave in charity care."
+    return f"{nm} has no {big} in the ranking."
+def state_lead(st_, lst):
+    nm = STATES[st_]; over_ = [s for s in hl_over if st_ in s['states']]
+    a = state_count(st_) + f" Nationally, {len(hl_over)} of {len(hl_all):,} did."
     med = med_cc(lst)
-    b = f" The median system with a hospital in {nm} spent {pct(med)} of expenses on charity care, against {pct(NAT_MED)} for all systems nationally." if med is not None else f" Only {n_cc(lst)} system{'s' if n_cc(lst) != 1 else ''} with a hospital in {nm} report{'s' if n_cc(lst) == 1 else ''} a charity care figure, too few for a median; the median for all systems nationally is {pct(NAT_MED)}."
+    b = f" Counting systems of every size, the median in {nm} spent {pct(med)} of expenses on charity care, against {pct(NAT_MED)} nationally." if med is not None else f" Counting systems of every size, only {n_cc(lst)} in {nm} report{'s' if n_cc(lst) == 1 else ''} a charity care figure, too few for a median; the national median is {pct(NAT_MED)}."
     pubs = [s for s in lst if s['pub']]
     c = ''
     fr = lambda s: f" (files from {STATES.get(s['filed'], 'outside the US')})" if s['filed'] != st_ else ''
     if over_:
         # Lead with the state's own headline systems: the largest CEO pay among them, then the smallest charity care share.
         t = over_[0]
-        c = (f" Of the {len(over_)}, {t['name']}{fr(t)} reported the most:" if len(over_) > 1 else f" That system is {t['name']}{fr(t)}, which reported") + \
-            f" {money(t['pay'], False)} in compensation for {t['ceo']}, against {money(t['cc'], False)} in charity care ({pct(t['ccp'])} of expenses)."
+        c = (f" Of the {len(over_)}, {t['name']}{fr(t)} reported the highest chief executive compensation: {money(t['pay'], False)}" if len(over_) > 1 else f" That system is {t['name']}{fr(t)}, which reported {money(t['pay'], False)} in compensation") + \
+            f" for {t['ceo']}, against {money(t['cc'], False)} in charity care ({pct(t['ccp'])} of expenses)."
         lo = min(over_, key=lambda s: s['ccp'] if s['ccp'] is not None else float('inf'))
         if lo is not t and lo['ccp'] is not None:
             c += f" {lo['name']}{fr(lo)} gave the smallest share: {pct(lo['ccp'])} of expenses, {money(lo['cc'], False)}, against {money(lo['pay'], False)} for {lo['ceo']}."
@@ -593,7 +599,7 @@ def state_card(st_, lst):
         rows_ = general[:5]; label = "The lowest charity care rates among hospital systems over $100 million:"
     return card_html(f"""
 <div class="title">{E(STATES.get(st_, st_))}: {len(lst)} nonprofit hospital systems</div>
-<p class="sub">{E(state_lead(st_, lst).split(';')[0])}. {f'Median charity care {pct(med)} of expenses, {pct(NAT_MED)} for all systems nationally. ' if med is not None else ''}{label}</p>
+<p class="sub">{E(state_count(st_))} {f'Median charity care {pct(med)} of expenses, {pct(NAT_MED)} for all systems nationally. ' if med is not None else ''}{label}</p>
 <table>{''.join(f'<tr><td>{E(s["name"])} <span class="ceo">· {E(s["ceo"])}</span></td><td class="num">{money(s["pay"], False)} CEO pay</td><td class="num">{money(s["cc"], False)} charity care ({pct(s["ccp"])})</td><td class="num red">{s["ratio"]:.1f}%</td></tr>' for s in rows_)}</table>
 {foot('Source: each hospital’s IRS Form 990 Schedule H')}""")
 for st_, lst in sorted(bystate.items()): CARD_JOBS.append((f"state/{st_}.png", state_card(st_, lst)))
