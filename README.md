@@ -18,7 +18,8 @@ Any change to the tables, the override files, or the generator:
 
 ```
 python3 pipeline/build_site.py
-git add -A && git commit -m "Rebuild report" && git push
+git add -A && git commit -m "Rebuild report"
+git -c credential.helper= -c credential.helper=store push https://github.com/freemarket/everythingisbroken.git main
 ```
 
 The generator reads `data/hospital-ceo-pay/`, writes `reports/hospital-ceo-pay/`, and rewrites the three blocks in `index.html` that carry figures from the dataset (between `<!-- gen:latest -->`, `<!-- gen:report1 -->` and `<!-- gen:data -->` markers), so the main page and the report can never disagree. It needs Python 3, the `markdown` package (`pip install markdown`) for the manual page, and Playwright with Chromium (`pip install playwright && playwright install chromium`) for the cards; set `EIB_SKIP_CARDS=1` to rebuild the pages without re-rendering the cards. A full build with cards takes about four minutes.
