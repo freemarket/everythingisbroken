@@ -19,7 +19,7 @@ Repository: https://github.com/freemarket/everythingisbroken (clone it). Live si
 - Every filing can be read on ProPublica Nonprofit Explorer: https://projects.propublica.org/nonprofits/organizations/<EIN without dash>/<object_id>/full. Part VII lists officers and pay; Schedule H Part I line 7a is charity care; Schedule R lists related organizations; Schedule H Part VI and Schedule O are narrative.
 
 THE CLAIM BEING CHECKED
-The headline sentence in reports/hospital-ceo-pay/summary.json: "N nonprofit hospital chief executives were paid more than their hospitals gave in charity care," among general hospital systems with revenue over $100 million. CEO pay is Form 990 Part VII columns D+E+F. Charity care is Schedule H line 7a column (e), at cost, net.
+The headline sentence in reports/hospital-ceo-pay/summary.json: "N nonprofit hospital chief executives were paid more than their hospitals gave in charity care," among every hospital system, of any type (general, children's, specialty), with revenue over $100 million; each row is labeled by type (hospital_types.csv). CEO pay is Form 990 Part VII columns D+E+F. Charity care is Schedule H line 7a column (e), at cost, net.
 
 THE FIVE WAYS IT HAS BEEN WRONG SO FAR. FIND THE REST.
 
@@ -39,13 +39,13 @@ THE FIVE WAYS IT HAS BEEN WRONG SO FAR. FIND THE REST.
    Nothing confirmed yet, but 64 filings with tiny 7a next to large 7c (other means-tested programs) or 7g (subsidized health services) had their Part VI narratives read. Check the ones not yet read: rows where charity_care_net is under 10% of (sch_h_7c_… + sch_h_7g_…), revenue under $100M, and rows where charity_care_pct (filed) differs from charity_care_pct_computed by more than half a point. Read Schedule H Part VI and Schedule O for sentences saying financial assistance is "included in", "reported on", or "classified as" another line or bad debt.
 
 5. A filing that is not a normal operating year or not a general hospital.
-   Examples found: HSHS Sacred Heart Eau Claire and St Joseph's Chippewa Falls (closed March 2024; expenses double revenue); rehabilitation, long-term acute care, cancer, respiratory, behavioral and hospice filers in a list meant for general hospitals; foundations and joint-venture partners whose "expenses" are not hospital operations.
+   Examples found: HSHS Sacred Heart Eau Claire and St Joseph's Chippewa Falls (closed March 2024; expenses double revenue); rehabilitation, long-term acute care, cancer, respiratory, behavioral and hospice filers labeled as general (since Nov 19, 2026 they are counted but must carry the specialty label); foundations and joint-venture partners whose "expenses" are not hospital operations.
    Where to look: total_expenses / total_revenue above 1.35 or below 0.65; facilities (in filers_latest.csv) naming rehabilitation, specialty, psychiatric, behavioral, children's, hospice, LTACH, surgical; lead_filer names with "Foundation", "Ministries", "Holdings"; charity_care_pct_computed above 20%. Also check for hospitals that merged or changed EIN during the year (Schedule O usually says).
 
 KNOWN AND ACCEPTED, DO NOT REPORT AS ERRORS
 - Systems whose hospitals file under their own local presidents appear as several rows, one per president, with the parent's executives attributed to no hospital. This is stated in the method. Report it only where a row's executive is not that hospital's own (pattern 1).
 - Twelve multi-filer systems sum members with different fiscal year-ends. Documented.
-- Children's hospitals are ranked but excluded from the headline count. Documented.
+- Children's and specialty hospitals are counted in the headline and labeled by type (since Nov 19, 2026). Documented.
 
 HOW TO WORK
 Start with the rows of ceo_pay_exceeds_charity_care.csv and run all five patterns against each, reading the filing on ProPublica for every one. Then run patterns 1, 2, 3 and 5 as queries across all of systems_rollup.csv where publishable == yes, and read the filings for everything the queries flag. Then take the 40 largest systems by revenue and check patterns 1 through 3 by reading their filings, because errors there move the medians on the report page even if they are not on the headline list.

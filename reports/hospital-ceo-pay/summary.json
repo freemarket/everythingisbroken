@@ -5,23 +5,23 @@
  "edition": "2026",
  "data_as_of": "2026-11-01",
  "built": "2026-11-19",
- "headline": "73 nonprofit hospital chief executives received more in reported compensation than their hospitals gave in charity care.",
- "headline_sub": "The count covers the 655 general hospital systems with revenue over $100 million, using each hospital's own IRS filings. Together the 73 received $84.1M in reported compensation; their hospitals gave $40.3M to patients who could not pay.",
+ "headline": "90 nonprofit hospital chief executives received more in reported compensation than their hospitals gave in charity care.",
+ "headline_sub": "The count covers all 702 nonprofit hospital systems with revenue over $100 million, general, children\u2019s and specialty, using each hospital's own IRS filings. Of the 90, 73 run general hospitals, 7 children\u2019s hospitals and 10 specialty hospitals. Together the 90 received $115.5M in reported compensation; their hospitals gave $53.2M to patients who could not pay.",
  "headline_min_revenue": 100000000.0,
- "headline_universe": 655,
- "headline_count": 73,
- "headline_ceo_pay_total": 84062575.0,
- "headline_charity_care_total": 40251850.0,
+ "headline_universe": 702,
+ "headline_count": 90,
+ "headline_ceo_pay_total": 115515326.0,
+ "headline_charity_care_total": 53208542.0,
  "summary_card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/summary.png",
  "filings": 19245,
  "filers": 2306,
  "systems": 1627,
  "ranked": 1033,
- "systems_over_1b": 229,
- "median_charity_care_pct_over_1b": 1.23,
- "median_ceo_pay_pct_of_charity_care_over_1b": 7.5,
- "share_over_1b_under_1pct": 41,
- "over_1b_ceo_paid_more_than_charity_care": 2,
+ "systems_over_1b": 255,
+ "median_charity_care_pct_over_1b": 1.17,
+ "median_ceo_pay_pct_of_charity_care_over_1b": 8.7,
+ "share_over_1b_under_1pct": 43,
+ "over_1b_ceo_paid_more_than_charity_care": 7,
  "ceo_paid_more_than_charity_care": [
   {
    "system": "Mercyhealth",
@@ -34,6 +34,16 @@
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/mercy-health-system-corporation-39-0816848.html"
   },
   {
+   "system": "Children's Hospital Colorado",
+   "state": "CO",
+   "ceo": "Jena Hausmann",
+   "ceo_pay": 4286194.0,
+   "charity_care": 2986103.0,
+   "ratio_pct": 143.5380494242831,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/children-s-hospital-colorado-84-0166760.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/children-s-hospital-colorado-84-0166760.html"
+  },
+  {
    "system": "ProHealth Care (Waukesha Memorial)",
    "state": "WI",
    "ceo": "Susan Edwards",
@@ -44,6 +54,16 @@
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/prohealth-waukesha-memorial-hospital-inc-39-0910727.html"
   },
   {
+   "system": "Valley Children's Hospital",
+   "state": "CA",
+   "ceo": "Todd Suntrapak",
+   "ceo_pay": 2982371.0,
+   "charity_care": 1541865.0,
+   "ratio_pct": 193.42620787163597,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/valley-children-s-hospital-94-1294954.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/valley-children-s-hospital-94-1294954.html"
+  },
+  {
    "system": "Eisenhower Medical Center",
    "state": "CA",
    "ceo": "Martin Massiello",
@@ -52,6 +72,56 @@
    "ratio_pct": 277.154298294647,
    "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/eisenhower-medical-center-95-6130458.png",
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/eisenhower-medical-center-95-6130458.html"
+  },
+  {
+   "system": "Ann & Robert H Lurie Children's Hospital of Chicago",
+   "state": "IL",
+   "ceo": "Thomas P Shanley MD",
+   "ceo_pay": 2617499.0,
+   "charity_care": 894903.0,
+   "ratio_pct": 292.48968882661023,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/ann-robert-h-lurie-children-s-hospital-of-chicago-36-2170833.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/ann-robert-h-lurie-children-s-hospital-of-chicago-36-2170833.html"
+  },
+  {
+   "system": "National Jewish Health",
+   "state": "CO",
+   "ceo": "Michael S Salem MD",
+   "ceo_pay": 2402798.0,
+   "charity_care": 103346.0,
+   "ratio_pct": 2325.003386681633,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/national-jewish-health-74-2044647.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/national-jewish-health-74-2044647.html"
+  },
+  {
+   "system": "Tarzana Treatment Centers",
+   "state": "CA",
+   "ceo": "Albert Senella",
+   "ceo_pay": 2366428.0,
+   "charity_care": 1726255.0,
+   "ratio_pct": 137.08449794497338,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/tarzana-treatment-centers-inc-94-2219349.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/tarzana-treatment-centers-inc-94-2219349.html"
+  },
+  {
+   "system": "Lucile Salter Packard Children's Hospital at Stanford",
+   "state": "CA",
+   "ceo": "Paul King",
+   "ceo_pay": 2338281.0,
+   "charity_care": 1821569.0,
+   "ratio_pct": 128.3663149735201,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/lucile-salter-packard-children-s-hospital-at-stanford-77-0003859.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/lucile-salter-packard-children-s-hospital-at-stanford-77-0003859.html"
+  },
+  {
+   "system": "Shirley Ryan AbilityLab",
+   "state": "IL",
+   "ceo": "Pablo Celnik MD",
+   "ceo_pay": 2230293.0,
+   "charity_care": 204863.0,
+   "ratio_pct": 1088.6753586543202,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/rehabilitation-institute-of-chicago-36-2256036.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/rehabilitation-institute-of-chicago-36-2256036.html"
   },
   {
    "system": "Marin General Hospital",
@@ -84,6 +154,16 @@
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/cooper-university-hospital-cape-regional-inc-21-0662542.html"
   },
   {
+   "system": "Connecticut Children's Medical Center",
+   "state": "CT",
+   "ceo": "James E Shmerling",
+   "ceo_pay": 2052851.0,
+   "charity_care": 983483.0,
+   "ratio_pct": 208.73273864418599,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/connecticut-children-s-medical-center-06-0646755.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/connecticut-children-s-medical-center-06-0646755.html"
+  },
+  {
    "system": "Union Hospital",
    "state": "IN",
    "ceo": "Steven Holman",
@@ -92,6 +172,16 @@
    "ratio_pct": 382.28406799421816,
    "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/union-hospital-inc-35-0876396.png",
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/union-hospital-inc-35-0876396.html"
+  },
+  {
+   "system": "Children's Hospital Los Angeles",
+   "state": "CA",
+   "ceo": "Paul S Viviano",
+   "ceo_pay": 1888151.0,
+   "charity_care": 664174.0,
+   "ratio_pct": 284.28559383535037,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/children-s-hospital-los-angeles-95-1690977.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/children-s-hospital-los-angeles-95-1690977.html"
   },
   {
    "system": "The Brooklyn Hospital Center",
@@ -124,6 +214,16 @@
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/community-memorial-health-system-95-1683892.html"
   },
   {
+   "system": "The American Oncologic Hospital",
+   "state": "PA",
+   "ceo": "Robert Uzzo",
+   "ceo_pay": 1582504.0,
+   "charity_care": 388000.0,
+   "ratio_pct": 407.86185567010307,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/the-american-oncologic-hospital-23-1352156.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/the-american-oncologic-hospital-23-1352156.html"
+  },
+  {
    "system": "Beebe Medical Center",
    "state": "DE",
    "ceo": "David A Tam MD",
@@ -132,6 +232,16 @@
    "ratio_pct": 105.01622831256215,
    "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/beebe-medical-center-inc-51-0067938.png",
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/beebe-medical-center-inc-51-0067938.html"
+  },
+  {
+   "system": "Hospital for Special Care",
+   "state": "CT",
+   "ceo": "Lynn Ricci",
+   "ceo_pay": 1451041.0,
+   "charity_care": 824.0,
+   "ratio_pct": 176097.20873786407,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/hospital-for-special-care-06-0646766.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/hospital-for-special-care-06-0646766.html"
   },
   {
    "system": "Colorado West Healthcare System",
@@ -154,6 +264,16 @@
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/ridgeview-medical-center-31-1667875.html"
   },
   {
+   "system": "Mary Free Bed Rehabilitation Hospital",
+   "state": "MI",
+   "ceo": "Kent Riddle",
+   "ceo_pay": 1216897.0,
+   "charity_care": 987652.0,
+   "ratio_pct": 123.21111079611038,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/mary-free-bed-rehabilitation-hospital-38-1359265.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/mary-free-bed-rehabilitation-hospital-38-1359265.html"
+  },
+  {
    "system": "Ella E M Brown Charitable Circle",
    "state": "MI",
    "ceo": "Gregg Beeg",
@@ -172,6 +292,16 @@
    "ratio_pct": 179.81779702247738,
    "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/st-johns-riverside-hospital-andrus-parkcare-dobbs-ferry-13-1740126.png",
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/st-johns-riverside-hospital-andrus-parkcare-dobbs-ferry-13-1740126.html"
+  },
+  {
+   "system": "Blythedale Children's Hospital",
+   "state": "NY",
+   "ceo": "Lawrence Levine",
+   "ceo_pay": 1146973.0,
+   "charity_care": 224919.0,
+   "ratio_pct": 509.9493595472148,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/blythedale-children-s-hospital-13-1739922.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/blythedale-children-s-hospital-13-1739922.html"
   },
   {
    "system": "Tarzana Medical Center",
@@ -272,6 +402,16 @@
    "ratio_pct": 158.83415183479818,
    "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/littleton-hospital-association-02-0222152.png",
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/littleton-hospital-association-02-0222152.html"
+  },
+  {
+   "system": "Casa Colina Hospital and Centers for Healthcare",
+   "state": "CA",
+   "ceo": "Kelly Linden",
+   "ceo_pay": 921777.0,
+   "charity_care": 53741.0,
+   "ratio_pct": 1715.2211533093914,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/casa-colina-hospital-and-centers-for-healthcare-95-1643989.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/casa-colina-hospital-and-centers-for-healthcare-95-1643989.html"
   },
   {
    "system": "Lima Memorial Joint Operating Company",
@@ -384,6 +524,16 @@
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/hillsdale-community-health-center-38-6005550.html"
   },
   {
+   "system": "RML Specialty Hospital",
+   "state": "IL",
+   "ceo": "James Prister",
+   "ceo_pay": 767659.0,
+   "charity_care": 104123.0,
+   "ratio_pct": 737.2617001046839,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/rml-health-providers-limited-partnership-36-4113692.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/rml-health-providers-limited-partnership-36-4113692.html"
+  },
+  {
    "system": "Auburn Community Hospital",
    "state": "NY",
    "ceo": "Scott Berlucchi",
@@ -392,6 +542,16 @@
    "ratio_pct": 163.90161861241305,
    "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/auburn-community-hospital-15-0532054.png",
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/auburn-community-hospital-15-0532054.html"
+  },
+  {
+   "system": "The Good Shepherd Rehabilitation Hospital",
+   "state": "PA",
+   "ceo": "Michael R Spigel",
+   "ceo_pay": 748271.0,
+   "charity_care": 122073.0,
+   "ratio_pct": 612.9701080501012,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/the-good-shepherd-rehabilitation-hospital-23-1371947.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/the-good-shepherd-rehabilitation-hospital-23-1371947.html"
   },
   {
    "system": "Welia Health",
@@ -702,6 +862,16 @@
    "ratio_pct": 101.84307506756305,
    "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/community-hospital-of-anaconda-81-0303913.png",
    "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/community-hospital-of-anaconda-81-0303913.html"
+  },
+  {
+   "system": "Aspire Health Partners",
+   "state": "FL",
+   "ceo": "Babette F Hankey",
+   "ceo_pay": 452763.0,
+   "charity_care": 148799.0,
+   "ratio_pct": 304.27825455816236,
+   "card": "https://everythingisbroken.org/reports/hospital-ceo-pay/cards/system/aspire-health-partners-inc-59-2301233.png",
+   "url": "https://everythingisbroken.org/reports/hospital-ceo-pay/system/aspire-health-partners-inc-59-2301233.html"
   },
   {
    "system": "Brattleboro Memorial Hospital",

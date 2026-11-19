@@ -22,7 +22,7 @@ DATA_URL = '/data/hospital-ceo-pay'
 REPORT_NO = 1
 REPORT_TITLE = 'Nonprofit Hospital Executive Pay vs Charity Care'   # one variable; matches the main page
 SERIES = 'Annual Report'
-HEADLINE_MIN_REV = 1e8   # the headline count covers general hospital systems with revenue at or above this
+HEADLINE_MIN_REV = 1e8   # the headline count covers every hospital system, of any type, with revenue at or above this
 PUBLISHER = 'Everything Is Broken'
 SUBLINE = ''
 SITE = 'https://everythingisbroken.org'
@@ -134,18 +134,28 @@ def st_name(st_): return STATES.get(st_, 'Outside the US')
 ranked = sorted([s for s in S if s['pub'] and s['pay']], key=lambda s: -s['pay'])
 for i, s in enumerate(ranked, 1): s['rank'] = i
 N_FILINGS = 19245  # Schedule H XML filings read from the 2025 and 2026 IRS releases (Reproduction manual, section 5)
-# headline group: general hospital systems with revenue over HEADLINE_MIN_REV, children's and specialty filers excluded
-XCL = {r['ein']: r for r in csv.DictReader(open(os.path.join(DATA, 'headline_exclusions.csv')))}
-for s in S: s['xcl'] = XCL.get(s['lead_ein'])
-big = [s for s in ranked if (s['rev'] or 0) >= 1e9 and not s['kids'] and not s['xcl']]   # general hospitals only, as in the headline
+# hospital type: children's (name rule, or hospital_types.csv) or specialty (hospital_types.csv); everything else general.
+# Every type is counted in the headline and every list (since 2026-11-19); the type is a label and a filter, not an exclusion.
+TYPES = {r['ein']: r for r in csv.DictReader(open(os.path.join(DATA, 'hospital_types.csv')))}
+TYPE_NAME = {'general': 'general', 'children': 'children’s', 'specialty': 'specialty'}
+for s in S:
+    t = TYPES.get(s['lead_ein'])
+    if t and t['type'] == 'children': s['kids'] = True
+    s['type'] = 'children' if s['kids'] else ('specialty' if t else 'general')
+    s['type_why'] = t['reason'] if t else ("Its hospitals' names identify it as a children's hospital." if s['kids'] else '')
+big = [s for s in ranked if (s['rev'] or 0) >= 1e9]   # every type, as in the headline
 MED_CC = st.median([s['ccp'] for s in big if s['ccp'] is not None]); MED_RATIO = st.median([s['ratio'] for s in big if s['ratio']])
 UNDER1 = sum(1 for s in big if s['ccp'] is not None and s['ccp'] < 1) / len(big) * 100
 OVER100 = [s for s in big if s['ratio'] and s['ratio'] >= 100]
-hl_all = [s for s in ranked if (s['rev'] or 0) >= HEADLINE_MIN_REV and not s['kids'] and not s['xcl'] and s['cc']]
+hl_all = [s for s in ranked if (s['rev'] or 0) >= HEADLINE_MIN_REV and s['cc']]
 hl_over = sorted([s for s in hl_all if s['ratio'] and s['ratio'] > 100], key=lambda s: -s['pay'])
+HL_IDS = {id(s) for s in hl_all}
 HL_PAY = sum(s['pay'] for s in hl_over); HL_CC = sum(s['cc'] for s in hl_over)
 HEADLINE = f"{len(hl_over)} nonprofit hospital chief executives received more in reported compensation than their hospitals gave in charity care."
-HEADLINE_SUB = f"The count covers the {len(hl_all):,} general hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million, using each hospital's own IRS filings. Together the {len(hl_over)} received {money(HL_PAY)} in reported compensation; their hospitals gave {money(HL_CC)} to patients who could not pay."
+HL_TYPES = {t: sum(1 for s in hl_over if s['type'] == t) for t in ('general', 'children', 'specialty')}
+HL_TYPES_TXT = f"{HL_TYPES['general']} run general hospitals, {HL_TYPES['children']} children’s hospitals and {HL_TYPES['specialty']} specialty hospitals"
+HEADLINE_SUB = f"The count covers all {len(hl_all):,} nonprofit hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million, general, children’s and specialty, using each hospital's own IRS filings. Of the {len(hl_over)}, {HL_TYPES_TXT}. Together the {len(hl_over)} received {money(HL_PAY)} in reported compensation; their hospitals gave {money(HL_CC)} to patients who could not pay."
+CORR_NOTE = f'<p class="note"><strong>Updated Nov 19, 2026:</strong> the headline count now includes children’s and specialty hospitals; each row is labeled by type. Figures before and after are in the <a href="/#standards">corrections log</a>.</p>'
 
 # other chief executives (co-CEO, former CEO, executive chair) listed in the same filings
 _pp = defaultdict(lambda: defaultdict(lambda: {'org':0,'rel':0,'oth':0,'title':''}))
@@ -326,9 +336,9 @@ def pp_url(s): return f"https://projects.propublica.org/nonprofits/organizations
 def row(s, show_state=True, here=None):
     cls = ' class="kids"' if s['kids'] else ''
     away = f" · files from {STATES.get(s['filed'], 'outside the US')}" if here and s['filed'] != here else ''
-    return f"""<tr{cls} data-name="{E(s['name'].lower())}" data-ceo="{E(s['ceo'].lower())}" data-state="{' '.join(s['states'])}" data-kids="{int(s['kids'])}">
+    return f"""<tr{cls} data-name="{E(s['name'].lower())}" data-ceo="{E(s['ceo'].lower())}" data-state="{' '.join(s['states'])}" data-kids="{int(s['kids'])}" data-type="{s['type']}">
 <td class="num">{s.get('rank','')}</td>
-<td class="name"><a href="{BASE}/system/{s['slug']}.html">{E(s['name'])}</a><span class="sub">{E(s['ceo'])}{' · children’s' if s['kids'] else ''}{E(away)}</span></td>
+<td class="name"><a href="{BASE}/system/{s['slug']}.html">{E(s['name'])}</a><span class="sub">{E(s['ceo'])}{(' · ' + TYPE_NAME[s['type']]) if s['type'] != 'general' else ''}{E(away)}</span></td>
 {'<td>'+s['state']+'</td>' if show_state else ''}
 <td class="num" data-v="{s['pay']}">{money(s['pay'])}</td>
 <td class="num" data-v="{s['rev'] or 0}">{money(s['rev'])}</td>
@@ -351,12 +361,12 @@ SORT_JS = """<script>
       rows.forEach(function(r){tb.appendChild(r)});
     })});
   });
-  var q=document.getElementById('q'), kids=document.getElementById('kids');
-  function filter(){var v=(q?q.value:'').trim().toLowerCase(), showKids=kids?kids.checked:true;
+  var q=document.getElementById('q'), ht=document.getElementById('htype');
+  function filter(){var v=(q?q.value:'').trim().toLowerCase(), want=ht?ht.value:'';
     document.querySelectorAll('table.sortable tbody tr').forEach(function(r){
-      var ok=(!v||r.dataset.name.indexOf(v)>=0||r.dataset.ceo.indexOf(v)>=0||(' '+r.dataset.state.toLowerCase()+' ').indexOf(' '+v+' ')>=0)&&(showKids||r.dataset.kids!=='1');
+      var ok=(!v||r.dataset.name.indexOf(v)>=0||r.dataset.ceo.indexOf(v)>=0||(' '+r.dataset.state.toLowerCase()+' ').indexOf(' '+v+' ')>=0)&&(!want||r.dataset.type===want);
       r.hidden=!ok;});}
-  if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
+  if(q){q.addEventListener('input',filter)} if(ht){ht.addEventListener('change',filter)}
 })();
 </script>"""
 
@@ -385,7 +395,7 @@ kaiser = next((s for s in giants if s['lead_ein'] == '94-1105628'), giants[0])
 advocate = next((s for s in giants if s['lead_ein'] == '36-2169147'), None)
 KAISER = kaiser['name'].replace(' (Hospitals)', '')   # prose name; tables keep the filing name
 def frow(s, cols):
-    cells = {'sys': f'<td class="name"><a href="{BASE}/system/{s["slug"]}.html">{E(s["name"])}</a><span class="sub">{E(s["ceo"])}</span></td>',
+    cells = {'sys': f'<td class="name"><a href="{BASE}/system/{s["slug"]}.html">{E(s["name"])}</a><span class="sub">{E(s["ceo"])}{(" · " + TYPE_NAME[s["type"]]) if s["type"] != "general" else ""}</span></td>',
              'st': f'<td>{s["state"]}</td>', 'rev': f'<td class="num">{money(s["rev"])}</td>', 'cc': f'<td class="num">{money(s["cc"])}</td>',
              'ccp': f'<td class="num">{pct(s["ccp"])}</td>', 'pay': f'<td class="num">{money(s["pay"])}</td>', 'ratio': f'<td class="num ratio">{pct(s["ratio"],1)}</td>'}
     return '<tr>' + ''.join(cells[c] for c in cols) + '</tr>'
@@ -397,7 +407,7 @@ if advocate:
 FINDINGS = f"""
 <h2><span class="n">&sect;2</span>What the filings show</h2>
 <div class="prose">
-<p>Of the {len(hl_all):,} general hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million, these {len(hl_over)} reported more in compensation for their chief executive than they gave in charity care. Together the {len(hl_over)} received {money(HL_PAY)} in reported compensation; their hospitals gave {money(HL_CC)} to patients who could not pay. They are listed by CEO pay.</p>
+<p>Of the {len(hl_all):,} nonprofit hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million, general, children’s and specialty, these {len(hl_over)} reported more in compensation for their chief executive than they gave in charity care. Together the {len(hl_over)} received {money(HL_PAY)} in reported compensation; their hospitals gave {money(HL_CC)} to patients who could not pay. They are listed by CEO pay. Of the {len(hl_over)}, {HL_TYPES_TXT}; the type is shown on each row.</p>
 </div>
 {ftable(hl_over, ['sys','st','rev','cc','ccp','pay','ratio'])}
 <div class="prose">
@@ -405,7 +415,7 @@ FINDINGS = f"""
 </div>
 {ftable(giants, ['sys','st','rev','cc','ccp','pay','ratio'])}
 <div class="prose">
-<p><strong>The highest rates in the country are at large regional systems, not the giants.</strong> Of the {len(big)} systems over $1 billion, these ten gave the largest share of their expenses as charity care. Several give two to three times {E(KAISER)}'s share.</p>
+<p><strong>The highest rates in the country are not at the giants.</strong> Of the {len(big)} systems over $1 billion, these ten gave the largest share of their expenses as charity care. Several give two to three times {E(KAISER)}'s share.</p>
 </div>
 {ftable(best, ['sys','st','rev','cc','ccp','pay','ratio'])}
 """
@@ -413,9 +423,9 @@ FINDINGS = f"""
 # ---------- press kit ----------
 import zipfile, io
 hl_csv = io.StringIO(); w = csv.writer(hl_csv)
-w.writerow(['rank_by_ceo_pay','system','state','chief_executive','ceo_pay_usd','charity_care_usd','charity_care_pct_of_expenses','ceo_pay_pct_of_charity_care','total_revenue_usd','fiscal_year_end','lead_ein','filing_url','page_url'])
+w.writerow(['rank_by_ceo_pay','system','state','chief_executive','ceo_pay_usd','charity_care_usd','charity_care_pct_of_expenses','ceo_pay_pct_of_charity_care','total_revenue_usd','fiscal_year_end','lead_ein','filing_url','page_url','hospital_type'])
 for i, s in enumerate(hl_over, 1):
-    w.writerow([i, s['name'], s['state'], s['ceo'], int(s['pay']), int(s['cc']), round(s['ccp'], 2), round(s['ratio'], 1), int(s['rev'] or 0), s['fye'], s['lead_ein'], pp_url(s), f"{SITE}{BASE}/system/{s['slug']}.html"])
+    w.writerow([i, s['name'], s['state'], s['ceo'], int(s['pay']), int(s['cc']), round(s['ccp'], 2), round(s['ratio'], 1), int(s['rev'] or 0), s['fye'], s['lead_ein'], pp_url(s), f"{SITE}{BASE}/system/{s['slug']}.html", s['type']])
 open(os.path.join(DATA, 'ceo_pay_exceeds_charity_care.csv'), 'w').write(hl_csv.getvalue())
 
 # ---------- index ----------
@@ -424,6 +434,7 @@ index = HEAD(REPORT_TITLE, HEADLINE + ' ' + f'{len(ranked)} nonprofit hospital s
 <p class="doc-no">Report No. {REPORT_NO} &middot; {EDITION} edition &middot; Data as of {DATA_ASOF}</p>
 <h1 class="title">{E(REPORT_TITLE)}</h1>
 <p class="lede">{HEADLINE} The median large system spends about one cent of every dollar on charity care and reports compensation for its chief executive equal to {MED_RATIO:.0f} percent of that. Every figure on this page is from the hospital's own IRS Form 990, linked on every row.</p>
+{CORR_NOTE}
 {STATS}
 <div class="sharebox"><img src="{BASE}/cards/summary.png" alt="Summary card" width="1200" height="630"><div class="sharelinks"><strong>Share this report.</strong> Post the link and this card shows up with it. <a href="{BASE}/cards/summary.png" download>Download the card</a> &middot; <a href="{BASE}/press-kit.zip" download>Press kit</a> &middot; <a href="{BASE}/for-local-groups.html">For local groups</a></div></div>
 <div class="card prose" style="margin:26px 0;background:var(--surface)"><h3>Background</h3>
@@ -433,7 +444,7 @@ index = HEAD(REPORT_TITLE, HEADLINE + ' ' + f'{len(ranked)} nonprofit hospital s
 <p><strong>2020.</strong> The Government Accountability Office reported: “IRS officials told us that the agency has not revoked a hospital's tax-exempt status for failing to provide sufficient community benefits in the last 10 years.” (<a href="https://www.gao.gov/products/GAO-20-679">GAO-20-679, September 2020, p. 12</a>)</p>
 </div>
 <h2><span class="n">&sect;1</span>Top 100 by CEO pay</h2>
-<div class="toolbar"><input type="search" id="q" placeholder="Search a hospital, CEO, or state code"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
+<div class="toolbar"><input type="search" id="q" placeholder="Search a hospital, CEO, or state code"><label>Type <select id="htype"><option value="">All types</option><option value="general">General</option><option value="children">Children’s</option><option value="specialty">Specialty</option></select></label></div>
 <p class="note">Click a column to sort. Children’s hospitals are shown in grey: Medicaid covers most low-income children, so their charity care is structurally low.</p>
 <div class="tablewrap"><table class="sortable">{TABLE_HEAD()}<tbody>
 {''.join(row(s) for s in top)}
@@ -449,7 +460,8 @@ write('index.html', index)
 allp = HEAD('Complete ranking', 'All ranked nonprofit hospital systems by CEO pay.', here=f'{BASE}/all.html') + f"""
 <p class="doc-no">Report No. {REPORT_NO} &middot; {EDITION} edition</p><h1 class="title">Complete ranking</h1>
 <p class="lede">{len(ranked)} nonprofit hospital systems with an identifiable chief executive and positive charity care, ranked by CEO pay.</p>
-<div class="toolbar"><input type="search" id="q" placeholder="Search a hospital, CEO, or state code"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
+{CORR_NOTE}
+<div class="toolbar"><input type="search" id="q" placeholder="Search a hospital, CEO, or state code"><label>Type <select id="htype"><option value="">All types</option><option value="general">General</option><option value="children">Children’s</option><option value="specialty">Specialty</option></select></label></div>
 <div class="tablewrap"><table class="sortable">{TABLE_HEAD()}<tbody>{''.join(row(s) for s in ranked)}</tbody></table></div>
 {SORT_JS}{FOOT}"""
 write('all.html', allp)
@@ -511,7 +523,7 @@ CARD_JOBS = []   # (path, html)
 top4 = hl_over[:5]
 CARD_JOBS.append(('summary.png', card_html(f"""
 <div class="title">{E(HEADLINE)}</div>
-<p class="sub">Among {len(hl_all):,} general hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million. Together the {len(hl_over)} reported {money(HL_PAY)} in compensation; their hospitals gave {money(HL_CC)} to patients who could not pay.</p>
+<p class="sub">Among all {len(hl_all):,} nonprofit hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million. Together the {len(hl_over)} reported {money(HL_PAY)} in compensation; their hospitals gave {money(HL_CC)} to patients who could not pay.</p>
 <table>{''.join(f'<tr><td>{E(s["ceo"])} <span class="ceo">· {E(s["name"])}, {s["state"]}</span></td><td class="num">{money(s["pay"], False)} compensation</td><td class="num">{money(s["cc"], False)} charity care</td><td class="num red">{s["ratio"]:.1f}%</td></tr>' for s in top4)}</table>
 {foot(f'Source: each hospital’s IRS Form 990 Schedule H · {len(ranked):,} systems ranked')}""")))
 # system cards
@@ -551,9 +563,9 @@ def state_lead(st_, lst):
     # Uses the headline's own groups (hl_all, hl_over), restricted to systems with a hospital in the state.
     nm = STATES[st_]; elig = [s for s in hl_all if st_ in s['states']]; over_ = [s for s in hl_over if st_ in s['states']]
     if elig:
-        a = f"In {nm}, {len(over_)} of the {len(elig)} general hospital system{'s' if len(elig) != 1 else ''} over ${HEADLINE_MIN_REV/1e6:.0f} million with a hospital in the state reported more in chief executive compensation than {'it' if len(elig) == 1 else 'they'} gave in charity care; nationally, {len(hl_over)} of {len(hl_all):,}."
+        a = f"In {nm}, {len(over_)} of the {len(elig)} nonprofit hospital system{'s' if len(elig) != 1 else ''} over ${HEADLINE_MIN_REV/1e6:.0f} million with a hospital in the state reported more in chief executive compensation than {'it' if len(elig) == 1 else 'they'} gave in charity care; nationally, {len(hl_over)} of {len(hl_all):,}."
     else:
-        a = f"{nm} has no general hospital system over ${HEADLINE_MIN_REV/1e6:.0f} million in the ranking; nationally, {len(hl_over)} of {len(hl_all):,} such systems reported more in chief executive compensation than they gave in charity care."
+        a = f"{nm} has no nonprofit hospital system over ${HEADLINE_MIN_REV/1e6:.0f} million in the ranking; nationally, {len(hl_over)} of {len(hl_all):,} such systems reported more in chief executive compensation than they gave in charity care."
     med = med_cc(lst)
     b = f" The median system with a hospital in {nm} spent {pct(med)} of expenses on charity care, against {pct(NAT_MED)} for all systems nationally." if med is not None else f" Only {n_cc(lst)} system{'s' if n_cc(lst) != 1 else ''} with a hospital in {nm} report{'s' if n_cc(lst) == 1 else ''} a charity care figure, too few for a median; the median for all systems nationally is {pct(NAT_MED)}."
     pubs = [s for s in lst if s['pub']]
@@ -578,7 +590,7 @@ def state_card(st_, lst):
     if over_here:
         rows_ = over_here[:5]; label = "By compensation" + (", the highest five:" if len(over_here) > 5 else ":")
     else:
-        rows_ = general[:5]; label = "The lowest charity care rates among general hospitals over $100 million:"
+        rows_ = general[:5]; label = "The lowest charity care rates among hospital systems over $100 million:"
     return card_html(f"""
 <div class="title">{E(STATES.get(st_, st_))}: {len(lst)} nonprofit hospital systems</div>
 <p class="sub">{E(state_lead(st_, lst).split(';')[0])}. {f'Median charity care {pct(med)} of expenses, {pct(NAT_MED)} for all systems nationally. ' if med is not None else ''}{label}</p>
@@ -671,6 +683,7 @@ for s in S:
 <p class="doc-no">{' &middot; '.join(f'<a href="{BASE}/state/{x}.html">{E(STATES[x])}</a>' for x in s['states']) or f'<a href="{BASE}/state/{OUTSIDE}.html">Outside the US</a>'} &middot; {rank_line}</p>
 <h1 class="title">{E(s['name'])}</h1>
 <p class="lede">{E(s['ceo'])}, {E(disp_title(s['ceo_title']) if s['ceo_title'] else 'chief executive')}. Fiscal year ending {s['fye']}.</p>
+{f'<p class="note">Type: {TYPE_NAME[s["type"]]} hospital. {E(s["type_why"])}' + (' Counted in the headline like every other system over $100 million.' if id(s) in HL_IDS else '') + '</p>' if s['type'] != 'general' else ''}
 {ctx_html(s)}<div class="stat-row big3">
 <div class="stat"><div class="v">{money(s['pay'])}</div><div class="l">CEO total compensation<br>Form 990 Part VII, columns D+E+F</div></div>
 <div class="stat"><div class="v">{pct(s['ccp'])}</div><div class="l">of expenses spent on charity care<br>Schedule H Part I line 7a</div></div>
@@ -710,8 +723,9 @@ for st_, lst in sorted(bystate.items()):
 <p class="doc-no">Report No. {REPORT_NO} &middot; {EDITION} edition &middot; <a href="{BASE}/states.html">all states</a></p>
 <h1 class="title">{E(STATES[st_])}</h1>
 <p class="lede">{E(state_lead(st_, lst))}</p>
+{CORR_NOTE}
 <p class="note">{len(lst)} nonprofit hospital systems have a hospital in {E(STATES[st_])}{f", {n_away} of them filing from another state" if n_away else ''}. A system with hospitals in several states is listed on each of those states' pages with its system-wide figures.</p>
-<div class="toolbar"><input type="search" id="q" placeholder="Search"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
+<div class="toolbar"><input type="search" id="q" placeholder="Search"><label>Type <select id="htype"><option value="">All types</option><option value="general">General</option><option value="children">Children’s</option><option value="specialty">Specialty</option></select></label></div>
 <div class="tablewrap"><table class="sortable">{TABLE_HEAD(False)}<tbody>{''.join(row(s, False, st_) for s in pubs)}</tbody></table></div>
 <p class="note">Systems not shown: {len(lst)-len(pubs)} with an unidentifiable chief executive or charity care reported off line 7a. Each has its own page: {', '.join(f'<a href="{BASE}/system/{s["slug"]}.html">{E(s["name"])}</a>' for s in lst if not s['pub']) or 'none'}.</p>
 {sharebox(st_=st_)}
@@ -720,6 +734,7 @@ for st_, lst in sorted(bystate.items()):
 states = HEAD('By state', 'Nonprofit hospital charity care and CEO pay, state by state.', here=f'{BASE}/states.html') + f"""
 <p class="doc-no">Report No. {REPORT_NO} &middot; {EDITION} edition</p><h1 class="title">By state</h1>
 <p class="lede">Median charity care as a share of expenses, by state. A system is counted in every state where it has a hospital (Schedule H Part V), so a system with hospitals in several states is counted in each. Click a state for its ranking.</p>
+{CORR_NOTE}
 <div class="tablewrap"><table class="sortable"><thead><tr><th data-k="text">State</th><th class="num" data-k="num">Systems</th><th class="num" data-k="num">Median charity care, % of expenses</th></tr></thead><tbody>
 {''.join(f'<tr><td class="name"><a href="{BASE}/state/{a}.html">{E(n)}</a></td><td class="num">{c}</td><td class="num" data-v="{m if m is not None else -1}">{pct(m)}</td></tr>' for a,n,c,m in sorted(state_index_rows, key=lambda x: (x[3] if x[3] is not None else 99)))}
 </tbody></table></div>
@@ -740,12 +755,13 @@ meth = HEAD('Methodology', 'How the figures were taken from IRS filings, and the
 <p class="doc-no">Report No. {REPORT_NO} &middot; {EDITION} edition</p><h1 class="title">Methodology</h1>
 <div class="prose">
 <p class="lede">No figure here is an estimate. Each is copied from a form the hospital filed, or computed from such figures with the formula stated.</p>
+{CORR_NOTE}
 <h2>Source</h2><p>Every nonprofit hospital files IRS Form 990 with Schedule H. The IRS publishes every e-filed return as XML. This report reads the 2025 and 2026 releases (about 1.2 million filings), keeps the {N_FILINGS:,} that include Schedule H, and takes the latest fiscal year for each of the {len(F):,} filers. Each page links the filing it was built from.</p>
 <h2>CEO pay</h2><p>Form 990 Part VII, Section A lists officers, directors, key employees and the five highest-paid employees with three compensation columns: from the organization, from related organizations, and other compensation (deferred pay and benefits). CEO pay is the sum of the three. The chief executive is the person whose title contains CEO or chief executive and who is not marked former; where titles are ambiguous, the filing was read by hand and the decision recorded with its reason. Systems whose chief executive could not be identified from the filing are shown on their own pages but not ranked.</p>
 <h2>Charity care</h2><p>Schedule H Part I line 7a, "financial assistance at cost": free or discounted care given under the hospital's written financial assistance policy, valued at cost. Column (e), net of any grants received for it. The percentage of expenses shown on this site is that figure divided by total expenses from Form 990 line 18, computed the same way for every system; the percentage the hospital itself entered in column (f) is published in the data files for comparison. It excludes bad debt (Part III) and Medicaid shortfall (line 7b), which the IRS reports separately.</p>
 <h2>Systems, and what one row is</h2><p>Many systems file one return per hospital. Filings that report the same chief executive are combined into one row: revenue, expenses and charity care are summed and the chief executive is counted once. Where a system's hospitals file under their own presidents, each hospital appears as its own row under its own president, and the parent's executives are attributed to no hospital. So a row is a filing, or a set of filings, with the chief executive that filing reports; it is not always the whole corporate system, and a hospital president's pay is compared only with that hospital's charity care. Where a filing reports a parent organization's executive rather than the hospital's own, the hospital is shown but excluded from CEO figures, with the reason in the data files. Every combination above $1 billion in revenue was checked by hand, as was every row on the headline list.</p>
 <h2>States</h2><p>A system is listed on the page of every state where one of its filings reports a hospital facility (Schedule H Part V, Section A, which gives each facility's city and state), not only the state of the filing address. Its figures on each state page are system-wide. Where the filing address is in another state, the row says so. Puerto Rico filers are listed under Puerto Rico; the few filers with no hospital in the United States are listed separately, outside the US. A state's median charity care is the median across the systems with a hospital there, so a multi-state system counts in each of its states; no median is given for a state with fewer than {MIN_MEDIAN} systems reporting a charity care figure.</p>
-<h2>Children's hospitals</h2><p>Medicaid and CHIP cover most low-income children, so children's hospitals report little uncompensated care and appear at the bottom of any charity care ranking. They are shown in grey and can be hidden from any table.</p>
+<h2>Children's hospitals</h2><p>Medicaid and CHIP cover most low-income children, so children's hospitals report little uncompensated care and appear at the bottom of any charity care ranking. They are shown in grey and labeled. Since Nov 19, 2026 the headline counts every ranked system over $100 million of any type: general, children's and specialty (rehabilitation, psychiatric, addiction treatment, cancer, long-term acute care, heart and lung). Each row is labeled by type and every list has a Type filter.</p>
 <h2>What this report does not do</h2><p>It does not estimate the value of the tax exemption. It does not count public hospitals (county, state, veterans), which file no Form 990. It does not judge whether a chief executive is overpaid. It puts two of the hospital's own numbers beside each other.</p>
 <h2>Independent check</h2><p>CEO pay figures were compared against CEO Paycheck, which reads the same filings with its own method: of 129 systems present in both, 121 agree on the person and the dollar amount. The eight differences are explained in section 7 of the <a href="{BASE}/manual.html">reproduction manual</a>.</p>
 <h2>Corrections</h2><p>If a figure is wrong, send the filing that contradicts it to asher@everythingisbroken.org. The correction runs at the top of the affected page with the date, and in the corrections log on the <a href="/#standards">Standards</a> page.</p>
@@ -769,8 +785,15 @@ manual = HEAD('Reproduction manual', 'A complete procedure for rebuilding the da
 write('manual.html', manual)
 
 # ---------- the release entry and the corrections log ----------
-RELEASE = f"First release: {N_FILINGS:,} Schedule H filings, {len(F):,} filers, {len(S):,} systems, {len(ranked):,} ranked; headline {len(hl_over)} of {len(hl_all)}. Checked before publication by two independent audits and a hand check of every headline row."
-CORR_HTML = '<p class="mb-3">None. Corrections to published figures will be listed here, dated, with the figure before and after.</p>'
+RELEASE = f"First release: {N_FILINGS:,} Schedule H filings, {len(F):,} filers, {len(S):,} systems, {len(ranked):,} ranked; headline 73 of 655 general hospital systems. Checked before publication by two independent audits and a hand check of every headline row."
+RELEASE2_DATE = '2026-11-19'
+RELEASE2 = f"Headline scope: every ranked hospital system over $100 million is counted, of any type (general, children's, specialty), each row labeled by type; headline {len(hl_over)} of {len(hl_all)}. Figures before and after are on the corrections log."
+CORR_WI = sum(1 for s in hl_all if 'WI' in s['states'])
+CORR_TXT = (f"Nov 19, 2026. The headline count now includes every hospital system over $100 million, of any type. Until this date it left out children's hospitals and twelve specialty hospitals, while eleven others the same rule covered had been counted by mistake. "
+            f"Before: 73 chief executives of 655 general hospital systems; median charity care 1.23% of expenses among the 229 systems over $1 billion, 41% of them under 1%. "
+            f"After: {len(hl_over)} of {len(hl_all):,} systems ({HL_TYPES_TXT}); median {pct(MED_CC)} among the {len(big)} systems over $1 billion, {UNDER1:.0f}% of them under 1%. "
+            f"Wisconsin: 5 of 23 before, {sum(1 for s in hl_over if 'WI' in s['states'])} of {CORR_WI} after. Every row is now labeled by type.")
+CORR_HTML = f'<p class="mb-3">{E(CORR_TXT)}</p>'
 
 # ---------- data files ----------
 def sha(p):
@@ -791,10 +814,11 @@ FILES = [
     ('hospital_data.csv.gz', 'The master table, append-only: one row per figure with its form, schedule, part, line, source URL and retrieval method. Superseded rows are marked ignore, never deleted. Gzipped; about 170 MB uncompressed.'),
     ('ceo_overrides.csv', 'Every manual decision about who the chief executive is, with the reason and date.'),
     ('display_names.csv', 'Display names for chief executives whose filed name is surname-first or run together, each checked by hand against the filing or the hospital\'s own site, with the evidence.'),
-    ('headline_exclusions.csv', 'Specialty filers left out of the headline count, with the reason. They remain in the full ranking.'),
-    ('ceo_pay_exceeds_charity_care.csv', 'The headline list: every general hospital system over $100M where CEO pay exceeded charity care, with a link to each filing.'),
+    ('hospital_types.csv', 'Children’s and specialty hospital systems (rehabilitation, psychiatric, addiction treatment, cancer, long-term acute care, heart and lung), each with the reason. Every other system is labeled general. Every type is counted in the headline; the type is a label and a filter.'),
+    ('headline_exclusions.csv', 'Historical: specialty filers left out of the headline count from Oct 21 to Nov 19, 2026. Since Nov 19 every system is counted; see hospital_types.csv and the corrections log.'),
+    ('ceo_pay_exceeds_charity_care.csv', 'The headline list: every hospital system over $100M, of any type, where CEO pay exceeded charity care, with its type and a link to each filing.'),
     ('rollup_overrides.csv', 'Every manual decision about which filings form one system, with the reason and date.'),
-    ('headline_scope_check_2026-11.csv', 'One line per headline row, checked Nov 1, 2026: who was chief executive at year end, what the title covers, whether the row holds every hospital that person runs, the verdict (ok, fix or unclear), the evidence and its source.'),
+    ('headline_scope_check_2026-11.csv', 'One line per headline row as of Nov 1, 2026 (74 rows; the 17 children’s and specialty rows added Nov 19 were checked against their filings that day, manual item 14): who was chief executive at year end, what the title covers, whether the row holds every hospital that person runs, the verdict (ok, fix or unclear), the evidence and its source.'),
     ('context_notes.csv', 'Dated, sourced background notes shown on system pages (for example a later merger). Context only: no note changes any figure.'),
     ('ceopaycheck_crosscheck.csv', 'Result of the independent check of CEO pay figures against CEO Paycheck.'),
     ('ceopaycheck_snapshot_2026-10-18.csv', 'The CEO Paycheck rows used for that check, as captured on the date in the name.'),
@@ -810,6 +834,7 @@ data = HEAD('Data files', 'Download the full dataset, the manual decisions, and 
 <p class="doc-no">Report No. {REPORT_NO} &middot; {EDITION} edition &middot; Data as of {DATA_ASOF}</p><h1 class="title">Data files</h1>
 <div class="prose">
 <p class="lede">Everything on this site is generated from one table, and that table is generated from the IRS release by scripts anyone can run. The files below are the complete record.</p>
+{CORR_NOTE}
 <p><a class="btn" href="{DATA_URL}/systems_rollup.csv" download>Download systems_rollup.csv</a> <a class="btn ghost" href="{DATA_URL}/SHA256SUMS" download>SHA256SUMS</a> <a class="btn ghost" href="{BASE}/manual.html">Reproduction manual</a></p>
 <h2>Dataset</h2>
 <ul class="files">{''.join(file_rows[:len(FILES)])}</ul>
@@ -828,6 +853,7 @@ data = HEAD('Data files', 'Download the full dataset, the manual decisions, and 
 <h2>Version log</h2>
 <ul class="files">
 <li><span class="fn">{EDITION} edition</span> &middot; {DATA_ASOF}<br>{RELEASE}</li>
+<li><span class="fn">Update</span> &middot; {RELEASE2_DATE}<br>{E(RELEASE2)}</li>
 </ul>
 <h2>How to cite</h2>
 <p>{E(PUBLISHER)}, <em>{E(REPORT_TITLE)}</em>, Report No. {REPORT_NO}, {EDITION} edition, data as of {DATA_ASOF}. {SITE}{BASE}/</p>
@@ -842,8 +868,9 @@ local = HEAD('For local groups and officeholders', 'Find your hospital or your s
 <p class="doc-no">Report No. {REPORT_NO} &middot; {EDITION} edition</p>
 <h1 class="title">For local groups and officeholders</h1>
 <p class="lede">This report was built so that anyone, anywhere in the country, can put their own hospital's numbers in front of their own town. Everything here is free to take. You do not need permission and you do not need to agree with us about anything; the numbers are the hospitals' own.</p>
+{CORR_NOTE}
 <h2><span class="n">&sect;1</span>Find your hospital</h2>
-<div class="toolbar"><input type="search" id="q" placeholder="Type a hospital system, a chief executive, or a state code"><label><input type="checkbox" id="kids" checked> Include children’s hospitals</label></div>
+<div class="toolbar"><input type="search" id="q" placeholder="Type a hospital system, a chief executive, or a state code"><label>Type <select id="htype"><option value="">All types</option><option value="general">General</option><option value="children">Children’s</option><option value="specialty">Specialty</option></select></label></div>
 <div class="tablewrap"><table class="sortable">{TABLE_HEAD()}<tbody>{''.join(row(s) for s in ranked)}</tbody></table></div>
 <p class="note">Every row links to the system's page, which has its card, its filing, and the sentence below.</p>
 <h2><span class="n">&sect;2</span>Find your state</h2>
@@ -887,7 +914,7 @@ method.txt                          The method in one page.
 DEFINITIONS
 CEO pay: total compensation on Form 990 Part VII (columns D, E and F): salary and bonus from the organization and related organizations, plus deferred compensation and benefits.
 Charity care: Schedule H Part I line 7a, financial assistance at cost, net of any payment received for it. Not bad debt, not Medicaid shortfall. The IRS requires it at cost, not at list price.
-Systems: filings reporting the same chief executive are combined; every combination over $1 billion was checked by hand. Children's hospitals and specialty hospitals (rehabilitation, long-term acute care, cancer, behavioral) are excluded from the headline count and listed with the reason in headline_exclusions.csv on the data page.
+Systems: filings reporting the same chief executive are combined; every combination over $1 billion was checked by hand. Every system is labeled by type: general, children's, or specialty (rehabilitation, psychiatric, addiction treatment, cancer, long-term acute care, heart and lung). Children's hospitals are identified by name; specialty hospitals, and children's hospitals the name rule misses, are listed with the reason in hospital_types.csv on the data page. Every type is counted in the headline.
 
 EVERY FIGURE links to the filing it came from. Full dataset, scripts and a reproduction manual: {SITE}{BASE}/data.html
 Contact: asher@everythingisbroken.org. Corrections: send the filing that contradicts a figure.
@@ -902,7 +929,7 @@ Charity care. Schedule H Part I line 7a: free or discounted care under the hospi
 
 Systems. Filings reporting the same chief executive are one system; revenue, expenses and charity care are summed and the executive counted once. Where a system's hospitals file under local presidents, a shared system officer in Part VII is the test for membership. Every combination over $1 billion was checked by hand.
 
-The headline count. General hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million where CEO pay exceeded charity care. Children's hospitals (Medicaid covers most low-income children) and specialty hospitals are excluded and listed with reasons. Each of the {len(hl_over)} was checked against its filing, including the Part VI narrative, for charity care reported on another line; none was found.
+The headline count. Every hospital system with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million, of any type, where CEO pay exceeded charity care: {HL_TYPES_TXT}. Each row is labeled by type, so a reader can set children's hospitals (Medicaid covers most low-income children) or specialty hospitals aside. The 73 general-hospital rows were each checked against the filing, including the Part VI narrative, for charity care reported on another line; none was found. The 17 children's and specialty rows added on Nov 19, 2026 were checked against their filings that day for the chief executive, CEO pay and line 7a.
 
 Independent check. CEO pay was compared against CEO Paycheck, which reads the same filings with its own method: 121 of 129 shared systems agree to the dollar; the eight differences are explained in the reproduction manual.
 
@@ -938,7 +965,7 @@ BLOCKS = {
 <p><strong>Charity care</strong> is Schedule H, Part I, line 7a: free or discounted care given under the hospital's own financial assistance policy, at cost and net of any payment received for it. Bad debt and the Medicaid shortfall are separate lines on the form and are not counted.</p>
 <p><strong>Why a hospital's own figure is often larger.</strong> Hospitals usually describe their charity care at list prices, which run several times what the care costs to deliver. The IRS requires line 7a at cost, and that is the figure used here.</p>
 <p><strong>The ratio</strong> is CEO pay divided by charity care. At 100 percent, one person's reported compensation equals all the charity care the system gave that year.</p>
-<p><strong>What is counted.</strong> Filings that report the same chief executive are combined into one system. Systems where the chief executive could not be identified from the filing with confidence, or where charity care is reported on a line other than 7a, are shown but not ranked. The headline count covers general hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million. Children's hospitals and specialty hospitals (rehabilitation, long-term acute care, cancer, behavioral) are left out of it, each listed with the reason in <a class="underline" href="{DATA_URL}/headline_exclusions.csv">headline_exclusions.csv</a>, and stay in the full ranking. Every system on the headline list was checked by hand against its filing.</p>
+<p><strong>What is counted.</strong> Filings that report the same chief executive are combined into one system. Systems where the chief executive could not be identified from the filing with confidence, or where charity care is reported on a line other than 7a, are shown but not ranked. The headline count covers every ranked hospital system with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million: general, children's and specialty hospitals alike. Children's hospitals are identified by name; specialty hospitals (rehabilitation, psychiatric, addiction treatment, cancer, long-term acute care, heart and lung), and children's hospitals the name rule misses, are listed with the reason in <a class="underline" href="{DATA_URL}/hospital_types.csv">hospital_types.csv</a>. Every row is labeled by type and every list can be filtered by type. Every system on the headline list was checked against its filing (reproduction manual, Section 7).</p>
 <p>Every rule and every judgment call is in the <a class="underline" href="{BASE}/methodology.html">full methodology</a> and the <a class="underline" href="{BASE}/manual.html">reproduction manual</a>.</p>
 </div>""",
 'latest': f"""<div class="absolute top-0 right-0 bg-black text-white px-3 py-1 text-xs uppercase tracking-widest">Latest Report</div>
@@ -950,7 +977,7 @@ BLOCKS = {
 <ul class="list-disc list-outside ml-5 mb-5 text-sm space-y-1">
 <li>At the top of the {len(hl_over)} is {E(hl_over[0]['name'])} ({E(hl_over[0]['state'])}), which reported {money(hl_over[0]['pay'])} in compensation for {E(hl_over[0]['ceo'])} and gave {money(hl_over[0]['cc'])} to patients who could not pay.</li>
 <li>Among systems over $10 billion, {E(KAISER)} gave the most: {money(kaiser['cc'])}, or {pct(kaiser['ccp'])} of expenses.{(' ' + E(advocate['name']) + ' is near the bottom at ' + pct(advocate['ccp']) + '.') if advocate else ''}</li>
-<li>The highest shares are at large regional systems: {E(best[0]['name'])} ({best[0]['state']}) at {pct(best[0]['ccp'])}, {E(best[1]['name'])} ({best[1]['state']}) at {pct(best[1]['ccp'])} and {E(best[2]['name'])} ({best[2]['state']}) at {pct(best[2]['ccp'])}.</li>
+<li>The highest shares among systems over $1 billion: {E(best[0]['name'])} ({best[0]['state']}) at {pct(best[0]['ccp'])}, {E(best[1]['name'])} ({best[1]['state']}) at {pct(best[1]['ccp'])} and {E(best[2]['name'])} ({best[2]['state']}) at {pct(best[2]['ccp'])}.</li>
 </ul>
 <p class="mb-5 text-gray-700">Every figure is the hospital's own, from its IRS Form 990, and every row links to the filing.</p>
 <a href="{BASE}/" class="inline-block border-2 border-black px-6 py-2 uppercase tracking-wide text-sm font-bold hover:bg-black hover:text-white transition-colors mr-3 mb-2">Read the Full Report &rarr;</a>
@@ -1013,6 +1040,7 @@ BLOCKS = {
 <p class="text-sm mb-4">What changed in each release of the data, dated.</p>
 <div class="font-mono text-xs text-gray-600 space-y-1">
 <p>[<span class="fig">{DATA_ASOF}</span>] {EDITION} edition - {RELEASE}</p>
+<p>[<span class="fig">{RELEASE2_DATE}</span>] Update - {E(RELEASE2)}</p>
 </div>
 </div>
 </div>
@@ -1029,5 +1057,5 @@ for name, body in BLOCKS.items():
 open(ip, 'w').write(page)
 
 print(f'wrote index, all, {n_sys} system pages, {len(bystate)} state pages, methodology, manual, data, summary.json -> {OUT}')
-print(f'ranked {len(ranked)}; big non-children {len(big)}; median CC {MED_CC:.2f}; median ratio {MED_RATIO:.1f}; under1 {UNDER1:.0f}%; over100 {len(OVER100)}')
+print(f'ranked {len(ranked)}; big {len(big)}; median CC {MED_CC:.2f}; median ratio {MED_RATIO:.1f}; under1 {UNDER1:.0f}%; over100 {len(OVER100)}')
 print('main page blocks updated:', [k for k in BLOCKS if k not in missing], 'missing markers:', missing)

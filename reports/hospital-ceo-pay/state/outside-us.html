@@ -126,7 +126,7 @@ footer p{margin:14px 0 0}
 <p class="doc-no">Report No. 1 &middot; 2026 edition &middot; <a href="/reports/hospital-ceo-pay/states.html">all states</a></p>
 <h1 class="title">Outside the US</h1>
 <p class="lede">2 organizations filed Form 990 with Schedule H from an address outside the United States and list no US hospital. They are not counted in any state.</p>
-<div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and CEO</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="university health network" data-ceo="kevin smith" data-state="" data-kids="0">
+<div class="tablewrap"><table class="sortable"><thead><tr><th class="num" data-k="num">#</th><th data-k="text">System and CEO</th><th class="num" data-k="num">CEO pay</th><th class="num" data-k="num">Revenue</th><th class="num" data-k="num">Charity care,<br>% of expenses</th><th class="num" data-k="num">Charity care</th><th class="num" data-k="num">CEO pay as %<br>of charity care</th></tr></thead><tbody><tr data-name="university health network" data-ceo="kevin smith" data-state="" data-kids="0" data-type="general">
 <td class="num"></td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/university-health-network-98-6000971.html">University Health Network</a><span class="sub">Kevin Smith</span></td>
 
@@ -134,7 +134,7 @@ footer p{margin:14px 0 0}
 <td class="num" data-v="2819985529.0">$2.8B</td>
 <td class="num" data-v="-1"></td>
 <td class="num" data-v="0"></td>
-<td class="num ratio" data-v="0"></td></tr><tr data-name="ezrath nashim - sarah herzog memorial hospital" data-ceo="jacob haviv" data-state="" data-kids="0">
+<td class="num ratio" data-v="0"></td></tr><tr data-name="ezrath nashim - sarah herzog memorial hospital" data-ceo="jacob haviv" data-state="" data-kids="0" data-type="general">
 <td class="num"></td>
 <td class="name"><a href="/reports/hospital-ceo-pay/system/ezrath-nashim-sarah-herzog-memorial-hospital-98-0224967.html">Ezrath Nashim - Sarah Herzog Memorial Hospital</a><span class="sub">Jacob Haviv</span></td>
 
@@ -156,12 +156,12 @@ footer p{margin:14px 0 0}
       rows.forEach(function(r){tb.appendChild(r)});
     })});
   });
-  var q=document.getElementById('q'), kids=document.getElementById('kids');
-  function filter(){var v=(q?q.value:'').trim().toLowerCase(), showKids=kids?kids.checked:true;
+  var q=document.getElementById('q'), ht=document.getElementById('htype');
+  function filter(){var v=(q?q.value:'').trim().toLowerCase(), want=ht?ht.value:'';
     document.querySelectorAll('table.sortable tbody tr').forEach(function(r){
-      var ok=(!v||r.dataset.name.indexOf(v)>=0||r.dataset.ceo.indexOf(v)>=0||(' '+r.dataset.state.toLowerCase()+' ').indexOf(' '+v+' ')>=0)&&(showKids||r.dataset.kids!=='1');
+      var ok=(!v||r.dataset.name.indexOf(v)>=0||r.dataset.ceo.indexOf(v)>=0||(' '+r.dataset.state.toLowerCase()+' ').indexOf(' '+v+' ')>=0)&&(!want||r.dataset.type===want);
       r.hidden=!ok;});}
-  if(q){q.addEventListener('input',filter)} if(kids){kids.addEventListener('change',filter)}
+  if(q){q.addEventListener('input',filter)} if(ht){ht.addEventListener('change',filter)}
 })();
 </script></main>
 <footer><div class="rule-single"></div>
