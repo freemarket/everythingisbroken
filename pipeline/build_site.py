@@ -558,7 +558,16 @@ def state_lead(st_, lst):
     b = f" The median system with a hospital in {nm} spent {pct(med)} of expenses on charity care, against {pct(NAT_MED)} for all systems nationally." if med is not None else f" Only {n_cc(lst)} system{'s' if n_cc(lst) != 1 else ''} with a hospital in {nm} report{'s' if n_cc(lst) == 1 else ''} a charity care figure, too few for a median; the median for all systems nationally is {pct(NAT_MED)}."
     pubs = [s for s in lst if s['pub']]
     c = ''
-    if pubs:
+    fr = lambda s: f" (files from {STATES.get(s['filed'], 'outside the US')})" if s['filed'] != st_ else ''
+    if over_:
+        # Lead with the state's own headline systems: the largest CEO pay among them, then the smallest charity care share.
+        t = over_[0]
+        c = (f" Of the {len(over_)}, {t['name']}{fr(t)} reported the most:" if len(over_) > 1 else f" That system is {t['name']}{fr(t)}, which reported") + \
+            f" {money(t['pay'], False)} in compensation for {t['ceo']}, against {money(t['cc'], False)} in charity care ({pct(t['ccp'])} of expenses)."
+        lo = min(over_, key=lambda s: s['ccp'] if s['ccp'] is not None else float('inf'))
+        if lo is not t and lo['ccp'] is not None:
+            c += f" {lo['name']}{fr(lo)} gave the smallest share: {pct(lo['ccp'])} of expenses, {money(lo['cc'], False)}, against {money(lo['pay'], False)} for {lo['ceo']}."
+    elif pubs:
         t = max(pubs, key=lambda s: s['pay'])
         c = f" Highest reported chief executive compensation: {money(t['pay'], False)}, {t['ceo']}, {t['name']}" + (f" (files from {STATES.get(t['filed'], 'outside the US')})" if t['filed'] != st_ else '') + '.'
     return a + b + c
