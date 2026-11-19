@@ -13,7 +13,7 @@
 :root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
 --serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-wrap:break-word}
 a{color:var(--ink)}
 .sheet{max-width:1100px;margin:0 auto;background:var(--paper);padding:40px 32px;min-height:100vh}
 @media(min-width:640px){.sheet{margin:32px auto;border:1px solid var(--border);box-shadow:0 1px 2px rgba(0,0,0,.05)}}
@@ -43,8 +43,7 @@ h3{font-size:1.05rem;margin:26px 0 8px}
 p{margin:0 0 1rem}
 .doc-no{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:34px 0 0}
 .doc-no a{color:var(--muted)}
-.lede{font-size:1.2rem;line-height:1.55;max-width:66ch}
-.prose{max-width:70ch}
+.lede{font-size:1.2rem;line-height:1.55}
 .fig{font-family:var(--mono);font-size:.95em;letter-spacing:-.02em}
 .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border:1px solid var(--ink);margin:26px 0}
 .stat{padding:16px 18px 14px;border-right:1px solid var(--border);min-width:0}
@@ -69,20 +68,21 @@ td .sub{display:block;font-size:.84rem;color:var(--muted);font-weight:400;margin
 td.ratio{color:var(--red);font-weight:700}
 tr.kids td{color:var(--muted)}tr.kids td.name a{color:var(--muted);font-weight:400}
 .toolbar{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin:18px 0 4px;font-size:.92rem}
-.toolbar input[type=search]{font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);min-width:min(340px,100%);border-radius:0}
+.toolbar input[type=search]{font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);flex:1 1 340px;max-width:520px;min-width:0;border-radius:0}
 .toolbar label{display:flex;gap:8px;align-items:center;color:var(--muted)}
-.note{font-size:.88rem;color:var(--muted);max-width:70ch;line-height:1.55}
-.context{font-size:.92rem;line-height:1.55;max-width:70ch;border-left:3px solid var(--border);padding:2px 0 2px 12px;margin:14px 0 18px}
+.note{font-size:.88rem;color:var(--muted);line-height:1.55}
+.context{font-size:.92rem;line-height:1.55;border-left:3px solid var(--border);padding:2px 0 2px 12px;margin:14px 0 18px}
 .src{font-size:.85rem;color:var(--muted);margin-top:8px}
-dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 24px;font-size:.95rem;max-width:70ch;border-top:1px solid var(--border);padding-top:12px;margin:0}
-dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:.9rem;min-width:0}
-.callout{background:var(--surface);border:1px solid var(--ink);border-left:6px solid var(--red);padding:14px 18px;max-width:70ch;margin:22px 0;font-size:1.02rem;line-height:1.55}
-.cb{display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-size:.92rem;max-width:600px}
+dl.kv{display:grid;grid-template-columns:minmax(0,max-content) 1fr;gap:6px 24px;font-size:.95rem;border-top:1px solid var(--border);padding-top:12px;margin:0}
+dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:.9rem;min-width:0;overflow-wrap:anywhere}
+@media(max-width:640px){dl.kv{grid-template-columns:1fr;gap:0}dl.kv dd{margin:0 0 10px}}
+.callout{background:var(--surface);border:1px solid var(--ink);border-left:6px solid var(--red);padding:14px 18px;margin:22px 0;font-size:1.02rem;line-height:1.55}
+.cb{display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-size:.92rem}
 .cb span:nth-child(2n){font-family:var(--mono);font-size:.88rem}
 .cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
 .cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
-.sharebox{display:grid;grid-template-columns:1fr;gap:14px;border:1px solid var(--ink);padding:18px;margin:22px 0;background:var(--surface)}
+.sharebox{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;border:1px solid var(--ink);padding:18px;margin:22px 0;background:var(--surface)}
 .sharebox img{width:100%;height:auto;border:1px solid var(--border);display:block}
 .sharelinks p{margin:0 0 10px;font-size:.92rem}
 .sharelinks .btn{margin:4px 6px 4px 0;cursor:pointer;font-family:var(--mono)}
@@ -103,6 +103,8 @@ ul.files .meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);displ
 code{font-family:var(--mono);font-size:.88em}
 pre{background:var(--surface);border:1px solid var(--border);padding:14px;overflow-x:auto;font-size:.82rem;line-height:1.45}
 .manual table{white-space:normal;font-size:.86rem}
+.manual code{overflow-wrap:anywhere}
+.manual .tablewrap table{min-width:720px}
 .manual thead th{cursor:default}
 footer{margin-top:64px;padding-top:28px;text-align:center;font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;color:var(--muted)}
 footer .rule-single{width:100%;max-width:440px;margin:0 auto 22px}
@@ -132,7 +134,7 @@ footer p{margin:14px 0 0}
 <p>A second, smaller set of Chicago-specific sources (audited financial statements, Illinois Attorney General filings, Lown) was gathered first and remains in the dataset tagged by <code>source_type</code>. The national procedure in Section 5 does not depend on it.</p>
 <h2>2. Definitions</h2>
 <p>Every term below names the form line it comes from and the element name in the IRS e-file XML (namespace <code>http://www.irs.gov/efile</code>, schema version 2024v5.1 for tax year 2024 filings). Dollar amounts are whole dollars. Percentages in the XML are decimals (0.00728 means 0.728 percent).</p>
-<table>
+<div class="tablewrap"><table>
 <thead>
 <tr>
 <th>Term</th>
@@ -239,7 +241,7 @@ footer p{margin:14px 0 0}
 <td>Over 100 means one person was paid more than the system gave in charity care.</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>What "nonprofit" means here.</strong> A 501(c)(3) organization: no shareholders, no federal income tax, and in nearly all states no property or sales tax. Surpluses stay inside and may go to buildings, investments, and salaries. The label does not imply charity.</p>
 <h2>3. Environment and access</h2>
 <ul>
@@ -253,7 +255,7 @@ footer p{margin:14px 0 0}
 <h2>4. Data model</h2>
 <p>There is one source of truth and several derived tables. Never edit a derived table by hand; change the source or the rule and rebuild.</p>
 <p><strong><code>hospital_data.csv</code>, the master.</strong> Long format, one row per figure, 364,682 rows at this version. Columns:</p>
-<table>
+<div class="tablewrap"><table>
 <thead>
 <tr>
 <th>Column</th>
@@ -334,7 +336,7 @@ footer p{margin:14px 0 0}
 <td>Caveats such as <code>GROUP RETURN</code>, officer flags on pay rows</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>The append-only rule.</strong> Rows are never edited or deleted. A wrong value is retired by appending a row with <code>status = ignore</code> whose <code>ignore_reason</code> names the bad row, then appending the corrected row. <code>add_rows.py</code> is the only writer and can only append. Keep a dated backup copy before any bulk load.</p>
 <p><strong>Metric keys written by the bulk loader,</strong> per filing: <code>filer_city_state</code>, <code>group_return</code>, <code>total_revenue</code>, <code>total_expenses</code>, <code>net_income_990</code>, <code>total_assets</code>, <code>total_liabilities</code>, <code>net_assets</code>, <code>compensation_current_officers</code>, <code>other_salaries_wages</code>, <code>investment_income</code>, <code>program_service_revenue</code>, <code>contributions_and_grants</code>, <code>cash_non_interest_bearing_eoy</code>, <code>savings_temp_cash_eoy</code>, <code>investments_public_securities_eoy</code>, <code>investments_other_securities_eoy</code>, <code>employee_count</code>, <code>indiv_over_100k_cnt</code>; per person: <code>compensation_reportable</code> (col D), <code>compensation_related_org</code> (col E), <code>compensation_other</code> (col F); per Schedule H line 7a to 7k: <code>sch_h_&lt;line&gt;_&lt;name&gt;_total_expense</code>, <code>_offsetting_revenue</code>, <code>_net</code>, <code>_pct_total_expense</code> (the <code>_pct</code> value is stored as a percentage, i.e. the XML decimal times 100); plus <code>sch_h_community_building_total</code>, <code>sch_h_bad_debt</code>, <code>sch_h_bad_debt_fap_eligible</code>, <code>sch_h_medicare_revenue</code>, <code>sch_h_medicare_cost</code>, <code>sch_h_medicare_shortfall</code>, <code>sch_h_fpg_free_pct</code>, <code>sch_h_fpg_discount_pct</code>, <code>sch_h_facility_count</code>, <code>sch_h_facilities_list</code>.</p>
 <p><strong>Derived tables</strong> (all under <code>irs/</code>, rebuilt by <code>build_systems.py</code> from the master in seconds):</p>
@@ -445,7 +447,7 @@ done
 <h2>9. Results as of this version</h2>
 <p>The table below is from the first full draft and predates the pre-publication checks in Section 7, items 9 to 13. After the Oct 22, 2026 fixes (item 9): headline 77 of 672 general hospital systems over $100 million; 1,057 ranked systems; 229 non-children's general systems over $1B with median charity care 1.23 percent and median CEO compensation 7.6 percent of charity care. After the Oct 30, 2026 parent-executive review, data checks and middle-initial rule (Section 6.3, 6.4): headline 76 of 668; 1,052 ranked systems; 1,626 systems; median CEO compensation 7.5 percent of charity care for the same large-system group. After the Oct 31, 2026 second audit (Section 7, item 12): headline 74 of 656; 1,034 ranked systems; 1,629 systems. After the Nov 1, 2026 headline scope check (item 13), the published figures: headline 73 of 655; 1,033 ranked systems; 1,627 systems; large-system medians unchanged throughout.</p>
 <p>The median nonprofit hospital system spends about one percent of expenses on charity care, and that figure is flat across every size of system. All figures from the hospitals' own filings, latest fiscal year (mostly 2024 and 2025), after the roll-up and review in Section 6.</p>
-<table>
+<div class="tablewrap"><table>
 <thead>
 <tr>
 <th>Measure</th>
@@ -510,7 +512,7 @@ done
 <td>6</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>Size does not predict charity care.</strong> Median charity care by revenue band: $10B+ 1.11%, $3B to $10B 1.13%, $1B to $3B 1.28%, $500M to $1B 1.23%, $200M to $500M 1.24%, $50M to $200M 0.63%. Dollar-weighted, the $10B+ tier is 1.23% against 1.60% for the sector. CEO pay rises steeply with size (median $11.3M at $10B+, $0.5M at $50M to $200M) while the charity rate does not, so the ratio falls with size and is a small-hospital statistic; it is used case by case, not as a sector ranking.</p>
 <p><strong>Highest-paid CEOs among publishable systems:</strong> Grossman, NYU Langone, $30.3M (charity care 1.44%, ratio 21%); Corwin, NewYork-Presbyterian, $26.3M (1.11%, 24%); Ozuah, Montefiore, $16.7M (1.05%, 27%); Balser, Vanderbilt, $16.5M (2.82%, 7%); Lassiter, Dignity/CommonSpirit, $14.2M (1.68%, 6%). Advocate Health, assembled from the NC parent and five Midwest filers: $17.8B revenue, $114.9M charity care, 0.66 percent of expenses, the lowest rate of any system above $10B. The parent lists two chief executives for 2024, Eugene Woods (CEO, $25.78M) and James Skogsbergh (Co-CEO, $30.86M, retired at year end); Woods is taken for the ratio (22.4 percent), and the report should show both, since together they were paid 49 percent of what the system's roughly 30 Midwest hospitals gave in charity care.</p>
 <p><strong>Chicago in the national frame.</strong> Northwestern's nine-hospital group: 1.07% charity care, CEO Chrisman $8.17M, ratio 7.1%, at the national median on every measure. Advocate's six Illinois hospitals: 0.58%. UChicago Medical Center: 0.73%. Endeavor: 1.11%. Rush: 1.20%. Loyola: 2.24%. The three safety-net comparison hospitals: Mount Sinai 9.81%, Holy Cross 9.51%, St. Bernard 3.96%.</p>
@@ -536,8 +538,8 @@ done
 <p><strong>Deploy:</strong> copy <code>site/out/</code> to any static host (Cloudflare Pages, Netlify, GitHub Pages, or an S3 bucket) and point the domain at it. Rerun <code>build_site.py</code> after any change to the tables or the override files, and redeploy. For the annual edition, change <code>EDITION</code>, rebuild, and keep the prior year's <code>out/</code> under a dated path so old links resolve.</p>
 <p><strong>Not yet built:</strong> per-system share images for social posts; the data download links (the files exist, the hosting does not); a prior-year column on each row once a second edition exists.</p></div></main>
 <footer><div class="rule-single"></div>
-<div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
-<p>Report No. 1, Annual Report, 2026 edition &middot; Data as of 2026-11-01 &middot; Built 2026-11-02</p>
+<div class="links"><a href="/#reports">Reports</a> | <a href="/#data">Data</a> | <a href="/#contact">Contact</a> | <a href="/#about">About</a> | <a href="/#standards">Standards</a></div>
+<p>Report No. 1, Annual Report, 2026 edition &middot; Data as of 2026-11-01 &middot; Built 2026-11-19</p>
 <p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to asher@everythingisbroken.org.</p>
 <p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate.</p>
 <p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>

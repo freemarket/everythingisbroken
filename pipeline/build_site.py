@@ -176,7 +176,7 @@ CSS = """
 :root{--bg:#f0ece1;--paper:#faf8f2;--surface:#f3efe4;--border:#d6cfc2;--ink:#111;--muted:#555;--red:#8b2626;--blue:#3b5d7a;
 --serif:"Libre Baskerville",Georgia,"Times New Roman",serif;--mono:"Space Mono",Menlo,Consolas,monospace}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-wrap:break-word}
 a{color:var(--ink)}
 .sheet{max-width:1100px;margin:0 auto;background:var(--paper);padding:40px 32px;min-height:100vh}
 @media(min-width:640px){.sheet{margin:32px auto;border:1px solid var(--border);box-shadow:0 1px 2px rgba(0,0,0,.05)}}
@@ -206,8 +206,7 @@ h3{font-size:1.05rem;margin:26px 0 8px}
 p{margin:0 0 1rem}
 .doc-no{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:34px 0 0}
 .doc-no a{color:var(--muted)}
-.lede{font-size:1.2rem;line-height:1.55;max-width:66ch}
-.prose{max-width:70ch}
+.lede{font-size:1.2rem;line-height:1.55}
 .fig{font-family:var(--mono);font-size:.95em;letter-spacing:-.02em}
 .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border:1px solid var(--ink);margin:26px 0}
 .stat{padding:16px 18px 14px;border-right:1px solid var(--border);min-width:0}
@@ -232,20 +231,21 @@ td .sub{display:block;font-size:.84rem;color:var(--muted);font-weight:400;margin
 td.ratio{color:var(--red);font-weight:700}
 tr.kids td{color:var(--muted)}tr.kids td.name a{color:var(--muted);font-weight:400}
 .toolbar{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin:18px 0 4px;font-size:.92rem}
-.toolbar input[type=search]{font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);min-width:min(340px,100%);border-radius:0}
+.toolbar input[type=search]{font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);flex:1 1 340px;max-width:520px;min-width:0;border-radius:0}
 .toolbar label{display:flex;gap:8px;align-items:center;color:var(--muted)}
-.note{font-size:.88rem;color:var(--muted);max-width:70ch;line-height:1.55}
-.context{font-size:.92rem;line-height:1.55;max-width:70ch;border-left:3px solid var(--border);padding:2px 0 2px 12px;margin:14px 0 18px}
+.note{font-size:.88rem;color:var(--muted);line-height:1.55}
+.context{font-size:.92rem;line-height:1.55;border-left:3px solid var(--border);padding:2px 0 2px 12px;margin:14px 0 18px}
 .src{font-size:.85rem;color:var(--muted);margin-top:8px}
-dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 24px;font-size:.95rem;max-width:70ch;border-top:1px solid var(--border);padding-top:12px;margin:0}
-dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:.9rem;min-width:0}
-.callout{background:var(--surface);border:1px solid var(--ink);border-left:6px solid var(--red);padding:14px 18px;max-width:70ch;margin:22px 0;font-size:1.02rem;line-height:1.55}
-.cb{display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-size:.92rem;max-width:600px}
+dl.kv{display:grid;grid-template-columns:minmax(0,max-content) 1fr;gap:6px 24px;font-size:.95rem;border-top:1px solid var(--border);padding-top:12px;margin:0}
+dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-family:var(--mono);font-size:.9rem;min-width:0;overflow-wrap:anywhere}
+@media(max-width:640px){dl.kv{grid-template-columns:1fr;gap:0}dl.kv dd{margin:0 0 10px}}
+.callout{background:var(--surface);border:1px solid var(--ink);border-left:6px solid var(--red);padding:14px 18px;margin:22px 0;font-size:1.02rem;line-height:1.55}
+.cb{display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-size:.92rem}
 .cb span:nth-child(2n){font-family:var(--mono);font-size:.88rem}
 .cb .bar{grid-column:1/-1;height:12px;background:#d9d4c7;position:relative;margin-bottom:10px;border:1px solid var(--border)}
 .cb .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--red)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px}
-.sharebox{display:grid;grid-template-columns:1fr;gap:14px;border:1px solid var(--ink);padding:18px;margin:22px 0;background:var(--surface)}
+.sharebox{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;border:1px solid var(--ink);padding:18px;margin:22px 0;background:var(--surface)}
 .sharebox img{width:100%;height:auto;border:1px solid var(--border);display:block}
 .sharelinks p{margin:0 0 10px;font-size:.92rem}
 .sharelinks .btn{margin:4px 6px 4px 0;cursor:pointer;font-family:var(--mono)}
@@ -266,6 +266,8 @@ ul.files .meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);displ
 code{font-family:var(--mono);font-size:.88em}
 pre{background:var(--surface);border:1px solid var(--border);padding:14px;overflow-x:auto;font-size:.82rem;line-height:1.45}
 .manual table{white-space:normal;font-size:.86rem}
+.manual code{overflow-wrap:anywhere}
+.manual .tablewrap table{min-width:720px}
 .manual thead th{cursor:default}
 footer{margin-top:64px;padding-top:28px;text-align:center;font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;color:var(--muted)}
 footer .rule-single{width:100%;max-width:440px;margin:0 auto 22px}
@@ -312,7 +314,7 @@ def HEAD(title, desc='', here=None, wide=True, card=None, url=None):
 """
 FOOT = f"""</main>
 <footer><div class="rule-single"></div>
-<div class="links"><a href="/#reports">Reports</a>|<a href="/#data">Data</a>|<a href="/#contact">Contact</a>|<a href="/#about">About</a>|<a href="/#standards">Standards</a></div>
+<div class="links"><a href="/#reports">Reports</a> | <a href="/#data">Data</a> | <a href="/#contact">Contact</a> | <a href="/#about">About</a> | <a href="/#standards">Standards</a></div>
 <p>Report No. {REPORT_NO}, {E(SERIES)}, {EDITION} edition &middot; Data as of {DATA_ASOF} &middot; Built {BUILD}</p>
 <p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to asher@everythingisbroken.org.</p>
 <p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate.</p>
@@ -748,6 +750,7 @@ try:
     md = open(os.path.join(HERE, 'REPRODUCTION_MANUAL.md')).read()
     md = md.split('\n', 1)[1]  # drop the H1; the page supplies it
     manual_html = markdown.markdown(md, extensions=['tables', 'fenced_code'])
+    manual_html = manual_html.replace('<table>', '<div class="tablewrap"><table>').replace('</table>', '</table></div>')
 except ImportError:
     manual_html = f'<p>The manual is published as <a href="/pipeline/REPRODUCTION_MANUAL.md">REPRODUCTION_MANUAL.md</a>. Install the Python <code>markdown</code> package to render it here.</p>'
 manual = HEAD('Reproduction manual', 'A complete procedure for rebuilding the dataset from the IRS bulk files.', here=f'{BASE}/manual.html') + f"""
