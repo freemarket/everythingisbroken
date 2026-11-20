@@ -96,11 +96,11 @@ def main():
     print(f'{len(files)} xml files, {len(todo)} to load')
     wide_exists = os.path.exists(WIDE)
     wf = open(WIDE, 'a', newline=''); ww = None
-    nrows = 0; nfil = 0
+    nrows = 0; nfil = 0; nskip = 0
     for i, f in enumerate(todo):
         try:
             d = P.parse_file(f)
-            if 'sch_h' not in d: continue
+            if 'sch_h' not in d: nskip += 1; continue
             R = rows_for(d); A.add(*R); nrows += len(R); nfil += 1
             w = wide_row(d)
             if ww is None:
@@ -112,7 +112,7 @@ def main():
             with open(ERRS, 'a') as ef: ef.write(f'{f}: {e}\n{traceback.format_exc()}\n')
         if i % 200 == 0: print(i, nfil, nrows, flush=True)
     wf.close()
-    print(f'loaded {nfil} filings, {nrows} rows; csv total {A.count()}')
+    print(f'loaded {nfil} filings, {nrows} rows; skipped {nskip} files with no Schedule H; csv total {A.count()}')
 
 if __name__ == '__main__':
     main()

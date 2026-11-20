@@ -879,7 +879,7 @@ CORR_TXT = (f"Nov 19, 2026. The headline count now includes every hospital syste
 CORR_TXT2 = ("Nov 20, 2026. Three figures corrected after an outside audit. "
              "(1) The methodology said the report kept 19,245 filings that include Schedule H, out of about 1.2 million in the 2025 and 2026 IRS releases. "
              "The data the report is built from does not support either number: it holds 3,845 filings, 3,844 with Schedule H and one parent return without it. "
-             "The 19,245 had been typed into the build, not counted from the data; the count is now computed. "
+             "The 19,245 had been typed into the build, not counted from the data, and was most likely the number of files kept by a download filter that also matched returns with no Schedule H; the count is now computed. "
              "(2) The list of the highest charity care shares among systems over $1 billion left out Driscoll Children's Hospital (TX), third at 7.04%, "
              "because of an expense-to-revenue test meant to screen out foundations; among systems that size it removed only two operating hospital systems, and it is dropped. "
              "(3) The independent check against CEO Paycheck said 121 of 129 shared systems agree; against the current figures 117 do, "
@@ -918,7 +918,7 @@ FILES = [
     (FILING_CHECK, 'Every headline row checked against the hospitals\' own filings by pipeline/check_filings.py, on the date in the name: the filed Part VII columns D, E and F for the chief executive and line 7a for each member filing, next to the published figures. Rerun it any time; it reads only public pages.'),
 ]
 WORKING = [('working/ceo_unresolved.csv', 'Filers where the CEO rule found no chief executive.'), ('working/ceo_review_large.csv', 'Material used for the manual review of filers above $1B.'), ('working/hospitals_wide.csv', 'An early wide-format export, kept for the record.')]
-SCRIPTS = ['fetch_all.sh', 'parse_xml.py', 'load_all.py', 'add_rows.py', 'build_systems.py', 'build_site.py', 'check_filings.py', 'analyze.py', 'parse_schh.py', 'save_and_parse.py', 'seed_01.py']
+SCRIPTS = ['fetch_all.sh', 'parse_xml.py', 'load_all.py', 'add_rows.py', 'build_systems.py', 'build_site.py', 'check_filings.py', 'check_irs_batch.py', 'analyze.py', 'parse_schh.py', 'save_and_parse.py', 'seed_01.py']
 file_rows = []; sums = []
 for fn, desc in FILES + WORKING:
     p = os.path.join(DATA, fn); h = sha(p); sums.append(f'{h}  {fn}')

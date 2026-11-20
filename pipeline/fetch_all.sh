@@ -11,7 +11,7 @@ for y in 2025 2026; do
     curl -sS -m 900 -L -o "$z" "https://apps.irs.gov/pub/epostcard/990/xml/$y/$z" || { echo "DL FAIL $z"; continue; }
     rm -rf tmp && mkdir tmp
     unzip -q "$z" -d tmp || { echo "UNZIP FAIL $z"; continue; }
-    find tmp -name '*.xml' -print0 | xargs -0 grep -l -m1 "IRS990ScheduleH" > "logs/schH_${z}.txt"
+    find tmp -name '*.xml' -print0 | xargs -0 grep -l -m1 "<IRS990ScheduleH" > "logs/schH_${z}.txt"
     xargs -a "logs/schH_${z}.txt" -I{} mv {} xml/
     rm -rf tmp "$z"; touch "done_${z}"
   done
