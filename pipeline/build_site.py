@@ -534,7 +534,8 @@ write('index.html', index)
 # full list
 allp = HEAD('Complete ranking', 'All ranked nonprofit hospital systems by CEO pay.', here=f'{BASE}/all.html') + f"""
 <p class="doc-no">Report No. {REPORT_NO} &middot; {EDITION} edition</p><h1 class="title">Complete ranking</h1>
-<p class="lede">{len(ranked)} nonprofit hospital systems with an identifiable chief executive and positive charity care, ranked by CEO pay.</p>
+<p class="lede">{len(ranked)} nonprofit hospital systems with an identifiable chief executive and a charity care figure on their filings, ranked by CEO pay. Systems whose filings report no net charity care are ranked with that figure, as filed.</p>
+{CORR_NOTE3}
 {CORR_NOTE}
 <div class="toolbar"><input type="search" id="q" placeholder="Search a hospital, CEO, or state code"><label>Type <select id="htype"><option value="">All types</option><option value="general">General</option><option value="children">Children’s</option><option value="specialty">Specialty</option></select></label></div>
 <div class="tablewrap"><table class="sortable">{TABLE_HEAD()}<tbody>{''.join(row(s) for s in ranked)}</tbody></table></div>
@@ -857,6 +858,7 @@ for st_, lst in sorted(bystate.items()):
 <p class="doc-no">Report No. {REPORT_NO} &middot; {EDITION} edition &middot; <a href="{BASE}/states.html">all states</a></p>
 <h1 class="title">{E(STATES[st_])}</h1>
 <p class="lede">{E(state_lead(st_, lst))}</p>
+{CORR_NOTE3}
 {CORR_NOTE}
 <p class="note">{len(lst)} nonprofit hospital systems have a hospital in {E(STATES[st_])}{f", {n_away} of them filing from another state" if n_away else ''}. A system with hospitals in several states is listed on each of those states' pages with its system-wide figures.</p>
 <div class="toolbar"><input type="search" id="q" placeholder="Search"><label>Type <select id="htype"><option value="">All types</option><option value="general">General</option><option value="children">Children’s</option><option value="specialty">Specialty</option></select></label></div>
@@ -868,6 +870,7 @@ for st_, lst in sorted(bystate.items()):
 states = HEAD('By state', 'Nonprofit hospital charity care and CEO pay, state by state.', here=f'{BASE}/states.html') + f"""
 <p class="doc-no">Report No. {REPORT_NO} &middot; {EDITION} edition</p><h1 class="title">By state</h1>
 <p class="lede">Median charity care as a share of expenses, by state. A system is counted in every state where it has a hospital (Schedule H Part V), so a system with hospitals in several states is counted in each. Click a state for its ranking.</p>
+{CORR_NOTE3}
 {CORR_NOTE}
 <div class="tablewrap"><table class="sortable"><thead><tr><th data-k="text">State</th><th class="num" data-k="num">Systems</th><th class="num" data-k="num">Median charity care, % of expenses</th></tr></thead><tbody>
 {''.join(f'<tr><td class="name"><a href="{BASE}/state/{a}.html">{E(n)}</a></td><td class="num">{c}</td><td class="num" data-v="{m if m is not None else -1}">{pct(m)}</td></tr>' for a,n,c,m in sorted(state_index_rows, key=lambda x: (x[3] if x[3] is not None else 99)))}
@@ -1116,6 +1119,7 @@ local = HEAD('For local groups and officeholders', 'Find your hospital or your s
 <p class="doc-no">Report No. {REPORT_NO} &middot; {EDITION} edition</p>
 <h1 class="title">For local groups and officeholders</h1>
 <p class="lede">This report was built so that anyone, anywhere in the country, can put their own hospital's numbers in front of their own town. Everything here is free to take. You do not need permission and you do not need to agree with us about anything; the numbers are the hospitals' own.</p>
+{CORR_NOTE3}
 {CORR_NOTE}
 <h2><span class="n">&sect;1</span>Find your hospital</h2>
 <div class="toolbar"><input type="search" id="q" placeholder="Type a hospital system, a chief executive, or a state code"><label>Type <select id="htype"><option value="">All types</option><option value="general">General</option><option value="children">Children’s</option><option value="specialty">Specialty</option></select></label></div>
