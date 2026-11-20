@@ -116,6 +116,12 @@ def pick_ceo(plist, object_id=None, fye=None):
     if sum(1 for c in cands if c[0] == tier) > 1: conf += '_multiple'
     return (name, p), conf, top
 
+def net_unstated(f):
+    """Line 7a column (e) left blank although column (c), the cost, exceeds column (d), the offsetting revenue: the
+    filing states no net figure, and a blank cannot be read as zero (Sheridan Community Hospital, Nov 20, 2026)."""
+    return (num(f.get('sch_h_7a_financial_assistance_at_cost_net')) is None and
+            (num(f.get('sch_h_7a_financial_assistance_at_cost_total_expense')) or 0) > (num(f.get('sch_h_7a_financial_assistance_at_cost_offsetting_revenue')) or 0))
+
 # Manual overrides (ein,fye) -> row
 OVR = {}
 import os as _os2
@@ -157,7 +163,10 @@ for ein, fye in latest.items():
         'override_reason': ovr['reason'] if ovr else '',
         'top_paid_name': top[0], 'top_paid_title': top[1]['title'] if top[1] else None, 'top_paid_total': (top[1]['org'] + top[1]['rel'] + top[1]['oth']) if top[1] else None,
         'childrens_hospital': 'yes' if re.search(r"CHILDREN|PEDIATRIC|SHRINERS|ST JUDE", (name or '').upper()) else '',
-        'zero_charity_care_flag': 'yes' if (num(f.get('sch_h_7a_financial_assistance_at_cost_net')) or 0) == 0 and (num(f.get('sch_h_7k_total_community_benefits_net')) or 0) > 0 else '',
+        # No net charity care: the filing fills in the line 7 table and line 7a, column (e), is zero, negative or left blank.
+        # A filing with no line 7 table at all gives no figure and is not flagged (Nov 20, 2026; before, the flag also
+        # required other community benefit on line 7k).
+        'zero_charity_care_flag': 'yes' if (f.get('sch_h_7a_financial_assistance_at_cost_net') is not None or f.get('sch_h_7k_total_community_benefits_net') is not None) and (num(f.get('sch_h_7a_financial_assistance_at_cost_net')) or 0) <= 0 and not net_unstated(f) else '',
     }
     out.append(rec)
     if conf == 'unresolved': unresolved.append(rec)
@@ -205,8 +214,10 @@ for key, members in groups.items():
     def s(field):
         v = [r[field] for r in members if r[field] is not None]; return sum(v) if v else None
     cc = s('charity_care_net'); ex = s('total_expenses')
-    # Share of the group's revenue in members reporting $0 net on 7a. Above 10 percent the group's charity
-    # care may be understated (Bethesda, Cayuga), so the zero flag still applies.
+    # A blank line 7a counts as zero when the filings fill in the line 7 table, as a blank member already does in a
+    # sum. Filings with no line 7 table give no charity care figure, and the system is not ranked (Nov 20, 2026).
+    if cc is None and s('total_cb_net') is not None and not any(net_unstated(filings[(r['ein'], r['fye'])]) for r in members): cc = 0.0
+    # Share of the group's revenue in members reporting no net charity care on 7a.
     zero_share = sum(r['total_revenue'] or 0 for r in members if r['zero_charity_care_flag'] == 'yes') / (s('total_revenue') or 1)
     systems.append({
         'system_key': display.get(key, key), 'lead_filer': m_rev['name'], 'lead_ein': m_rev['ein'], 'state': (m_rev['city_state'] or '').split(',')[-1].strip()[:2], 'ceo_filer': m0['name'],
@@ -215,13 +226,16 @@ for key, members in groups.items():
         'charity_care_net': cc, 'charity_care_pct_computed': (cc / ex * 100) if cc is not None and ex else None,
         'total_cb_net': s('total_cb_net'), 'bad_debt': s('bad_debt'), 'medicare_shortfall': s('medicare_shortfall'), 'facility_count': s('facility_count'),
         'ceo_name': m0['ceo_name'], 'ceo_title': m0['ceo_title'], 'ceo_comp_total': m0['ceo_comp_total'], 'ceo_confidence': m0['ceo_confidence'],
-        'ceo_pay_pct_of_charity_care': (m0['ceo_comp_total'] / cc * 100) if m0['ceo_comp_total'] and cc else None,
+        'ceo_pay_pct_of_charity_care': (m0['ceo_comp_total'] / cc * 100) if m0['ceo_comp_total'] and cc and cc > 0 else None,
         'childrens_hospital': 'yes' if all(r['childrens_hospital'] == 'yes' for r in members) else ('mixed' if any(r['childrens_hospital'] == 'yes' for r in members) else ''),
-        # Group-level: a small member reporting $0 net on 7a does not bar a group whose summed 7a is positive
-        # (Navicent Baldwin, 5.5 percent of revenue: 7a cost fully offset by revenue). Members with $0 are listed.
-        'zero_charity_care_flag': 'yes' if ((cc or 0) <= 0 and (s('total_cb_net') or 0) > 0) or zero_share > 0.10 else '',
+        # Flag (for the page notes and check_zero_charity_care.csv): the system reports no net charity care on line 7a,
+        # or filings holding more than 10 percent of its revenue do. Members with none are listed.
+        'zero_charity_care_flag': 'yes' if (cc is not None and cc <= 0) or zero_share > 0.10 else '',
         'zero_7a_members': ';'.join(r['ein'] for r in members if r['zero_charity_care_flag'] == 'yes'),
-        'publishable': 'yes' if (m0['ceo_confidence'] in ('ceo_title','ceo_title_multiple','manual_override') and cc and cc > 0 and zero_share <= 0.10) else 'no',
+        # Ranked when the chief executive is identified with confidence and the filings give a line 7a figure, zero
+        # included (Nov 20, 2026; before, systems reporting no net charity care, or whose filings holding more than
+        # 10 percent of revenue reported none, were not ranked).
+        'publishable': 'yes' if (m0['ceo_confidence'] in ('ceo_title','ceo_title_multiple','manual_override') and cc is not None) else 'no',
     })
 systems.sort(key=lambda r: -(r['total_revenue'] or 0))
 with open('systems_rollup.csv', 'w', newline='') as fh:

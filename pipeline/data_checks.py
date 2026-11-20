@@ -133,8 +133,9 @@ def name_splits(S, previous):
     return out
 
 def charity_candidates(F, S, lines):
-    hl_all = [s for s in S if ranked(s) and (f(s['total_revenue']) or 0) >= 1e8 and f(s['charity_care_net'])]
-    headline = {s['lead_ein'] for s in hl_all if (f(s['ceo_pay_pct_of_charity_care']) or 0) > 100}
+    # The headline group as build_site.py defines it: since Nov 20, 2026 systems reporting no net charity care count.
+    hl_all = [s for s in S if ranked(s) and (f(s['total_revenue']) or 0) >= 1e8 and f(s['charity_care_net']) is not None]
+    headline = {s['lead_ein'] for s in hl_all if f(s['charity_care_net']) <= 0 or (f(s['ceo_pay_pct_of_charity_care']) or 0) > 100}
     out = []
     for s in hl_all:
         for e in s['member_eins'].split(';'):
