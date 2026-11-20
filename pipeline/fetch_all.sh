@@ -2,7 +2,8 @@
 # Step 2 of the reproduction manual. Run from the folder that holds irs/ (it is created if missing).
 # Downloads each IRS batch zip, keeps the returns that contain a Schedule H in irs/xml/, keeps the parent returns
 # listed in NONH (no Schedule H; loaded for Part VII only, manual Section 6.5) in irs/xml_nonH/, logs each zip's
-# SHA-256 and return count, and deletes the zip. Resumable: a done_ marker is left for each finished zip.
+# SHA-256 and return count, and deletes the zip. Resumable: a done_ marker is left for each finished zip. A download
+# the IRS server cuts off is retried up to five times.
 # Uses the system unzip (the IRS zips use Deflate64, which Python's zipfile cannot read) and works with the BSD tools
 # on macOS as well as GNU tools. The largest IRS zips (2025 and 2026 batches 05A and 05B) carry a malformed
 # end-of-archive record: unzip extracts every file and then exits with an error. So an unzip error is accepted only
@@ -19,7 +20,7 @@ for y in 2025 2026; do
     z="${y}_TEOS_XML_${b}.zip"
     [ -f "done_${z}" ] && continue
     if [ ! -f "$z" ]; then
-      curl -sS -f -m 1800 -L -o "$z.part" "https://apps.irs.gov/pub/epostcard/990/xml/$y/$z" && mv "$z.part" "$z" || { echo "DL FAIL $z"; continue; }
+      curl -sS -f -m 1800 --retry 5 --retry-delay 15 --retry-all-errors -L -o "$z.part" "https://apps.irs.gov/pub/epostcard/990/xml/$y/$z" && mv "$z.part" "$z" || { echo "DL FAIL $z"; continue; }
     fi
     echo "$(shasum -a 256 "$z")  $(wc -c < "$z" | tr -d ' ') bytes" >> logs/sha256.txt
     rm -rf tmp && mkdir tmp

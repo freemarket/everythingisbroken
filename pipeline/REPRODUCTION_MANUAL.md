@@ -90,7 +90,7 @@ There is one source of truth and several derived tables. Never edit a derived ta
 
 **Override files** (hand-maintained, read by the build): `ceo_overrides.csv` and `rollup_overrides.csv`, described in Section 6. `context_notes.csv` (Section 6.5a) is read only by `build_site.py` and changes no figure.
 
-**Raw inputs, no longer retained:** `irs/index_2025.csv`, `irs/index_2026.csv`, `irs/xml/<object_id>_public.xml`, and for the Chicago page route `raw_<ENTITY>_<FY>_SchH.txt`. These were not kept after the build and are not in the repository, and neither are the processing logs (`loaded_object_ids.txt`, `parse_errors.txt`). Every filing in the master can be re-checked by its object ID on ProPublica (`https://projects.propublica.org/nonprofits/full_text/<object_id>/IRS990` and `.../IRS990ScheduleH`) or in the IRS bulk release named in its `source_url`.
+**Raw inputs, downloaded again on demand:** `irs/index_2025.csv`, `irs/index_2026.csv`, `irs/xml/<object_id>_public.xml`, and for the Chicago page route `raw_<ENTITY>_<FY>_SchH.txt`. The folder used for the original build was not kept, and neither were its processing logs (`loaded_object_ids.txt`, `parse_errors.txt`). On Nov 20, 2026 every IRS batch was downloaded again with `fetch_all.sh` and the whole master was rebuilt from it with identical figures (Section 7, item 15); `irs_batches_2026-11-20.csv` gives each batch's URL, size, SHA-256, return count and Schedule H count, so a later download can be checked against the one that was tested. Every filing can also be read by its object ID on ProPublica (`https://projects.propublica.org/nonprofits/full_text/<object_id>/IRS990` and `.../IRS990ScheduleH`).
 
 ## 5. Procedure
 
@@ -104,29 +104,55 @@ curl -L -o index_2025.csv https://apps.irs.gov/pub/epostcard/990/xml/2025/index_
 curl -L -o index_2026.csv https://apps.irs.gov/pub/epostcard/990/xml/2026/index_2026.csv
 ```
 
-Columns: `RETURN_ID, FILING_TYPE, EIN, TAX_PERIOD, SUB_DATE, TAXPAYER_NAME, RETURN_TYPE, DLN, OBJECT_ID, XML_BATCH_ID`. At this version: 748,906 rows for 2025 and 436,239 for 2026; `RETURN_TYPE` is 990, 990EZ, 990PF, or 990T. Only 990 returns carry Schedule H. Check that a few known hospital EINs appear (Northwestern 364724966, Rush 362174823) before continuing.
+Columns: `RETURN_ID, FILING_TYPE, EIN, TAX_PERIOD, SUB_DATE, TAXPAYER_NAME, RETURN_TYPE, DLN, OBJECT_ID, XML_BATCH_ID`. At this version: 748,906 rows for 2025 and 436,239 for 2026 (the 2026 batches through 08A; the IRS has since added 09A and 10A, which this version does not use); `RETURN_TYPE` is 990, 990EZ, 990PF, or 990T. Only 990 returns carry Schedule H. Check that a few known hospital EINs appear (Northwestern 364724966, Rush 362174823) before continuing.
 
-**Step 2. Download every batch and keep only Schedule H filings.** `fetch_all.sh`, quoted in full:
+**Step 2. Download every batch and keep only Schedule H filings.** `fetch_all.sh`, quoted in full (run it from the folder that will hold `irs/`):
 
 ```bash
 #!/bin/bash
+# Step 2 of the reproduction manual. Run from the folder that holds irs/ (it is created if missing).
+# Downloads each IRS batch zip, keeps the returns that contain a Schedule H in irs/xml/, keeps the parent returns
+# listed in NONH (no Schedule H; loaded for Part VII only, manual Section 6.5) in irs/xml_nonH/, logs each zip's
+# SHA-256 and return count, and deletes the zip. Resumable: a done_ marker is left for each finished zip. A download
+# the IRS server cuts off is retried up to five times.
+# Uses the system unzip (the IRS zips use Deflate64, which Python's zipfile cannot read) and works with the BSD tools
+# on macOS as well as GNU tools. The largest IRS zips (2025 and 2026 batches 05A and 05B) carry a malformed
+# end-of-archive record: unzip extracts every file and then exits with an error. So an unzip error is accepted only
+# when every entry in the zip's directory was extracted at its recorded size (checked with Python's zipfile, which
+# can read the directory but not the Deflate64 data).
 set -u
-cd irs; mkdir -p xml logs
+mkdir -p irs; cd irs; mkdir -p xml xml_nonH logs
 B2025="01A 02A 03A 04A 05A 05B 06A 07A 08A 09A 10A 11A 11B 11C 11D 12A"
 B2026="01A 02A 03A 04A 05A 05B 06A 07A 08A"
+NONH="202533219349327728"   # Advocate Health, Inc. (NC parent, EIN 88-4157429), batch 2025_TEOS_XML_11B
 for y in 2025 2026; do
   if [ "$y" = 2025 ]; then L="$B2025"; else L="$B2026"; fi
   for b in $L; do
     z="${y}_TEOS_XML_${b}.zip"
     [ -f "done_${z}" ] && continue
-    curl -sS -m 900 -L -o "$z" "https://apps.irs.gov/pub/epostcard/990/xml/$y/$z" || { echo "DL FAIL $z"; continue; }
+    if [ ! -f "$z" ]; then
+      curl -sS -f -m 1800 --retry 5 --retry-delay 15 --retry-all-errors -L -o "$z.part" "https://apps.irs.gov/pub/epostcard/990/xml/$y/$z" && mv "$z.part" "$z" || { echo "DL FAIL $z"; continue; }
+    fi
+    echo "$(shasum -a 256 "$z")  $(wc -c < "$z" | tr -d ' ') bytes" >> logs/sha256.txt
     rm -rf tmp && mkdir tmp
-    unzip -q "$z" -d tmp || { echo "UNZIP FAIL $z"; continue; }
+    if ! unzip -q "$z" -d tmp > "logs/unzip_${z}.txt" 2>&1; then
+      python3 -I -c '
+import os, sys, zipfile
+z, d = sys.argv[1:3]; e = zipfile.ZipFile(z).infolist()
+bad = [i.filename for i in e if not os.path.isfile(os.path.join(d, i.filename)) or os.path.getsize(os.path.join(d, i.filename)) != i.file_size]
+print(f"{len(e)} entries, {len(bad)} missing or short"); sys.exit(1 if bad else 0)' "$z" tmp >> "logs/unzip_${z}.txt" 2>&1 \
+        || { echo "UNZIP FAIL $z (see logs/unzip_${z}.txt)"; continue; }
+      echo "note $z: unzip reported an error after extracting every file; $(tail -1 "logs/unzip_${z}.txt")"
+    fi
+    find tmp -name '*.xml' | wc -l | tr -d ' ' > "logs/count_${z}.txt"
     find tmp -name '*.xml' -print0 | xargs -0 grep -l -m1 "<IRS990ScheduleH" > "logs/schH_${z}.txt"
-    xargs -a "logs/schH_${z}.txt" -I{} mv {} xml/
+    while IFS= read -r f; do mv "$f" xml/; done < "logs/schH_${z}.txt"
+    for o in $NONH; do find tmp -name "${o}_public.xml" -exec mv {} xml_nonH/ \; ; done
     rm -rf tmp "$z"; touch "done_${z}"
+    echo "done $z: $(cat "logs/count_${z}.txt") returns, $(wc -l < "logs/schH_${z}.txt" | tr -d ' ') with Schedule H"
   done
 done
+echo "xml/: $(ls xml | wc -l | tr -d ' ') files; xml_nonH/: $(ls xml_nonH | wc -l | tr -d ' ') files"
 ```
 
 The batch list is read from the IRS download page (`https://www.irs.gov/charities-non-profits/form-990-series-downloads`) and will differ in later years. Each batch is 100 to 520 MB and takes 15 to 40 seconds to download and filter. Result: the filings in `irs/xml/`, named `<object_id>_public.xml`. The master built from them holds <!--n:filings-->3,845<!--/n--> filings: <!--n:filings_h-->3,844<!--/n--> with Schedule H, and <!--n:filings_nonh-->1<!--/n--> parent return without it, from `irs/xml_nonH/` (Section 6.5). Earlier versions of this manual gave 19,245 files here, and called them Schedule H filings. Until Nov 20, 2026 the filter above matched the text `IRS990ScheduleH`, which also appears in the hospital question every full Form 990 answers (`<OperateHospitalInd referenceDocumentName="IRS990ScheduleH">`, even when the answer is no), so the folder also held returns with no Schedule H; `load_all.py` skipped those without saying so. In the one batch rebuilt on Nov 20, 2026 the old filter kept 318 returns, of which 26 contain a Schedule H; the filter now matches the Schedule H element itself, and the loader reports what it skips. 19,245 was most likely the number of files the old filter kept; the folder was not retained, so that cannot be confirmed (corrections log, Nov 20, 2026). The `done_` marker files make the script resumable.
@@ -200,8 +226,9 @@ Run all of these before using any figure. Each has been run at this version with
 13. **Headline scope check before publication (Nov 1, 2026).** Every headline row (74 after the Oct 31 audit) was checked against one fixed checklist: (a) who was chief executive at fiscal year end; (b) what that person's title covers (this hospital, or a market, region, medical group or parent); (c) whether the row holds every hospital that person runs, and nothing else. Evidence came from the filings and from the hospitals' and systems' own leadership announcements, bios and local news. One line per row, with the verdict, evidence and source URLs, is in `headline_scope_check_2026-11.csv`. Result: 72 ok, 2 fix, 0 unclear. Fixes: the HSHS Southern Illinois row under Michael Janis (153.1 percent) joins Chris Klay's market row (71.6 percent) and leaves the headline list; Pawnee Valley joins Hays Medical Center (355.6 to 328.1 percent, still listed). Seven of the ok rows rest on thinner evidence (the filing plus directory or undated pages): Thorek and Artesia (filing only, consistent across years), St Croix, Fairchild, Anaconda, Auburn and Welia; none showed a sign of a different chief executive. Tarzana (100.5 percent) is kept under its own chief executive although Providence also has a service-area chief executive over it, because the sister hospitals file inside another row's group return. Results: headline 73 of 655; 1,033 ranked; 1,627 systems. Large-system medians unchanged.
 
 14. **Headline scope changed to every hospital type (Nov 19, 2026).** From Oct 21 to Nov 19 the headline left out children's hospitals and the twelve specialty filers in `headline_exclusions.csv`. A sweep of the headline group on Nov 19 found eleven more systems that rule covered and had been counted by mistake (Rogers Memorial, Sheppard Pratt, Pine Rest, Hazelden Betty Ford, Madonna, Genesis Rehabilitation, Shepherd Center, Craig Hospital, Deborah Heart and Lung, City of Hope; and Nemours, a children's system the name rule missed). Rather than extend the exclusions, the headline now counts every ranked system over $100 million of any type, and each row carries its type (`hospital_types.csv`, Section 6.7). Before: 73 of 655. After: the figures on the corrections log. `headline_exclusions.csv` is kept, unchanged, as the record of the earlier rule. The 17 rows newly counted were checked against their filings on Nov 19 (audit 1 of 5); audits 2 to 5 are scheduled for Nov 20, 21, 22 and 30; on Nov 20 every headline row was checked by `pipeline/check_filings.py`, which reads the filings on ProPublica and compares the filed Part VII columns and line 7a with the published figures (result: `filing_check_2026-11-20.csv`, all rows matching to the dollar; rerun it any time); each checks about a quarter of the headline rows against the filings and the live site for consistency, and their results will be recorded here.
-15. **IRS rebuild test (Nov 20, 2026).** The 2025 index (`index_2025.csv`, 748,906 rows, matching Section 3) and one batch, `2025_TEOS_XML_01A` (17,044 returns), were downloaded again from the IRS and run through `parse_xml.py` and `load_all.py`'s row builder by `pipeline/check_irs_batch.py`. Of the 26 returns in the batch that contain a Schedule H, all 26 are in the master, and for every one the figures rebuilt today equal the master's exactly. Rerun it on any batch to check the master against the IRS's own files.
+15. **IRS rebuild test (Nov 20, 2026).** The 2025 index (`index_2025.csv`, 748,906 rows, matching Section 3) and one batch, `2025_TEOS_XML_01A` (17,044 returns), were downloaded again from the IRS and run through `parse_xml.py` and `load_all.py`'s row builder by `pipeline/check_irs_batch.py`. Of the 26 returns in the batch that contain a Schedule H, all 26 are in the master, and for every one the figures rebuilt today equal the master's exactly. Rerun it on any batch to check the master against the IRS's own files. Later the same day every batch was downloaded again (25 zip files, 7.0 GB, 1,185,145 returns; `irs_batches_2026-11-20.csv`) and `pipeline/check_irs_full.py` rebuilt every filing: the batches hold <!--n:irs_h-->3,844<!--/n--> returns with a Schedule H, every one is in the master, the master holds no IRS filing they lack, and for all <!--n:irs_n-->3,845<!--/n--> filings (with the Advocate parent return) the figures rebuilt today equal the master's exactly (`irs_rebuild_check_2026-11-20.csv`). Two things had to be fixed in `fetch_all.sh` to get there, and both are in the copy quoted in Step 2: it used a GNU-only `xargs` option, and the five largest zips (2025 and 2026 batches 05A and 05B, and 2025 11B) end with a malformed record, so `unzip` extracts every file and then exits with an error, which the script had treated as a failure.
 16. **Filings with no net charity care read (Nov 20, 2026).** Until this date the page of every system left out of the ranking for zero charity care said the zero "usually means charity care was booked on another line" and that "the filing is being read by hand." That reading had not been done, and no record of it existed. It was done on Nov 20, 2026 as the fourth check in `pipeline/data_checks.py`, written to `check_zero_charity_care.csv`: every member filing with no net charity care (line 7a column (e) zero, negative or blank) in the <!--n:z_sys-->89<!--/n--> systems flagged for it, <!--n:z_fil-->97<!--/n--> filings, with its line 7 figures and every Schedule H narrative passage about charity care. <!--n:z_off-->38<!--/n--> report a cost on line 7a and offsetting revenue at least as large, so the net is zero or less; the other <!--n:z_nc-->59<!--/n--> report no cost, and the finding column records what each filing says about it (a few give a reason: no applicants, no eligible patients, most patients on Medicaid; most give none). The "booked on another line" sentence was removed, and each of the <!--n:z_pages-->66<!--/n--> system pages concerned now prints its filing's figures and finding. The build stops if the file is out of date or a row lacks a finding.
+17. **Chief executives' names checked (Nov 20, 2026).** `pipeline/check_ceo_names.py` reads each chief executive's filing from the IRS files and compares the name the site shows with the name fields on the same return that are typed separately from Part VII (the principal officer, Form 990 item F, and the officer who signed the return), and tests whether the return lists all its Part VII names surname-first. Of <!--n:cn_n-->1,387<!--/n--> names shown, <!--n:cn_conf-->738<!--/n--> are confirmed by item F or the signer. The check found 36 names shown surname-first, including one headline row (Heath Evans, Kingman Healthcare, shown as "Evans Heath"), on returns from Loma Linda, Mercy, BayCare, MyMichigan, Texas Health and others; each is corrected in `display_names.csv` with its evidence. It also found 13 names spelled two ways on the same return and settled them by the hospital's or a public record's own spelling: 4 corrected in `display_names.csv` (AnneMarie Czyz, Benjamin Wehmeier, Ljiljana Petricevic, M Scott Alarcón), 8 confirmed as filed, and 1, on a row that is not ranked, left as filed because no public source was found. Each resolution cites its source. Results in `check_ceo_names.csv`; the build stops if a shown name is missing from it or a flagged name has no resolution.
 
 ## 8. Known limits and gaps
 

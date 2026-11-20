@@ -12,6 +12,7 @@ set EIB_SKIP_CARDS=1 to keep the existing images).
 """
 import csv, os, re, json, html, gzip, hashlib, datetime, statistics as st
 from collections import defaultdict
+from names import cap, CREDS_DISP, person
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
@@ -47,10 +48,6 @@ def money(v, short=True):
 def pct(v, d=2): return '' if v is None else f'{v:.{d}f}%'
 def acct(v): return '' if v is None else (f'(${-v:,.0f})' if v < 0 else f'${v:,.0f}')
 def slug(s): return re.sub(r'-+', '-', re.sub(r'[^a-z0-9]+', '-', s.lower())).strip('-')[:80]
-def cap(w):
-    # str.title() capitalizes after an apostrophe ("Children'S", "St Luke'S"). Capitalize each letter run; after an
-    # apostrophe only when more than one letter follows (O'Halla, O'Connor), never for a possessive s.
-    return re.sub(r"[A-Za-z]+(?:'[A-Za-z]+)?", lambda m: m.group(0)[0].upper() + re.sub(r"'([a-z]{2,})", lambda n: "'" + n.group(1).title(), m.group(0)[1:].lower()), w)
 def titlecase(s):
     small = {'of','and','the','for','at','in','on','dba','inc','llc'}
     w = s.lower().split(); out=[]
@@ -59,23 +56,6 @@ def titlecase(s):
         elif x in ('md','phd','do','jd','rn','upmc','uc','ucsf','ut','uf','lsu','nyu','bjc','osf','ssm','chi','rwj','hca','ucla','usc'): out.append(x.upper() if len(x)<=4 else cap(x))
         elif x in small and i>0: out.append(x)
         else: out.append(cap(x))
-    return ' '.join(out)
-CREDS_DISP = {'PHD':'PhD','MD':'MD','DO':'DO','JD':'JD','RN':'RN','MBA':'MBA','MHA':'MHA','MPH':'MPH','FACHE':'FACHE','III':'III','II':'II','IV':'IV','DHA':'DHA','MSN':'MSN','MS':'MS'}
-def person(s):
-    s = s or ''
-    # Title text the filing ran into the name field: 'MARGARET TROYTHROUGH AUG 2024', 'BRIAN T CANFIELD TERMED 42025',
-    # 'MICHAEL B LAIGN UNTIL 1024', 'Travis Olsen CFO thru'. Cut at the date word, then drop a trailing title.
-    s = re.split(r'(?i)THROUGH\b|\bTHRU\b|\bUNTIL\b|\bTERMED\b|\bSTART\b', s)[0]
-    s = re.sub(r'(\s+\d+)+\s*$', '', s)                                  # 'BRENDAN CARR 1'
-    s = re.sub(r'\s+(PRESIDENTCEO|UPM|CFO|CEO)$', '', s.strip(), flags=re.I)
-    s = re.sub(r'^(MR|MRS|MS|DR)\.?\s+', '', s, flags=re.I)              # 'MR KEVIN BROWN', 'DR PATRICK BATTEY'
-    out=[]
-    for w in s.split():
-        u=w.upper().strip('.,')
-        if u in CREDS_DISP: out.append(CREDS_DISP[u])
-        elif len(w)==1 or (len(w)==2 and w.endswith('.')): out.append(w.upper())
-        elif w != w.upper() and w != w.lower(): out.append(w)                 # filed in mixed case: VanderSteeg, McLarney
-        else: out.append(cap(w))
     return ' '.join(out)
 def clean_title(t):
     # Display form of a Part VII title: drop the Schedule O marker and filing cross-references.
@@ -175,11 +155,37 @@ ZERO = defaultdict(list)
 for r in _dc_saved['zero']: ZERO[r['lead_ein']].append(r)
 Z_SYS = len(ZERO); Z_FIL = len(_dc_saved['zero']); Z_OFF = sum(1 for r in _dc_saved['zero'] if r['kind'] == 'cost offset by revenue'); Z_NC = Z_FIL - Z_OFF
 Z_PAGES = sum(1 for rs in ZERO.values() if rs[0]['system_page'] == 'yes')
+# CEO names (pipeline/check_ceo_names.py, run on the IRS files): every chief executive named on a page must be in the
+# file with the name shown today, and every name the check flagged must carry a resolution
+CN = {r['lead_ein']: r for r in csv.DictReader(open(os.path.join(DATA, 'check_ceo_names.csv')))}
+_cn_problems = []
+for s in S:
+    if not (s['pay'] and s['ceo_name']): continue
+    r = CN.get(s['lead_ein'])
+    if r is None or r['ceo_name_as_filed'] != s['ceo_name'] or r['name_shown'] != s['ceo']:
+        _cn_problems.append(f"{s['lead_filer']}: {s['ceo_name']!r} shown as {s['ceo']!r} is not in check_ceo_names.csv as shown")
+    elif r['status'] in ('order differs', 'spelling differs', 'unconfirmed: review', 'filing not found') and not r['resolution']:
+        _cn_problems.append(f"{s['lead_filer']}: {r['status']} for {s['ceo']!r} and no resolution")
+if _cn_problems:
+    raise SystemExit('CEO name check needs attention (run python3 -I pipeline/check_ceo_names.py <repo> <irs folder>, then resolve):\n  ' + '\n  '.join(_cn_problems[:20]))
+CN_N = sum(1 for r in CN.values()); CN_CONF = sum(1 for r in CN.values() if r['status'] == 'confirmed')
+CN_FIXED = sum(1 for r in csv.DictReader(open(os.path.join(DATA, 'display_names.csv'))) if r['evidence'].endswith('Found by check_ceo_names.py.') and not r['display_name'].startswith('('))
+CN_SPELL = sum(1 for r in CN.values() if r['status'] == 'spelling differs')
+CN_FLAG = sum(1 for r in CN.values() if r['status'] in ('order differs', 'spelling differs', 'unconfirmed: review'))
 # Latest run of pipeline/check_filings.py: every headline row against its filings
 FILING_CHECK = sorted(x for x in os.listdir(DATA) if re.fullmatch(r'filing_check_\d{4}-\d\d-\d\d\.csv', x))[-1]
 _fc = list(csv.DictReader(open(os.path.join(DATA, FILING_CHECK))))
 FC_DATE = datetime.date.fromisoformat(FILING_CHECK[13:23]).strftime('%b %-d, %Y'); FC_N = len(_fc)
 FC_OK = sum(1 for r in _fc if r['pay_match'] == 'yes' and r['charity_care_match'] == 'yes')
+# Latest run of pipeline/check_irs_full.py: every master filing rebuilt from the IRS files. The build cannot rerun it
+# (it needs the 7 GB download), so it checks that the run covers exactly the master's filings and found no difference.
+IRS_CHECK = sorted(x for x in os.listdir(DATA) if re.fullmatch(r'irs_rebuild_check_\d{4}-\d\d-\d\d\.csv', x))[-1]
+_irs = list(csv.DictReader(open(os.path.join(DATA, IRS_CHECK))))
+IRS_N = len(_irs); IRS_H = sum(1 for r in _irs if r['folder'] == 'xml'); IRS_OK = sum(1 for r in _irs if r['result'] == 'identical')
+if {r['object_id'] for r in _irs} != set(FILING_OIDS) or IRS_OK != IRS_N:
+    raise SystemExit(f'{IRS_CHECK} does not cover the master as it is now, or found differences: rerun pipeline/check_irs_full.py')
+IRS_DATE = datetime.date.fromisoformat(IRS_CHECK[18:28]).strftime('%b %-d, %Y')
+IRS_TXT = f"On {IRS_DATE} every IRS file the report uses was downloaded again and all {IRS_N:,} filings were rebuilt from it by script (pipeline/check_irs_full.py); every figure matched the data this site is built from."
 FC_TXT = f"Every row on the headline list is checked against its filings by a script anyone can rerun (pipeline/check_filings.py); the latest run, on {FC_DATE}, found {'all ' if FC_OK == FC_N else ''}{FC_OK} of {FC_N} matching to the dollar for both CEO pay and charity care."
 _cp_listed = {r['ein'] for r in csv.DictReader(open(os.path.join(DATA, 'ceopaycheck_crosscheck.csv')))}
 if _cp_listed != set(CP_DIFF):
@@ -206,7 +212,7 @@ HL_TYPES = {t: sum(1 for s in hl_over if s['type'] == t) for t in ('general', 'c
 HL_TYPES_TXT = f"{HL_TYPES['general']} run general hospitals, {HL_TYPES['children']} children’s hospitals and {HL_TYPES['specialty']} specialty hospitals"
 HEADLINE_SUB = f"The count covers all {len(hl_all):,} nonprofit hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million, general, children’s and specialty, using each hospital's own IRS filings. Of the {len(hl_over)}, {HL_TYPES_TXT}. Together the {len(hl_over)} received {money(HL_PAY)} in reported compensation; their hospitals gave {money(HL_CC)} to patients who could not pay."
 CORR_NOTE = f'<p class="note"><strong>Updated Nov 19, 2026:</strong> the headline count now includes children’s and specialty hospitals; each row is labeled by type. Figures before and after are in the <a href="/#standards">corrections log</a>.</p>'
-CORR_NOTE2 = f'<p class="note"><strong>Corrected Nov 20, 2026:</strong> the count of filings used, the list of the highest charity care shares among systems over $1 billion, and the independent CEO Paycheck comparison. Details in the <a href="/#standards">corrections log</a>.</p>'
+CORR_NOTE2 = f'<p class="note"><strong>Corrected Nov 20, 2026:</strong> the count of filings used, the list of the highest charity care shares among systems over $1 billion, the independent CEO Paycheck comparison, the explanation on the pages of systems reporting no net charity care, and {CN_FIXED} chief executives\' names. Details in the <a href="/#standards">corrections log</a>.</p>'
 
 # other chief executives (co-CEO, former CEO, executive chair) listed in the same filings
 _pp = defaultdict(lambda: defaultdict(lambda: {'org':0,'rel':0,'oth':0,'title':''}))
@@ -529,8 +535,6 @@ def cb_bar(s):
 
 # ---------- cards (1200 x 630 PNG, rendered from HTML with headless Chromium) ----------
 CARD_DIR = os.path.join(OUT, 'cards')
-if os.environ.get('EIB_SKIP_CARDS') != '1':
-    shutil.rmtree(CARD_DIR, ignore_errors=True)
 os.makedirs(os.path.join(CARD_DIR, 'system'), exist_ok=True); os.makedirs(os.path.join(CARD_DIR, 'state'), exist_ok=True)
 LOGO_URI = 'data:image/png;base64,' + __import__('base64').b64encode(open(os.path.join(REPO, 'logo.png'), 'rb').read()).decode()
 FONT_CSS = open(os.path.join(REPO, 'fonts', 'fonts.css')).read().replace('url(/fonts/', f'url(file://{REPO}/fonts/')
@@ -656,16 +660,34 @@ def state_card(st_, lst):
 for st_, lst in sorted(bystate.items()): CARD_JOBS.append((f"state/{st_}.png", state_card(st_, lst)))
 
 def render_cards(jobs):
+    """Draw every card into a new folder and swap it in only when all of them are drawn, so a failed or stalled run
+    leaves the published cards in place. Each page load and screenshot has a 60-second limit."""
     from playwright.sync_api import sync_playwright
-    tmp = os.path.join(CARD_DIR, '_tmp'); os.makedirs(tmp, exist_ok=True)
+    new = CARD_DIR + '.new'; shutil.rmtree(new, ignore_errors=True)
+    for sub in ('system', 'state'): os.makedirs(os.path.join(new, sub), exist_ok=True)
+    tmp = os.path.join(new, '_tmp'); os.makedirs(tmp, exist_ok=True)
+    from playwright.sync_api import TimeoutError as PWTimeout
     with sync_playwright() as p:
-        b = p.chromium.launch(); pg = b.new_page(viewport={'width': 1200, 'height': 630})
-        for path, html_ in jobs:
+        b = p.chromium.launch(); pg = None
+        for i, (path, html_) in enumerate(jobs):
             hp = os.path.join(tmp, 'c.html'); open(hp, 'w').write(html_)
-            pg.goto('file://' + hp); pg.wait_for_timeout(30)
-            pg.screenshot(path=os.path.join(CARD_DIR, path), type='png')
+            for attempt in range(3):   # a page that stalls is replaced by a fresh one and the card is drawn again
+                if pg is None or i % 300 == 0 and attempt == 0:
+                    if pg is not None: pg.close()
+                    pg = b.new_page(viewport={'width': 1200, 'height': 630})
+                try:
+                    pg.goto('file://' + hp, timeout=60000); pg.wait_for_timeout(30)
+                    pg.screenshot(path=os.path.join(new, path), type='png', timeout=60000); break
+                except PWTimeout:
+                    print(f'card {path}: timed out, retrying on a fresh page', flush=True); pg.close(); pg = None
+            else:
+                raise SystemExit(f'card {path} could not be drawn; the published cards were left in place')
+            if i % 200 == 0: print(f'cards {i} of {len(jobs)}', flush=True)
         b.close()
     shutil.rmtree(tmp, ignore_errors=True)
+    drawn = sum(len(fs) for _, _, fs in os.walk(new))
+    if drawn != len(jobs): raise SystemExit(f'cards: drew {drawn} of {len(jobs)}; the published cards were left in place')
+    shutil.rmtree(CARD_DIR); os.rename(new, CARD_DIR)
 if os.environ.get('EIB_SKIP_CARDS') != '1':
     render_cards(CARD_JOBS)
     print(f'rendered {len(CARD_JOBS)} cards')
@@ -833,10 +855,10 @@ meth = HEAD('Methodology', 'How the figures were taken from IRS filings, and the
 <p class="lede">No figure here is an estimate. Each is copied from a form the hospital filed, or computed from such figures with the formula stated.</p>
 {CORR_NOTE}
 {CORR_NOTE2}
-<h2>Source</h2><p>Every nonprofit hospital files IRS Form 990 with Schedule H. The IRS publishes every e-filed return as XML. This report reads the 2025 and 2026 releases and uses {N_FILINGS:,} filings from them: {N_FILINGS_H:,} that include Schedule H, plus {NONH_TXT}. It takes the latest fiscal year for each of the {len(F):,} filers. Each page links the filing it was built from.</p>
+<h2>Source</h2><p>Every nonprofit hospital files IRS Form 990 with Schedule H. The IRS publishes every e-filed return as XML. This report reads the 2025 and 2026 releases and uses {N_FILINGS:,} filings from them: {N_FILINGS_H:,} that include Schedule H, plus {NONH_TXT}. It takes the latest fiscal year for each of the {len(F):,} filers. Each page links the filing it was built from. {IRS_TXT}</p>
 <h2>CEO pay</h2><p>Form 990 Part VII, Section A lists officers, directors, key employees and the five highest-paid employees with three compensation columns: from the organization, from related organizations, and other compensation (deferred pay and benefits). CEO pay is the sum of the three. The chief executive is the person whose title contains CEO or chief executive and who is not marked former; where titles are ambiguous, the filing was read by hand and the decision recorded with its reason. Systems whose chief executive could not be identified from the filing are shown on their own pages but not ranked.</p>
 <h2>Charity care</h2><p>Schedule H Part I line 7a, "financial assistance at cost": free or discounted care given under the hospital's written financial assistance policy, valued at cost. Column (e): the cost in column (c) less the offsetting revenue the hospital reports for it in column (d). The percentage of expenses shown on this site is that figure divided by total expenses from Form 990 line 18, computed the same way for every system; the percentage the hospital itself entered in column (f) is published in the data files for comparison. It excludes bad debt (Part III) and Medicaid shortfall (line 7b), which the IRS reports separately. Systems whose filings report no net charity care (column (e) zero, negative or blank) are shown on their own pages but not ranked, because CEO pay cannot be compared with zero; nor are systems where filings holding more than 10 percent of the system's revenue report none. For the {Z_SYS} such systems that report other community benefit, all {Z_FIL} filings with no net charity care were read on Nov 20, 2026 (check_zero_charity_care.csv): {Z_OFF} report a cost on line 7a and offsetting revenue at least as large; the other {Z_NC} report no cost, and a few of those say why (no applicants, no eligible patients, or most patients on Medicaid). Each system's page shows its filing's figures and what it says.</p>
-<h2>Systems, and what one row is</h2><p>Many systems file one return per hospital. Filings that report the same chief executive are combined into one row: revenue, expenses and charity care are summed and the chief executive is counted once. Where a system's hospitals file under their own presidents, each hospital appears as its own row under its own president, and the parent's executives are attributed to no hospital. So a row is a filing, or a set of filings, with the chief executive that filing reports; it is not always the whole corporate system, and a hospital president's pay is compared only with that hospital's charity care. Where a filing reports a parent organization's executive rather than the hospital's own, the hospital is shown but excluded from CEO figures, with the reason in the data files. Every combination above $1 billion in revenue was checked by hand. {FC_TXT}</p>
+<h2>Systems, and what one row is</h2><p>Many systems file one return per hospital. Filings that report the same chief executive are combined into one row: revenue, expenses and charity care are summed and the chief executive is counted once. Where a system's hospitals file under their own presidents, each hospital appears as its own row under its own president, and the parent's executives are attributed to no hospital. So a row is a filing, or a set of filings, with the chief executive that filing reports; it is not always the whole corporate system, and a hospital president's pay is compared only with that hospital's charity care. Where a filing reports a parent organization's executive rather than the hospital's own, the hospital is shown but excluded from CEO figures, with the reason in the data files. Every combination made or undone by hand is in rollup_overrides.csv with its reason, and two checks rerun on every build list the rows that may be one system split in two or one chief executive counted twice (check_shared_officers.csv, check_name_splits.csv). {FC_TXT}</p>
 <h2>States</h2><p>A system is listed on the page of every state where one of its filings reports a hospital facility (Schedule H Part V, Section A, which gives each facility's city and state), not only the state of the filing address. Its figures on each state page are system-wide. Where the filing address is in another state, the row says so. Puerto Rico filers are listed under Puerto Rico; the few filers with no hospital in the United States are listed separately, outside the US. A state's median charity care is the median across the systems with a hospital there, so a multi-state system counts in each of its states; no median is given for a state with fewer than {MIN_MEDIAN} systems reporting a charity care figure.</p>
 <h2>Children's hospitals</h2><p>Medicaid and CHIP cover most low-income children, so children's hospitals report little uncompensated care and appear at the bottom of any charity care ranking. They are shown in grey and labeled. Since Nov 19, 2026 the headline counts every ranked system over $100 million of any type: general, children's and specialty (rehabilitation, psychiatric, addiction treatment, cancer, long-term acute care, heart and lung). Each row is labeled by type and every list has a Type filter.</p>
 <h2>What this report does not do</h2><p>It does not estimate the value of the tax exemption. It does not count public hospitals (county, state, veterans), which file no Form 990. It does not judge whether a chief executive is overpaid. It puts two of the hospital's own numbers beside each other.</p>
@@ -891,10 +913,12 @@ MANUAL_N = {'master_rows': f'{MASTER_ROWS:,}', 'rows_contiguous': 'contiguous' i
             'cp_agree': f'{CP_AGREE}', 'cp_shared': f'{len(CP_SHARED)}', 'cp_diff': f'{len(CP_DIFF)}',
             'dc_clusters': f'{DC_CLUSTERS}', 'dc_cluster_examples': DC_EXAMPLES, 'dc_name_groups': f'{DC_NAME_GROUPS}', 'dc_name_pending': f'{DC_NAME_PENDING}',
             'dc_charity': f'{DC_CHARITY}', 'dc_charity_flag': f'{DC_CHARITY_FLAG}',
+            'irs_h': f'{IRS_H:,}', 'irs_n': f'{IRS_N:,}', 'cn_n': f'{CN_N:,}', 'cn_conf': f'{CN_CONF:,}', 'cn_spell': f'{CN_SPELL}',
             'z_sys': f'{Z_SYS}', 'z_fil': f'{Z_FIL}', 'z_off': f'{Z_OFF}', 'z_nc': f'{Z_NC}', 'z_pages': f'{Z_PAGES}'}
 MANUAL_PATH = os.path.join(HERE, 'REPRODUCTION_MANUAL.md')
 _man = open(MANUAL_PATH).read()
 _unknown = set(re.findall(r'<!--n:(\w+)-->', _man)) - set(MANUAL_N)
+if open(os.path.join(HERE, 'fetch_all.sh')).read() not in _man: raise SystemExit('REPRODUCTION_MANUAL.md Step 2 no longer quotes fetch_all.sh as it is: update the quoted copy')
 if _unknown or _man.count('<!--results-->') != 1: raise SystemExit(f'REPRODUCTION_MANUAL.md markers: unknown {sorted(_unknown)} or results block missing')
 _man = re.sub(r'<!--n:(\w+)-->.*?<!--/n-->', lambda m: f'<!--n:{m.group(1)}-->{MANUAL_N[m.group(1)]}<!--/n-->', _man, flags=re.S)
 _man = re.sub(r'(<!--results-->\n).*?(\n<!--/results-->)', lambda m: m.group(1) + RESULTS_MD + m.group(2), _man, flags=re.S)
@@ -934,7 +958,17 @@ CORR_TXT2 = ("Nov 20, 2026. Three figures corrected after an outside audit. "
              "(3) The independent check against CEO Paycheck said 121 of 129 shared systems agree; against the current figures 117 do, "
              "because of chief executive corrections made after the Oct 18 comparison. Each difference is now listed with its reason. "
              "The reproduction manual's statistics were also brought up to date, and the build now fills them in from the data. No headline figure changed.")
-CORR_HTML = f'<p class="mb-3">{E(CORR_TXT2)}</p><p class="mb-3">{E(CORR_TXT)}</p>'
+CORR_TXT3 = (f"Nov 20, 2026, later. Three corrections from checks run after the outside audit; no figure changed. "
+             f"(1) The pages of {Z_PAGES} hospital systems left out of the ranking because their filings report no net charity care said this "
+             f"\"usually means charity care was booked on another line\" and that the filing was \"being read by hand.\" That reading had not been done. "
+             f"It has now been done for all {Z_FIL} filings involved: {Z_OFF} report the cost of charity care and offsetting revenue at least as large, "
+             f"and {Z_NC} report no cost. The sentence is removed, and each page shows its filing's figures and what the filing says. "
+             f"(2) {CN_FIXED} chief executives' names were shown surname-first or misspelled, because their filings list names that way or spell them two ways; "
+             f"among them one headline row, Heath Evans of Kingman Healthcare, shown as \"Evans Heath.\" Each is corrected, with its evidence in display_names.csv. "
+             f"(3) The methodology said every combination of filings over $1 billion had been checked by hand. No record of that check was kept, "
+             f"so the sentence now points to the files that record each combination made or undone by hand and the checks rerun on every build. "
+             f"Separately, every IRS file the report uses was downloaded again and all {IRS_N:,} filings were rebuilt from it with every figure unchanged.")
+CORR_HTML = f'<p class="mb-3">{E(CORR_TXT3)}</p><p class="mb-3">{E(CORR_TXT2)}</p><p class="mb-3">{E(CORR_TXT)}</p>'
 
 # ---------- data files ----------
 def sha(p):
@@ -967,11 +1001,14 @@ FILES = [
     ('check_shared_officers.csv', 'Data check: system rows linked by two or more of the same current officers on their filings, grouped into clusters. Read before joining rows; a cluster is not by itself an error. Written by pipeline/data_checks.py.'),
     ('check_name_splits.csv', 'Data check: rows whose chief executives share a name or report the identical pay figure, with the resolution of each. Written by pipeline/data_checks.py.'),
     ('check_charity_elsewhere.csv', 'Data check: filings whose charity care might be reported on another line, with every narrative passage about charity care and the finding for each. Written by pipeline/data_checks.py.'),
+    ('check_ceo_names.csv', 'Data check: every chief executive named on the site, the name as filed and as shown, the same return\'s other name fields (item F, the signer), whether the return lists names surname-first, and the resolution of every flagged name. Written by pipeline/check_ceo_names.py from the IRS files.'),
+    ('irs_batches_2026-11-20.csv', 'The 25 IRS batch files downloaded on Nov 20, 2026 for the full rebuild: URL, size, SHA-256, returns, and returns with Schedule H.'),
+    ('irs_rebuild_check_2026-11-20.csv', 'The full rebuild of Nov 20, 2026: every master filing rebuilt from the IRS files by pipeline/check_irs_full.py, with the result for each.'),
     ('check_zero_charity_care.csv', 'Data check: every filing that leaves its system out of the ranking because line 7a, net, is zero, negative or blank, with its line 7 figures, every narrative passage about charity care, and what the filing says. Written by pipeline/data_checks.py.'),
     (FILING_CHECK, 'Every headline row checked against the hospitals\' own filings by pipeline/check_filings.py, on the date in the name: the filed Part VII columns D, E and F for the chief executive and line 7a for each member filing, next to the published figures. Rerun it any time; it reads only public pages.'),
 ]
 WORKING = [('working/ceo_unresolved.csv', 'Filers where the CEO rule found no chief executive.'), ('working/ceo_review_large.csv', 'Material used for the manual review of filers above $1B.'), ('working/hospitals_wide.csv', 'An early wide-format export, kept for the record.')]
-SCRIPTS = ['fetch_all.sh', 'parse_xml.py', 'load_all.py', 'add_rows.py', 'build_systems.py', 'build_site.py', 'check_filings.py', 'check_irs_batch.py', 'data_checks.py', 'analyze.py', 'parse_schh.py', 'save_and_parse.py', 'seed_01.py']
+SCRIPTS = ['fetch_all.sh', 'parse_xml.py', 'load_all.py', 'add_rows.py', 'build_systems.py', 'build_site.py', 'check_filings.py', 'check_irs_batch.py', 'check_irs_full.py', 'check_ceo_names.py', 'names.py', 'count_old_filter.sh', 'data_checks.py', 'analyze.py', 'parse_schh.py', 'save_and_parse.py', 'seed_01.py']
 file_rows = []; sums = []
 for fn, desc in FILES + WORKING:
     p = os.path.join(DATA, fn); h = sha(p); sums.append(f'{h}  {fn}')
@@ -1062,7 +1099,7 @@ method.txt                          The method in one page.
 DEFINITIONS
 CEO pay: total compensation on Form 990 Part VII (columns D, E and F): salary and bonus from the organization and related organizations, plus deferred compensation and benefits.
 Charity care: Schedule H Part I line 7a, financial assistance at cost, net of any payment received for it. Not bad debt, not Medicaid shortfall. The IRS requires it at cost, not at list price.
-Systems: filings reporting the same chief executive are combined; every combination over $1 billion was checked by hand. Every system is labeled by type: general, children's, or specialty (rehabilitation, psychiatric, addiction treatment, cancer, long-term acute care, heart and lung). Children's hospitals are identified by name; specialty hospitals, and children's hospitals the name rule misses, are listed with the reason in hospital_types.csv on the data page. Every type is counted in the headline.
+Systems: filings reporting the same chief executive are combined; every combination made or undone by hand is listed with its reason in rollup_overrides.csv. Every system is labeled by type: general, children's, or specialty (rehabilitation, psychiatric, addiction treatment, cancer, long-term acute care, heart and lung). Children's hospitals are identified by name; specialty hospitals, and children's hospitals the name rule misses, are listed with the reason in hospital_types.csv on the data page. Every type is counted in the headline.
 
 EVERY FIGURE links to the filing it came from. Full dataset, scripts and a reproduction manual: {SITE}{BASE}/data.html
 Contact: asher@everythingisbroken.org. Corrections: send the filing that contradicts a figure.
@@ -1075,7 +1112,7 @@ CEO pay. Form 990 Part VII lists officers and the highest-paid employees with th
 
 Charity care. Schedule H Part I line 7a: free or discounted care under the hospital's own financial assistance policy, at cost, net of payments received for it. The IRS does not accept charges (list price). Bad debt and Medicaid shortfall are separate lines and are not counted.
 
-Systems. Filings reporting the same chief executive are one system; revenue, expenses and charity care are summed and the executive counted once. Where a system's hospitals file under local presidents, a shared system officer in Part VII is the test for membership. Every combination over $1 billion was checked by hand.
+Systems. Filings reporting the same chief executive are one system; revenue, expenses and charity care are summed and the executive counted once. Where a system's hospitals file under local presidents, a shared system officer in Part VII is the test for membership. Every combination made or undone by hand is listed with its reason in rollup_overrides.csv.
 
 The headline count. Every hospital system with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million, of any type, where CEO pay exceeded charity care: {HL_TYPES_TXT}. Each row is labeled by type, so a reader can set children's hospitals (Medicaid covers most low-income children) or specialty hospitals aside. The Schedule H narratives of every filing behind the {DC_HL_N} headline rows were read on Nov 20, 2026 for charity care reported somewhere other than line 7a (check_charity_elsewhere.csv): {len(DC_HL_FLAGGED)} rows have a passage that may bear on line 7a ({'; '.join(DC_HL_FLAGGED)}). Their figures are as filed; the passages are quoted in that file. The 17 children's and specialty rows added on Nov 19, 2026 were checked against their filings that day for the chief executive, CEO pay and line 7a. {FC_TXT}
 

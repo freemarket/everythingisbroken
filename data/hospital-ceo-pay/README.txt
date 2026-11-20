@@ -13,7 +13,7 @@ method.txt                          The method in one page.
 DEFINITIONS
 CEO pay: total compensation on Form 990 Part VII (columns D, E and F): salary and bonus from the organization and related organizations, plus deferred compensation and benefits.
 Charity care: Schedule H Part I line 7a, financial assistance at cost, net of any payment received for it. Not bad debt, not Medicaid shortfall. The IRS requires it at cost, not at list price.
-Systems: filings reporting the same chief executive are combined; every combination over $1 billion was checked by hand. Every system is labeled by type: general, children's, or specialty (rehabilitation, psychiatric, addiction treatment, cancer, long-term acute care, heart and lung). Children's hospitals are identified by name; specialty hospitals, and children's hospitals the name rule misses, are listed with the reason in hospital_types.csv on the data page. Every type is counted in the headline.
+Systems: filings reporting the same chief executive are combined; every combination made or undone by hand is listed with its reason in rollup_overrides.csv. Every system is labeled by type: general, children's, or specialty (rehabilitation, psychiatric, addiction treatment, cancer, long-term acute care, heart and lung). Children's hospitals are identified by name; specialty hospitals, and children's hospitals the name rule misses, are listed with the reason in hospital_types.csv on the data page. Every type is counted in the headline.
 
 EVERY FIGURE links to the filing it came from. Full dataset, scripts and a reproduction manual: https://everythingisbroken.org/reports/hospital-ceo-pay/data.html
 Contact: asher@everythingisbroken.org. Corrections: send the filing that contradicts a figure.
