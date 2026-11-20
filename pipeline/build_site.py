@@ -151,6 +151,23 @@ CP_SNAP = {r['ein']: r for r in csv.DictReader(open(os.path.join(DATA, 'ceopaych
 CP_SHARED = [e for e in CP_SNAP if e in F]
 CP_DIFF = sorted(e for e in CP_SHARED if round(f(F[e]['ceo_comp_total']) or 0) != round(float(CP_SNAP[e]['total_pay'])))
 CP_AGREE = len(CP_SHARED) - len(CP_DIFF)
+# Data checks (pipeline/data_checks.py): recomputed on every build; stop if a saved list is out of date or a row lacks a resolution
+import data_checks as DC
+_dc = dict(zip(['officers', 'names', 'charity'], DC.compute()))
+_dc_saved = {k: list(csv.DictReader(open(os.path.join(DATA, v)))) for k, v in DC.FILES.items()}
+_dc_keys = {'officers': ('cluster', 'lead_ein', 'shared_officers'), 'names': ('group', 'lead_ein'), 'charity': ('object_id', 'lead_ein')}
+_dc_problems = [f"{DC.FILES[k]} is out of date" for k, cols in _dc_keys.items()
+                if sorted(tuple(str(r[c]) for c in cols) for r in _dc[k]) != sorted(tuple(r[c] for c in cols) for r in _dc_saved[k])]
+_dc_problems += [f"{DC.FILES['names']}: no resolution for {r['group']}" for r in _dc_saved['names'] if not r['resolution']]
+_dc_problems += [f"{DC.FILES['charity']}: no finding for filing {r['object_id']} ({r['filer']})" for r in _dc_saved['charity'] if not r['finding']]
+if _dc_problems:
+    raise SystemExit('Data checks need attention (run python3 pipeline/data_checks.py --fetch, then record each resolution or finding):\n  ' + '\n  '.join(_dc_problems[:20]))
+DC_CLUSTERS = len({r['cluster'] for r in _dc_saved['officers']}); DC_NAME_GROUPS = len({r['group'] for r in _dc_saved['names']})
+DC_NAME_PENDING = len({r['group'] for r in _dc_saved['names'] if r['resolution'].startswith('PENDING')})
+DC_CHARITY = len(_dc_saved['charity']); DC_CHARITY_FLAG = sum(1 for r in _dc_saved['charity'] if not r['finding'].startswith('No'))
+_s_by = {s['lead_ein']: s for s in S}
+DC_HL_FLAGGED = sorted({_s_by[r['lead_ein']]['name'] for r in _dc_saved['charity'] if r['headline_row'] == 'yes' and not r['finding'].startswith('No')})
+DC_HL_N = len({r['lead_ein'] for r in _dc_saved['charity'] if r['headline_row'] == 'yes'})
 # Latest run of pipeline/check_filings.py: every headline row against its filings
 FILING_CHECK = sorted(x for x in os.listdir(DATA) if re.fullmatch(r'filing_check_\d{4}-\d\d-\d\d\.csv', x))[-1]
 _fc = list(csv.DictReader(open(os.path.join(DATA, FILING_CHECK))))
@@ -812,6 +829,9 @@ def _median(xs):
 def _m2(v): return f'${v/1e6:.2f}M'
 ORDINAL_LOW = {1: 'lowest', 2: 'second-lowest', 3: 'third-lowest', 4: 'fourth-lowest', 5: 'fifth-lowest', 6: 'sixth-lowest', 7: 'seventh-lowest'}
 BY_EIN = {s['lead_ein']: s for s in S}
+_cl = defaultdict(list)
+for r in _dc_saved['officers']: _cl[r['cluster']].append(BY_EIN[r['lead_ein']])
+DC_EXAMPLES = ', '.join(f"{max(c, key=lambda s: s['rev'] or 0)['name']} ({len(c)} rows)" for c in sorted(_cl.values(), key=len, reverse=True)[:5])
 N_MIXED = sum(1 for s in S if len({r['fye'] for _, r in s['members']}) > 1)
 N_PCT_GAPS = sum(1 for s in S if s['n_filers'] == '1' and s['ccp'] is not None and f(F.get(s['lead_ein'], {}).get('charity_care_pct')) is not None
                  and abs(f(F[s['lead_ein']]['charity_care_pct']) - s['ccp']) > 0.5)
@@ -842,7 +862,9 @@ RESULTS_MD = f"""
 MANUAL_N = {'master_rows': f'{MASTER_ROWS:,}', 'rows_contiguous': 'contiguous' if ROWS_CONTIGUOUS else 'NOT contiguous',
             'filers': f'{len(F):,}', 'system_pages': f'{n_sys:,}', 'mixed_fye': f'{N_MIXED}', 'pct_gaps': f'{N_PCT_GAPS}',
             'nw_pct': f"{_nw['ccp']:.2f}", 'filings': f'{N_FILINGS:,}', 'filings_h': f'{N_FILINGS_H:,}', 'filings_nonh': f'{N_FILINGS_NONH}',
-            'cp_agree': f'{CP_AGREE}', 'cp_shared': f'{len(CP_SHARED)}', 'cp_diff': f'{len(CP_DIFF)}'}
+            'cp_agree': f'{CP_AGREE}', 'cp_shared': f'{len(CP_SHARED)}', 'cp_diff': f'{len(CP_DIFF)}',
+            'dc_clusters': f'{DC_CLUSTERS}', 'dc_cluster_examples': DC_EXAMPLES, 'dc_name_groups': f'{DC_NAME_GROUPS}', 'dc_name_pending': f'{DC_NAME_PENDING}',
+            'dc_charity': f'{DC_CHARITY}', 'dc_charity_flag': f'{DC_CHARITY_FLAG}'}
 MANUAL_PATH = os.path.join(HERE, 'REPRODUCTION_MANUAL.md')
 _man = open(MANUAL_PATH).read()
 _unknown = set(re.findall(r'<!--n:(\w+)-->', _man)) - set(MANUAL_N)
@@ -915,10 +937,13 @@ FILES = [
     ('context_notes.csv', 'Dated, sourced background notes shown on system pages (for example a later merger). Context only: no note changes any figure.'),
     ('ceopaycheck_crosscheck.csv', 'Every system where CEO Paycheck\'s CEO pay figure differs from this report\'s, with the reason for each. The build recomputes the comparison and stops if this list is incomplete.'),
     ('ceopaycheck_snapshot_2026-10-18.csv', 'The CEO Paycheck rows used for that check, as captured on the date in the name.'),
+    ('check_shared_officers.csv', 'Data check: system rows linked by two or more of the same current officers on their filings, grouped into clusters. Read before joining rows; a cluster is not by itself an error. Written by pipeline/data_checks.py.'),
+    ('check_name_splits.csv', 'Data check: rows whose chief executives share a name or report the identical pay figure, with the resolution of each. Written by pipeline/data_checks.py.'),
+    ('check_charity_elsewhere.csv', 'Data check: filings whose charity care might be reported on another line, with every narrative passage about charity care and the finding for each. Written by pipeline/data_checks.py.'),
     (FILING_CHECK, 'Every headline row checked against the hospitals\' own filings by pipeline/check_filings.py, on the date in the name: the filed Part VII columns D, E and F for the chief executive and line 7a for each member filing, next to the published figures. Rerun it any time; it reads only public pages.'),
 ]
 WORKING = [('working/ceo_unresolved.csv', 'Filers where the CEO rule found no chief executive.'), ('working/ceo_review_large.csv', 'Material used for the manual review of filers above $1B.'), ('working/hospitals_wide.csv', 'An early wide-format export, kept for the record.')]
-SCRIPTS = ['fetch_all.sh', 'parse_xml.py', 'load_all.py', 'add_rows.py', 'build_systems.py', 'build_site.py', 'check_filings.py', 'check_irs_batch.py', 'analyze.py', 'parse_schh.py', 'save_and_parse.py', 'seed_01.py']
+SCRIPTS = ['fetch_all.sh', 'parse_xml.py', 'load_all.py', 'add_rows.py', 'build_systems.py', 'build_site.py', 'check_filings.py', 'check_irs_batch.py', 'data_checks.py', 'analyze.py', 'parse_schh.py', 'save_and_parse.py', 'seed_01.py']
 file_rows = []; sums = []
 for fn, desc in FILES + WORKING:
     p = os.path.join(DATA, fn); h = sha(p); sums.append(f'{h}  {fn}')
@@ -1024,7 +1049,7 @@ Charity care. Schedule H Part I line 7a: free or discounted care under the hospi
 
 Systems. Filings reporting the same chief executive are one system; revenue, expenses and charity care are summed and the executive counted once. Where a system's hospitals file under local presidents, a shared system officer in Part VII is the test for membership. Every combination over $1 billion was checked by hand.
 
-The headline count. Every hospital system with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million, of any type, where CEO pay exceeded charity care: {HL_TYPES_TXT}. Each row is labeled by type, so a reader can set children's hospitals (Medicaid covers most low-income children) or specialty hospitals aside. The 73 general-hospital rows were each checked against the filing, including the Part VI narrative, for charity care reported on another line; none was found. The 17 children's and specialty rows added on Nov 19, 2026 were checked against their filings that day for the chief executive, CEO pay and line 7a. {FC_TXT}
+The headline count. Every hospital system with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million, of any type, where CEO pay exceeded charity care: {HL_TYPES_TXT}. Each row is labeled by type, so a reader can set children's hospitals (Medicaid covers most low-income children) or specialty hospitals aside. The Schedule H narratives of every filing behind the {DC_HL_N} headline rows were read on Nov 20, 2026 for charity care reported somewhere other than line 7a (check_charity_elsewhere.csv): {len(DC_HL_FLAGGED)} rows have a passage that may bear on line 7a ({'; '.join(DC_HL_FLAGGED)}). Their figures are as filed; the passages are quoted in that file. The 17 children's and specialty rows added on Nov 19, 2026 were checked against their filings that day for the chief executive, CEO pay and line 7a. {FC_TXT}
 
 Independent check. CEO pay was compared against CEO Paycheck, which reads the same filings with its own method: {CP_AGREE} of {len(CP_SHARED)} shared systems agree to the dollar; the {len(CP_DIFF)} differences are listed with reasons in ceopaycheck_crosscheck.csv.
 
