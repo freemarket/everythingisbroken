@@ -134,7 +134,7 @@ footer p{margin:14px 0 0}
 <p class="note">Intermediate files from the review process. Not needed to reproduce the report; kept because nothing is deleted.</p>
 <ul class="files"><li><a class="fn" href="/data/hospital-ceo-pay/working/ceo_unresolved.csv" download>working/ceo_unresolved.csv</a> <span class="note" style="display:inline">(65 KB, 198 rows)</span><br>Filers where the CEO rule found no chief executive.<span class="meta">sha256 8243542a593edaabc62c64e2a459cc865b8a8b84294539009f3d847bcdbb45cb</span></li><li><a class="fn" href="/data/hospital-ceo-pay/working/ceo_review_large.csv" download>working/ceo_review_large.csv</a> <span class="note" style="display:inline">(128 KB, 136 rows)</span><br>Material used for the manual review of filers above $1B.<span class="meta">sha256 ece26a642487eed6d673248901f379db757b776e80b3a3193d3bc956b790429e</span></li><li><a class="fn" href="/data/hospital-ceo-pay/working/hospitals_wide.csv" download>working/hospitals_wide.csv</a> <span class="note" style="display:inline">(1.0 MB, 3,601 rows)</span><br>An early wide-format export, kept for the record.<span class="meta">sha256 36e7457a15d7766596576dc62605f7e158fcdbbc4eb11b1a7a1cc3e19870b9ef</span></li></ul>
 <h2>Scripts</h2>
-<p>The pipeline, in the order it runs. Python 3 standard library only; no accounts or API keys. Section 5 of the <a href="/reports/hospital-ceo-pay/manual.html">reproduction manual</a> walks through each step.</p>
+<p>The pipeline, in the order it runs. Python 3. The data steps use the standard library only; building the site also needs the markdown package and, for the share images, Playwright with Chromium. No accounts or API keys. Section 5 of the <a href="/reports/hospital-ceo-pay/manual.html">reproduction manual</a> walks through each step.</p>
 <ul class="files"><li><a class="fn" href="/pipeline/fetch_all.sh">fetch_all.sh</a></li><li><a class="fn" href="/pipeline/parse_xml.py">parse_xml.py</a></li><li><a class="fn" href="/pipeline/load_all.py">load_all.py</a></li><li><a class="fn" href="/pipeline/add_rows.py">add_rows.py</a></li><li><a class="fn" href="/pipeline/build_systems.py">build_systems.py</a></li><li><a class="fn" href="/pipeline/build_site.py">build_site.py</a></li><li><a class="fn" href="/pipeline/analyze.py">analyze.py</a></li><li><a class="fn" href="/pipeline/parse_schh.py">parse_schh.py</a></li><li><a class="fn" href="/pipeline/save_and_parse.py">save_and_parse.py</a></li><li><a class="fn" href="/pipeline/seed_01.py">seed_01.py</a></li></ul>
 <h2>Primary sources</h2>
 <ul>
@@ -153,7 +153,7 @@ footer p{margin:14px 0 0}
 </div></main>
 <footer><div class="rule-single"></div>
 <div class="links"><a href="/#reports">Reports</a> | <a href="/#data">Data</a> | <a href="/#contact">Contact</a> | <a href="/#about">About</a> | <a href="/#standards">Standards</a></div>
-<p>Report No. 1, Annual Report, 2026 edition &middot; Data as of 2026-11-01 &middot; Built 2026-11-19</p>
+<p>Report No. 1, Annual Report, 2026 edition &middot; Data as of 2026-11-01 &middot; Built 2026-11-20</p>
 <p>Every figure is taken from the hospital's own IRS Form 990 as published by the IRS and is linked on the page where it appears. Corrections: send the filing that contradicts a figure to asher@everythingisbroken.org.</p>
 <p>Everything Is Broken does not support violence, threats, or harassment of any kind. Change should come through transparency and open public debate.</p>
 <p>&copy; 2026 EVERYTHINGISBROKEN.ORG</p></footer>

@@ -338,7 +338,7 @@ def row(s, show_state=True, here=None):
     away = f" · files from {STATES.get(s['filed'], 'outside the US')}" if here and s['filed'] != here else ''
     return f"""<tr{cls} data-name="{E(s['name'].lower())}" data-ceo="{E(s['ceo'].lower())}" data-state="{' '.join(s['states'])}" data-kids="{int(s['kids'])}" data-type="{s['type']}">
 <td class="num">{s.get('rank','')}</td>
-<td class="name"><a href="{BASE}/system/{s['slug']}.html">{E(s['name'])}</a><span class="sub">{E(s['ceo'])}{(' · ' + TYPE_NAME[s['type']]) if s['type'] != 'general' else ''}{E(away)}</span></td>
+<td class="name"><a href="{BASE}/system/{s['slug']}.html">{E(s['name'])}</a><span class="sub">{E(s['ceo'])}{' · ' + TYPE_NAME[s['type']]}{E(away)}</span></td>
 {'<td>'+s['state']+'</td>' if show_state else ''}
 <td class="num" data-v="{s['pay']}">{money(s['pay'])}</td>
 <td class="num" data-v="{s['rev'] or 0}">{money(s['rev'])}</td>
@@ -395,7 +395,7 @@ kaiser = next((s for s in giants if s['lead_ein'] == '94-1105628'), giants[0])
 advocate = next((s for s in giants if s['lead_ein'] == '36-2169147'), None)
 KAISER = kaiser['name'].replace(' (Hospitals)', '')   # prose name; tables keep the filing name
 def frow(s, cols):
-    cells = {'sys': f'<td class="name"><a href="{BASE}/system/{s["slug"]}.html">{E(s["name"])}</a><span class="sub">{E(s["ceo"])}{(" · " + TYPE_NAME[s["type"]]) if s["type"] != "general" else ""}</span></td>',
+    cells = {'sys': f'<td class="name"><a href="{BASE}/system/{s["slug"]}.html">{E(s["name"])}</a><span class="sub">{E(s["ceo"])}{" · " + TYPE_NAME[s["type"]]}</span></td>',
              'st': f'<td>{s["state"]}</td>', 'rev': f'<td class="num">{money(s["rev"])}</td>', 'cc': f'<td class="num">{money(s["cc"])}</td>',
              'ccp': f'<td class="num">{pct(s["ccp"])}</td>', 'pay': f'<td class="num">{money(s["pay"])}</td>', 'ratio': f'<td class="num ratio">{pct(s["ratio"],1)}</td>'}
     return '<tr>' + ''.join(cells[c] for c in cols) + '</tr>'
@@ -689,7 +689,7 @@ for s in S:
 <p class="doc-no">{' &middot; '.join(f'<a href="{BASE}/state/{x}.html">{E(STATES[x])}</a>' for x in s['states']) or f'<a href="{BASE}/state/{OUTSIDE}.html">Outside the US</a>'} &middot; {rank_line}</p>
 <h1 class="title">{E(s['name'])}</h1>
 <p class="lede">{E(s['ceo'])}, {E(disp_title(s['ceo_title']) if s['ceo_title'] else 'chief executive')}. Fiscal year ending {s['fye']}.</p>
-{f'<p class="note">Type: {TYPE_NAME[s["type"]]} hospital. {E(s["type_why"])}' + (' Counted in the headline like every other system over $100 million.' if id(s) in HL_IDS else '') + '</p>' if s['type'] != 'general' else ''}
+{f'<p class="note">Type: {TYPE_NAME[s["type"]]} hospital. {E(s["type_why"])}' + (' Counted in the headline like every other system over $100 million.' if id(s) in HL_IDS else '') + '</p>' if s['type'] != 'general' else '<p class="note">Type: general hospital.</p>'}
 {ctx_html(s)}<div class="stat-row big3">
 <div class="stat"><div class="v">{money(s['pay'])}</div><div class="l">CEO total compensation<br>Form 990 Part VII, columns D+E+F</div></div>
 <div class="stat"><div class="v">{pct(s['ccp'])}</div><div class="l">of expenses spent on charity care<br>Schedule H Part I line 7a</div></div>
@@ -848,7 +848,7 @@ data = HEAD('Data files', 'Download the full dataset, the manual decisions, and 
 <p class="note">Intermediate files from the review process. Not needed to reproduce the report; kept because nothing is deleted.</p>
 <ul class="files">{''.join(file_rows[len(FILES):])}</ul>
 <h2>Scripts</h2>
-<p>The pipeline, in the order it runs. Python 3 standard library only; no accounts or API keys. Section 5 of the <a href="{BASE}/manual.html">reproduction manual</a> walks through each step.</p>
+<p>The pipeline, in the order it runs. Python 3. The data steps use the standard library only; building the site also needs the markdown package and, for the share images, Playwright with Chromium. No accounts or API keys. Section 5 of the <a href="{BASE}/manual.html">reproduction manual</a> walks through each step.</p>
 <ul class="files">{''.join(f'<li><a class="fn" href="/pipeline/{x}">{x}</a></li>' for x in SCRIPTS)}</ul>
 <h2>Primary sources</h2>
 <ul>
