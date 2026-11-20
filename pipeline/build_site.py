@@ -212,7 +212,7 @@ HL_TYPES = {t: sum(1 for s in hl_over if s['type'] == t) for t in ('general', 'c
 HL_TYPES_TXT = f"{HL_TYPES['general']} run general hospitals, {HL_TYPES['children']} children’s hospitals and {HL_TYPES['specialty']} specialty hospitals"
 HEADLINE_SUB = f"The count covers all {len(hl_all):,} nonprofit hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million, general, children’s and specialty, using each hospital's own IRS filings. Of the {len(hl_over)}, {HL_TYPES_TXT}. Together the {len(hl_over)} received {money(HL_PAY)} in reported compensation; their hospitals gave {money(HL_CC)} to patients who could not pay."
 CORR_NOTE = f'<p class="note"><strong>Updated Nov 19, 2026:</strong> the headline count now includes children’s and specialty hospitals; each row is labeled by type. Figures before and after are in the <a href="/#standards">corrections log</a>.</p>'
-CORR_NOTE2 = f'<p class="note"><strong>Corrected Nov 20, 2026:</strong> the count of filings used, the list of the highest charity care shares among systems over $1 billion, the independent CEO Paycheck comparison, the explanation on the pages of systems reporting no net charity care, and {CN_FIXED} chief executives\' names. Details in the <a href="/#standards">corrections log</a>.</p>'
+CORR_NOTE2 = f'<p class="note"><strong>Corrected Nov 20, 2026:</strong> the count of filings used, the list of the highest charity care shares among systems over $1 billion, the independent CEO Paycheck comparison, the explanation on the pages of systems reporting no net charity care, and 40 chief executives\' names. Details in the <a href="/#standards">corrections log</a>.</p>'
 
 # other chief executives (co-CEO, former CEO, executive chair) listed in the same filings
 _pp = defaultdict(lambda: defaultdict(lambda: {'org':0,'rel':0,'oth':0,'title':''}))
@@ -940,14 +940,14 @@ manual = HEAD('Reproduction manual', 'A complete procedure for rebuilding the da
 write('manual.html', manual)
 
 # ---------- the release entry and the corrections log ----------
-RELEASE = f"First release: {N_FILINGS:,} filings, {len(F):,} filers, {len(S):,} systems, {len(ranked):,} ranked; headline 73 of 655 general hospital systems. Checked before publication by two independent audits and a hand check of every headline row."
+# Dated records: their figures are written as they stood on the date, not recomputed.
+RELEASE = f"First release: 3,845 filings, 2,306 filers, 1,627 systems, 1,033 ranked; headline 73 of 655 general hospital systems. Checked before publication by two independent audits and a hand check of every headline row."
 RELEASE2_DATE = '2026-11-19'
-RELEASE2 = f"Headline scope: every ranked hospital system over $100 million is counted, of any type (general, children's, specialty), each row labeled by type; headline {len(hl_over)} of {len(hl_all)}. Figures before and after are on the corrections log."
-CORR_WI = sum(1 for s in hl_all if 'WI' in s['states'])
+RELEASE2 = f"Headline scope: every ranked hospital system over $100 million is counted, of any type (general, children's, specialty), each row labeled by type; headline 90 of 702. Figures before and after are on the corrections log."
 CORR_TXT = (f"Nov 19, 2026. The headline count now includes every hospital system over $100 million, of any type. Until this date it left out children's hospitals and twelve specialty hospitals, while eleven others the same rule covered had been counted by mistake. "
             f"Before: 73 chief executives of 655 general hospital systems; median charity care 1.23% of expenses among the 229 systems over $1 billion, 41% of them under 1%. "
-            f"After: {len(hl_over)} of {len(hl_all):,} systems ({HL_TYPES_TXT}); median {pct(MED_CC)} among the {len(big)} systems over $1 billion, {UNDER1:.0f}% of them under 1%. "
-            f"Wisconsin: 5 of 23 before, {sum(1 for s in hl_over if 'WI' in s['states'])} of {CORR_WI} after. Every row is now labeled by type.")
+            f"After: 90 of 702 systems (73 run general hospitals, 7 children’s hospitals and 10 specialty hospitals); median 1.17% among the 255 systems over $1 billion, 43% of them under 1%. "
+            f"Wisconsin: 5 of 23 before, 5 of 24 after. Every row is now labeled by type.")
 # Nov 20, 2026 entry: a dated record, so its figures are written as they stood that day.
 CORR_TXT2 = ("Nov 20, 2026. Three figures corrected after an outside audit. "
              "(1) The methodology said the report kept 19,245 filings that include Schedule H, out of about 1.2 million in the 2025 and 2026 IRS releases. "
@@ -959,18 +959,24 @@ CORR_TXT2 = ("Nov 20, 2026. Three figures corrected after an outside audit. "
              "because of chief executive corrections made after the Oct 18 comparison. Each difference is now listed with its reason. "
              "The reproduction manual's statistics were also brought up to date, and the build now fills them in from the data. No headline figure changed.")
 CORR_TXT3 = (f"Nov 20, 2026, later. Three corrections from checks run after the outside audit; no figure changed. "
-             f"(1) The pages of {Z_PAGES} hospital systems left out of the ranking because their filings report no net charity care said this "
+             f"(1) The pages of 66 hospital systems left out of the ranking because their filings report no net charity care said this "
              f"\"usually means charity care was booked on another line\" and that the filing was \"being read by hand.\" That reading had not been done. "
-             f"It has now been done for all {Z_FIL} filings involved: {Z_OFF} report the cost of charity care and offsetting revenue at least as large, "
-             f"and {Z_NC} report no cost. The sentence is removed, and each page shows its filing's figures and what the filing says. "
-             f"(2) {CN_FIXED} chief executives' names were shown surname-first or misspelled, because their filings list names that way or spell them two ways; "
+             f"It has now been done for all 97 filings involved: 38 report the cost of charity care and offsetting revenue at least as large, "
+             f"and 59 report no cost. The sentence is removed, and each page shows its filing's figures and what the filing says. "
+             f"(2) 40 chief executives' names were shown surname-first or misspelled, because their filings list names that way or spell them two ways; "
              f"among them one headline row, Heath Evans of Kingman Healthcare, shown as \"Evans Heath.\" Each is corrected, with its evidence in display_names.csv. "
              f"(3) The methodology said every combination of filings over $1 billion had been checked by hand. No record of that check was kept, "
              f"so the sentence now points to the files that record each combination made or undone by hand and the checks rerun on every build. "
-             f"Separately, every IRS file the report uses was downloaded again and all {IRS_N:,} filings were rebuilt from it with every figure unchanged; "
+             f"Separately, every IRS file the report uses was downloaded again and all 3,845 filings were rebuilt from it with every figure unchanged; "
              f"counted again, the old download filter keeps exactly 19,245 of the 1,185,145 returns in those files, 3,844 of them with a Schedule H, "
              f"which confirms where the 19,245 corrected in the entry below came from.")
-CORR_HTML = f'<p class="mb-3">{E(CORR_TXT3)}</p><p class="mb-3">{E(CORR_TXT2)}</p><p class="mb-3">{E(CORR_TXT)}</p>'
+CORR_TXT4 = ("Nov 20, 2026, home page. Five sentences in the Mission Statement corrected to match their sources; nothing in the hospital report changed. "
+             "(1) CEOs were paid 21 times what a typical worker made in 1965, the first year of the Economic Policy Institute's series; the page said this held \"for most of the postwar era,\" for which EPI has no figures. "
+             "(2) EPI revised its 2024 CEO-to-worker pay ratio from 281 to 290 in September 2026; the page now gives 290 and cites the revision. "
+             "(3) Gallup's 1970s readings of trust in the news media were 68 to 72 percent; \"nearly 70\" is now \"about 70.\" "
+             "(4) The page said the FAA let Boeing certify its own 737 MAX. The FAA issued the certificate; what the Transportation Department's inspector general found is that by March 2017 it had handed all 91 of the plane's certification plans to Boeing's own staff, and the page now says that. "
+             "(5) Sears was stripped by its hedge fund owner, not private equity; the sentence now says \"private equity and hedge fund owners.\"")
+CORR_HTML = f'<p class="mb-3">{E(CORR_TXT4)}</p><p class="mb-3">{E(CORR_TXT3)}</p><p class="mb-3">{E(CORR_TXT2)}</p><p class="mb-3">{E(CORR_TXT)}</p>'
 
 # ---------- data files ----------
 def sha(p):
