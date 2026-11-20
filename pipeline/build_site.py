@@ -967,7 +967,9 @@ CORR_TXT3 = (f"Nov 20, 2026, later. Three corrections from checks run after the 
              f"among them one headline row, Heath Evans of Kingman Healthcare, shown as \"Evans Heath.\" Each is corrected, with its evidence in display_names.csv. "
              f"(3) The methodology said every combination of filings over $1 billion had been checked by hand. No record of that check was kept, "
              f"so the sentence now points to the files that record each combination made or undone by hand and the checks rerun on every build. "
-             f"Separately, every IRS file the report uses was downloaded again and all {IRS_N:,} filings were rebuilt from it with every figure unchanged.")
+             f"Separately, every IRS file the report uses was downloaded again and all {IRS_N:,} filings were rebuilt from it with every figure unchanged; "
+             f"counted again, the old download filter keeps exactly 19,245 of the 1,185,145 returns in those files, 3,844 of them with a Schedule H, "
+             f"which confirms where the 19,245 corrected in the entry below came from.")
 CORR_HTML = f'<p class="mb-3">{E(CORR_TXT3)}</p><p class="mb-3">{E(CORR_TXT2)}</p><p class="mb-3">{E(CORR_TXT)}</p>'
 
 # ---------- data files ----------
@@ -1003,6 +1005,7 @@ FILES = [
     ('check_charity_elsewhere.csv', 'Data check: filings whose charity care might be reported on another line, with every narrative passage about charity care and the finding for each. Written by pipeline/data_checks.py.'),
     ('check_ceo_names.csv', 'Data check: every chief executive named on the site, the name as filed and as shown, the same return\'s other name fields (item F, the signer), whether the return lists names surname-first, and the resolution of every flagged name. Written by pipeline/check_ceo_names.py from the IRS files.'),
     ('irs_batches_2026-11-20.csv', 'The 25 IRS batch files downloaded on Nov 20, 2026 for the full rebuild: URL, size, SHA-256, returns, and returns with Schedule H.'),
+    ('old_filter_count_2026-11-20.csv', 'For each of the 25 IRS batch files: returns, returns the pre-Nov 20 download filter kept, and returns with a Schedule H. Counted by pipeline/count_old_filter.sh; the kept total is 19,245.'),
     ('irs_rebuild_check_2026-11-20.csv', 'The full rebuild of Nov 20, 2026: every master filing rebuilt from the IRS files by pipeline/check_irs_full.py, with the result for each.'),
     ('check_zero_charity_care.csv', 'Data check: every filing that leaves its system out of the ranking because line 7a, net, is zero, negative or blank, with its line 7 figures, every narrative passage about charity care, and what the filing says. Written by pipeline/data_checks.py.'),
     (FILING_CHECK, 'Every headline row checked against the hospitals\' own filings by pipeline/check_filings.py, on the date in the name: the filed Part VII columns D, E and F for the chief executive and line 7a for each member filing, next to the published figures. Rerun it any time; it reads only public pages.'),
