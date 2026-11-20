@@ -6,7 +6,10 @@ import csv, os, re
 def cap(w):
     # str.title() capitalizes after an apostrophe ("Children'S", "St Luke'S"). Capitalize each letter run; after an
     # apostrophe only when more than one letter follows (O'Halla, O'Connor), never for a possessive s.
-    return re.sub(r"[A-Za-z]+(?:'[A-Za-z]+)?", lambda m: m.group(0)[0].upper() + re.sub(r"'([a-z]{2,})", lambda n: "'" + n.group(1).title(), m.group(0)[1:].lower()), w)
+    # A Mc name capitalizes the letter after Mc (McLaren, McCoy, McCook) when a vowel follows; acronyms such as MCHS keep
+    # their single capital (Nov 20, 2026).
+    w = re.sub(r"[A-Za-z]+(?:'[A-Za-z]+)?", lambda m: m.group(0)[0].upper() + re.sub(r"'([a-z]{2,})", lambda n: "'" + n.group(1).title(), m.group(0)[1:].lower()), w)
+    return re.sub(r"\bMc([a-z])(?=[a-z]*[aeiouy])", lambda m: 'Mc' + m.group(1).upper(), w)
 CREDS_DISP = {'PHD':'PhD','MD':'MD','DO':'DO','JD':'JD','RN':'RN','MBA':'MBA','MHA':'MHA','MPH':'MPH','FACHE':'FACHE','III':'III','II':'II','IV':'IV','DHA':'DHA','MSN':'MSN','MS':'MS'}
 def person(s):
     s = s or ''
