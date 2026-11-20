@@ -1,9 +1,13 @@
-result,ein,cp_ceo,cp_pay,our_ceo,our_pay,our_conf
-CEO DIFF,74-1100555,Mark A Wallace,13338019,DEBRA F SUKIN PHD,2496247.0,ceo_title
-CEO DIFF,94-2854057,Robert W Allen,9715356,,0.0,manual_excluded
-CEO DIFF,75-2702388,Barclay E Berdan,5590405,BerdanBarclay E,5590405.0,ceo_title
-CEO DIFF,36-3488183,Mark Anderson,3295016,THOMAS JACKIEWICZ,3169675.0,president_title
-CEO DIFF,54-0715569,Amy Carrier,2878656,RICHARD TUGMAN,837122.0,ceo_title
-CEO DIFF,91-0564748,Jeff Sperring MD,2856316,JAMIE PHILLIPS,1216857.0,president_title
-CEO DIFF,52-0486540,Leslie R Simmons,2078988,AMY SHLOSSMAN,889371.0,president_title_multiple
-CEO DIFF,27-1344467,Kevin J Slavin,1980792,DUSTIN RICCIO MD,1703353.0,ceo_title
+ein,system,cp_ceo,cp_pay,our_ceo,our_pay,our_conf,reason
+45-0233470,Banner Health,Peter S Fine,13535312,AMY PERRY,9052648.0,manual_override,"Changed after Oct 18. Wyoming Medical Center's return titles Peter Fine CEO through June 30, 2024 and Amy Perry President & CEO; Perry was chief executive at the Dec 2024 year end (ceo_overrides.csv, Oct 31, 2026)."
+74-1100555,TEXAS CHILDREN'S HOSPITAL,Mark A Wallace,13338019,DEBRA F SUKIN PHD,2496247.0,ceo_title_multiple,"Change of chief executive during the year. The return titles Debra Sukin CEO as of Oct 4, 2024; the report takes the chief executive at year end, CEO Paycheck the departing one."
+94-2854057,IHC HEALTH SERVICES INC,Robert W Allen,9715356,,0,manual_excluded,"The return marks Robert Allen as a former officer. The report excludes former officers and identifies no current chief executive with confidence, so it shows no CEO figure."
+85-0105601,Presbyterian Healthcare Services,Dale Maxwell,4407510,RISHI SIKKA MD,601204.0,ceo_title_multiple,"Change of chief executive during the year. Dale Maxwell's term ended Oct 18, 2024; Rishi Sikka was President/CEO from Dec 13, 2024, at the Dec 2024 year end."
+23-1352160,Main Line Hospitals Inc,John J Lynch III,3302622,,0,manual_excluded,"Changed after Oct 18. The chief executive at the June 2025 year end, Edward Jimenez, reports $0 in Part VII; the report shows no CEO figure rather than his predecessor's (ceo_overrides.csv, Oct 31, 2026)."
+36-3488183,University of Chicago Medical Center,Mark Anderson,3295016,THOMAS JACKIEWICZ,3169675.0,president_title_multiple,"Both defensible. CEO Paycheck takes the highest-paid officer, Mark Anderson, dean of the medical school; the report takes Thomas Jackiewicz, President of the health system."
+54-0715569,CENTRA HEALTH INC,Amy Carrier,2878656,RICHARD TUGMAN,837122.0,ceo_title_multiple,"Change of chief executive during the year. The return titles Richard Tugman President/CEO as of Apr 18, 2024; the report takes the chief executive at year end."
+91-0564748,SEATTLE CHILDREN'S HOSPITAL,Jeff Sperring MD,2856316,JAMIE PHILLIPS,1216857.0,president_title,"The return marks Jeff Sperring as a former officer; the report takes Jamie Phillips, President."
+52-0486540,SINAI HOSPITAL OF BALTIMORE INC,Leslie R Simmons,2078988,AMY SHLOSSMAN,889371.0,president_title_multiple,"Different person. CEO Paycheck shows Leslie Simmons, chief executive of the parent, LifeBridge Health; the hospital's return names Amy Shlossman its president, and the report takes her."
+82-0380784,KOOTENAI HEALTH INC,Jon Ness,2035690,JAMESON SMITH,822023.0,ceo_title,"Change of chief executive during the year. Jon Ness retired in March 2024; the report takes his successor, Jameson Smith (CEO beginning 3/2024)."
+27-1344467,ST JOSEPH'S HEALTH SYSTEM SUBORDINATE GROUP RETURN,Kevin J Slavin,1980792,DUSTIN RICCIO MD,1703353.0,ceo_title_multiple,Different person. CEO Paycheck shows Kevin Slavin; the return used here names Dustin Riccio MD President/CEO.
+48-0543789,STORMONT-VAIL HEALTHCARE INC,Robert S Kenagy,1829935,,0,unresolved,"Robert Kenagy retired in May 2025, before the Sept 2025 year end, and the latest return names no successor, so the report shows no CEO figure."
