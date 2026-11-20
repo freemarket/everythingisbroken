@@ -1,6 +1,6 @@
 """Checks that guard the published figures, rerun from the data at any time.
 
-Three checks, each written to a CSV in data/hospital-ceo-pay/:
+Four checks, each written to a CSV in data/hospital-ceo-pay/:
 
 1. check_shared_officers.csv. One system split across rows. Two system rows are linked when filings in them name
    at least two of the same current officers in Form 990 Part VII (officer box ticked, not marked former, title not
@@ -19,6 +19,12 @@ Three checks, each written to a CSV in data/hospital-ceo-pay/:
    script reads each filing's Schedule H narratives on ProPublica and copies every passage about charity care or
    financial assistance into the file; a reviewer reads them and records a finding for each filing.
 
+4. check_zero_charity_care.csv. Systems left out of the ranking because line 7a, net, is zero, negative or blank. One
+   line per member filing whose net line 7a is zero, negative or blank, with lines 7a (cost, offsetting revenue, net), 7b, 7c, 7g and 7k.
+   kind is 'cost offset by revenue' when the filing reports a cost and offsetting revenue at least as large, else
+   'no cost reported'. With --fetch the narratives are copied in as in check 3; a reviewer records what the filing
+   says about its line 7a in finding. The system pages print the figures and the finding.
+
 Usage:  python3 pipeline/data_checks.py           # offline: recompute the lists, keep earlier resolutions and findings
         python3 pipeline/data_checks.py --fetch   # also fetch narratives for filings that have none yet
 The build (build_site.py) recomputes the lists and stops if a saved file is out of date or a row lacks a resolution.
@@ -30,9 +36,12 @@ from collections import defaultdict
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, '..', 'data', 'hospital-ceo-pay')
 CACHE = os.path.join(tempfile.gettempdir(), 'eib_filing_cache')
-FILES = {'officers': 'check_shared_officers.csv', 'names': 'check_name_splits.csv', 'charity': 'check_charity_elsewhere.csv'}
+FILES = {'officers': 'check_shared_officers.csv', 'names': 'check_name_splits.csv', 'charity': 'check_charity_elsewhere.csv',
+         'zero': 'check_zero_charity_care.csv'}
 LINES = {'sch_h_7a_financial_assistance_at_cost_net': 'a', 'sch_h_7c_other_means_tested_net': 'c',
-         'sch_h_7g_subsidized_health_services_net': 'g', 'total_expenses': 'exp'}
+         'sch_h_7g_subsidized_health_services_net': 'g', 'total_expenses': 'exp',
+         'sch_h_7a_financial_assistance_at_cost_total_expense': 'a_cost', 'sch_h_7a_financial_assistance_at_cost_offsetting_revenue': 'a_offset',
+         'sch_h_7b_medicaid_net': 'b', 'sch_h_7k_total_community_benefits_net': 'k'}
 CREDENTIALS = set('MD DO PHD RN BSN MSN DNP FACHE LFACHE MBA MHA MPH MPA JD CPA FACP FACS FAAP FHFMA CHFP DHA DBA MS MA BS '
                   'EDD PE PA NP CRNA FACC FAAFP SPHR CHC CPHQ FABC PHARMD RPH DMD DDS ESQ MSHA FAHA LCSW MSW DR MR MRS '
                   'JR SR II III IV FACMPE CPHIMS CHCIO CEO CFO COO'.split())
@@ -139,6 +148,22 @@ def charity_candidates(F, S, lines):
                             'why_listed': ' and '.join(w for w, t in [('headline row', s['lead_ein'] in headline), ('7a small next to 7c and 7g', low)] if t)})
     return out
 
+def zero_charity(F, S, lines):
+    out = []
+    def num(x): return '' if x is None else round(x)
+    for s in S:
+        if s['zero_charity_care_flag'] != 'yes': continue
+        page = 'yes' if (f(s['ceo_comp_total']) or f(s['charity_care_net'])) else 'no'
+        for e in s['member_eins'].split(';'):
+            v = lines.get(e, {})
+            if e not in F or (v.get('a') or 0) > 0: continue
+            out.append({'lead_ein': s['lead_ein'], 'system': s['lead_filer'], 'system_page': page, 'ein': e, 'filer': F[e]['name'],
+                        'object_id': F[e]['object_id'], 'line_7a_cost': num(v.get('a_cost')), 'line_7a_offsetting_revenue': num(v.get('a_offset')),
+                        'line_7a_net': num(v.get('a')), 'line_7b_net': num(v.get('b')), 'line_7c_net': num(v.get('c')), 'line_7g_net': num(v.get('g')),
+                        'line_7k_net': num(v.get('k')),
+                        'kind': 'cost offset by revenue' if (v.get('a_cost') or 0) > 0 else 'no cost reported'})
+    return out
+
 def narratives(oid):
     """Every Schedule H narrative passage that mentions charity care or financial assistance, from ProPublica's rendering."""
     os.makedirs(CACHE, exist_ok=True)
@@ -173,7 +198,7 @@ def write(name, rows, fields):
     with open(os.path.join(DATA, FILES[name]), 'w', newline='') as fh:
         w = csv.DictWriter(fh, fieldnames=fields); w.writeheader(); w.writerows(rows)
 
-def compute(prev_names=None, prev_findings=None, prev_text=None):
+def compute(prev_names=None, prev_findings=None, prev_text=None, prev_zero_findings=None, prev_zero_text=None):
     F, S, people, lines = load()
     officers = shared_officers(F, S, people)
     names = name_splits(S, prev_names or {})
@@ -181,28 +206,39 @@ def compute(prev_names=None, prev_findings=None, prev_text=None):
     for r in charity:
         r['narrative_excerpts'] = (prev_text or {}).get(r['object_id'], '')
         r['finding'] = (prev_findings or {}).get(r['object_id'], '')
-    return officers, names, charity
+    zero = zero_charity(F, S, lines)
+    for r in zero:
+        r['narrative_excerpts'] = (prev_zero_text or {}).get(r['object_id'], '')
+        r['finding'] = (prev_zero_findings or {}).get(r['object_id'], '')
+    return officers, names, charity, zero
+
+ZERO_FIELDS = ['lead_ein', 'system', 'system_page', 'ein', 'filer', 'object_id', 'line_7a_cost', 'line_7a_offsetting_revenue', 'line_7a_net',
+               'line_7b_net', 'line_7c_net', 'line_7g_net', 'line_7k_net', 'kind', 'narrative_excerpts', 'finding']
 
 def main():
     prev_names = read_previous('names', lambda r: r['group'], 'resolution')
     prev_findings = read_previous('charity', lambda r: r['object_id'], 'finding')
     prev_text = read_previous('charity', lambda r: r['object_id'], 'narrative_excerpts')
-    officers, names, charity = compute(prev_names, prev_findings, prev_text)
+    prev_zero_findings = read_previous('zero', lambda r: r['object_id'], 'finding')
+    prev_zero_text = read_previous('zero', lambda r: r['object_id'], 'narrative_excerpts')
+    officers, names, charity, zero = compute(prev_names, prev_findings, prev_text, prev_zero_findings, prev_zero_text)
     if '--fetch' in sys.argv:
-        for i, r in enumerate(charity):
+        for i, r in enumerate(charity + zero):
             if not r['narrative_excerpts']:
                 t = narratives(r['object_id'])
                 r['narrative_excerpts'] = t if t else ('(no narrative mentions charity care)' if t == '' else '(could not fetch)')
-            if i % 25 == 0: print('narratives', i, len(charity), flush=True)
+            if i % 25 == 0: print('narratives', i, len(charity) + len(zero), flush=True)
     write('officers', officers, ['cluster', 'lead_ein', 'system', 'ranked', 'rows_in_cluster', 'shared_officers'])
     write('names', names, ['group', 'signal', 'lead_ein', 'system', 'ranked', 'ceo_name', 'ceo_title', 'ceo_pay', 'resolution'])
     write('charity', charity, ['lead_ein', 'system', 'headline_row', 'ein', 'filer', 'object_id', 'line_7a', 'line_7c', 'line_7g', 'expenses',
                                'line_7a_pct_of_expenses', 'why_listed', 'narrative_excerpts', 'finding'])
+    write('zero', zero, ZERO_FIELDS)
     n_clusters = len({r['cluster'] for r in officers})
     groups = {r['group'] for r in names}; open_groups = {r['group'] for r in names if not r['resolution']}
     print(f'shared officers: {n_clusters} clusters, {len(officers)} rows')
     print(f'name splits: {len(groups)} groups, {len(open_groups)} without a resolution')
     print(f"charity elsewhere: {len(charity)} filings, {sum(1 for r in charity if not r['finding'])} without a finding")
+    print(f"zero charity care: {len(zero)} filings in {len({r['lead_ein'] for r in zero})} systems, {sum(1 for r in zero if not r['finding'])} without a finding")
 
 if __name__ == '__main__':
     main()

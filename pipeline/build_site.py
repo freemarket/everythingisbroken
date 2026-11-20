@@ -153,13 +153,16 @@ CP_DIFF = sorted(e for e in CP_SHARED if round(f(F[e]['ceo_comp_total']) or 0) !
 CP_AGREE = len(CP_SHARED) - len(CP_DIFF)
 # Data checks (pipeline/data_checks.py): recomputed on every build; stop if a saved list is out of date or a row lacks a resolution
 import data_checks as DC
-_dc = dict(zip(['officers', 'names', 'charity'], DC.compute()))
+_dc = dict(zip(['officers', 'names', 'charity', 'zero'], DC.compute()))
 _dc_saved = {k: list(csv.DictReader(open(os.path.join(DATA, v)))) for k, v in DC.FILES.items()}
-_dc_keys = {'officers': ('cluster', 'lead_ein', 'shared_officers'), 'names': ('group', 'lead_ein'), 'charity': ('object_id', 'lead_ein')}
+_dc_keys = {'officers': ('cluster', 'lead_ein', 'shared_officers'), 'names': ('group', 'lead_ein'), 'charity': ('object_id', 'lead_ein'),
+            'zero': ('object_id', 'lead_ein', 'system_page', 'kind', 'line_7a_cost', 'line_7a_offsetting_revenue', 'line_7a_net',
+                     'line_7b_net', 'line_7c_net', 'line_7g_net', 'line_7k_net')}
 _dc_problems = [f"{DC.FILES[k]} is out of date" for k, cols in _dc_keys.items()
                 if sorted(tuple(str(r[c]) for c in cols) for r in _dc[k]) != sorted(tuple(r[c] for c in cols) for r in _dc_saved[k])]
 _dc_problems += [f"{DC.FILES['names']}: no resolution for {r['group']}" for r in _dc_saved['names'] if not r['resolution']]
 _dc_problems += [f"{DC.FILES['charity']}: no finding for filing {r['object_id']} ({r['filer']})" for r in _dc_saved['charity'] if not r['finding']]
+_dc_problems += [f"{DC.FILES['zero']}: no finding for filing {r['object_id']} ({r['filer']})" for r in _dc_saved['zero'] if not r['finding']]
 if _dc_problems:
     raise SystemExit('Data checks need attention (run python3 pipeline/data_checks.py --fetch, then record each resolution or finding):\n  ' + '\n  '.join(_dc_problems[:20]))
 DC_CLUSTERS = len({r['cluster'] for r in _dc_saved['officers']}); DC_NAME_GROUPS = len({r['group'] for r in _dc_saved['names']})
@@ -168,6 +171,10 @@ DC_CHARITY = len(_dc_saved['charity']); DC_CHARITY_FLAG = sum(1 for r in _dc_sav
 _s_by = {s['lead_ein']: s for s in S}
 DC_HL_FLAGGED = sorted({_s_by[r['lead_ein']]['name'] for r in _dc_saved['charity'] if r['headline_row'] == 'yes' and not r['finding'].startswith('No')})
 DC_HL_N = len({r['lead_ein'] for r in _dc_saved['charity'] if r['headline_row'] == 'yes'})
+ZERO = defaultdict(list)
+for r in _dc_saved['zero']: ZERO[r['lead_ein']].append(r)
+Z_SYS = len(ZERO); Z_FIL = len(_dc_saved['zero']); Z_OFF = sum(1 for r in _dc_saved['zero'] if r['kind'] == 'cost offset by revenue'); Z_NC = Z_FIL - Z_OFF
+Z_PAGES = sum(1 for rs in ZERO.values() if rs[0]['system_page'] == 'yes')
 # Latest run of pipeline/check_filings.py: every headline row against its filings
 FILING_CHECK = sorted(x for x in os.listdir(DATA) if re.fullmatch(r'filing_check_\d{4}-\d\d-\d\d\.csv', x))[-1]
 _fc = list(csv.DictReader(open(os.path.join(DATA, FILING_CHECK))))
@@ -695,6 +702,25 @@ def ctx_html(s):
             out.append(f'<p class="context"><strong>Context:</strong> {txt}</p>')
     return ''.join(out)
 
+def zero_note(s):
+    """What each filing with no net charity care shows on line 7 and says about it (check_zero_charity_care.csv)."""
+    rows = ZERO.get(s['lead_ein'], [])
+    if not rows: return ''
+    items = []
+    for r in rows:
+        c, d, n, b, cm, g, k = (f(r[x]) for x in ('line_7a_cost', 'line_7a_offsetting_revenue', 'line_7a_net', 'line_7b_net', 'line_7c_net', 'line_7g_net', 'line_7k_net'))
+        net = money(n, False) if n is not None else 'left blank'
+        if r['kind'] == 'cost offset by revenue':
+            txt = f"Line 7a reports {money(c, False)} of charity care at cost and {money(d, False)} of offsetting revenue (columns c and d), so the net, column (e), is {net}."
+        else:
+            txt = f"Line 7a reports no cost{f' and {money(d, False)} of offsetting revenue' if d else ''}; the net, column (e), is {net}."
+        parts = [f'{money(v, False)} for {lbl}' for v, lbl in ((b, 'unreimbursed Medicaid (7b)'), (cm, 'other means-tested government programs (7c)'), (g, 'subsidized health services (7g)')) if v]
+        if k: txt += f" The filing reports {money(k, False)} of community benefit in all (line 7k){', including ' + (', '.join(parts[:-1]) + ' and ' + parts[-1] if len(parts) > 1 else parts[0]) if parts else ''}."
+        if r['kind'] != 'cost offset by revenue': txt += ' ' + r['finding']
+        items.append((f"<strong>{E(titlecase(r['filer']))}:</strong> " if len(s['members']) > 1 else '') + E(txt, quote=False))
+    body = ('<ul>' + ''.join(f'<li>{x}</li>' for x in items) + '</ul>') if len(items) > 1 else f' {items[0]}'
+    return f'<p class="note"><strong>What the {"filings show" if len(items) > 1 else "filing shows"}</strong> (Schedule H Part I line 7 and the Schedule H narratives, read Nov 20, 2026):{body}</p>'
+
 n_sys = 0
 for s in S:
     if not s['pay'] and not s['cc']: continue
@@ -712,9 +738,9 @@ for s in S:
     if not s['pub']:
         why = []
         if s['ceo_confidence'] not in ('ceo_title','ceo_title_multiple','manual_override'): why.append('the chief executive could not be identified from the filing with confidence')
-        if s['zero_charity_care_flag'] == 'yes': why.append('the filing reports zero on line 7a while reporting other community benefit, which usually means charity care was booked on another line; the filing is being read by hand')
-        if not s['cc']: why.append('no charity care figure is present')
-        note = f'<p class="callout">Not in the ranking because {"; and ".join(why)}. The figures below are shown as filed.</p>'
+        if (s['cc'] or 0) <= 0: why.append(f"{'the filings report' if len(s['members']) > 1 else 'the filing reports'} no net charity care on line 7a, and CEO pay cannot be compared with zero")
+        elif s['zero_charity_care_flag'] == 'yes': why.append("filings holding more than 10 percent of the system's revenue report no net charity care on line 7a")
+        note = f'<p class="callout">Not in the ranking because {"; and ".join(why)}. The figures below are shown as filed.</p>' + zero_note(s)
     rel_note = ''
     if s['pay'] and s['pay_rel'] and s['pay_rel'] > s['pay'] / 2:
         rel_note = f'<p class="note">Most of the reported compensation ({money(s["pay_rel"], False)} of {money(s["pay"], False)}) came from a related organization (Part VII column E) and was reported on this filing.</p>'
@@ -809,7 +835,7 @@ meth = HEAD('Methodology', 'How the figures were taken from IRS filings, and the
 {CORR_NOTE2}
 <h2>Source</h2><p>Every nonprofit hospital files IRS Form 990 with Schedule H. The IRS publishes every e-filed return as XML. This report reads the 2025 and 2026 releases and uses {N_FILINGS:,} filings from them: {N_FILINGS_H:,} that include Schedule H, plus {NONH_TXT}. It takes the latest fiscal year for each of the {len(F):,} filers. Each page links the filing it was built from.</p>
 <h2>CEO pay</h2><p>Form 990 Part VII, Section A lists officers, directors, key employees and the five highest-paid employees with three compensation columns: from the organization, from related organizations, and other compensation (deferred pay and benefits). CEO pay is the sum of the three. The chief executive is the person whose title contains CEO or chief executive and who is not marked former; where titles are ambiguous, the filing was read by hand and the decision recorded with its reason. Systems whose chief executive could not be identified from the filing are shown on their own pages but not ranked.</p>
-<h2>Charity care</h2><p>Schedule H Part I line 7a, "financial assistance at cost": free or discounted care given under the hospital's written financial assistance policy, valued at cost. Column (e), net of any grants received for it. The percentage of expenses shown on this site is that figure divided by total expenses from Form 990 line 18, computed the same way for every system; the percentage the hospital itself entered in column (f) is published in the data files for comparison. It excludes bad debt (Part III) and Medicaid shortfall (line 7b), which the IRS reports separately.</p>
+<h2>Charity care</h2><p>Schedule H Part I line 7a, "financial assistance at cost": free or discounted care given under the hospital's written financial assistance policy, valued at cost. Column (e): the cost in column (c) less the offsetting revenue the hospital reports for it in column (d). The percentage of expenses shown on this site is that figure divided by total expenses from Form 990 line 18, computed the same way for every system; the percentage the hospital itself entered in column (f) is published in the data files for comparison. It excludes bad debt (Part III) and Medicaid shortfall (line 7b), which the IRS reports separately. Systems whose filings report no net charity care (column (e) zero, negative or blank) are shown on their own pages but not ranked, because CEO pay cannot be compared with zero; nor are systems where filings holding more than 10 percent of the system's revenue report none. For the {Z_SYS} such systems that report other community benefit, all {Z_FIL} filings with no net charity care were read on Nov 20, 2026 (check_zero_charity_care.csv): {Z_OFF} report a cost on line 7a and offsetting revenue at least as large; the other {Z_NC} report no cost, and a few of those say why (no applicants, no eligible patients, or most patients on Medicaid). Each system's page shows its filing's figures and what it says.</p>
 <h2>Systems, and what one row is</h2><p>Many systems file one return per hospital. Filings that report the same chief executive are combined into one row: revenue, expenses and charity care are summed and the chief executive is counted once. Where a system's hospitals file under their own presidents, each hospital appears as its own row under its own president, and the parent's executives are attributed to no hospital. So a row is a filing, or a set of filings, with the chief executive that filing reports; it is not always the whole corporate system, and a hospital president's pay is compared only with that hospital's charity care. Where a filing reports a parent organization's executive rather than the hospital's own, the hospital is shown but excluded from CEO figures, with the reason in the data files. Every combination above $1 billion in revenue was checked by hand. {FC_TXT}</p>
 <h2>States</h2><p>A system is listed on the page of every state where one of its filings reports a hospital facility (Schedule H Part V, Section A, which gives each facility's city and state), not only the state of the filing address. Its figures on each state page are system-wide. Where the filing address is in another state, the row says so. Puerto Rico filers are listed under Puerto Rico; the few filers with no hospital in the United States are listed separately, outside the US. A state's median charity care is the median across the systems with a hospital there, so a multi-state system counts in each of its states; no median is given for a state with fewer than {MIN_MEDIAN} systems reporting a charity care figure.</p>
 <h2>Children's hospitals</h2><p>Medicaid and CHIP cover most low-income children, so children's hospitals report little uncompensated care and appear at the bottom of any charity care ranking. They are shown in grey and labeled. Since Nov 19, 2026 the headline counts every ranked system over $100 million of any type: general, children's and specialty (rehabilitation, psychiatric, addiction treatment, cancer, long-term acute care, heart and lung). Each row is labeled by type and every list has a Type filter.</p>
@@ -864,7 +890,8 @@ MANUAL_N = {'master_rows': f'{MASTER_ROWS:,}', 'rows_contiguous': 'contiguous' i
             'nw_pct': f"{_nw['ccp']:.2f}", 'filings': f'{N_FILINGS:,}', 'filings_h': f'{N_FILINGS_H:,}', 'filings_nonh': f'{N_FILINGS_NONH}',
             'cp_agree': f'{CP_AGREE}', 'cp_shared': f'{len(CP_SHARED)}', 'cp_diff': f'{len(CP_DIFF)}',
             'dc_clusters': f'{DC_CLUSTERS}', 'dc_cluster_examples': DC_EXAMPLES, 'dc_name_groups': f'{DC_NAME_GROUPS}', 'dc_name_pending': f'{DC_NAME_PENDING}',
-            'dc_charity': f'{DC_CHARITY}', 'dc_charity_flag': f'{DC_CHARITY_FLAG}'}
+            'dc_charity': f'{DC_CHARITY}', 'dc_charity_flag': f'{DC_CHARITY_FLAG}',
+            'z_sys': f'{Z_SYS}', 'z_fil': f'{Z_FIL}', 'z_off': f'{Z_OFF}', 'z_nc': f'{Z_NC}', 'z_pages': f'{Z_PAGES}'}
 MANUAL_PATH = os.path.join(HERE, 'REPRODUCTION_MANUAL.md')
 _man = open(MANUAL_PATH).read()
 _unknown = set(re.findall(r'<!--n:(\w+)-->', _man)) - set(MANUAL_N)
@@ -940,6 +967,7 @@ FILES = [
     ('check_shared_officers.csv', 'Data check: system rows linked by two or more of the same current officers on their filings, grouped into clusters. Read before joining rows; a cluster is not by itself an error. Written by pipeline/data_checks.py.'),
     ('check_name_splits.csv', 'Data check: rows whose chief executives share a name or report the identical pay figure, with the resolution of each. Written by pipeline/data_checks.py.'),
     ('check_charity_elsewhere.csv', 'Data check: filings whose charity care might be reported on another line, with every narrative passage about charity care and the finding for each. Written by pipeline/data_checks.py.'),
+    ('check_zero_charity_care.csv', 'Data check: every filing that leaves its system out of the ranking because line 7a, net, is zero, negative or blank, with its line 7 figures, every narrative passage about charity care, and what the filing says. Written by pipeline/data_checks.py.'),
     (FILING_CHECK, 'Every headline row checked against the hospitals\' own filings by pipeline/check_filings.py, on the date in the name: the filed Part VII columns D, E and F for the chief executive and line 7a for each member filing, next to the published figures. Rerun it any time; it reads only public pages.'),
 ]
 WORKING = [('working/ceo_unresolved.csv', 'Filers where the CEO rule found no chief executive.'), ('working/ceo_review_large.csv', 'Material used for the manual review of filers above $1B.'), ('working/hospitals_wide.csv', 'An early wide-format export, kept for the record.')]
