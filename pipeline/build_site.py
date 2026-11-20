@@ -72,6 +72,18 @@ DISPLAY = {'36-2169147':'Advocate Health (Midwest)','13-3971298':'NYU Langone He
 # hand against the filing or the hospital's own site and carries its evidence; there is no automatic reversal.
 CEO_DISPLAY = {r['name_as_filed']: r['display_name'] for r in csv.DictReader(open(os.path.join(DATA, 'display_names.csv')))}
 
+# ---------- the tables must be what build_systems.py makes today from the master and the override files ----------
+import shutil, subprocess, sys, tempfile
+with tempfile.TemporaryDirectory() as _td:
+    _w = os.path.join(_td, 'irs'); os.makedirs(_w)
+    with gzip.open(os.path.join(DATA, 'hospital_data.csv.gz'), 'rb') as _fi, open(os.path.join(_td, 'hospital_data.csv'), 'wb') as _fo: shutil.copyfileobj(_fi, _fo)
+    for _fn in ('sch_o_titles_cache.csv', 'ceo_overrides.csv', 'rollup_overrides.csv'): shutil.copy(os.path.join(DATA, _fn), _w)
+    for _fn in ('build_systems.py', 'parse_xml.py'): shutil.copy(os.path.join(HERE, _fn), _w)
+    subprocess.run([sys.executable, 'build_systems.py'], cwd=_w, check=True, capture_output=True)
+    _stale = [_fn for _fn, _d in (('filers_latest.csv', DATA), ('systems_rollup.csv', DATA), ('ceo_unresolved.csv', os.path.join(DATA, 'working')))
+              if open(os.path.join(_w, _fn), 'rb').read() != open(os.path.join(_d, _fn), 'rb').read()]
+if _stale: raise SystemExit(f'{_stale} differ from what build_systems.py makes from the master and the override files: rebuild them (manual Step 5) and copy them in')
+
 # ---------- load ----------
 S = list(csv.DictReader(open(os.path.join(DATA, 'systems_rollup.csv'))))
 F = {r['ein']: r for r in csv.DictReader(open(os.path.join(DATA, 'filers_latest.csv')))}
@@ -212,7 +224,7 @@ HL_TYPES = {t: sum(1 for s in hl_over if s['type'] == t) for t in ('general', 'c
 HL_TYPES_TXT = f"{HL_TYPES['general']} run general hospitals, {HL_TYPES['children']} children’s hospitals and {HL_TYPES['specialty']} specialty hospitals"
 HEADLINE_SUB = f"The count covers all {len(hl_all):,} nonprofit hospital systems with revenue over ${HEADLINE_MIN_REV/1e6:.0f} million, general, children’s and specialty, using each hospital's own IRS filings. Of the {len(hl_over)}, {HL_TYPES_TXT}. Together the {len(hl_over)} received {money(HL_PAY)} in reported compensation; their hospitals gave {money(HL_CC)} to patients who could not pay."
 CORR_NOTE = f'<p class="note"><strong>Updated Nov 19, 2026:</strong> the headline count now includes children’s and specialty hospitals; each row is labeled by type. Figures before and after are in the <a href="/#standards">corrections log</a>.</p>'
-CORR_NOTE2 = f'<p class="note"><strong>Corrected Nov 20, 2026:</strong> the count of filings used, the list of the highest charity care shares among systems over $1 billion, the independent CEO Paycheck comparison, the explanation on the pages of systems reporting no net charity care, and 40 chief executives\' names. Details in the <a href="/#standards">corrections log</a>.</p>'
+CORR_NOTE2 = f'<p class="note"><strong>Corrected Nov 20, 2026:</strong> the count of filings used, the list of the highest charity care shares among systems over $1 billion, the independent CEO Paycheck comparison, the explanation on the pages of systems reporting no net charity care, 40 chief executives\' names, and two chief executives who were each counted twice. Details in the <a href="/#standards">corrections log</a>.</p>'
 
 # other chief executives (co-CEO, former CEO, executive chair) listed in the same filings
 _pp = defaultdict(lambda: defaultdict(lambda: {'org':0,'rel':0,'oth':0,'title':''}))
@@ -811,6 +823,20 @@ for s in S:
 {COPY_JS}{FOOT}"""
     write(f"system/{s['slug']}.html", page)
 
+# A filer that is part of another system's row keeps an address: the page it has, or would have, on its own
+# forwards to its system's page, so links to a page removed when filings were joined still work.
+n_fwd = 0
+for s in S:
+    if not s['pay'] and not s['cc']: continue
+    for e, r in s['members']:
+        old = slug(r['name'] + '-' + e)
+        if e == s['lead_ein'] or os.path.exists(os.path.join(OUT, 'system', old + '.html')): continue
+        to = f"{BASE}/system/{s['slug']}.html"
+        write(f"system/{old}.html", f'<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>{E(titlecase(r["name"]))}</title>'
+              f'<meta name="robots" content="noindex"><link rel="canonical" href="{SITE}{to}"><meta http-equiv="refresh" content="0; url={to}"></head>'
+              f'<body><p>The filing of {E(titlecase(r["name"]))} (EIN {e}) is part of <a href="{to}">{E(s["name"])}</a>.</p></body></html>')
+        n_fwd += 1
+
 # ---------- state pages ----------
 state_index_rows = []
 for st_, lst in sorted(bystate.items()):
@@ -912,6 +938,8 @@ MANUAL_N = {'master_rows': f'{MASTER_ROWS:,}', 'rows_contiguous': 'contiguous' i
             'nw_pct': f"{_nw['ccp']:.2f}", 'filings': f'{N_FILINGS:,}', 'filings_h': f'{N_FILINGS_H:,}', 'filings_nonh': f'{N_FILINGS_NONH}',
             'cp_agree': f'{CP_AGREE}', 'cp_shared': f'{len(CP_SHARED)}', 'cp_diff': f'{len(CP_DIFF)}',
             'dc_clusters': f'{DC_CLUSTERS}', 'dc_cluster_examples': DC_EXAMPLES, 'dc_name_groups': f'{DC_NAME_GROUPS}', 'dc_name_pending': f'{DC_NAME_PENDING}',
+            'ceo_ovr_n': f"{sum(1 for _ in csv.DictReader(open(os.path.join(DATA, 'ceo_overrides.csv'))))}",
+            'ro_ovr_n': f"{sum(1 for _ in csv.DictReader(open(os.path.join(DATA, 'rollup_overrides.csv'))))}",
             'dc_charity': f'{DC_CHARITY}', 'dc_charity_flag': f'{DC_CHARITY_FLAG}',
             'irs_h': f'{IRS_H:,}', 'irs_n': f'{IRS_N:,}', 'cn_n': f'{CN_N:,}', 'cn_conf': f'{CN_CONF:,}', 'cn_spell': f'{CN_SPELL}',
             'z_sys': f'{Z_SYS}', 'z_fil': f'{Z_FIL}', 'z_off': f'{Z_OFF}', 'z_nc': f'{Z_NC}', 'z_pages': f'{Z_PAGES}'}
@@ -943,6 +971,8 @@ write('manual.html', manual)
 # Dated records: their figures are written as they stood on the date, not recomputed.
 RELEASE = f"First release: 3,845 filings, 2,306 filers, 1,627 systems, 1,033 ranked; headline 73 of 655 general hospital systems. Checked before publication by two independent audits and a hand check of every headline row."
 RELEASE2_DATE = '2026-11-19'
+RELEASE3_DATE = '2026-11-20'
+RELEASE3 = "Two chief executives each counted in two rows now counted once, and one filer whose year-end chief executive is not on its filing no longer ranked; 1,030 ranked, headline 90 of 700."
 RELEASE2 = f"Headline scope: every ranked hospital system over $100 million is counted, of any type (general, children's, specialty), each row labeled by type; headline 90 of 702. Figures before and after are on the corrections log."
 CORR_TXT = (f"Nov 19, 2026. The headline count now includes every hospital system over $100 million, of any type. Until this date it left out children's hospitals and twelve specialty hospitals, while eleven others the same rule covered had been counted by mistake. "
             f"Before: 73 chief executives of 655 general hospital systems; median charity care 1.23% of expenses among the 229 systems over $1 billion, 41% of them under 1%. "
@@ -976,7 +1006,15 @@ CORR_TXT4 = ("Nov 20, 2026, home page. Five sentences in the Mission Statement c
              "(3) Gallup's 1970s readings of trust in the news media were 68 to 72 percent; \"nearly 70\" is now \"about 70.\" "
              "(4) The page said the FAA let Boeing certify its own 737 MAX. The FAA issued the certificate; what the Transportation Department's inspector general found is that by March 2017 it had handed all 91 of the plane's certification plans to Boeing's own staff, and the page now says that. "
              "(5) Sears was stripped by its hedge fund owner, not private equity; the sentence now says \"private equity and hedge fund owners.\"")
-CORR_HTML = f'<p class="mb-3">{E(CORR_TXT4)}</p><p class="mb-3">{E(CORR_TXT3)}</p><p class="mb-3">{E(CORR_TXT2)}</p><p class="mb-3">{E(CORR_TXT)}</p>'
+CORR_TXT5 = ("Nov 20, 2026, data. Two chief executives were each counted in two rows, and one row showed a chief executive who had left. "
+             "Audrey Gregory is the regional chief executive on the filings of both AdventHealth Waterman and Southeast Volusia Healthcare, with the same pay ($1,955,595) on each; "
+             "Timothy Clark is chief executive of the Polk market on the filings of both AdventHealth Polk North and AdventHealth Polk South, with the same pay ($845,126). "
+             "Each pair is now one row, so each is counted once. "
+             "The only chief executive on AdventHealth Ransom Memorial's 2024 filing, Dallas Purkeypile, left in March 2024 to run AdventHealth South Overland Park, which reports the same pay; "
+             "Ransom's filing names no successor, so Ransom is no longer ranked. "
+             "Before: 1,033 systems ranked; headline 90 of 702. After: 1,030 ranked; headline 90 of 700, the same 90 rows. "
+             "The decisions and their evidence are in rollup_overrides.csv and ceo_overrides.csv.")
+CORR_HTML = f'<p class="mb-3">{E(CORR_TXT5)}</p><p class="mb-3">{E(CORR_TXT4)}</p><p class="mb-3">{E(CORR_TXT3)}</p><p class="mb-3">{E(CORR_TXT2)}</p><p class="mb-3">{E(CORR_TXT)}</p>'
 
 # ---------- data files ----------
 def sha(p):
@@ -1048,6 +1086,7 @@ data = HEAD('Data files', 'Download the full dataset, the manual decisions, and 
 <ul class="files">
 <li><span class="fn">{EDITION} edition</span> &middot; {DATA_ASOF}<br>{RELEASE}</li>
 <li><span class="fn">Update</span> &middot; {RELEASE2_DATE}<br>{E(RELEASE2)}</li>
+<li><span class="fn">Update</span> &middot; {RELEASE3_DATE}<br>{E(RELEASE3)}</li>
 </ul>
 <h2>How to cite</h2>
 <p>{E(PUBLISHER)}, <em>{E(REPORT_TITLE)}</em>, Report No. {REPORT_NO}, {EDITION} edition, data as of {DATA_ASOF}. {SITE}{BASE}/</p>
@@ -1235,6 +1274,7 @@ BLOCKS = {
 <div class="font-mono text-xs text-gray-600 space-y-1">
 <p>[<span class="fig">{DATA_ASOF}</span>] {EDITION} edition - {RELEASE}</p>
 <p>[<span class="fig">{RELEASE2_DATE}</span>] Update - {E(RELEASE2)}</p>
+<p>[<span class="fig">{RELEASE3_DATE}</span>] Update - {E(RELEASE3)}</p>
 </div>
 </div>
 </div>
@@ -1250,6 +1290,6 @@ for name, body in BLOCKS.items():
     page = pat.sub(lambda m: m.group(1) + sep + body + sep + m.group(2), page)
 open(ip, 'w').write(page)
 
-print(f'wrote index, all, {n_sys} system pages, {len(bystate)} state pages, methodology, manual, data, summary.json -> {OUT}')
+print(f'wrote index, all, {n_sys} system pages, {n_fwd} forwarding pages for filers inside other rows, {len(bystate)} state pages, methodology, manual, data, summary.json -> {OUT}')
 print(f'ranked {len(ranked)}; big {len(big)}; median CC {MED_CC:.2f}; median ratio {MED_RATIO:.1f}; under1 {UNDER1:.0f}%; over100 {len(OVER100)}')
 print('main page blocks updated:', [k for k in BLOCKS if k not in missing], 'missing markers:', missing)

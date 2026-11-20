@@ -3,7 +3,7 @@ Nonprofit Hospital Executive Pay vs Charity Care, Annual Report, 2026 edition. D
 https://everythingisbroken.org/reports/hospital-ceo-pay/
 
 HEADLINE
-90 nonprofit hospital chief executives received more in reported compensation than their hospitals gave in charity care. The count covers all 702 nonprofit hospital systems with revenue over $100 million, general, children’s and specialty, using each hospital's own IRS filings. Of the 90, 73 run general hospitals, 7 children’s hospitals and 10 specialty hospitals. Together the 90 received $115.5M in reported compensation; their hospitals gave $53.2M to patients who could not pay.
+90 nonprofit hospital chief executives received more in reported compensation than their hospitals gave in charity care. The count covers all 700 nonprofit hospital systems with revenue over $100 million, general, children’s and specialty, using each hospital's own IRS filings. Of the 90, 73 run general hospitals, 7 children’s hospitals and 10 specialty hospitals. Together the 90 received $115.5M in reported compensation; their hospitals gave $53.2M to patients who could not pay.
 
 WHAT IS IN THIS KIT
 summary.png                         The headline card (1200 x 630), free to publish.
